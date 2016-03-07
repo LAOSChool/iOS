@@ -8,6 +8,8 @@
 
 #import "MoreViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "PersonalInfoViewController.h"
+
 #import "LocalizeHelper.h"
 #import "Common.h"
 
@@ -44,6 +46,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return TRUE;
+}
 
 #pragma mark data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -139,7 +146,7 @@
                 case SettingsSectionSettings:
                 {
                     cell.textLabel.text = LocalizedString(@"Settings");
-                    cell.imageView.image = [UIImage imageNamed:@"ic_setting.png"];
+                    cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;
                     
@@ -171,4 +178,16 @@
 
     
 }
+
+#pragma mark button and gesture handle
+- (IBAction)btnEditClick:(id)sender {
+    PersonalInfoViewController *personalInfoView = [[PersonalInfoViewController alloc] initWithNibName:@"PersonalInfoViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personalInfoView];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    
+    
+}
+
 @end
