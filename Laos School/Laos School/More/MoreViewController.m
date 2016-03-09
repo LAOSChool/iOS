@@ -9,6 +9,13 @@
 #import "MoreViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "PersonalInfoViewController.h"
+#import "SchoolProfileViewController.h"
+#import "SettingsViewController.h"
+#import "SchoolInfoViewController.h"
+#import "TeacherListViewController.h"
+#import "ScoresViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 #import "LocalizeHelper.h"
 #import "Common.h"
@@ -176,7 +183,90 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    
+    switch (indexPath.section) {
+        case MoreGroupProfile:
+        {
+            switch (indexPath.row) {
+                case ProfileSectionProfile:
+                {
+                    SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:schoolProfileView animated:YES];
+                }
+                    break;
+                    
+                case ProfileSectionScore:
+                {
+                    ScoresViewController *scoreView = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:scoreView animated:YES];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
+        case MoreGroupSchool:
+        {
+            switch (indexPath.row) {
+                case SchoolSectionInfo:
+                {
+                    SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:schoolInfoView animated:YES];
+                }
+                    break;
+                    
+                case SchoolSectionTeacherList:
+                {
+                    TeacherListViewController *teacherListView = [[TeacherListViewController alloc] initWithNibName:@"TeacherListViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:teacherListView animated:YES];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
+        case MoreGroupSettings:
+        {
+            switch (indexPath.row) {
+                case SettingsSectionSettings:
+                {
+                    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:settingsView animated:YES];
+                }
+                    break;
+                    
+                case SettingsSectionLogout:
+                {
+                    [self backTologinScreen];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)backTologinScreen {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    LoginViewController *loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+
+    appDelegate.window.rootViewController = loginView;
 }
 
 #pragma mark button and gesture handle
@@ -186,7 +276,6 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personalInfoView];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
-    
     
 }
 

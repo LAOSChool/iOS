@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInfoViewController">
             <connections>
+                <outlet property="imgAvatar" destination="NyP-Pw-51v" id="mNO-DP-yeN"/>
+                <outlet property="txtPhonenumber" destination="lIh-Of-NbW" id="cEf-gQ-Wvm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,20 +17,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NyP-Pw-51v">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NyP-Pw-51v">
                     <rect key="frame" x="90" y="8" width="140" height="140"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Avd-A5-ISL" appends="YES" id="ptp-6S-Q0v"/>
+                    </connections>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ljy-z7-KIh">
                     <rect key="frame" x="206" y="129" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="ic_camera.png"/>
+                    <connections>
+                        <action selector="btnCameraClick:" destination="-1" eventType="touchUpInside" id="OIG-Fw-s7L"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="IjX-U9-OIT">
                     <rect key="frame" x="0.0" y="167" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="65U-Ox-IRj">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_phone_black.png" id="65U-Ox-IRj">
                             <rect key="frame" x="8" y="10" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -36,17 +45,23 @@
                             <rect key="frame" x="46" y="10" width="266" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="245" y="291"/>
         </view>
+        <tapGestureRecognizer id="Avd-A5-ISL">
+            <connections>
+                <action selector="btnCameraClick:" destination="-1" id="BFe-tV-O8a"/>
+                <outlet property="delegate" destination="-1" id="wVE-es-bXq"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_camera.png" width="30" height="30"/>
+        <image name="ic_phone_black.png" width="30" height="30"/>
     </resources>
 </document>

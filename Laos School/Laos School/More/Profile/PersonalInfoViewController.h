@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface PersonalInfoViewController : UIViewController
-
+{
+    IBOutlet UITextField *txtPhonenumber;
+    IBOutlet UIImageView *imgAvatar;
+    
+}
 @end
