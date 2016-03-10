@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
+    <entity name="Messages" representedClassName="Messages" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fromID" attributeType="String" syncable="YES"/>
+        <attribute name="fromUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="importanceType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="incomeOutgoType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="messageID" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="toID" attributeType="String" syncable="YES"/>
+        <attribute name="toUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unreadFlag" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
+    <fetchRequest name="FetchRequest" entity="Messages" predicateString="unreadFlag == 0"/>
+    <elements>
+        <element name="Messages" positionX="-63" positionY="-18" width="128" height="225"/>
+    </elements>
+</model>

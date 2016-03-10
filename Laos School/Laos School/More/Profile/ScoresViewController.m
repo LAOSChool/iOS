@@ -25,10 +25,10 @@
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:
                                             [NSArray arrayWithObjects:LocalizedString(@"Term I"), LocalizedString(@"Term II"), LocalizedString(@"All"),
                                              nil]];
-    segmentedControl.frame = CGRectMake(0, 0, 180, 30);
-    [segmentedControl setWidth:60.0 forSegmentAtIndex:0];
-    [segmentedControl setWidth:60.0 forSegmentAtIndex:1];
-    [segmentedControl setWidth:60.0 forSegmentAtIndex:2];
+    segmentedControl.frame = CGRectMake(0, 0, 210, 30);
+    [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
+    [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
+    [segmentedControl setWidth:70.0 forSegmentAtIndex:2];
     
     [segmentedControl setSelectedSegmentIndex:0];
     

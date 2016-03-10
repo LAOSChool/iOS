@@ -25,14 +25,6 @@
                         <outletCollection property="gestureRecognizers" destination="Avd-A5-ISL" appends="YES" id="ptp-6S-Q0v"/>
                     </connections>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ljy-z7-KIh">
-                    <rect key="frame" x="206" y="129" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_camera.png"/>
-                    <connections>
-                        <action selector="btnCameraClick:" destination="-1" eventType="touchUpInside" id="OIG-Fw-s7L"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" id="IjX-U9-OIT">
                     <rect key="frame" x="0.0" y="167" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -50,7 +42,16 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ljy-z7-KIh">
+                    <rect key="frame" x="215" y="129" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ic_camera.png"/>
+                    <connections>
+                        <action selector="btnCameraClick:" destination="-1" eventType="touchUpInside" id="OIG-Fw-s7L"/>
+                    </connections>
+                </button>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="245" y="291"/>
         </view>
         <tapGestureRecognizer id="Avd-A5-ISL">

@@ -114,7 +114,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         image = [info objectForKey: UIImagePickerControllerOriginalImage];
     }
     
-    image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:imgAvatar.frame.size.width];
+    image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:imgAvatar.frame.size.width * 2];
     
         imgAvatar.image = image;
     

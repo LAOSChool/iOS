@@ -28,8 +28,8 @@
 
 - (void)makeShadow {
     self.layer.masksToBounds = NO;
-    self.layer.shadowOffset = CGSizeMake(-5, 10);
-    self.layer.shadowRadius = 5;
-    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowOffset = CGSizeMake(20, 20);
+    self.layer.shadowRadius = 15;
+    self.layer.shadowOpacity = 0.3;
 }
 @end

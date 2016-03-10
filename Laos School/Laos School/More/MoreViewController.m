@@ -19,6 +19,7 @@
 
 #import "LocalizeHelper.h"
 #import "Common.h"
+#import "UIView+CustomUIView.h"
 
 @interface MoreViewController ()
 
@@ -31,6 +32,12 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationColor];
     [self setTitle:LocalizedString(@"More")];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
+
     
     //make avatar round
     imgAvatar.layer.cornerRadius = imgAvatar.frame.size.width/2;
@@ -113,7 +120,7 @@
                    
                 case ProfileSectionScore:
                 {
-                    cell.textLabel.text = LocalizedString(@"Score table");
+                    cell.textLabel.text = LocalizedString(@"Scores table");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;
@@ -136,7 +143,7 @@
                     
                 case SchoolSectionTeacherList:
                 {
-                    cell.textLabel.text = LocalizedString(@"Teacher list");
+                    cell.textLabel.text = LocalizedString(@"Teachers list");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;

@@ -36,6 +36,8 @@ typedef enum {
 
 @interface MoreViewController : UIViewController
 {
+    IBOutlet UIView *viewHeaderContainer;
+    
     IBOutlet UIImageView *imgAvatar;
     IBOutlet UILabel *lbStudentName;
     IBOutlet UILabel *lbSchoolName;

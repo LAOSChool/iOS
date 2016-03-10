@@ -74,8 +74,7 @@
             [messagesTableView reloadData];
             [SVProgressHUD dismiss];
         });
-    });
-
+    });   
 }
 
 - (void)didReceiveMemoryWarning {
