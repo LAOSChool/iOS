@@ -53,7 +53,7 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="348" y="351"/>
+            <point key="canvasLocation" x="196" y="355"/>
         </view>
         <tapGestureRecognizer id="V6b-u2-DpS">
             <connections>

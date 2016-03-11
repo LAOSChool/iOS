@@ -85,6 +85,9 @@
                                     <rect key="frame" x="288" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="ic_arrow_down.png"/>
+                                    <connections>
+                                        <action selector="showTermsListPicker:" destination="-1" eventType="touchUpInside" id="Zls-Yx-COS"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

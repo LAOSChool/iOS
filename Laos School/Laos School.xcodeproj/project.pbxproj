@@ -57,6 +57,7 @@
 		5552501C1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 555250171C7EE0680027A4ED /* Readme.txt */; };
 		5552501F1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5552501A1C7EE0680027A4ED /* Readme.txt */; };
 		555250221C7EEE2A0027A4ED /* MyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 555250211C7EEE2A0027A4ED /* MyLogger.m */; };
+		556C6E751C92AEB90077F4BE /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 556C6E731C92AEB90077F4BE /* UserObject.m */; };
 		55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */; };
 		55797C8F1C8693DA00A0098D /* AnnouncementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */; };
 		55797C931C86958000A0098D /* StudentAttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C911C86958000A0098D /* StudentAttendanceViewController.m */; };
@@ -273,6 +274,8 @@
 		5552501A1C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		555250201C7EEE2A0027A4ED /* MyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogger.h; sourceTree = "<group>"; };
 		555250211C7EEE2A0027A4ED /* MyLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogger.m; sourceTree = "<group>"; };
+		556C6E731C92AEB90077F4BE /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
+		556C6E741C92AEB90077F4BE /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		55797C8B1C8693DA00A0098D /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementViewController.xib; sourceTree = "<group>"; };
@@ -1143,6 +1146,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				556C6E731C92AEB90077F4BE /* UserObject.m */,
+				556C6E741C92AEB90077F4BE /* UserObject.h */,
 				55FEDB9C1C84365000DD0D24 /* MessageObject.h */,
 				55FEDB9D1C84365000DD0D24 /* MessageObject.m */,
 			);
@@ -1371,6 +1376,7 @@
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
 				55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */,
 				55FC71D21C7C3C8100B0B8D0 /* HTMLHelper.m in Sources */,
+				556C6E751C92AEB90077F4BE /* UserObject.m in Sources */,
 				5547698F1C9151EC00269EBB /* LaosSchool.xcdatamodeld in Sources */,
 				554769B11C916BE600269EBB /* Messages.m in Sources */,
 				55FC72361C7C599D00B0B8D0 /* README.md in Sources */,

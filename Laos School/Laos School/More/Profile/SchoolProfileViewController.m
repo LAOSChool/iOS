@@ -7,9 +7,12 @@
 //
 
 #import "SchoolProfileViewController.h"
+#import "LevelPickerViewController.h"
 
 @interface SchoolProfileViewController ()
-
+{
+    LevelPickerViewController *termPicker;
+}
 @end
 
 @implementation SchoolProfileViewController
@@ -34,5 +37,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)showTermsListPicker:(id)sender {
+    [self showLevelPicker];
+}
 
+- (void)showLevelPicker {
+    termPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    termPicker.pickerType = Picker_Terms;
+    termPicker.view.alpha = 0;
+    
+    CGRect rect = self.view.frame;
+    rect.origin.y = 0;
+    [termPicker.view setFrame:rect];
+    
+    [self.view addSubview:termPicker.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        termPicker.view.alpha = 1;
+    }];
+}
 @end

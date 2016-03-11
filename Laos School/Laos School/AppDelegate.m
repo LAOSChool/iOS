@@ -13,6 +13,7 @@
 #import "TAGContainerOpener.h"
 #import "TAGManager.h"
 
+#import "CoreDataUtil.h"
 #import "ArchiveHelper.h"
 
 @interface AppDelegate ()<TAGContainerOpenerNotifier>
@@ -71,6 +72,8 @@
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
                                    notifier:(id)self];
+    
+    [[CoreDataUtil sharedCoreDataUtil] setDefaultManagedObjectContext:self.managedObjectContext];
     
     return YES;
 }

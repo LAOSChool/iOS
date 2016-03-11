@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    LevelPicker = 0,
-    WaitingTimePicker
+    Picker_Terms = 0,
+    Picker_Classes,
+    Picker_Subject,
+    PickerTypeMax
 } PICKER_TYPE;
 
 @interface LevelPickerViewController : UIViewController

@@ -93,6 +93,10 @@
     return 40.0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {    
+    return @"";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *moreCellIdentifier = @"MoreCellIdentifier";
