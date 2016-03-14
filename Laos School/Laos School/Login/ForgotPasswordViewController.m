@@ -7,6 +7,8 @@
 //
 
 #import "ForgotPasswordViewController.h"
+#import "UINavigationController+CustomNavigation.h"
+#import "LocalizeHelper.h"
 
 @interface ForgotPasswordViewController ()
 
@@ -17,6 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:LocalizedString(@"Forget password")];
+    
+    [self.navigationController setNavigationColor];
+    
+    UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
+    
+    self.navigationItem.leftBarButtonItems = @[btnClose];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +43,7 @@
 }
 */
 
+- (void)closeButtonClick {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 @end

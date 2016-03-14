@@ -15,6 +15,7 @@
 
 #import "CoreDataUtil.h"
 #import "ArchiveHelper.h"
+#import "CommonDefine.h"
 
 @interface AppDelegate ()<TAGContainerOpenerNotifier>
 
@@ -28,7 +29,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    LoginViewController *loginViewController = nil;
+    
+    if (IS_IPAD) {
+        loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];
+    } else {
+        loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    }
     
     self.window.rootViewController = loginViewController;
     [self.window makeKeyAndVisible];

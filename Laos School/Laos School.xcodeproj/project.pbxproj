@@ -148,6 +148,10 @@
 		55CF10E21C85927B00DC1AB9 /* ic_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CF10DF1C85927B00DC1AB9 /* ic_edit.png */; };
 		55CF10E31C85927B00DC1AB9 /* ic_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CF10E01C85927B00DC1AB9 /* ic_edit@2x.png */; };
 		55CF10E41C85927B00DC1AB9 /* ic_edit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CF10E11C85927B00DC1AB9 /* ic_edit@3x.png */; };
+		55D6575A1C9679E200A0E4F3 /* ClassObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D657591C9679E200A0E4F3 /* ClassObject.m */; };
+		55D6575D1C96933100A0E4F3 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D6575C1C96933100A0E4F3 /* ShareData.m */; };
+		55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D6575E1C96A3F000A0E4F3 /* LoginViewController_iPad.xib */; };
+		55D657611C96C34800A0E4F3 /* TeacherComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D657601C96C34800A0E4F3 /* TeacherComposeViewController.xib */; };
 		55FC71CF1C7C3C8100B0B8D0 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C41C7C3C8100B0B8D0 /* Common.m */; };
 		55FC71D01C7C3C8100B0B8D0 /* CommonAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C61C7C3C8100B0B8D0 /* CommonAlert.m */; };
 		55FC71D11C7C3C8100B0B8D0 /* CommonDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C81C7C3C8100B0B8D0 /* CommonDefine.m */; };
@@ -386,6 +390,12 @@
 		55CF10DF1C85927B00DC1AB9 /* ic_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit.png; sourceTree = "<group>"; };
 		55CF10E01C85927B00DC1AB9 /* ic_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit@2x.png"; sourceTree = "<group>"; };
 		55CF10E11C85927B00DC1AB9 /* ic_edit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit@3x.png"; sourceTree = "<group>"; };
+		55D657581C9679E200A0E4F3 /* ClassObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassObject.h; sourceTree = "<group>"; };
+		55D657591C9679E200A0E4F3 /* ClassObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassObject.m; sourceTree = "<group>"; };
+		55D6575B1C96933100A0E4F3 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
+		55D6575C1C96933100A0E4F3 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
+		55D6575E1C96A3F000A0E4F3 /* LoginViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController_iPad.xib; sourceTree = "<group>"; };
+		55D657601C96C34800A0E4F3 /* TeacherComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherComposeViewController.xib; sourceTree = "<group>"; };
 		55FC71C31C7C3C8100B0B8D0 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		55FC71C41C7C3C8100B0B8D0 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		55FC71C51C7C3C8100B0B8D0 /* CommonAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAlert.h; sourceTree = "<group>"; };
@@ -549,9 +559,12 @@
 		550FD29A1C7AFABD009D7159 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				55D6575B1C96933100A0E4F3 /* ShareData.h */,
+				55D6575C1C96933100A0E4F3 /* ShareData.m */,
 				550FD2A41C7AFAE6009D7159 /* LoginViewController.h */,
 				550FD2A51C7AFAE6009D7159 /* LoginViewController.m */,
 				550FD2A61C7AFAE6009D7159 /* LoginViewController.xib */,
+				55D6575E1C96A3F000A0E4F3 /* LoginViewController_iPad.xib */,
 				55B108D21C802A3B00EB695C /* ForgotPasswordViewController.h */,
 				55B108D31C802A3B00EB695C /* ForgotPasswordViewController.m */,
 				55B108D41C802A3B00EB695C /* ForgotPasswordViewController.xib */,
@@ -1133,6 +1146,7 @@
 				55FEDB961C841EC100DD0D24 /* ComposeViewController.h */,
 				55FEDB971C841EC100DD0D24 /* ComposeViewController.m */,
 				55FEDB981C841EC100DD0D24 /* ComposeViewController.xib */,
+				55D657601C96C34800A0E4F3 /* TeacherComposeViewController.xib */,
 				55CF10BA1C8543AC00DC1AB9 /* MessageTableViewCell.h */,
 				55CF10BB1C8543AC00DC1AB9 /* MessageTableViewCell.m */,
 				55CF10BC1C8543AC00DC1AB9 /* MessageTableViewCell.xib */,
@@ -1146,6 +1160,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				55D657581C9679E200A0E4F3 /* ClassObject.h */,
+				55D657591C9679E200A0E4F3 /* ClassObject.m */,
 				556C6E731C92AEB90077F4BE /* UserObject.m */,
 				556C6E741C92AEB90077F4BE /* UserObject.h */,
 				55FEDB9C1C84365000DD0D24 /* MessageObject.h */,
@@ -1252,6 +1268,7 @@
 				55797CC81C86D08A00A0098D /* ic_more.png in Resources */,
 				5552501F1C7EE0680027A4ED /* Readme.txt in Resources */,
 				55797CA31C86960100A0098D /* StudentTimeTableViewController.xib in Resources */,
+				55D657611C96C34800A0E4F3 /* TeacherComposeViewController.xib in Resources */,
 				552094561C89383D004670B3 /* timetable.htm in Resources */,
 				55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */,
 				5520944D1C8932CF004670B3 /* ic_class@2x.png in Resources */,
@@ -1301,6 +1318,7 @@
 				55B108F91C802F1F00EB695C /* HelpViewController.xib in Resources */,
 				55CF10CA1C8573F000DC1AB9 /* ic_send.png in Resources */,
 				552094531C8932CF004670B3 /* ic_user_black@2x.png in Resources */,
+				55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */,
 				55797CC11C86D08A00A0098D /* ic_attendance@3x.png in Resources */,
 				552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */,
 				558782341C8FCB3800365369 /* ic_phone_black@2x.png in Resources */,
@@ -1343,6 +1361,7 @@
 				55FC72381C7C599D00B0B8D0 /* NSArray+MK_Misc.m in Sources */,
 				55FEDB991C841EC100DD0D24 /* ComposeViewController.m in Sources */,
 				55FEDB9E1C84365000DD0D24 /* MessageObject.m in Sources */,
+				55D6575A1C9679E200A0E4F3 /* ClassObject.m in Sources */,
 				550FD2881C7AF60C009D7159 /* AppDelegate.m in Sources */,
 				55797C981C86959500A0098D /* TeacherAttendanceViewController.m in Sources */,
 				55FC72371C7C599D00B0B8D0 /* NSArray+MK_Block.m in Sources */,
@@ -1387,6 +1406,7 @@
 				55FC71D71C7C3E6300B0B8D0 /* ArchiveHelper.m in Sources */,
 				55FC71D41C7C3C8100B0B8D0 /* TagManagerHelper.m in Sources */,
 				55FC72311C7C599D00B0B8D0 /* ScrollViewFrameAccessor.m in Sources */,
+				55D6575D1C96933100A0E4F3 /* ShareData.m in Sources */,
 				55FC71DA1C7C3F8900B0B8D0 /* DateTimeHelper.m in Sources */,
 				554769931C9165DD00269EBB /* CoreDataUtil.m in Sources */,
 				55FC72431C7C599D00B0B8D0 /* MGSwipeTableCell.m in Sources */,

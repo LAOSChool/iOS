@@ -54,8 +54,10 @@
     HelpViewController *helpViewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:helpViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)btnLoginClick:(id)sender {
@@ -67,8 +69,11 @@
 - (IBAction)btnForgotClick:(id)sender {
     //transfer to forgot passw screen
     ForgotPasswordViewController *forgotPassViewcontroller = [[ForgotPasswordViewController alloc] initWithNibName:@"ForgotPasswordViewController" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:forgotPassViewcontroller];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
-    [self.navigationController pushViewController:forgotPassViewcontroller animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
     
 }
 

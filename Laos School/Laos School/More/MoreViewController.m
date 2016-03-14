@@ -275,7 +275,13 @@
 
 - (void)backTologinScreen {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    LoginViewController *loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    LoginViewController *loginView = nil;
+    
+    if (IS_IPAD) {
+        loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];
+    } else {
+        loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    }
 
     appDelegate.window.rootViewController = loginView;
 }

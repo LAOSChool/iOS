@@ -65,7 +65,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j10-Eq-UrD">
                             <rect key="frame" x="286" y="120" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <state key="normal" image="ic_edit_black.png"/>
                             <connections>
                                 <action selector="btnEditClick:" destination="-1" eventType="touchUpInside" id="l39-7X-Eso"/>

@@ -11,6 +11,7 @@
 #define LaosSchool_UserObject_h
 
 #import <UIKit/UIKit.h>
+#import "ClassObject.h"
 
 typedef enum {
     Role_Student = 0,
@@ -35,11 +36,9 @@ typedef enum {
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *shoolID;    //current shcool
 @property (nonatomic, strong) NSString *schoolName;
-@property (nonatomic, strong) NSString *classID;    //current class
-@property (nonatomic, strong) NSString *className;
+@property (nonatomic, strong) ClassObject *classObj;
 @property (nonatomic, strong) NSString *currentTerm;
 @property (nonatomic, strong) NSString *classArray; //array of classID that user belong to
-@property (nonatomic, strong) NSString *teacherID;
 
 @end
 
