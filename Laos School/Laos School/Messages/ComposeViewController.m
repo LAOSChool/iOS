@@ -8,6 +8,7 @@
 
 #import "ComposeViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "StudentsListViewController.h"
 
 #import "LocalizeHelper.h"
 
@@ -58,4 +59,15 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
 }
 
+#pragma mark teacher view
+- (IBAction)btnAddClick:(id)sender {
+    StudentsListViewController *studentsList = [[StudentsListViewController alloc] initWithNibName:@"StudentsListViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:studentsList];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)btnPriorityFlagClick:(id)sender {
+}
 @end
