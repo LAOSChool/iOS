@@ -145,8 +145,12 @@
     UINavigationController *navAnnouncement = [[UINavigationController alloc] initWithRootViewController:announcementViewController];
     
     //Attendance
-    StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
+//    StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
+//    UINavigationController *navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
+
+    TeacherAttendanceViewController *attendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
     UINavigationController *navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
+
     
     //Time table
     StudentTimeTableViewController *timetableViewController = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];

@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface TeacherAttendanceViewController : UIViewController
-
+{
+    IBOutlet UIView *viewTerm;
+    IBOutlet UIView *viewInfo;
+    IBOutlet UIView *viewTableView;
+    IBOutlet UIButton *btnExpand;
+    
+}
 @end
