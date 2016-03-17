@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550A821D1C9AA6AF001F652B /* ic_radio_uncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A82171C9AA6AF001F652B /* ic_radio_uncheck.png */; };
+		550A821E1C9AA6AF001F652B /* ic_radio_uncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A82181C9AA6AF001F652B /* ic_radio_uncheck@2x.png */; };
+		550A821F1C9AA6AF001F652B /* ic_radio_uncheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A82191C9AA6AF001F652B /* ic_radio_uncheck@3x.png */; };
+		550A82201C9AA6AF001F652B /* ic_radio_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A821A1C9AA6AF001F652B /* ic_radio_check.png */; };
+		550A82211C9AA6AF001F652B /* ic_radio_check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A821B1C9AA6AF001F652B /* ic_radio_check@2x.png */; };
+		550A82221C9AA6AF001F652B /* ic_radio_check@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 550A821C1C9AA6AF001F652B /* ic_radio_check@3x.png */; };
 		550FD2851C7AF60C009D7159 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 550FD2841C7AF60C009D7159 /* main.m */; };
 		550FD2881C7AF60C009D7159 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 550FD2871C7AF60C009D7159 /* AppDelegate.m */; };
 		550FD2901C7AF60C009D7159 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 550FD28F1C7AF60C009D7159 /* Assets.xcassets */; };
@@ -57,6 +63,9 @@
 		5552501C1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 555250171C7EE0680027A4ED /* Readme.txt */; };
 		5552501F1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5552501A1C7EE0680027A4ED /* Readme.txt */; };
 		555250221C7EEE2A0027A4ED /* MyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 555250211C7EEE2A0027A4ED /* MyLogger.m */; };
+		555C89BC1C9A4FCD006180F6 /* ic_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89B91C9A4FCD006180F6 /* ic_clear.png */; };
+		555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */; };
+		555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */; };
 		556C6E751C92AEB90077F4BE /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 556C6E731C92AEB90077F4BE /* UserObject.m */; };
 		55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */; };
 		55797C8F1C8693DA00A0098D /* AnnouncementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */; };
@@ -226,6 +235,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		550A82171C9AA6AF001F652B /* ic_radio_uncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_radio_uncheck.png; sourceTree = "<group>"; };
+		550A82181C9AA6AF001F652B /* ic_radio_uncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_radio_uncheck@2x.png"; sourceTree = "<group>"; };
+		550A82191C9AA6AF001F652B /* ic_radio_uncheck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_radio_uncheck@3x.png"; sourceTree = "<group>"; };
+		550A821A1C9AA6AF001F652B /* ic_radio_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_radio_check.png; sourceTree = "<group>"; };
+		550A821B1C9AA6AF001F652B /* ic_radio_check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_radio_check@2x.png"; sourceTree = "<group>"; };
+		550A821C1C9AA6AF001F652B /* ic_radio_check@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_radio_check@3x.png"; sourceTree = "<group>"; };
 		550FD2801C7AF60C009D7159 /* Laos School.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Laos School.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		550FD2841C7AF60C009D7159 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		550FD2861C7AF60C009D7159 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -302,6 +317,9 @@
 		5552501A1C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		555250201C7EEE2A0027A4ED /* MyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogger.h; sourceTree = "<group>"; };
 		555250211C7EEE2A0027A4ED /* MyLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogger.m; sourceTree = "<group>"; };
+		555C89B91C9A4FCD006180F6 /* ic_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clear.png; sourceTree = "<group>"; };
+		555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@2x.png"; sourceTree = "<group>"; };
+		555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@3x.png"; sourceTree = "<group>"; };
 		556C6E731C92AEB90077F4BE /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		556C6E741C92AEB90077F4BE /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		55797C8B1C8693DA00A0098D /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
@@ -693,6 +711,15 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				550A82171C9AA6AF001F652B /* ic_radio_uncheck.png */,
+				550A82181C9AA6AF001F652B /* ic_radio_uncheck@2x.png */,
+				550A82191C9AA6AF001F652B /* ic_radio_uncheck@3x.png */,
+				550A821A1C9AA6AF001F652B /* ic_radio_check.png */,
+				550A821B1C9AA6AF001F652B /* ic_radio_check@2x.png */,
+				550A821C1C9AA6AF001F652B /* ic_radio_check@3x.png */,
+				555C89B91C9A4FCD006180F6 /* ic_clear.png */,
+				555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */,
+				555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */,
 				559509111C99574200D06158 /* ic_late.png */,
 				559509121C99574200D06158 /* ic_late@2x.png */,
 				559509131C99574200D06158 /* ic_late@3x.png */,
@@ -1319,12 +1346,15 @@
 				55FC72351C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55B108F01C802CA200EB695C /* ic_setting@2x.png in Resources */,
 				5520944C1C8932CF004670B3 /* ic_class.png in Resources */,
+				555C89BC1C9A4FCD006180F6 /* ic_clear.png in Resources */,
 				552094501C8932CF004670B3 /* ic_clock@2x.png in Resources */,
 				55FEDB951C841EA800DD0D24 /* MessagesViewController.xib in Resources */,
 				55FC72461C7C599D00B0B8D0 /* SVProgressHUD.bundle in Resources */,
 				55CF10CC1C8573F000DC1AB9 /* ic_send@2x.png in Resources */,
 				5595091C1C99574200D06158 /* ic_off@3x.png in Resources */,
+				555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */,
 				558782331C8FCB3800365369 /* ic_phone_black.png in Resources */,
+				555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */,
 				55797C9E1C8695BE00A0098D /* MoreViewController.xib in Resources */,
 				554769C21C917C9300269EBB /* ic_holder@2x.png in Resources */,
 				55B108EF1C802CA200EB695C /* ic_setting.png in Resources */,
@@ -1343,6 +1373,7 @@
 				55797CC91C86D08A00A0098D /* ic_more@2x.png in Resources */,
 				55B108EB1C802CA200EB695C /* ic_alert@3x.png in Resources */,
 				552094521C8932CF004670B3 /* ic_user_black.png in Resources */,
+				550A82211C9AA6AF001F652B /* ic_radio_check@2x.png in Resources */,
 				55B108F11C802CA200EB695C /* ic_setting@3x.png in Resources */,
 				557D78C71C97BDE5008096A0 /* StudentsListViewController.xib in Resources */,
 				55CF10E21C85927B00DC1AB9 /* ic_edit.png in Resources */,
@@ -1353,8 +1384,11 @@
 				55797CC81C86D08A00A0098D /* ic_more.png in Resources */,
 				5552501F1C7EE0680027A4ED /* Readme.txt in Resources */,
 				55797CA31C86960100A0098D /* StudentTimeTableViewController.xib in Resources */,
+				550A821F1C9AA6AF001F652B /* ic_radio_uncheck@3x.png in Resources */,
 				55D657611C96C34800A0E4F3 /* TeacherComposeViewController.xib in Resources */,
 				552094561C89383D004670B3 /* timetable.htm in Resources */,
+				550A821D1C9AA6AF001F652B /* ic_radio_uncheck.png in Resources */,
+				550A82201C9AA6AF001F652B /* ic_radio_check.png in Resources */,
 				55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */,
 				5520944D1C8932CF004670B3 /* ic_class@2x.png in Resources */,
 				555250011C7EDF7B0027A4ED /* GTM-TLHBMW in Resources */,
@@ -1380,6 +1414,7 @@
 				55797CBE1C86D08A00A0098D /* ic_announcement@3x.png in Resources */,
 				55797CC01C86D08A00A0098D /* ic_attendance@2x.png in Resources */,
 				55797CC51C86D08A00A0098D /* ic_message.png in Resources */,
+				550A821E1C9AA6AF001F652B /* ic_radio_uncheck@2x.png in Resources */,
 				55FC72441C7C599D00B0B8D0 /* LICENSE.txt in Resources */,
 				554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */,
 				55797CA81C86961400A0098D /* TeacherTimeTableViewController.xib in Resources */,
@@ -1440,6 +1475,7 @@
 				55CF10DB1C857E2D00DC1AB9 /* ic_flag_white@3x.png in Resources */,
 				55CF10CF1C8573F000DC1AB9 /* ic_user_gray@3x.png in Resources */,
 				554769C31C917C9300269EBB /* ic_holder@3x.png in Resources */,
+				550A82221C9AA6AF001F652B /* ic_radio_check@3x.png in Resources */,
 				5595091A1C99574200D06158 /* ic_off.png in Resources */,
 				55BA86F51C8D74CB000221D7 /* ic_edit_black.png in Resources */,
 				55CF10CD1C8573F000DC1AB9 /* ic_user_gray.png in Resources */,

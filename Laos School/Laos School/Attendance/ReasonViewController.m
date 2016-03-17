@@ -7,8 +7,6 @@
 //
 
 #import "ReasonViewController.h"
-#import "CommonSqlite.h"
-#import "WordObject.h"
 #import "Common.h"
 #import "TagManagerHelper.h"
 
@@ -24,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TagManagerHelper pushOpenScreenEvent:@"iLearningProgress"];
+    [TagManagerHelper pushOpenScreenEvent:@"iReasonViewController"];
     // Do any additional setup after loading the view from its nib.
     levelsDictionary = [[NSMutableDictionary alloc] init];
     wordList = [[NSMutableArray alloc] init];

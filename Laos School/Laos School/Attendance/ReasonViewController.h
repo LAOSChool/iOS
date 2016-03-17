@@ -10,16 +10,7 @@
 
 @interface ReasonViewController : UIViewController
 {
-    IBOutlet UILabel *lbTotalValue;
-    IBOutlet UILabel *lbLevel1Value;
-    IBOutlet UILabel *lbLevel2Value;
-    IBOutlet UILabel *lbLevel3Value;
-    IBOutlet UILabel *lbLevel4Value;
-    IBOutlet UILabel *lbLevel5Value;
-    IBOutlet UILabel *lbLevel6Value;
-    IBOutlet UILabel *lbLevel7Value;
 
-    IBOutlet UILabel *lbLevel7Title;
 }
 
 - (void)loadInformation;
