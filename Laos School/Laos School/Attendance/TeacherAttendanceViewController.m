@@ -162,105 +162,105 @@
 //    }
 //}
 
--(NSArray*) swipeTableCell:(StudiedTableViewCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
-             swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings
-{
+//-(NSArray*) swipeTableCell:(StudiedTableViewCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
+//             swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings
+//{
 
-        swipeSettings.transition = MGSwipeTransitionStatic;
-        
-        if (direction == MGSwipeDirectionRightToLeft) {
-            expansionSettings.fillOnTrigger = NO;
-            expansionSettings.threshold = 1.1;
-            
-            MGSwipeButton *btnDone = nil;
-            
-            btnDone = [MGSwipeButton buttonWithTitle:LocalizedString(@"Done") backgroundColor:BLUE_COLOR padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
-                
-                return NO;
-            }];
-            
-            MGSwipeButton *btnIgnore = nil;
-            
-            btnIgnore = [MGSwipeButton buttonWithTitle:LocalizedString(@"Ignore") backgroundColor:[UIColor lightGrayColor] padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
-                
-                return NO;
-            }];
-            
-            return @[btnDone, btnIgnore];
-        }
+//        swipeSettings.transition = MGSwipeTransitionStatic;
+//        
+//        if (direction == MGSwipeDirectionRightToLeft) {
+//            expansionSettings.fillOnTrigger = NO;
+//            expansionSettings.threshold = 1.1;
+//            
+//            MGSwipeButton *btnDone = nil;
+//            
+//            btnDone = [MGSwipeButton buttonWithTitle:LocalizedString(@"Done") backgroundColor:BLUE_COLOR padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
+//                
+//                return NO;
+//            }];
+//            
+//            MGSwipeButton *btnIgnore = nil;
+//            
+//            btnIgnore = [MGSwipeButton buttonWithTitle:LocalizedString(@"Ignore") backgroundColor:[UIColor lightGrayColor] padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
+//                
+//                return NO;
+//            }];
+//            
+//            return @[btnDone, btnIgnore];
+//        }
     
-    return nil;
-}
+//    return nil;
+//}
 
--(BOOL) swipeTableCell:(StudiedTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
-{
-    if (_screenType == List_Incoming) {
-        WordObject *wordObj = nil;
-        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
-        if (direction == MGSwipeDirectionRightToLeft && index == 0) {   //Done
-            NSLog(@"Done");
-            //update queue value in DB
-            indexPath = [wordsTableView indexPathForCell:cell];
-            wordObj = [wordList objectAtIndex:indexPath.row];
-            
-            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_DONE];
-            
-        } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {   //Ignore
-            NSLog(@"Ignore");
-            //update queue value in DB
-            indexPath = [wordsTableView indexPathForCell:cell];
-            wordObj = [wordList objectAtIndex:indexPath.row];
-            
-            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_SUSPENDED];
-        }
-        
-        if (wordList) {
-            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
-            
-            //remove from buffer
-            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
-            
-            [wordList removeObject:wordObj];
-            
-            lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
-            [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        
-    } else if (_screenType == List_SearchResult ||
-               _screenType == List_SearchHint ||
-               _screenType == List_SearchHintHome) {
-        NSLog(@"Add to learn");
-        WordObject *wordObj = nil;
-        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
-        
-        indexPath = [wordsTableView indexPathForCell:cell];
-        wordObj = [wordList objectAtIndex:indexPath.row];
-        
-        //update queue value to 3 to consider this word as a new word in DB
-        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
-        
-        if (wordObj.isFromServer) {
-            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
-            
-            //because word-id is blank so need to get again after insert it into db
-            wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
-            
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
-            
-        } else {
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
-            
-            //remove from buffer
-            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
-            
-            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
-        }
-        
-        [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
-        
-        return YES;
-    }
-    
-    return NO;  //Don't autohide
-}
+//-(BOOL) swipeTableCell:(StudiedTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
+//{
+//    if (_screenType == List_Incoming) {
+//        WordObject *wordObj = nil;
+//        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
+//        if (direction == MGSwipeDirectionRightToLeft && index == 0) {   //Done
+//            NSLog(@"Done");
+//            //update queue value in DB
+//            indexPath = [wordsTableView indexPathForCell:cell];
+//            wordObj = [wordList objectAtIndex:indexPath.row];
+//            
+//            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_DONE];
+//            
+//        } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {   //Ignore
+//            NSLog(@"Ignore");
+//            //update queue value in DB
+//            indexPath = [wordsTableView indexPathForCell:cell];
+//            wordObj = [wordList objectAtIndex:indexPath.row];
+//            
+//            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_SUSPENDED];
+//        }
+//        
+//        if (wordList) {
+//            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
+//            
+//            //remove from buffer
+//            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+//            
+//            [wordList removeObject:wordObj];
+//            
+//            lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
+//            [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        }
+//        
+//    } else if (_screenType == List_SearchResult ||
+//               _screenType == List_SearchHint ||
+//               _screenType == List_SearchHintHome) {
+//        NSLog(@"Add to learn");
+//        WordObject *wordObj = nil;
+//        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
+//        
+//        indexPath = [wordsTableView indexPathForCell:cell];
+//        wordObj = [wordList objectAtIndex:indexPath.row];
+//        
+//        //update queue value to 3 to consider this word as a new word in DB
+//        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+//        
+//        if (wordObj.isFromServer) {
+//            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+//            
+//            //because word-id is blank so need to get again after insert it into db
+//            wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
+//            
+//            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+//            
+//        } else {
+//            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+//            
+//            //remove from buffer
+//            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+//            
+//            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
+//        }
+//        
+//        [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
+//        
+//        return YES;
+//    }
+//    
+//    return NO;  //Don't autohide
+//}
 @end

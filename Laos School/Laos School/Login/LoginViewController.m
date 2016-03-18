@@ -14,6 +14,7 @@
 
 #import "MainTabBarViewController.h"
 #import "MessagesViewController.h"
+#import "MessageDetailViewController.h"
 #import "AnnouncementViewController.h"
 #import "StudentAttendanceViewController.h"
 #import "TeacherAttendanceViewController.h"
@@ -140,6 +141,15 @@
     MessagesViewController *messageViewController = [[MessagesViewController alloc] initWithNibName:@"MessagesViewController" bundle:nil];
     UINavigationController *navMessage = [[UINavigationController alloc] initWithRootViewController:messageViewController];
     
+    //for iPad
+    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+    UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
+    
+    UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
+    [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
+    
+    splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    
     //Announcement
     AnnouncementViewController *announcementViewController = [[AnnouncementViewController alloc] initWithNibName:@"AnnouncementViewController" bundle:nil];
     UINavigationController *navAnnouncement = [[UINavigationController alloc] initWithRootViewController:announcementViewController];
@@ -160,7 +170,7 @@
     MoreViewController *moreViewController = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
     UINavigationController *navMore = [[UINavigationController alloc] initWithRootViewController:moreViewController];
     
-    NSArray *tabArray = [[NSArray alloc] initWithObjects:navMessage, navAnnouncement, navAttendance, navTimeTable, navMore, nil];
+    NSArray *tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navTimeTable, navMore, nil];
     
     return tabArray;
 }

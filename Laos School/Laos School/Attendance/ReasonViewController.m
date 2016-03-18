@@ -61,37 +61,37 @@
 }
 
 - (void)loadInformation {
-    [wordList removeAllObjects];
-    [levelsDictionary removeAllObjects];
-    
-    [wordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudiedList]];
-    
-    for (WordObject *wordObj in wordList) {
-        NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
-        
-        if (arr == nil) {
-            arr = [[NSMutableArray alloc] init];
-        }
-        [arr addObject:wordObj];
-        
-        [levelsDictionary setObject:arr forKey:wordObj.level];
-    }
-    
-    keyArr = [levelsDictionary allKeys];
-    
-    //display info
-    lbTotalValue.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[wordList count]];
-    lbLevel1Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"1"] count]];
-    lbLevel2Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"2"] count]];
-    lbLevel3Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"3"] count]];
-    lbLevel4Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"4"] count]];
-    lbLevel5Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"5"] count]];
-    lbLevel6Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"6"] count]];
-    
-    //temporary use level 7 for streak
-    NSInteger countStreak = [[Common sharedCommon] getCountOfStreak];
-    lbLevel7Title.text = @"Streak:";
-    
-    lbLevel7Value.text = [NSString stringWithFormat:@"%lu day(s)", (unsigned long)countStreak];
+//    [wordList removeAllObjects];
+//    [levelsDictionary removeAllObjects];
+//    
+//    [wordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudiedList]];
+//    
+//    for (WordObject *wordObj in wordList) {
+//        NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
+//        
+//        if (arr == nil) {
+//            arr = [[NSMutableArray alloc] init];
+//        }
+//        [arr addObject:wordObj];
+//        
+//        [levelsDictionary setObject:arr forKey:wordObj.level];
+//    }
+//    
+//    keyArr = [levelsDictionary allKeys];
+//    
+//    //display info
+//    lbTotalValue.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[wordList count]];
+//    lbLevel1Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"1"] count]];
+//    lbLevel2Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"2"] count]];
+//    lbLevel3Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"3"] count]];
+//    lbLevel4Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"4"] count]];
+//    lbLevel5Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"5"] count]];
+//    lbLevel6Value.text = [NSString stringWithFormat:@"%lu word(s)", (unsigned long)[[levelsDictionary objectForKey:@"6"] count]];
+//    
+//    //temporary use level 7 for streak
+//    NSInteger countStreak = [[Common sharedCommon] getCountOfStreak];
+//    lbLevel7Title.text = @"Streak:";
+//    
+//    lbLevel7Value.text = [NSString stringWithFormat:@"%lu day(s)", (unsigned long)countStreak];
 }
 @end
