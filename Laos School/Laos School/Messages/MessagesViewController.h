@@ -15,4 +15,5 @@
     
 }
 
+@property (nonatomic, strong) UISplitViewController *splitViewController;
 @end

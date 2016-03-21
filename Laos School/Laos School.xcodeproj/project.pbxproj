@@ -1271,8 +1271,8 @@
 				5595091E1C995BE300D06158 /* AttendanceObject.h */,
 				55D657581C9679E200A0E4F3 /* ClassObject.h */,
 				55D657591C9679E200A0E4F3 /* ClassObject.m */,
-				556C6E731C92AEB90077F4BE /* UserObject.m */,
 				556C6E741C92AEB90077F4BE /* UserObject.h */,
+				556C6E731C92AEB90077F4BE /* UserObject.m */,
 				55FEDB9C1C84365000DD0D24 /* MessageObject.h */,
 				55FEDB9D1C84365000DD0D24 /* MessageObject.m */,
 			);

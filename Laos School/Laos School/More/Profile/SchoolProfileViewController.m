@@ -8,6 +8,8 @@
 
 #import "SchoolProfileViewController.h"
 #import "LevelPickerViewController.h"
+#import "LocalizeHelper.h"
+#import "UINavigationController+CustomNavigation.h"
 
 @interface SchoolProfileViewController ()
 {
@@ -20,6 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:LocalizedString(@"School profile")];
+    
+    [self.navigationController setNavigationColor];
 
 }
 

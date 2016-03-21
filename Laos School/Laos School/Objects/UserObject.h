@@ -14,12 +14,20 @@
 #import "ClassObject.h"
 
 typedef enum {
-    Role_Student = 0,
-    Role_Monitor,
-    Role_SubjectTeacher,
-    Role_HeadTeacher,
-    Role_Max,
+    UserRole_Student = 0,
+    UserRole_Monitor,
+    UserRole_SubjectTeacher,
+    UserRole_HeadTeacher,
+    UserRole_Max,
 } USER_ROLE;
+
+typedef enum {
+    Permission_Normal = 0x00000000,
+    Permission_CheckAttendance = 0x00000001,
+    Permission_SendEmail = 0x00000010,
+    Permission_AddScore = 0x00000100,
+    Permission_Max = 0x11111111
+} PERMISSION_GRANTED;
 
 
 
@@ -34,11 +42,13 @@ typedef enum {
 @property (nonatomic, strong) NSString *nickName;
 @property (nonatomic, strong) NSString *avatarPath;
 @property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, assign) USER_ROLE userRole;
+@property (nonatomic, assign) PERMISSION_GRANTED permission;
 @property (nonatomic, strong) NSString *shoolID;    //current shcool
 @property (nonatomic, strong) NSString *schoolName;
 @property (nonatomic, strong) ClassObject *classObj;
 @property (nonatomic, strong) NSString *currentTerm;
-@property (nonatomic, strong) NSString *classArray; //array of classID that user belong to
+@property (nonatomic, strong) NSArray *classArray; //array of classID that user belong to
 
 @end
 

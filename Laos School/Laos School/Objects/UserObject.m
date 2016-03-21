@@ -10,41 +10,39 @@
 #import "UserObject.h"
 
 /*
- @property (nonatomic, strong) NSString *wordid;
- @property (nonatomic, strong) NSString *question;
- @property (nonatomic, strong) NSString *answers;
- @property (nonatomic, strong) NSString *subcats;
- @property (nonatomic, strong) NSString *status;
- @property (nonatomic, strong) NSString *package;
- @property (nonatomic, strong) NSString *level;
- @property (nonatomic, strong) NSString *queue;
- @property (nonatomic, strong) NSString *due;
- @property (nonatomic, strong) NSString *revCount;
- @property (nonatomic, strong) NSString *lastInterval;
- @property (nonatomic, strong) NSString *eFactor;
+ @property (nonatomic, strong) NSString *userID;
+ @property (nonatomic, strong) NSString *username;
+ @property (nonatomic, strong) NSString *displayName;
+ @property (nonatomic, strong) NSString *nickName;
+ @property (nonatomic, strong) NSString *avatarPath;
+ @property (nonatomic, strong) NSString *phoneNumber;
+ @property (nonatomic, assign) USER_ROLE userRole;
+ @property (nonatomic, assign) PERMISSION_GRANTED permission;
+ @property (nonatomic, strong) NSString *shoolID;    //current shcool
+ @property (nonatomic, strong) NSString *schoolName;
+ @property (nonatomic, strong) ClassObject *classObj;
+ @property (nonatomic, strong) NSString *currentTerm;
+ @property (nonatomic, strong) NSArray *classArray; //array of classID that user belong to
  */
 @implementation UserObject
 
 - (id)init {
     self = [super init];
     if (self) {
-//        self.wordid = @"";
-//        self.gid = @"";
-//        self.question = @"";
-//        self.answers = @"";
-//        self.subcats = @"";
-//        self.status = @"";
-//        self.package = @"";
-//        self.level = @"";
-//        self.queue = @"";
-//        self.due = @"";
-//        self.revCount = @"";
-//        self.lastInterval = @"";
-//        self.eFactor = @"";
-//        self.langEN = @"";
-//        self.langVN = @"";
-//        self.userNote = @"";
-//        self.isFromServer = NO;
+        self.userID = @"";
+        self.username = @"";
+        self.displayName = @"";
+        self.nickName = @"";
+        self.avatarPath = @"";
+        self.phoneNumber = @"";
+        self.userRole = UserRole_Student;
+        self.permission = Permission_Normal;
+        
+        self.shoolID = @"";
+        self.schoolName = @"";
+        self.classObj = nil;
+        self.currentTerm = @"";
+        self.classArray = nil;
     }
     return self;
 }

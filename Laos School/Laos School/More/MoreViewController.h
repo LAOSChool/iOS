@@ -45,4 +45,6 @@ typedef enum {
     
     IBOutlet UITableView *moreTableView;
 }
+
+@property (nonatomic, strong) UISplitViewController *splitViewController;
 @end

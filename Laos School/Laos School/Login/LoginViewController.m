@@ -21,9 +21,12 @@
 #import "StudentTimeTableViewController.h"
 #import "TeacherTimeTableViewController.h"
 #import "MoreViewController.h"
+#import "SchoolProfileViewController.h"
 
 #import "ForgotPasswordViewController.h"
 #import "HelpViewController.h"
+
+#import "UserObject.h"
 
 @interface LoginViewController ()
 
@@ -119,6 +122,9 @@
         
         
         //for test
+        UserObject *userObject = [[UserObject alloc] init];
+        
+        
         //Tabbar
         NSArray *tabArray = [self prepareForMaintabViewController];
         
@@ -147,7 +153,7 @@
     
     UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
     [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
-    
+    messageViewController.splitViewController = splitViewController;
     splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
     //Announcement
@@ -170,7 +176,16 @@
     MoreViewController *moreViewController = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
     UINavigationController *navMore = [[UINavigationController alloc] initWithRootViewController:moreViewController];
     
-    NSArray *tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navTimeTable, navMore, nil];
+    //ipad
+    SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
+    UINavigationController *navschoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
+    
+    UISplitViewController *splitViewController_More = [[UISplitViewController alloc] init];
+    [splitViewController_More setViewControllers:[NSArray arrayWithObjects:navMore, navschoolProfile, nil]];
+    moreViewController.splitViewController = splitViewController_More;
+    splitViewController_More.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    
+    NSArray *tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navTimeTable, splitViewController_More, nil];
     
     return tabArray;
 }

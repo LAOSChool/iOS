@@ -202,7 +202,13 @@
                 {
                     SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
                     
-                    [self.navigationController pushViewController:schoolProfileView animated:YES];
+                    if (IS_IPAD) {
+                        UINavigationController *navSchoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
+                        
+                        [self.splitViewController showDetailViewController:navSchoolProfile sender:self];
+                    } else {
+                        [self.navigationController pushViewController:schoolProfileView animated:YES];
+                    }
                 }
                     break;
                     
@@ -210,7 +216,13 @@
                 {
                     ScoresViewController *scoreView = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
                     
-                    [self.navigationController pushViewController:scoreView animated:YES];
+                    if (IS_IPAD) {
+                        UINavigationController *navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreView];
+                        
+                        [self.splitViewController showDetailViewController:navScoreView sender:self];
+                    } else {
+                        [self.navigationController pushViewController:scoreView animated:YES];
+                    }
                 }
                     break;
                     
