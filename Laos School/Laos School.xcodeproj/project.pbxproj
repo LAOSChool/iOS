@@ -99,6 +99,8 @@
 		55797CCD1C86D08A00A0098D /* ic_timetable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55797CBA1C86D08A00A0098D /* ic_timetable@2x.png */; };
 		55797CCE1C86D08A00A0098D /* ic_timetable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55797CBB1C86D08A00A0098D /* ic_timetable@3x.png */; };
 		55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797CD21C86D7D500A0098D /* UINavigationController+CustomNavigation.m */; };
+		557D055E1CA1288000860832 /* ScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557D055B1CA1288000860832 /* ScoresViewController.m */; };
+		557D055F1CA1288000860832 /* ScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D055C1CA1288000860832 /* ScoresViewController.xib */; };
 		557D78C61C97BDE5008096A0 /* StudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557D78C41C97BDE5008096A0 /* StudentsListViewController.m */; };
 		557D78C71C97BDE5008096A0 /* StudentsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D78C51C97BDE5008096A0 /* StudentsListViewController.xib */; };
 		557D78CB1C97C8FB008096A0 /* StudentsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 557D78C91C97C8FB008096A0 /* StudentsListTableViewCell.m */; };
@@ -114,8 +116,6 @@
 		558782351C8FCB3800365369 /* ic_phone_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558782321C8FCB3800365369 /* ic_phone_black@3x.png */; };
 		558782391C8FD0FB00365369 /* SchoolProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558782371C8FD0FB00365369 /* SchoolProfileViewController.m */; };
 		5587823A1C8FD0FB00365369 /* SchoolProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558782381C8FD0FB00365369 /* SchoolProfileViewController.xib */; };
-		558782431C90067A00365369 /* ScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558782411C90067A00365369 /* ScoresViewController.m */; };
-		558782441C90067A00365369 /* ScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558782421C90067A00365369 /* ScoresViewController.xib */; };
 		558782481C9010A600365369 /* SchoolInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558782461C9010A600365369 /* SchoolInfoViewController.m */; };
 		558782491C9010A600365369 /* SchoolInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558782471C9010A600365369 /* SchoolInfoViewController.xib */; };
 		5587824D1C9010B800365369 /* TeacherListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5587824B1C9010B800365369 /* TeacherListViewController.m */; };
@@ -361,6 +361,9 @@
 		55797CBB1C86D08A00A0098D /* ic_timetable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_timetable@3x.png"; sourceTree = "<group>"; };
 		55797CD11C86D7D500A0098D /* UINavigationController+CustomNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+CustomNavigation.h"; path = "Laos School/Custom/UINavigationController+CustomNavigation.h"; sourceTree = SOURCE_ROOT; };
 		55797CD21C86D7D500A0098D /* UINavigationController+CustomNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+CustomNavigation.m"; path = "Laos School/Custom/UINavigationController+CustomNavigation.m"; sourceTree = SOURCE_ROOT; };
+		557D055B1CA1288000860832 /* ScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoresViewController.m; sourceTree = "<group>"; };
+		557D055C1CA1288000860832 /* ScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoresViewController.xib; sourceTree = "<group>"; };
+		557D055D1CA1288000860832 /* ScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoresViewController.h; sourceTree = "<group>"; };
 		557D78C31C97BDE5008096A0 /* StudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentsListViewController.h; sourceTree = "<group>"; };
 		557D78C41C97BDE5008096A0 /* StudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentsListViewController.m; sourceTree = "<group>"; };
 		557D78C51C97BDE5008096A0 /* StudentsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudentsListViewController.xib; sourceTree = "<group>"; };
@@ -379,9 +382,6 @@
 		558782361C8FD0FB00365369 /* SchoolProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolProfileViewController.h; sourceTree = "<group>"; };
 		558782371C8FD0FB00365369 /* SchoolProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolProfileViewController.m; sourceTree = "<group>"; };
 		558782381C8FD0FB00365369 /* SchoolProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SchoolProfileViewController.xib; sourceTree = "<group>"; };
-		558782401C90067A00365369 /* ScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoresViewController.h; sourceTree = "<group>"; };
-		558782411C90067A00365369 /* ScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoresViewController.m; sourceTree = "<group>"; };
-		558782421C90067A00365369 /* ScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoresViewController.xib; sourceTree = "<group>"; };
 		558782451C9010A600365369 /* SchoolInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolInfoViewController.h; sourceTree = "<group>"; };
 		558782461C9010A600365369 /* SchoolInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolInfoViewController.m; sourceTree = "<group>"; };
 		558782471C9010A600365369 /* SchoolInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SchoolInfoViewController.xib; sourceTree = "<group>"; };
@@ -601,7 +601,6 @@
 				55FC72521C7C620C00B0B8D0 /* Attendance */,
 				55FC72531C7C620C00B0B8D0 /* More */,
 				55FC72541C7C620C00B0B8D0 /* Score */,
-				55FC72551C7C620C00B0B8D0 /* TimeTable */,
 				550FD29A1C7AFABD009D7159 /* Login */,
 				550FD2A91C7AFE35009D7159 /* Custom */,
 				550FD29B1C7AFABD009D7159 /* Libs */,
@@ -1175,6 +1174,7 @@
 				55FC72561C7C625A00B0B8D0 /* Others */,
 				55FC72571C7C625A00B0B8D0 /* Profile */,
 				55FC72581C7C625A00B0B8D0 /* Settings */,
+				55FC72551C7C620C00B0B8D0 /* TimeTable */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1182,6 +1182,9 @@
 		55FC72541C7C620C00B0B8D0 /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				557D055D1CA1288000860832 /* ScoresViewController.h */,
+				557D055B1CA1288000860832 /* ScoresViewController.m */,
+				557D055C1CA1288000860832 /* ScoresViewController.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1196,7 +1199,8 @@
 				55797CA51C86961400A0098D /* TeacherTimeTableViewController.m */,
 				55797CA61C86961400A0098D /* TeacherTimeTableViewController.xib */,
 			);
-			path = TimeTable;
+			name = TimeTable;
+			path = ../TimeTable;
 			sourceTree = "<group>";
 		};
 		55FC72561C7C625A00B0B8D0 /* Others */ = {
@@ -1221,9 +1225,6 @@
 				558782361C8FD0FB00365369 /* SchoolProfileViewController.h */,
 				558782371C8FD0FB00365369 /* SchoolProfileViewController.m */,
 				558782381C8FD0FB00365369 /* SchoolProfileViewController.xib */,
-				558782401C90067A00365369 /* ScoresViewController.h */,
-				558782411C90067A00365369 /* ScoresViewController.m */,
-				558782421C90067A00365369 /* ScoresViewController.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1360,6 +1361,7 @@
 				55B108EF1C802CA200EB695C /* ic_setting.png in Resources */,
 				554769BD1C917C9300269EBB /* ic_arrow_down@3x.png in Resources */,
 				55797CBC1C86D08A00A0098D /* ic_announcement.png in Resources */,
+				557D055F1CA1288000860832 /* ScoresViewController.xib in Resources */,
 				554769C11C917C9300269EBB /* ic_holder.png in Resources */,
 				55B108E61C802CA200EB695C /* ic_alert.png in Resources */,
 				550FD2A81C7AFAE6009D7159 /* LoginViewController.xib in Resources */,
@@ -1436,7 +1438,6 @@
 				55B108E71C802CA200EB695C /* ic_alert_white.png in Resources */,
 				559509171C99574200D06158 /* ic_late.png in Resources */,
 				55CF10E31C85927B00DC1AB9 /* ic_edit@2x.png in Resources */,
-				558782441C90067A00365369 /* ScoresViewController.xib in Resources */,
 				558782531C9010FE00365369 /* SettingsViewController.xib in Resources */,
 				55B108EC1C802CA200EB695C /* ic_help.png in Resources */,
 				55CF10D71C857E2D00DC1AB9 /* ic_flag_gray@2x.png in Resources */,
@@ -1506,6 +1507,7 @@
 				55FC72321C7C599D00B0B8D0 /* ViewFrameAccessor.m in Sources */,
 				55FEDB941C841EA800DD0D24 /* MessagesViewController.m in Sources */,
 				55FC723A1C7C599D00B0B8D0 /* NSMutableArray+MK_Queue.m in Sources */,
+				557D055E1CA1288000860832 /* ScoresViewController.m in Sources */,
 				55FC723E1C7C599D00B0B8D0 /* GKLineGraph.m in Sources */,
 				55FC71D01C7C3C8100B0B8D0 /* CommonAlert.m in Sources */,
 				55CF10BD1C8543AC00DC1AB9 /* MessageTableViewCell.m in Sources */,
@@ -1529,7 +1531,6 @@
 				55FC723B1C7C599D00B0B8D0 /* NSMutableArray+MK_Stack.m in Sources */,
 				55FC72421C7C599D00B0B8D0 /* MGSwipeButton.m in Sources */,
 				55FC72401C7C599D00B0B8D0 /* MainTabBarViewController.m in Sources */,
-				558782431C90067A00365369 /* ScoresViewController.m in Sources */,
 				55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */,
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
 				55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */,
