@@ -16,6 +16,9 @@
 
 @end
 
+#define UNREAD_COLOR [UIColor colorWithRed:212/255.f green:255/255.f blue:194/255.f alpha:1]
+#define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
+
 @interface MessageTableViewCell : UITableViewCell
 {
     
@@ -27,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lbBriefContent;
 @property (nonatomic, strong) IBOutlet UILabel *lbTime;
 @property (strong, nonatomic) IBOutlet UIButton *btnImportanceFlag;
+@property (strong, nonatomic) IBOutlet UILabel *lbSenderName;
 
 @property(nonatomic, readwrite) id <MessageCellDelegate> delegate;
 

@@ -288,12 +288,12 @@
     return imageCopy;
 }
 
--(UIImage *)imageFromText:(NSString *)text {
+-(UIImage *)imageFromText:(NSString *)text withColor:(UIColor *)color {
     // set the font type and size
     UIFont *font = [UIFont systemFontOfSize:50.0];
 
     NSDictionary *attributes = [NSDictionary dictionaryWithObjects:
-                                @[font, [UIColor whiteColor]]
+                                @[font, color]
                                                            forKeys:
                                 @[NSFontAttributeName, NSForegroundColorAttributeName]];
     

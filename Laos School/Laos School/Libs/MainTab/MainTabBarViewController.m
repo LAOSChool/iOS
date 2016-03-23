@@ -7,6 +7,7 @@
 //
 
 #import "MainTabBarViewController.h"
+#import "CommonDefine.h"
 
 @interface MainTabBarViewController ()
 {
@@ -52,8 +53,8 @@
                 break;
                 
             case TIMETABLE_TAB:
-                [self.tabBar.items[index] setTitle:@"Time table"];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_timetable"]];
+                [self.tabBar.items[index] setTitle:@"Scores"];
+                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_score"]];
                 break;
                 
             case MORE_TAB:
@@ -68,6 +69,7 @@
 	
 	self.delegate = self;
     [self setSelectedIndex:MESSAGE_TAB];
+    [self.tabBar setTintColor:COMMON_COLOR];
     
     self.navigationController.navigationBar.hidden = YES;
 }

@@ -14,7 +14,7 @@
 
 - (void)setNavigationColor {
     [self.navigationBar setTranslucent:NO];
-    [self.navigationBar setBarTintColor:BLUE_COLOR];
+    [self.navigationBar setBarTintColor:COMMON_COLOR];
     self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationBar setTintColor:[UIColor whiteColor]];
 }

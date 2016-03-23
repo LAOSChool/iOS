@@ -28,7 +28,7 @@
                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ZTH-Mm-RKT">
                             <rect key="frame" x="8" y="8" width="50" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.3803921569" green="0.65490196079999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="Mmu-VF-0SA" appends="YES" id="4CH-HF-vrx"/>

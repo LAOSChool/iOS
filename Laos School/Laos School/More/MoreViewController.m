@@ -43,7 +43,7 @@
     imgAvatar.layer.cornerRadius = imgAvatar.frame.size.width/2;
     imgAvatar.clipsToBounds = YES;
     
-    imgAvatar.image = [[Common sharedCommon] imageFromText:@"HN"];
+    imgAvatar.image = [[Common sharedCommon] imageFromText:@"HN" withColor:[UIColor whiteColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -211,7 +211,9 @@
                     }
                 }
                     break;
-                    
+                    //Time table
+//                    StudentTimeTableViewController *timetableViewController = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
+//                    UINavigationController *navTimeTable = [[UINavigationController alloc] initWithRootViewController:timetableViewController];
                 case ProfileSectionScore:
                 {
                     ScoresViewController *scoreView = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];

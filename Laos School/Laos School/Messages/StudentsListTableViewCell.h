@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface StudentsListTableViewCell : UITableViewCell
+{
+    
+}
+
+@property (strong, nonatomic) IBOutlet UILabel *lbFullname;
+@property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;
 
 @end

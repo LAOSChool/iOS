@@ -12,7 +12,14 @@
 
 #import <UIKit/UIKit.h>
 
-//#define QUEUE_UNKNOWN 0
+#define MT_COMMENT @"NX"
+#define MT_ANNOUNCEMENT @"AN"
+#define MT_ATTENDANCE @"AT"
+#define MT_SCORE @"SC"
+
+#define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
+#define NORMAL_IMPORTANCE_COLOR [UIColor greenColor]
+#define HIGH_IMPORTANCE_COLOR [UIColor redColor]
 
 typedef enum {
     MessageIncome = 0,
@@ -29,9 +36,9 @@ typedef enum {
 } MESSAGE_TYPE;
 
 typedef enum {
-    ImportanceLow = 0,
-    ImportanceNormal,
-    ImportanceHight,
+//    ImportanceLow = 0,
+    ImportanceNormal = 0,
+    ImportanceHigh,
     ImportanceTypeMax,
 } IMPORTANCE_TYPE;
 

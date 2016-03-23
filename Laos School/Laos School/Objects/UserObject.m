@@ -43,6 +43,8 @@
         self.classObj = nil;
         self.currentTerm = @"";
         self.classArray = nil;
+        
+        self.selected = YES;
     }
     return self;
 }

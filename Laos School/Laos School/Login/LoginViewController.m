@@ -18,15 +18,15 @@
 #import "AnnouncementViewController.h"
 #import "StudentAttendanceViewController.h"
 #import "TeacherAttendanceViewController.h"
-#import "StudentTimeTableViewController.h"
-#import "TeacherTimeTableViewController.h"
 #import "MoreViewController.h"
 #import "SchoolProfileViewController.h"
+#import "ScoresViewController.h"
 
 #import "ForgotPasswordViewController.h"
 #import "HelpViewController.h"
 
 #import "UserObject.h"
+#import "ShareData.h"
 
 @interface LoginViewController ()
 
@@ -37,6 +37,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [txtUsername setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
+    [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
     
 }
 
@@ -124,6 +127,28 @@
         //for test
         UserObject *userObject = [[UserObject alloc] init];
         
+        userObject.userID = @"1";
+        userObject.username = @"Nguyen Tien Nam";
+        userObject.displayName = @"Nguyen Nam";
+        userObject.nickName = @"Yukan";
+        userObject.avatarPath = @"";
+        userObject.phoneNumber = @"0938912885";
+        userObject.userRole = UserRole_Teacher;
+        userObject.permission = Permission_Normal | Permission_SendMessage;
+        
+        userObject.shoolID = @"2";
+        userObject.schoolName = @"Bach khoa Ha Noi";
+        
+        ClassObject *classObject = [[ClassObject alloc] init];
+        classObject.classID = @"1";
+        classObject.className = @"Dien tu vien thong";
+        classObject.pupilArray = nil;
+        
+        userObject.classObj = classObject;
+        userObject.currentTerm = @"2015 - 2016 Hoc ky 1";
+        userObject.classArray = nil;
+        
+        [[ShareData sharedShareData] setUserObj:userObject];
         
         //Tabbar
         NSArray *tabArray = [self prepareForMaintabViewController];
@@ -148,44 +173,60 @@
     UINavigationController *navMessage = [[UINavigationController alloc] initWithRootViewController:messageViewController];
     
     //for iPad
-    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
-    UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
-    
-    UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
-    [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
-    messageViewController.splitViewController = splitViewController;
-    splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    UISplitViewController *splitViewController = nil;
+    if (IS_IPAD) {
+        MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+        UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
+        
+        splitViewController = [[UISplitViewController alloc] init];
+        [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
+        messageViewController.splitViewController = splitViewController;
+        splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    }
     
     //Announcement
     AnnouncementViewController *announcementViewController = [[AnnouncementViewController alloc] initWithNibName:@"AnnouncementViewController" bundle:nil];
     UINavigationController *navAnnouncement = [[UINavigationController alloc] initWithRootViewController:announcementViewController];
     
-    //Attendance
-//    StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
-//    UINavigationController *navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
-
-    TeacherAttendanceViewController *attendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
-    UINavigationController *navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
-
+    //Scrore
+    ScoresViewController *scoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
+    UINavigationController *navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreViewController];
     
-    //Time table
-    StudentTimeTableViewController *timetableViewController = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
-    UINavigationController *navTimeTable = [[UINavigationController alloc] initWithRootViewController:timetableViewController];
+    
+    //Attendance
+    StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
+
+    TeacherAttendanceViewController *teacherAttendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
+    UINavigationController *navAttendance = nil;
+    
+    if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
+        navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
+    } else {
+        navAttendance = [[UINavigationController alloc] initWithRootViewController:teacherAttendanceViewController];
+    }
     
     //More
     MoreViewController *moreViewController = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
     UINavigationController *navMore = [[UINavigationController alloc] initWithRootViewController:moreViewController];
     
-    //ipad
-    SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
-    UINavigationController *navschoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
+    //for iPad
+    UISplitViewController *splitViewController_More = nil;
+    if (IS_IPAD) {
+        SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
+        UINavigationController *navschoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
+        
+        splitViewController_More = [[UISplitViewController alloc] init];
+        [splitViewController_More setViewControllers:[NSArray arrayWithObjects:navMore, navschoolProfile, nil]];
+        moreViewController.splitViewController = splitViewController_More;
+        splitViewController_More.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    }
     
-    UISplitViewController *splitViewController_More = [[UISplitViewController alloc] init];
-    [splitViewController_More setViewControllers:[NSArray arrayWithObjects:navMore, navschoolProfile, nil]];
-    moreViewController.splitViewController = splitViewController_More;
-    splitViewController_More.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    
-    NSArray *tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navTimeTable, splitViewController_More, nil];
+    NSArray *tabArray = nil;
+    if (IS_IPAD) {
+        tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navScoreView, splitViewController_More, nil];
+    } else {
+        tabArray = [[NSArray alloc] initWithObjects:navMessage, navAnnouncement, navAttendance, navScoreView, navMore, nil];
+    }
     
     return tabArray;
 }

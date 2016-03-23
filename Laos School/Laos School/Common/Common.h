@@ -39,7 +39,7 @@ typedef enum {
 - (NSString *)encodeURL:(NSString *)unencodedURL;
 
 - (UIImage *)scaleAndRotateImage:(UIImage *)image withMaxSize:(int)kMaxResolution;
-- (UIImage *)imageFromText:(NSString *)text;
+- (UIImage *)imageFromText:(NSString *)text withColor:(UIColor*)color;
 - (UIImage *)createImageFromView:(UIView *)view;
 
 - (BOOL)validateEmailWithString:(NSString*)email;

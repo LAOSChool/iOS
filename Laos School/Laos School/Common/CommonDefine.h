@@ -20,9 +20,10 @@
 #define IS_STANDARD_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 736.0)
 #define IS_ZOOMED_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0 && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale < [UIScreen mainScreen].scale)
 
-#define COMMON_COLOR [UIColor colorWithRed:255/255.f green:200/255.f blue:47/255.f alpha:1]
+#define COMMON_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
 #define GREEN_COLOR [UIColor colorWithRed:60/255.f green:159/255.f blue:30/255.f alpha:1]
 #define BLUE_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
+#define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 
 #define SERVER_LINK  @"http://192.168.0.202"
 #define REQUEST_HOME @""

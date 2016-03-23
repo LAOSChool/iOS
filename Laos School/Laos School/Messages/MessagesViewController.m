@@ -17,6 +17,8 @@
 #import "LocalizeHelper.h"
 #import "SVProgressHUD.h"
 
+#import "ShareData.h"
+#import "Common.h"
 
 @interface MessagesViewController ()
 {
@@ -36,10 +38,13 @@
     [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNewMessage)];
-    
-    self.navigationItem.rightBarButtonItems = @[composeButton];
+
+    if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
+        
+        UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNewMessage)];
+        
+        self.navigationItem.rightBarButtonItems = @[composeButton];
+    }
     
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:
                                             [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"), LocalizedString(@"Sent"),
@@ -63,6 +68,26 @@
         messagesArray = [[NSMutableArray alloc] init];
     }
     
+    //for test
+    MessageObject *messObj = [[MessageObject alloc] init];
+    
+    messObj.messsageID = @"1";
+    messObj.subject = @"Nhận xét học tập";
+    messObj.content = @"Con học dốt như bò";
+    messObj.fromID = @"1";
+    messObj.fromUsername = @"Phạm Phương Thảo";
+    messObj.toID = @"2";
+    messObj.toUsername = @"Nguyễn Huyền Trang";
+    messObj.unreadFlag = YES;
+    messObj.incomeOutgoType = MessageIncome;
+    messObj.messageType = MessageComment;
+    messObj.importanceType = ImportanceNormal;
+    messObj.messageTypeIcon = MT_COMMENT;
+    messObj.importanceTypeIcon = @"";
+    messObj.dateTime = @"2016-03-20 16:00";
+    
+    [messagesArray addObject:messObj];
+    
     [SVProgressHUD show];
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(taskQ, ^{
@@ -74,7 +99,7 @@
             [messagesTableView reloadData];
             [SVProgressHUD dismiss];
         });
-    });   
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,7 +122,14 @@
 }
 
 - (void)composeNewMessage {
-    ComposeViewController *composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+    ComposeViewController *composeViewController = nil;
+    
+    if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
+        composeViewController = [[ComposeViewController alloc] initWithNibName:@"ComposeViewController" bundle:nil];
+        
+    } else {
+        composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+    }
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
     
@@ -141,7 +173,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 65.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,10 +201,27 @@
     
     cell.tag = [messageObj.messsageID integerValue];
     cell.lbSubject.text = messageObj.subject;
-    cell.lbBriefContent.text = messageObj.subject;
+    cell.lbBriefContent.text = messageObj.content;
     cell.lbTime.text = messageObj.dateTime;
+    cell.lbSenderName.text = messageObj.fromUsername;
     
     //set message type icon and importance icon
+    cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:[UIColor blueColor]];
+    if (messageObj.importanceType == ImportanceHigh) {
+        [cell.btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
+        
+    } else {
+        [cell.btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
+    }
+    
+    
+    if (messageObj.unreadFlag) {
+        [cell.contentView setBackgroundColor:UNREAD_COLOR];
+        [cell setBackgroundColor:UNREAD_COLOR];
+    } else {
+        [cell.contentView setBackgroundColor:READ_COLOR];
+        [cell setBackgroundColor:READ_COLOR];
+    }
     
     return cell;
 }
@@ -193,9 +242,7 @@
     MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
     messageDetailViewController.messageObject = messageObj;
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
-    
-    [self.navigationController pushViewController:nav animated:YES];
+    [self.navigationController pushViewController:messageDetailViewController animated:YES];
     
 }
 
@@ -232,4 +279,22 @@
     }
 }
 
+#pragma mark cell delegate
+- (void)btnFlagClick:(id)sender {
+    MessageTableViewCell *cell = (MessageTableViewCell *)sender;
+    
+    NSIndexPath *indexPath = [messagesTableView indexPathForCell:cell];
+    MessageObject *messageObj = [messagesArray objectAtIndex:indexPath.row];
+    
+    if (messageObj.importanceType == ImportanceNormal) {
+        messageObj.importanceType = ImportanceHigh;
+        
+    } else {
+        messageObj.importanceType = ImportanceNormal;
+    }
+    
+    [messagesTableView beginUpdates];
+    [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [messagesTableView endUpdates];
+}
 @end

@@ -38,7 +38,7 @@
 - (void)setImportanceType:(IMPORTANCE_TYPE) importanceType {
     _importanceType = importanceType;
     
-    if (_importanceType == ImportanceHight) {
+    if (_importanceType == ImportanceHigh) {
         [self setTintColor:[UIColor redColor]];
         
     } else {

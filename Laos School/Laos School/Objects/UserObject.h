@@ -15,16 +15,14 @@
 
 typedef enum {
     UserRole_Student = 0,
-    UserRole_Monitor,
-    UserRole_SubjectTeacher,
-    UserRole_HeadTeacher,
+    UserRole_Teacher,
     UserRole_Max,
 } USER_ROLE;
 
 typedef enum {
     Permission_Normal = 0x00000000,
     Permission_CheckAttendance = 0x00000001,
-    Permission_SendEmail = 0x00000010,
+    Permission_SendMessage = 0x00000010,
     Permission_AddScore = 0x00000100,
     Permission_Max = 0x11111111
 } PERMISSION_GRANTED;
@@ -50,6 +48,9 @@ typedef enum {
 @property (nonatomic, strong) NSString *currentTerm;
 @property (nonatomic, strong) NSArray *classArray; //array of classID that user belong to
 
+
+//use for students list
+@property (nonatomic, assign) BOOL selected;
 @end
 
 #endif

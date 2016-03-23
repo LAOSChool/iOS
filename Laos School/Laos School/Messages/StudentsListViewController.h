@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface StudentsListViewController : UIViewController
+{
+    IBOutlet UITableView *studentsTableView;
+    
+}
 
+@property (nonatomic, strong) NSMutableArray *studentsArray;
 @end

@@ -37,7 +37,7 @@
         self.fromUsername = @"";
         self.toID = @"";
         self.toUsername = @"";
-        self.unreadFlag = NO;
+        self.unreadFlag = YES;
         self.incomeOutgoType = MessageIncome;
         self.messageType = MessageAnnouncement;
         self.importanceType = ImportanceNormal;

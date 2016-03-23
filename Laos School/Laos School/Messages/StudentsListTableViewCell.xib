@@ -30,6 +30,10 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lbAdditionalInfo" destination="hqk-pE-A5T" id="auM-yN-pUv"/>
+                <outlet property="lbFullname" destination="rb5-5O-w6v" id="4RO-jP-CZe"/>
+            </connections>
             <point key="canvasLocation" x="222" y="131"/>
         </tableViewCell>
     </objects>

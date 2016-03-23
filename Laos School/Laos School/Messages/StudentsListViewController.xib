@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudentsListViewController">
             <connections>
+                <outlet property="searchDisplayController" destination="322-TB-fus" id="hrA-7W-tn1"/>
+                <outlet property="studentsTableView" destination="YVU-vD-v3C" id="spL-pQ-iwv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,23 +17,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" id="I7j-hK-nWR">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YVU-vD-v3C">
                     <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="AEE-xr-fnj"/>
                         <outlet property="delegate" destination="-1" id="nuz-rf-Buk"/>
                     </connections>
                 </tableView>
+                <searchBar contentMode="redraw" id="duG-pB-fst">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="acS-tm-Zhf"/>
+                    </connections>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="245" y="291"/>
         </view>
+        <searchDisplayController id="322-TB-fus">
+            <connections>
+                <outlet property="delegate" destination="-1" id="BYR-8Y-Q4k"/>
+                <outlet property="searchBar" destination="duG-pB-fst" id="WpO-io-Gd0"/>
+                <outlet property="searchContentsController" destination="-1" id="6u4-MN-LtY"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="NiH-wG-tZJ"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="l8o-Sd-pVG"/>
+            </connections>
+        </searchDisplayController>
     </objects>
 </document>
