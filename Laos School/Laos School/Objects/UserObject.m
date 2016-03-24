@@ -44,7 +44,7 @@
         self.currentTerm = @"";
         self.classArray = nil;
         
-        self.selected = YES;
+        self.selected = NO;
     }
     return self;
 }

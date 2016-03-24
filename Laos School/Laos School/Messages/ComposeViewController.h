@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageObject.h"
 
 @interface ComposeViewController : UIViewController
+{
+    IBOutlet UILabel *lbTeacherReceiverList;
+    
+    IBOutlet UILabel *lbTo;
+    IBOutlet UIButton *btnAdd;
+    IBOutlet UITextView *txtContent;
+    IBOutlet UITextField *txtSubject;
+    IBOutlet UIButton *btnImportanceFlag;
+}
 
+@property (nonatomic, strong) NSMutableArray *receiverArray;
+@property (nonatomic, strong) MessageObject *messageObject;
 @end

@@ -11,8 +11,9 @@
 @interface StudentsListViewController : UIViewController
 {
     IBOutlet UITableView *studentsTableView;
-    
+    NSMutableArray *studentsArray;
+    IBOutlet UILabel *lbCount;
 }
 
-@property (nonatomic, strong) NSMutableArray *studentsArray;
+@property (nonatomic, strong) NSMutableArray *selectedArray;
 @end

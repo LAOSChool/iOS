@@ -16,6 +16,7 @@
 @interface StudentsListViewController ()
 {
     UIBarButtonItem *btnCheck;
+    NSMutableArray *searchResults;
 }
 @end
 
@@ -27,6 +28,7 @@
     [self setTitle:LocalizedString(@"Students list")];
     
     [self.navigationController setNavigationColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
     
@@ -38,9 +40,17 @@
     
     self.navigationItem.leftBarButtonItems = @[btnClose];
     
-    if (_studentsArray == nil) {
+    if (searchResults == nil) {
+        searchResults = [[NSMutableArray alloc] init];
+    }
+    
+    if (_selectedArray == nil) {
+        _selectedArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (studentsArray == nil) {
         [self activateButtons:NO];
-        _studentsArray = [[NSMutableArray alloc] init];
+        studentsArray = [[NSMutableArray alloc] init];
         
         //load students list
         
@@ -73,13 +83,13 @@
     userObject.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject.classArray = nil;
     
-    userObject.selected = YES;
-    [_studentsArray addObject:userObject];
+    userObject.selected = NO;
+    [studentsArray addObject:userObject];
     
     //student 2
     UserObject *userObject2 = [[UserObject alloc] init];
     
-    userObject2.userID = @"1";
+    userObject2.userID = @"2";
     userObject2.username = @"Nguyen Tien Nam";
     userObject2.displayName = @"Nguyen Nam";
     userObject2.nickName = @"Yukan";
@@ -100,14 +110,13 @@
     userObject2.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject2.classArray = nil;
     
-    userObject2.selected = YES;
-    [_studentsArray addObject:userObject2];
+    userObject2.selected = NO;
+    [studentsArray addObject:userObject2];
     
     //student 3
-    //student 2
     UserObject *userObject3 = [[UserObject alloc] init];
     
-    userObject3.userID = @"1";
+    userObject3.userID = @"3";
     userObject3.username = @"Nguyen Tien Nam";
     userObject3.displayName = @"Nguyen Nam";
     userObject3.nickName = @"Yukan";
@@ -128,13 +137,15 @@
     userObject3.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject3.classArray = nil;
     
-    userObject3.selected = YES;
-    [_studentsArray addObject:userObject3];
+    userObject3.selected = NO;
+    [studentsArray addObject:userObject3];
     
     [self activateButtons:YES];
     
     [self checkSelectedAll];
 #endif
+    
+    [self updateHeaderInfo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,19 +164,16 @@
 */
 
 - (void)checkSelectedAll {
-    BOOL found = NO;
-    for (UserObject *userObj in _studentsArray) {
-        if (userObj.selected == NO) {
-            found = YES;
-            break;
-        }
+    BOOL isEqual = NO;
+    if ([_selectedArray count] == [studentsArray count]) {
+        isEqual = YES;
     }
     
-    if (found == YES) {
-        [btnCheck setTintColor:[UIColor whiteColor]];
+    if (isEqual == YES) {
+        [btnCheck setTintColor:[UIColor blueColor]];
         
     } else {
-        [btnCheck setTintColor:[UIColor blueColor]];
+        [btnCheck setTintColor:[UIColor whiteColor]];
     }
 }
 
@@ -182,11 +190,27 @@
 - (void)doneButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectReceiverCompleted" object:nil];
 }
 
 - (void)checkButtonClick {
+    BOOL isEqual = NO;
+    if ([_selectedArray count] == [studentsArray count]) {
+        isEqual = YES;
+    }
     
+    if (isEqual == YES) {
+        [_selectedArray removeAllObjects];
+        
+    } else {
+        [_selectedArray removeAllObjects];
+        
+        [_selectedArray addObjectsFromArray:studentsArray];
+    }
+    
+    [studentsTableView reloadData];
+    [self checkSelectedAll];
+    [self updateHeaderInfo];
 }
 
 #pragma mark data source
@@ -198,12 +222,39 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [_studentsArray count];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [searchResults count];
+        
+    } else {
+        return [studentsArray count];
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    
+//    NSString *headerTitle = @"";
+//    headerTitle = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
+//
+//    return headerTitle;
+//}
+//
+//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+//    
+//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+//    
+//    header.textLabel.textColor = [UIColor grayColor];
+//    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+//    CGRect headerFrame = header.frame;
+//    header.textLabel.frame = headerFrame;
+//    header.textLabel.textAlignment = NSTextAlignmentLeft;
+//    
+//    header.backgroundView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -216,11 +267,29 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    UserObject *userObject = [_studentsArray objectAtIndex:indexPath.row];
+    UserObject *userObject = nil;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        userObject = [searchResults objectAtIndex:indexPath.row];
+        
+    } else {
+        userObject = [studentsArray objectAtIndex:indexPath.row];
+    }
+    
     cell.lbFullname.text = userObject.username;
     cell.lbAdditionalInfo.text = userObject.nickName;
     
-    if (userObject.selected) {
+    //find this user in selected array
+    BOOL found = NO;
+    
+    for (UserObject *selectedUser in _selectedArray) {
+        if ([selectedUser.userID isEqualToString:userObject.userID]) {
+            found = YES;
+            break;
+        }
+    }
+    
+    if (found) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
     } else {
@@ -235,9 +304,27 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UserObject *userObject = [_studentsArray objectAtIndex:indexPath.row];
+    UserObject *userObject = nil;
     
-    userObject.selected = !userObject.selected;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        userObject = [searchResults objectAtIndex:indexPath.row];
+        
+    } else {
+        userObject = [studentsArray objectAtIndex:indexPath.row];
+    }
+    
+    BOOL found = NO;
+    for (UserObject *selectedUser in _selectedArray) {
+        if ([selectedUser.userID isEqualToString:userObject.userID]) {
+            found = YES;
+            [_selectedArray removeObject:selectedUser];
+            break;
+        }
+    }
+    
+    if (found == NO) {
+        [_selectedArray addObject:userObject];
+    }
     
     [tableView beginUpdates];
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -245,5 +332,58 @@
     
     [self checkSelectedAll];
     
+    [self updateHeaderInfo];
+    
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    
+    if (searchString == nil || searchString.length == 0) {
+        self->searchResults = [studentsArray mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString];
+        //        NSArray *keys = [dataDic allKeys];
+        //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
+        //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
+        NSArray *filterKeys = [studentsArray filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    self.searchDisplayController.searchBar.showsCancelButton = YES;
+    
+    for (UIView *subView in self.searchDisplayController.searchBar.subviews){
+        for (UIView *subView2 in subView.subviews){
+            if([subView2 isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    [studentsTableView reloadData];
+    
+    return YES;
+}
+
+- (void)updateHeaderInfo {
+    lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
 }
 @end
