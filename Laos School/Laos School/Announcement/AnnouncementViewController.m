@@ -8,8 +8,10 @@
 
 #import "AnnouncementViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "CreatePostViewController.h"
 
 #import "LocalizeHelper.h"
+#import "ShareData.h"
 
 @interface AnnouncementViewController ()
 
@@ -23,6 +25,13 @@
     [self setTitle:LocalizedString(@"Announcements")];
     
     [self.navigationController setNavigationColor];
+    
+    if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewAnnouncement)];
+        
+        self.navigationItem.rightBarButtonItems = @[addButton];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,5 +48,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)addNewAnnouncement {
+    CreatePostViewController *composeViewController = nil;
+    
+    composeViewController = [[CreatePostViewController alloc] initWithNibName:@"CreatePostViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    
+}
 
 @end

@@ -24,6 +24,7 @@ typedef enum {
     Permission_CheckAttendance = 0x00000001,
     Permission_SendMessage = 0x00000010,
     Permission_AddScore = 0x00000100,
+    Permission_SendAnnouncement = 0x00001000,
     Permission_Max = 0x11111111
 } PERMISSION_GRANTED;
 
