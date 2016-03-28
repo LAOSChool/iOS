@@ -17,10 +17,6 @@
 #define MT_ATTENDANCE @"AT"
 #define MT_SCORE @"SC"
 
-#define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
-#define NORMAL_IMPORTANCE_COLOR [UIColor greenColor]
-#define HIGH_IMPORTANCE_COLOR [UIColor redColor]
-
 typedef enum {
     MessageIncome = 0,
     MessageOutgo,

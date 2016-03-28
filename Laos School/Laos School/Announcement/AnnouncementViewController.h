@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface AnnouncementViewController : UIViewController
+{
+    
+    IBOutlet UITableView *announcementTableView;
+}
 
+@property (nonatomic, strong) UISplitViewController *splitViewController;
 @end

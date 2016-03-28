@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *caption;
+@property (nonatomic, strong) NSString *filePath;
 
 
 @end

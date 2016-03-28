@@ -25,6 +25,13 @@
 #define BLUE_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 #define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 
+#define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
+#define NORMAL_IMPORTANCE_COLOR [UIColor greenColor]
+#define HIGH_IMPORTANCE_COLOR [UIColor redColor]
+
+#define UNREAD_COLOR [UIColor colorWithRed:212/255.f green:255/255.f blue:194/255.f alpha:1]
+#define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
+
 #define SERVER_LINK  @"http://192.168.0.202"
 #define REQUEST_HOME @""
 

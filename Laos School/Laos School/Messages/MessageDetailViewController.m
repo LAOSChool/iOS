@@ -8,6 +8,7 @@
 
 #import "MessageDetailViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "CommonDefine.h"
 
 @interface MessageDetailViewController ()
 

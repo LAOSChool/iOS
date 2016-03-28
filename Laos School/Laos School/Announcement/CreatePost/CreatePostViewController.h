@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AnnouncementObject.h"
 
 @interface CreatePostViewController : UIViewController
 {
     IBOutlet UIScrollView *mainScrollView;
     IBOutlet UITextView *textViewTitle;
     IBOutlet UITextView *textViewPost;
+    IBOutlet UIBarButtonItem *btnCamera;
     
     IBOutlet UIToolbar *toolbar;
 }
 
-@property(nonatomic, strong) NSString *tripID;
+@property(nonatomic, strong) AnnouncementObject *announcementObject;
+@property(nonatomic, assign) BOOL isViewDetail;
 @end

@@ -16,21 +16,22 @@
     if (self) {
         self.image = nil;
         self.caption = @"";
+        self.filePath = @"";
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     
-    [encoder encodeObject:self.image forKey:@"image"];
     [encoder encodeObject:self.caption forKey:@"caption"];
+    [encoder encodeObject:self.filePath forKey:@"filePath"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) // Superclass init
     {
-        self.image = [decoder decodeObjectForKey:@"image"];
         self.caption = [decoder decodeObjectForKey:@"caption"];
+        self.filePath = [decoder decodeObjectForKey:@"filePath"];
     }
     
     return self;

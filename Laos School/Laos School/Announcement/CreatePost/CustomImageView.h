@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncImageView.h"
 @protocol CustomImageViewDelegate <NSObject>
 
 @optional // Delegate protocols
@@ -21,8 +22,12 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIView *view;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet AsyncImageView *imageView;
 @property (strong, nonatomic) IBOutlet UITextField *txtCaption;
+@property (strong, nonatomic) IBOutlet UIButton *btnClose;
+
+@property(nonatomic, assign) BOOL isViewDetail;
+
 @property(nonatomic, readwrite) id <CustomImageViewDelegate> delegate;
 
 @end

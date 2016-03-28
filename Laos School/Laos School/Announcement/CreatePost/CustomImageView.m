@@ -60,4 +60,15 @@
 - (IBAction)cancelBtnClick:(id)sender {
     [self.delegate cancelBtnClick:self.tag];
 }
+
+- (void)setIsViewDetail:(BOOL)isViewDetail {
+    _isViewDetail = isViewDetail;
+    if (_isViewDetail) {
+        _txtCaption.enabled = NO;
+        _btnClose.enabled = NO;
+    } else {
+        _txtCaption.enabled = YES;
+        _btnClose.enabled = YES;
+    }
+}
 @end

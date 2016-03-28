@@ -36,27 +36,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:LocalizedString(@"New Anouncement")];
+    
     
     [self.navigationController setNavigationColor];
     
     photoArray = [[NSMutableArray alloc] init];
     imageViewArray = [[NSMutableArray alloc] init];
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
-    
-    self.navigationItem.leftBarButtonItems = @[btnCancel];
-    
-    UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:(id)self action:@selector(sendRequestToGetPostLink)];
-    self.navigationItem.rightBarButtonItem = postBarBtn;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    if (_isViewDetail) {
+        [self setTitle:_announcementObject.subject];
+        
+        textViewTitle.text = _announcementObject.subject;
+        textViewPost.text = _announcementObject.content;
+        
+    } else {
+        [self setTitle:LocalizedString(@"New Anouncement")];
+        
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+        
+        self.navigationItem.leftBarButtonItems = @[btnCancel];
+        
+        UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:(id)self action:@selector(sendRequestToGetPostLink)];
+        self.navigationItem.rightBarButtonItem = postBarBtn;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
     
     //scroll content size
     CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
+    
+    textViewPost.userInteractionEnabled = !_isViewDetail;
+    textViewTitle.userInteractionEnabled = !_isViewDetail;
+    btnCamera.enabled = !_isViewDetail;
+    
+    if (_isViewDetail) {
+        for (PhotoObject *photoObj in _announcementObject.imgArray) {
+            [self addImageToDetailView:photoObj];
+        }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -300,6 +321,31 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     //scroll content size
     CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
+    [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
+}
+
+- (void)addImageToDetailView:(PhotoObject *)photo {
+    CGFloat y = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    y = y + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
+    CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, self.view.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
+    
+    CustomImageView * customImageView = [[CustomImageView alloc] initWithFrame:rect];
+    customImageView.isViewDetail = _isViewDetail;
+    //cancel loading previous image for cell
+    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customImageView.imageView];
+    
+    //load the image
+    customImageView.imageView.imageURL = [NSURL URLWithString:photo.filePath];
+
+    customImageView.tag = [imageViewArray count];
+    customImageView.delegate = (id)self;
+    
+    [imageViewArray addObject:customImageView];
+    [mainScrollView addSubview:customImageView];
+    
+    //scroll content size
+    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
 }
 

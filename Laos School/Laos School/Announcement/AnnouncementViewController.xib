@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnnouncementViewController">
             <connections>
+                <outlet property="announcementTableView" destination="v7Y-Nv-jPb" id="pDg-f5-9xj"/>
                 <outlet property="searchDisplayController" destination="Fpg-YZ-g4C" id="92R-sa-Esw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

@@ -9,42 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "AnnouncementObject.h"
 
-/*
- @property (nonatomic, strong) NSString *wordid;
- @property (nonatomic, strong) NSString *question;
- @property (nonatomic, strong) NSString *answers;
- @property (nonatomic, strong) NSString *subcats;
- @property (nonatomic, strong) NSString *status;
- @property (nonatomic, strong) NSString *package;
- @property (nonatomic, strong) NSString *level;
- @property (nonatomic, strong) NSString *queue;
- @property (nonatomic, strong) NSString *due;
- @property (nonatomic, strong) NSString *revCount;
- @property (nonatomic, strong) NSString *lastInterval;
- @property (nonatomic, strong) NSString *eFactor;
- */
+
 @implementation AnnouncementObject
+
+/*
+ @property (nonatomic, strong) NSString *announcementID;
+ @property (nonatomic, strong) NSString *subject;
+ @property (nonatomic, strong) NSString *content;
+ @property (nonatomic, strong) NSString *dateTime;
+ @property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
+ @property (nonatomic, strong) NSMutableArray *imgArray;
+ 
+ */
 
 - (id)init {
     self = [super init];
     if (self) {
-//        self.wordid = @"";
-//        self.gid = @"";
-//        self.question = @"";
-//        self.answers = @"";
-//        self.subcats = @"";
-//        self.status = @"";
-//        self.package = @"";
-//        self.level = @"";
-//        self.queue = @"";
-//        self.due = @"";
-//        self.revCount = @"";
-//        self.lastInterval = @"";
-//        self.eFactor = @"";
-//        self.langEN = @"";
-//        self.langVN = @"";
-//        self.userNote = @"";
-//        self.isFromServer = NO;
+        self.announcementID = @"";
+        self.subject = @"";
+        self.content = @"";
+        self.importanceType = ImportanceNormal;
+        self.dateTime = @"";
+        self.imgArray = [[NSMutableArray alloc] init];
     }
     return self;
 }

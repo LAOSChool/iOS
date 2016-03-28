@@ -12,6 +12,7 @@
 
 #import "LocalizeHelper.h"
 #import "UserObject.h"
+#import "CommonDefine.h"
 
 @interface ComposeViewController ()
 

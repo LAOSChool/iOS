@@ -209,6 +209,8 @@
 		55D6575D1C96933100A0E4F3 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D6575C1C96933100A0E4F3 /* ShareData.m */; };
 		55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D6575E1C96A3F000A0E4F3 /* LoginViewController_iPad.xib */; };
 		55D657611C96C34800A0E4F3 /* TeacherComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D657601C96C34800A0E4F3 /* TeacherComposeViewController.xib */; };
+		55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC79821CA8E8E700F7CF65 /* AnnouncementTableViewCell.m */; };
+		55DC79851CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DC79831CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib */; };
 		55FC71CF1C7C3C8100B0B8D0 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C41C7C3C8100B0B8D0 /* Common.m */; };
 		55FC71D01C7C3C8100B0B8D0 /* CommonAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C61C7C3C8100B0B8D0 /* CommonAlert.m */; };
 		55FC71D11C7C3C8100B0B8D0 /* CommonDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C81C7C3C8100B0B8D0 /* CommonDefine.m */; };
@@ -528,6 +530,9 @@
 		55D6575C1C96933100A0E4F3 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		55D6575E1C96A3F000A0E4F3 /* LoginViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController_iPad.xib; sourceTree = "<group>"; };
 		55D657601C96C34800A0E4F3 /* TeacherComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherComposeViewController.xib; sourceTree = "<group>"; };
+		55DC79811CA8E8E700F7CF65 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
+		55DC79821CA8E8E700F7CF65 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
+		55DC79831CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementTableViewCell.xib; sourceTree = "<group>"; };
 		55FC71C31C7C3C8100B0B8D0 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		55FC71C41C7C3C8100B0B8D0 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		55FC71C51C7C3C8100B0B8D0 /* CommonAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAlert.h; sourceTree = "<group>"; };
@@ -1256,6 +1261,9 @@
 				55797C8B1C8693DA00A0098D /* AnnouncementViewController.h */,
 				55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */,
 				55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */,
+				55DC79811CA8E8E700F7CF65 /* AnnouncementTableViewCell.h */,
+				55DC79821CA8E8E700F7CF65 /* AnnouncementTableViewCell.m */,
+				55DC79831CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib */,
 			);
 			path = Announcement;
 			sourceTree = "<group>";
@@ -1550,6 +1558,7 @@
 				55FC72441C7C599D00B0B8D0 /* LICENSE.txt in Resources */,
 				554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */,
 				55797CA81C86961400A0098D /* TeacherTimeTableViewController.xib in Resources */,
+				55DC79851CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib in Resources */,
 				55797C991C86959500A0098D /* TeacherAttendanceViewController.xib in Resources */,
 				55797CCD1C86D08A00A0098D /* ic_timetable@2x.png in Resources */,
 				55BA86F71C8D74CB000221D7 /* ic_edit_black@3x.png in Resources */,
@@ -1639,6 +1648,7 @@
 				550FD2881C7AF60C009D7159 /* AppDelegate.m in Sources */,
 				55797C981C86959500A0098D /* TeacherAttendanceViewController.m in Sources */,
 				55FC72371C7C599D00B0B8D0 /* NSArray+MK_Block.m in Sources */,
+				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
 				5575ED671CA4EB7C00EFC02C /* WSAssetTableViewController.m in Sources */,
 				55FC72321C7C599D00B0B8D0 /* ViewFrameAccessor.m in Sources */,
 				55FEDB941C841EA800DD0D24 /* MessagesViewController.m in Sources */,

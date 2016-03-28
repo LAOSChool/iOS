@@ -14,27 +14,25 @@
 
 //#define QUEUE_UNKNOWN 0
 
+typedef enum {
+    ImportanceNormal = 0,
+    ImportanceHigh,
+    ImportanceTypeMax,
+} IMPORTANCE_TYPE;
+
 @interface AnnouncementObject : NSObject
 {
     
 }
 
 @property (nonatomic, strong) NSString *announcementID;
-@property (nonatomic, strong) NSString *gid;
-@property (nonatomic, strong) NSString *question;
-@property (nonatomic, strong) NSString *answers;
-@property (nonatomic, strong) NSString *subcats;
-@property (nonatomic, strong) NSString *status;
-@property (nonatomic, strong) NSString *package;
-@property (nonatomic, strong) NSString *level;
-@property (nonatomic, strong) NSString *queue;
-@property (nonatomic, strong) NSString *due;
-@property (nonatomic, strong) NSString *revCount;
-@property (nonatomic, strong) NSString *lastInterval;
-@property (nonatomic, strong) NSString *eFactor;
-@property (nonatomic, strong) NSString *langVN;
-@property (nonatomic, strong) NSString *langEN;
-@property (nonatomic, strong) NSString *userNote;
+@property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *dateTime;
+@property (nonatomic, strong) NSString *senderUser;
+@property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
+@property (nonatomic, strong) NSMutableArray *imgArray;
+@property (nonatomic, assign) BOOL unreadFlag;
 
 @end
 
