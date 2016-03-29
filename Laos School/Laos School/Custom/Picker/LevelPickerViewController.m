@@ -79,13 +79,13 @@
 //        [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
 //    }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
-    
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
     }];
+    
+    [self.delegate btnDoneClick:self withValueReturned:@""];
 }
 
 #pragma mark picker datasource

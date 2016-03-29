@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 
-@interface StudentsListTableViewCell : UITableViewCell
+@interface StudentsListTableViewCell : MGSwipeTableCell
 {
     
 }

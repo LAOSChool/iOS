@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DataPickerViewDelegate <NSObject>
+
+@optional // Delegate protocols
+
+- (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value;
+
+@end
+
 typedef enum {
     Picker_Terms = 0,
     Picker_Classes,
     Picker_Subject,
+    Picker_Section,
     PickerTypeMax
 } PICKER_TYPE;
 
@@ -23,4 +32,6 @@ typedef enum {
 }
 
 @property (nonatomic, assign) PICKER_TYPE pickerType;
+
+@property(nonatomic, readwrite) id <DataPickerViewDelegate> delegate;
 @end

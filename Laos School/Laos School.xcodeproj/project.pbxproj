@@ -149,8 +149,6 @@
 		559509091C99002A00D06158 /* ic_expand.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509061C99002A00D06158 /* ic_expand.png */; };
 		5595090A1C99002A00D06158 /* ic_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509071C99002A00D06158 /* ic_expand@2x.png */; };
 		5595090B1C99002A00D06158 /* ic_expand@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509081C99002A00D06158 /* ic_expand@3x.png */; };
-		5595090F1C991BDC00D06158 /* TeacherAttendanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595090D1C991BDC00D06158 /* TeacherAttendanceTableViewCell.m */; };
-		559509101C991BDC00D06158 /* TeacherAttendanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595090E1C991BDC00D06158 /* TeacherAttendanceTableViewCell.xib */; };
 		559509171C99574200D06158 /* ic_late.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509111C99574200D06158 /* ic_late.png */; };
 		559509181C99574200D06158 /* ic_late@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509121C99574200D06158 /* ic_late@2x.png */; };
 		559509191C99574200D06158 /* ic_late@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509131C99574200D06158 /* ic_late@3x.png */; };
@@ -160,6 +158,8 @@
 		5595091F1C995BE300D06158 /* AttendanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595091D1C995BE300D06158 /* AttendanceObject.m */; };
 		559509231C996B0400D06158 /* ReasonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559509201C996B0400D06158 /* ReasonViewController.m */; };
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
+		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
+		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
 		55B108D01C7FFE4E00EB695C /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CC1C7FFE4E00EB695C /* CustomTextField.m */; };
 		55B108D11C7FFE4E00EB695C /* UIView+CustomUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CE1C7FFE4E00EB695C /* UIView+CustomUIView.m */; };
 		55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108D31C802A3B00EB695C /* ForgotPasswordViewController.m */; };
@@ -457,9 +457,6 @@
 		559509061C99002A00D06158 /* ic_expand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_expand.png; sourceTree = "<group>"; };
 		559509071C99002A00D06158 /* ic_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_expand@2x.png"; sourceTree = "<group>"; };
 		559509081C99002A00D06158 /* ic_expand@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_expand@3x.png"; sourceTree = "<group>"; };
-		5595090C1C991BDC00D06158 /* TeacherAttendanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherAttendanceTableViewCell.h; sourceTree = "<group>"; };
-		5595090D1C991BDC00D06158 /* TeacherAttendanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherAttendanceTableViewCell.m; sourceTree = "<group>"; };
-		5595090E1C991BDC00D06158 /* TeacherAttendanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherAttendanceTableViewCell.xib; sourceTree = "<group>"; };
 		559509111C99574200D06158 /* ic_late.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_late.png; sourceTree = "<group>"; };
 		559509121C99574200D06158 /* ic_late@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_late@2x.png"; sourceTree = "<group>"; };
 		559509131C99574200D06158 /* ic_late@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_late@3x.png"; sourceTree = "<group>"; };
@@ -471,6 +468,9 @@
 		559509201C996B0400D06158 /* ReasonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReasonViewController.m; sourceTree = "<group>"; };
 		559509211C996B0400D06158 /* ReasonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReasonViewController.xib; sourceTree = "<group>"; };
 		559509221C996B0400D06158 /* ReasonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReasonViewController.h; sourceTree = "<group>"; };
+		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
+		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
+		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
 		55B108CB1C7FFE4E00EB695C /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTextField.h; path = "Laos School/Custom/CustomTextField.h"; sourceTree = SOURCE_ROOT; };
 		55B108CC1C7FFE4E00EB695C /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTextField.m; path = "Laos School/Custom/CustomTextField.m"; sourceTree = SOURCE_ROOT; };
 		55B108CD1C7FFE4E00EB695C /* UIView+CustomUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CustomUIView.h"; path = "Laos School/Custom/UIView+CustomUIView.h"; sourceTree = SOURCE_ROOT; };
@@ -953,6 +953,9 @@
 		554769CA1C91805600269EBB /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				55966CEE1CAA68A600D5DBEC /* TimerViewController.h */,
+				55966CEF1CAA68A600D5DBEC /* TimerViewController.m */,
+				55966CF01CAA68A600D5DBEC /* TimerViewController.xib */,
 				554769CB1C91805600269EBB /* LevelPickerViewController.h */,
 				554769CC1C91805600269EBB /* LevelPickerViewController.m */,
 				554769CD1C91805600269EBB /* LevelPickerViewController.xib */,
@@ -1286,9 +1289,6 @@
 				552400F51C883AA900F7D057 /* StuAttendanceTableViewCell.h */,
 				552400F61C883AAA00F7D057 /* StuAttendanceTableViewCell.m */,
 				552400F71C883AAA00F7D057 /* StuAttendanceTableViewCell.xib */,
-				5595090C1C991BDC00D06158 /* TeacherAttendanceTableViewCell.h */,
-				5595090D1C991BDC00D06158 /* TeacherAttendanceTableViewCell.m */,
-				5595090E1C991BDC00D06158 /* TeacherAttendanceTableViewCell.xib */,
 			);
 			path = Attendance;
 			sourceTree = "<group>";
@@ -1590,6 +1590,7 @@
 				559509191C99574200D06158 /* ic_late@3x.png in Resources */,
 				55B108F91C802F1F00EB695C /* HelpViewController.xib in Resources */,
 				55CF10CA1C8573F000DC1AB9 /* ic_send.png in Resources */,
+				55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */,
 				552094531C8932CF004670B3 /* ic_user_black@2x.png in Resources */,
 				558D6DD91CA245CF00EE34BD /* ic_score@2x.png in Resources */,
 				55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */,
@@ -1604,7 +1605,6 @@
 				5520945C1C89852D004670B3 /* ic_school.png in Resources */,
 				5520944F1C8932CF004670B3 /* ic_clock.png in Resources */,
 				5575ED621CA4EB7C00EFC02C /* WSAssetViewSelectionIndicator@2x.png in Resources */,
-				559509101C991BDC00D06158 /* TeacherAttendanceTableViewCell.xib in Resources */,
 				55CF10CE1C8573F000DC1AB9 /* ic_user_gray@2x.png in Resources */,
 				554769BF1C917C9300269EBB /* ic_arrow_up@2x.png in Resources */,
 				557D78D71C97FEA5008096A0 /* ic_uncheck@2x.png in Resources */,
@@ -1636,6 +1636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */,
 				558782481C9010A600365369 /* SchoolInfoViewController.m in Sources */,
 				55B108D11C7FFE4E00EB695C /* UIView+CustomUIView.m in Sources */,
 				55FC722D1C7C599D00B0B8D0 /* UIColor+BButton.m in Sources */,
@@ -1683,7 +1684,6 @@
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
 				55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */,
 				55FC71D21C7C3C8100B0B8D0 /* HTMLHelper.m in Sources */,
-				5595090F1C991BDC00D06158 /* TeacherAttendanceTableViewCell.m in Sources */,
 				556C6E751C92AEB90077F4BE /* UserObject.m in Sources */,
 				5547698F1C9151EC00269EBB /* LaosSchool.xcdatamodeld in Sources */,
 				554769B11C916BE600269EBB /* Messages.m in Sources */,

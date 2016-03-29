@@ -15,5 +15,7 @@
     IBOutlet UIView *viewTableView;
     IBOutlet UIButton *btnExpand;
     
+    IBOutlet UITableView *studentTableView;
+    IBOutlet UISearchBar *searchBar;
 }
 @end
