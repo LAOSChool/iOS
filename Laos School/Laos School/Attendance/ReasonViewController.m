@@ -8,6 +8,7 @@
 
 #import "ReasonViewController.h"
 #import "Common.h"
+#import "CommonDefine.h"
 #import "TagManagerHelper.h"
 
 @interface ReasonViewController ()
@@ -26,6 +27,8 @@
     // Do any additional setup after loading the view from its nib.
     levelsDictionary = [[NSMutableDictionary alloc] init];
     wordList = [[NSMutableArray alloc] init];
+    
+    [navigationView setBackgroundColor:COMMON_COLOR];
 
 }
 
@@ -44,15 +47,15 @@
 }
 */
 - (IBAction)tapGestureHandle:(id)sender {
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.view removeFromSuperview];
-    }];
+    [self dismissReasonView];
 }
 
 - (IBAction)cancelBtnClick:(id)sender {
+    [self dismissReasonView];
     
+}
+
+- (void)dismissReasonView {
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
@@ -94,4 +97,10 @@
 //    
 //    lbLevel7Value.text = [NSString stringWithFormat:@"%lu day(s)", (unsigned long)countStreak];
 }
+
+- (IBAction)btnSendClick:(id)sender {
+    
+    [self dismissReasonView];
+}
+
 @end

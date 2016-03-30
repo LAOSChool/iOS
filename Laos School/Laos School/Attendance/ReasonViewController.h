@@ -10,6 +10,7 @@
 
 @interface ReasonViewController : UIViewController
 {
+    IBOutlet UIView *navigationView;
 
 }
 

@@ -12,6 +12,8 @@
 #import "StudentsListTableViewCell.h"
 #import "LevelPickerViewController.h"
 #import "TimerViewController.h"
+#import "ReasonViewController.h"
+#import "AppDelegate.h"
 
 #import "CommonDefine.h"
 #import "UserObject.h"
@@ -27,6 +29,7 @@
     
     LevelPickerViewController *dataPicker;
     TimerViewController *dateTimePicker;
+    ReasonViewController *reasonView;
 }
 @end
 
@@ -384,73 +387,23 @@
 
 -(BOOL) swipeTableCell:(StudentsListTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
-//    if (_screenType == List_Incoming) {
-//        WordObject *wordObj = nil;
-//        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
-//        if (direction == MGSwipeDirectionRightToLeft && index == 0) {   //Done
-//            NSLog(@"Done");
-//            //update queue value in DB
-//            indexPath = [wordsTableView indexPathForCell:cell];
-//            wordObj = [wordList objectAtIndex:indexPath.row];
-//            
-//            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_DONE];
-//            
-//        } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {   //Ignore
-//            NSLog(@"Ignore");
-//            //update queue value in DB
-//            indexPath = [wordsTableView indexPathForCell:cell];
-//            wordObj = [wordList objectAtIndex:indexPath.row];
-//            
-//            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_SUSPENDED];
-//        }
-//        
-//        if (wordList) {
-//            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
-//            
-//            //remove from buffer
-//            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
-//            
-//            [wordList removeObject:wordObj];
-//            
-//            lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
-//            [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        }
-//        
-//    } else if (_screenType == List_SearchResult ||
-//               _screenType == List_SearchHint ||
-//               _screenType == List_SearchHintHome) {
-//        NSLog(@"Add to learn");
-//        WordObject *wordObj = nil;
-//        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
-//        
-//        indexPath = [wordsTableView indexPathForCell:cell];
-//        wordObj = [wordList objectAtIndex:indexPath.row];
-//        
-//        //update queue value to 3 to consider this word as a new word in DB
-//        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
-//        
-//        if (wordObj.isFromServer) {
-//            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
-//            
-//            //because word-id is blank so need to get again after insert it into db
-//            wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
-//            
-//            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
-//            
-//        } else {
-//            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
-//            
-//            //remove from buffer
-//            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
-//            
-//            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
-//        }
-//        
-//        [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
-//        
-//        return YES;
-//    }
-//    
+    NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
+    UserObject *userObj = [searchResults objectAtIndex:indexPath.row];
+
+    if (direction == MGSwipeDirectionRightToLeft && index == 0) {
+        NSLog(@"btnInform");
+        
+        
+    } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {
+        NSLog(@"btnOff");
+
+    } else if (direction == MGSwipeDirectionRightToLeft && index == 2) {
+        NSLog(@"btnLate");
+
+    }
+    
+    [self displayReasonView];
+
     return NO;  //Don't autohide
 }
 
@@ -532,5 +485,25 @@
 
 - (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value {
     
+}
+
+- (void)displayReasonView {
+    if (reasonView == nil) {
+        reasonView = [[ReasonViewController alloc] initWithNibName:@"ReasonViewController" bundle:nil];
+    }
+    
+    reasonView.view.alpha = 0;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    CGRect rect = appDelegate.window.frame;
+    [reasonView.view setFrame:rect];
+    
+    [appDelegate.window addSubview:reasonView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        reasonView.view.alpha = 1;
+    }];
+
 }
 @end

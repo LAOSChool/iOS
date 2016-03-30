@@ -186,6 +186,8 @@
 		55BA86F71C8D74CB000221D7 /* ic_edit_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86F41C8D74CB000221D7 /* ic_edit_black@3x.png */; };
 		55BA86FB1C8D7710000221D7 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */; };
 		55BA86FC1C8D7710000221D7 /* PersonalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */; };
+		55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */; };
+		55CBB7851CAB93F700308266 /* TeacherScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */; };
 		55CF10BD1C8543AC00DC1AB9 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CF10BB1C8543AC00DC1AB9 /* MessageTableViewCell.m */; };
 		55CF10BE1C8543AC00DC1AB9 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CF10BC1C8543AC00DC1AB9 /* MessageTableViewCell.xib */; };
 		55CF10C21C85571400DC1AB9 /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CF10C01C85571400DC1AB9 /* MessageDetailViewController.m */; };
@@ -502,6 +504,9 @@
 		55BA86F81C8D7710000221D7 /* PersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoViewController.h; sourceTree = "<group>"; };
 		55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
 		55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoViewController.xib; sourceTree = "<group>"; };
+		55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoresViewController.h; sourceTree = "<group>"; };
+		55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoresViewController.m; sourceTree = "<group>"; };
+		55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoresViewController.xib; sourceTree = "<group>"; };
 		55CF10BA1C8543AC00DC1AB9 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		55CF10BB1C8543AC00DC1AB9 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		55CF10BC1C8543AC00DC1AB9 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -1274,9 +1279,9 @@
 		55FC72521C7C620C00B0B8D0 /* Attendance */ = {
 			isa = PBXGroup;
 			children = (
+				559509221C996B0400D06158 /* ReasonViewController.h */,
 				559509201C996B0400D06158 /* ReasonViewController.m */,
 				559509211C996B0400D06158 /* ReasonViewController.xib */,
-				559509221C996B0400D06158 /* ReasonViewController.h */,
 				55797C901C86958000A0098D /* StudentAttendanceViewController.h */,
 				55797C911C86958000A0098D /* StudentAttendanceViewController.m */,
 				55797C921C86958000A0098D /* StudentAttendanceViewController.xib */,
@@ -1313,6 +1318,9 @@
 				557D055D1CA1288000860832 /* ScoresViewController.h */,
 				557D055B1CA1288000860832 /* ScoresViewController.m */,
 				557D055C1CA1288000860832 /* ScoresViewController.xib */,
+				55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */,
+				55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */,
+				55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1626,6 +1634,7 @@
 				55CF10CD1C8573F000DC1AB9 /* ic_user_gray.png in Resources */,
 				554769BC1C917C9300269EBB /* ic_arrow_down@2x.png in Resources */,
 				55CF10D91C857E2D00DC1AB9 /* ic_flag_white.png in Resources */,
+				55CBB7851CAB93F700308266 /* TeacherScoresViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1643,6 +1652,7 @@
 				558782391C8FD0FB00365369 /* SchoolProfileViewController.m in Sources */,
 				55FC72381C7C599D00B0B8D0 /* NSArray+MK_Misc.m in Sources */,
 				55FEDB991C841EC100DD0D24 /* ComposeViewController.m in Sources */,
+				55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */,
 				55FEDB9E1C84365000DD0D24 /* MessageObject.m in Sources */,
 				55D6575A1C9679E200A0E4F3 /* ClassObject.m in Sources */,
 				559509231C996B0400D06158 /* ReasonViewController.m in Sources */,

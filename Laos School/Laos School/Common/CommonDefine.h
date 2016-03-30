@@ -29,9 +29,9 @@
 #define NORMAL_IMPORTANCE_COLOR [UIColor greenColor]
 #define HIGH_IMPORTANCE_COLOR [UIColor redColor]
 
-#define ALERT_COLOR [UIColor redColor]
+#define ALERT_COLOR [UIColor colorWithRed:169/255.f green:31/255.f blue:24/255.f alpha:1]
 #define OFF_COLOR [UIColor lightGrayColor]
-#define LATE_COLOR [UIColor yellowColor]
+#define LATE_COLOR [UIColor colorWithRed:255/255.f green:172/255.f blue:41/255.f alpha:1]
 
 #define UNREAD_COLOR [UIColor colorWithRed:212/255.f green:255/255.f blue:194/255.f alpha:1]
 #define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]

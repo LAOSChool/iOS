@@ -21,6 +21,7 @@
 #import "MoreViewController.h"
 #import "SchoolProfileViewController.h"
 #import "ScoresViewController.h"
+#import "TeacherScoresViewController.h"
 
 #import "ForgotPasswordViewController.h"
 #import "HelpViewController.h"
@@ -189,19 +190,29 @@
     UINavigationController *navAnnouncement = [[UINavigationController alloc] initWithRootViewController:announcementViewController];
     
     //Scrore
-    ScoresViewController *scoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
-    UINavigationController *navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreViewController];
+    UINavigationController *navScoreView = nil;
+    
+    if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
+        ScoresViewController *scoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
+        navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreViewController];
+        
+    } else {
+        TeacherScoresViewController *teacherScoresViewController = [[TeacherScoresViewController alloc] initWithNibName:@"TeacherScoresViewController" bundle:nil];
+        navScoreView = [[UINavigationController alloc] initWithRootViewController:teacherScoresViewController];
+        
+    }
     
     
     //Attendance
-    StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
-
-    TeacherAttendanceViewController *teacherAttendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
     UINavigationController *navAttendance = nil;
     
     if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
+        StudentAttendanceViewController *attendanceViewController = [[StudentAttendanceViewController alloc] initWithNibName:@"StudentAttendanceViewController" bundle:nil];
+        
         navAttendance = [[UINavigationController alloc] initWithRootViewController:attendanceViewController];
+        
     } else {
+        TeacherAttendanceViewController *teacherAttendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
         navAttendance = [[UINavigationController alloc] initWithRootViewController:teacherAttendanceViewController];
     }
     
