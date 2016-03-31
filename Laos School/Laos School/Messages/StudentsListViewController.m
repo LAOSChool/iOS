@@ -279,6 +279,12 @@
     cell.lbFullname.text = userObject.username;
     cell.lbAdditionalInfo.text = userObject.nickName;
     
+    //cancel loading previous image for cell
+    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
+    
+    //load the image
+    cell.imgAvatar.imageURL = [NSURL URLWithString:userObject.avatarPath];
+    
     //find this user in selected array
     BOOL found = NO;
     

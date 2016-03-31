@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MGSwipeTableCell.h"
+#import "AsyncImageView.h"
 
 @interface StudentsListTableViewCell : MGSwipeTableCell
 {
     
 }
+@property (strong, nonatomic) IBOutlet AsyncImageView *imgAvatar;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbFullname;
 @property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;

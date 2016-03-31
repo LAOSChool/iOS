@@ -82,6 +82,8 @@
 		5575ED681CA4EB7D00EFC02C /* WSAssetViewColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED5E1CA4EB7C00EFC02C /* WSAssetViewColumn.m */; };
 		5575ED691CA4EB7D00EFC02C /* WSAssetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED601CA4EB7C00EFC02C /* WSAssetWrapper.m */; };
 		5575ED6C1CA51DC300EFC02C /* AnnouncementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */; };
+		5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */; };
+		5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */; };
 		55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */; };
 		55797C8F1C8693DA00A0098D /* AnnouncementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */; };
 		55797C931C86958000A0098D /* StudentAttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C911C86958000A0098D /* StudentAttendanceViewController.m */; };
@@ -378,6 +380,9 @@
 		5575ED601CA4EB7C00EFC02C /* WSAssetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetWrapper.m; sourceTree = "<group>"; };
 		5575ED6A1CA51DC300EFC02C /* AnnouncementObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementObject.h; sourceTree = "<group>"; };
 		5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementObject.m; sourceTree = "<group>"; };
+		5578C1061CAD00A500C02841 /* TeacherScoresTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoresTableViewCell.h; sourceTree = "<group>"; };
+		5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoresTableViewCell.m; sourceTree = "<group>"; };
+		5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoresTableViewCell.xib; sourceTree = "<group>"; };
 		55797C8B1C8693DA00A0098D /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementViewController.xib; sourceTree = "<group>"; };
@@ -1321,6 +1326,9 @@
 				55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */,
 				55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */,
 				55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */,
+				5578C1061CAD00A500C02841 /* TeacherScoresTableViewCell.h */,
+				5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */,
+				5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1505,6 +1513,7 @@
 				55797CBC1C86D08A00A0098D /* ic_announcement.png in Resources */,
 				557D055F1CA1288000860832 /* ScoresViewController.xib in Resources */,
 				554769C11C917C9300269EBB /* ic_holder.png in Resources */,
+				5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */,
 				55B108E61C802CA200EB695C /* ic_alert.png in Resources */,
 				550FD2A81C7AFAE6009D7159 /* LoginViewController.xib in Resources */,
 				550FD2901C7AF60C009D7159 /* Assets.xcassets in Resources */,
@@ -1660,6 +1669,7 @@
 				55797C981C86959500A0098D /* TeacherAttendanceViewController.m in Sources */,
 				55FC72371C7C599D00B0B8D0 /* NSArray+MK_Block.m in Sources */,
 				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
+				5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */,
 				5575ED671CA4EB7C00EFC02C /* WSAssetTableViewController.m in Sources */,
 				55FC72321C7C599D00B0B8D0 /* ViewFrameAccessor.m in Sources */,
 				55FEDB941C841EA800DD0D24 /* MessagesViewController.m in Sources */,
