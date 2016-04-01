@@ -139,6 +139,8 @@
 		5587824E1C9010B800365369 /* TeacherListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5587824C1C9010B800365369 /* TeacherListViewController.xib */; };
 		558782521C9010FE00365369 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558782501C9010FE00365369 /* SettingsViewController.m */; };
 		558782531C9010FE00365369 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558782511C9010FE00365369 /* SettingsViewController.xib */; };
+		558B78F61CAE2725003F437E /* ScoreObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F41CAE2725003F437E /* ScoreObject.m */; };
+		558B78F91CAE2ABC003F437E /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F71CAE2ABC003F437E /* UserScore.m */; };
 		558D6DD51CA245CF00EE34BD /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DCF1CA245CF00EE34BD /* ic_key.png */; };
 		558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD01CA245CF00EE34BD /* ic_key@2x.png */; };
 		558D6DD71CA245CF00EE34BD /* ic_key@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD11CA245CF00EE34BD /* ic_key@3x.png */; };
@@ -452,6 +454,10 @@
 		5587824F1C9010FD00365369 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		558782501C9010FE00365369 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		558782511C9010FE00365369 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		558B78F41CAE2725003F437E /* ScoreObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreObject.m; sourceTree = "<group>"; };
+		558B78F51CAE2725003F437E /* ScoreObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreObject.h; sourceTree = "<group>"; };
+		558B78F71CAE2ABC003F437E /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScore.m; sourceTree = "<group>"; };
+		558B78F81CAE2ABC003F437E /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScore.h; sourceTree = "<group>"; };
 		558D6DCF1CA245CF00EE34BD /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		558D6DD01CA245CF00EE34BD /* ic_key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@2x.png"; sourceTree = "<group>"; };
 		558D6DD11CA245CF00EE34BD /* ic_key@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@3x.png"; sourceTree = "<group>"; };
@@ -1412,6 +1418,10 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				558B78F81CAE2ABC003F437E /* UserScore.h */,
+				558B78F71CAE2ABC003F437E /* UserScore.m */,
+				558B78F51CAE2725003F437E /* ScoreObject.h */,
+				558B78F41CAE2725003F437E /* ScoreObject.m */,
 				5575ED6A1CA51DC300EFC02C /* AnnouncementObject.h */,
 				5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */,
 				5595091D1C995BE300D06158 /* AttendanceObject.m */,
@@ -1683,9 +1693,11 @@
 				55797CA21C86960100A0098D /* StudentTimeTableViewController.m in Sources */,
 				55BA86FB1C8D7710000221D7 /* PersonalInfoViewController.m in Sources */,
 				557D78CB1C97C8FB008096A0 /* StudentsListTableViewCell.m in Sources */,
+				558B78F61CAE2725003F437E /* ScoreObject.m in Sources */,
 				55CF10DE1C85850300DC1AB9 /* ImportanceFlagButton.m in Sources */,
 				55B108D01C7FFE4E00EB695C /* CustomTextField.m in Sources */,
 				55FC722B1C7C599D00B0B8D0 /* BButton.m in Sources */,
+				558B78F91CAE2ABC003F437E /* UserScore.m in Sources */,
 				5575ED681CA4EB7D00EFC02C /* WSAssetViewColumn.m in Sources */,
 				554769B01C916BE600269EBB /* Messages+CoreDataProperties.m in Sources */,
 				55CF10C21C85571400DC1AB9 /* MessageDetailViewController.m in Sources */,

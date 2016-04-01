@@ -8,8 +8,9 @@
 
 #import "TeacherScoresViewController.h"
 #import "LevelPickerViewController.h"
-#import "StudentsListTableViewCell.h"
-#import "UserObject.h"
+#import "TeacherScoresTableViewCell.h"
+#import "UserScore.h"
+#import "ScoreObject.h"
 
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
@@ -35,6 +36,62 @@
     [self setTitle:LocalizedString(@"Scores")];
     
     isShowingViewInfo = YES;
+    
+    if (studentsArray == nil) {
+        studentsArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (searchResults == nil) {
+        searchResults = [[NSMutableArray alloc] init];
+    }
+    
+    //for test
+    UserScore *userScore = [[UserScore alloc] init];
+    userScore.userID = @"1";
+    userScore.username = @"Nguyen Thi Nga";
+    userScore.averageScore = @"9";
+    
+    ScoreObject *scoreObj1 = [[ScoreObject alloc] init];
+    scoreObj1.scoreID = @"1";
+    scoreObj1.scoreType = @"He so 1";
+    scoreObj1.score = @"9";
+    scoreObj1.weight = 1;
+    
+    [userScore.scoreArray addObject:scoreObj1];
+    
+    //score 2
+    ScoreObject *scoreObj2 = [[ScoreObject alloc] init];
+    scoreObj2.scoreID = @"2";
+    scoreObj2.scoreType = @"He so 1";
+    scoreObj2.score = @"10";
+    scoreObj1.weight = 1;
+    
+    [userScore.scoreArray addObject:scoreObj2];
+    
+    //score 3
+    ScoreObject *scoreObj3 = [[ScoreObject alloc] init];
+    scoreObj3.scoreID = @"3";
+    scoreObj3.scoreType = @"He so 2";
+    scoreObj3.score = @"9";
+    scoreObj3.weight = 2;
+    
+    [userScore.scoreArray addObject:scoreObj3];
+    
+    //score 4
+    ScoreObject *scoreObj4 = [[ScoreObject alloc] init];
+    scoreObj4.scoreID = @"4";
+    scoreObj4.scoreType = @"Final exam";
+    scoreObj4.score = @"9";
+    scoreObj4.weight = 3;
+    
+    [userScore.scoreArray addObject:scoreObj4];
+    
+    [studentsArray addObject:userScore];
+    
+    [searchResults addObjectsFromArray:studentsArray];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,7 +194,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 100.0;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -163,22 +220,74 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *studentsListAttandanceCellIdentifier = @"StudentsListCellIdentifier";
+    static NSString *teacherScoresCellIdentifier = @"TeacherScoresCellIdentifier";
     
-    StudentsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:studentsListAttandanceCellIdentifier];
+    TeacherScoresTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:teacherScoresCellIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudentsListTableViewCell" owner:nil options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TeacherScoresTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    UserObject *userObject = nil;
+    UserScore *userScoreObject = nil;
     
-    userObject = [searchResults objectAtIndex:indexPath.row];
+    userScoreObject = [searchResults objectAtIndex:indexPath.row];
     
-    cell.lbFullname.text = userObject.username;
-    cell.lbAdditionalInfo.text = userObject.nickName;
+    cell.lbFullname.text = userScoreObject.username;
+    cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
+
+    NSMutableDictionary *scoreGroupedByType = [[NSMutableDictionary alloc] init];
+    NSArray *keyArr = nil;
     
+    for (ScoreObject *scoreObject in userScoreObject.scoreArray) {
+        NSMutableArray *arr = [scoreGroupedByType objectForKey:scoreObject.scoreType];
+        
+        if (arr == nil) {
+            arr = [[NSMutableArray alloc] init];
+        }
+        [arr addObject:scoreObject.score];
+        
+        [scoreGroupedByType setObject:arr forKey:scoreObject.scoreType];
+    }
+    
+    keyArr = [scoreGroupedByType allKeys];
+    keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
+    NSString *score1 = @"";
+    NSString *score2 = @"";
+    NSString *finalTest = @"";
+    
+    for (int i = 0; i < [keyArr count]; i++) {
+        NSString *key = [keyArr objectAtIndex:i];
+        
+        if (i == 0) {
+            score1 = [NSString stringWithFormat:@"%@: ",key];
+            
+            for (NSString *score in [scoreGroupedByType objectForKey:key]) {
+                score1 = [score1 stringByAppendingFormat:@"%@   ", score];
+            }
+            
+        } else if (i == 1) {
+            score2 = [NSString stringWithFormat:@"%@: ",key];
+            
+            for (NSString *score in [scoreGroupedByType objectForKey:key]) {
+                score2 = [score2 stringByAppendingFormat:@"%@   ", score];
+            }
+            
+        } else if (i == 2) {
+            finalTest = [NSString stringWithFormat:@"%@: ",key];
+            
+            for (NSString *score in [scoreGroupedByType objectForKey:key]) {
+                finalTest = [finalTest stringByAppendingFormat:@"%@   ", score];
+            }
+        }
+    }
+    
+    cell.lbScore1.text = score1;
+    cell.lbScore2.text = score2;
+    cell.lbScoreFinalTest.text = finalTest;
+    cell.lbAverage.text = userScoreObject.averageScore;
+
     return cell;
 }
 
