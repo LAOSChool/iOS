@@ -365,5 +365,9 @@
     [synthesizer speakUtterance:utterance];
 }
 
-
+- (NSString *)getDeviceUUID {
+    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    return uniqueIdentifier;
+}
 @end

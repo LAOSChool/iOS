@@ -50,5 +50,7 @@ typedef enum {
 
 - (void)textToSpeech:(NSString *)text withRate:(float)rate;
 
+- (NSString *)getDeviceUUID;
+
 @end
 #endif

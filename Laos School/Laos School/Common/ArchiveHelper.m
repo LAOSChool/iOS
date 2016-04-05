@@ -7,6 +7,7 @@
 //
 
 #import "ArchiveHelper.h"
+#import "CommonDefine.h"
 #import "UIKit/UIKit.h"
 
 // Singleton
@@ -131,6 +132,17 @@ static ArchiveHelper* sharedArchiveHelper = nil;
             }
         }
     });
+}
+
+- (void)saveAuthKey:(NSString *)authKey {
+    [self saveDataToUserDefaultStandard:authKey withKey:KEY_AUTH_KEY];
+}
+
+- (NSString *)loadAuthKey {
+    NSString *authKey = @"";
+    authKey = [self loadDataFromUserDefaultStandardWithKey:KEY_AUTH_KEY];
+    
+    return authKey;
 }
 
 #pragma mark file operations

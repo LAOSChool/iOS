@@ -36,11 +36,9 @@
 #define UNREAD_COLOR [UIColor colorWithRed:212/255.f green:255/255.f blue:194/255.f alpha:1]
 #define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
 
-#define SERVER_LINK  @"http://192.168.0.202"
-#define REQUEST_HOME @""
 
 //user default keys
-#define KEY_UNDEFINED @""
+#define KEY_AUTH_KEY @"authenkey"
 
 @interface CommonDefine : NSObject
 

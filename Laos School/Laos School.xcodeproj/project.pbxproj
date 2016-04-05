@@ -141,6 +141,7 @@
 		558782531C9010FE00365369 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558782511C9010FE00365369 /* SettingsViewController.xib */; };
 		558B78F61CAE2725003F437E /* ScoreObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F41CAE2725003F437E /* ScoreObject.m */; };
 		558B78F91CAE2ABC003F437E /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F71CAE2ABC003F437E /* UserScore.m */; };
+		558B78FC1CB268D1003F437E /* RequestToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78FB1CB268D1003F437E /* RequestToServer.m */; };
 		558D6DD51CA245CF00EE34BD /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DCF1CA245CF00EE34BD /* ic_key.png */; };
 		558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD01CA245CF00EE34BD /* ic_key@2x.png */; };
 		558D6DD71CA245CF00EE34BD /* ic_key@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD11CA245CF00EE34BD /* ic_key@3x.png */; };
@@ -164,6 +165,7 @@
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
+		55ABB5D91CB39D030035F2E0 /* MSKeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */; };
 		55B108D01C7FFE4E00EB695C /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CC1C7FFE4E00EB695C /* CustomTextField.m */; };
 		55B108D11C7FFE4E00EB695C /* UIView+CustomUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CE1C7FFE4E00EB695C /* UIView+CustomUIView.m */; };
 		55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108D31C802A3B00EB695C /* ForgotPasswordViewController.m */; };
@@ -458,6 +460,8 @@
 		558B78F51CAE2725003F437E /* ScoreObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreObject.h; sourceTree = "<group>"; };
 		558B78F71CAE2ABC003F437E /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScore.m; sourceTree = "<group>"; };
 		558B78F81CAE2ABC003F437E /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScore.h; sourceTree = "<group>"; };
+		558B78FA1CB268D1003F437E /* RequestToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestToServer.h; sourceTree = "<group>"; };
+		558B78FB1CB268D1003F437E /* RequestToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestToServer.m; sourceTree = "<group>"; };
 		558D6DCF1CA245CF00EE34BD /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		558D6DD01CA245CF00EE34BD /* ic_key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@2x.png"; sourceTree = "<group>"; };
 		558D6DD11CA245CF00EE34BD /* ic_key@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@3x.png"; sourceTree = "<group>"; };
@@ -484,6 +488,8 @@
 		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		55ABB5D71CB39D030035F2E0 /* MSKeychainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSKeychainHelper.h; sourceTree = "<group>"; };
+		55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSKeychainHelper.m; sourceTree = "<group>"; };
 		55B108CB1C7FFE4E00EB695C /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTextField.h; path = "Laos School/Custom/CustomTextField.h"; sourceTree = SOURCE_ROOT; };
 		55B108CC1C7FFE4E00EB695C /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTextField.m; path = "Laos School/Custom/CustomTextField.m"; sourceTree = SOURCE_ROOT; };
 		55B108CD1C7FFE4E00EB695C /* UIView+CustomUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CustomUIView.h"; path = "Laos School/Custom/UIView+CustomUIView.h"; sourceTree = SOURCE_ROOT; };
@@ -743,15 +749,16 @@
 		550FD29C1C7AFABD009D7159 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				55ABB5D61CB39CDF0035F2E0 /* Archive */,
 				554769901C9165DD00269EBB /* Coredata */,
 				555250201C7EEE2A0027A4ED /* MyLogger.h */,
 				555250211C7EEE2A0027A4ED /* MyLogger.m */,
+				558B78FA1CB268D1003F437E /* RequestToServer.h */,
+				558B78FB1CB268D1003F437E /* RequestToServer.m */,
 				55FC724E1C7C5F9200B0B8D0 /* LocalizeHelper.h */,
 				55FC724F1C7C5F9200B0B8D0 /* LocalizeHelper.m */,
 				55FC71D81C7C3F8900B0B8D0 /* DateTimeHelper.h */,
 				55FC71D91C7C3F8900B0B8D0 /* DateTimeHelper.m */,
-				55FC71D51C7C3E6300B0B8D0 /* ArchiveHelper.h */,
-				55FC71D61C7C3E6300B0B8D0 /* ArchiveHelper.m */,
 				55FC71C31C7C3C8100B0B8D0 /* Common.h */,
 				55FC71C41C7C3C8100B0B8D0 /* Common.m */,
 				55FC71C51C7C3C8100B0B8D0 /* CommonAlert.h */,
@@ -1083,6 +1090,17 @@
 				5575ED501CA4EB7C00EFC02C /* WSAssetViewSelectionIndicator@2x.png */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		55ABB5D61CB39CDF0035F2E0 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				55FC71D51C7C3E6300B0B8D0 /* ArchiveHelper.h */,
+				55FC71D61C7C3E6300B0B8D0 /* ArchiveHelper.m */,
+				55ABB5D71CB39D030035F2E0 /* MSKeychainHelper.h */,
+				55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */,
+			);
+			name = Archive;
 			sourceTree = "<group>";
 		};
 		55FC71DF1C7C599D00B0B8D0 /* AsyncImageView */ = {
@@ -1711,6 +1729,7 @@
 				554769CE1C91805600269EBB /* LevelPickerViewController.m in Sources */,
 				55FC723B1C7C599D00B0B8D0 /* NSMutableArray+MK_Stack.m in Sources */,
 				55FC72421C7C599D00B0B8D0 /* MGSwipeButton.m in Sources */,
+				558B78FC1CB268D1003F437E /* RequestToServer.m in Sources */,
 				55FC72401C7C599D00B0B8D0 /* MainTabBarViewController.m in Sources */,
 				55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */,
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
@@ -1754,6 +1773,7 @@
 				55FC723D1C7C599D00B0B8D0 /* GKBarGraph.m in Sources */,
 				55FC72391C7C599D00B0B8D0 /* NSMutableArray+MK_Misc.m in Sources */,
 				55797C931C86958000A0098D /* StudentAttendanceViewController.m in Sources */,
+				55ABB5D91CB39D030035F2E0 /* MSKeychainHelper.m in Sources */,
 				55FC72341C7C599D00B0B8D0 /* README.md in Sources */,
 				55FC72291C7C599D00B0B8D0 /* AsyncImageView.m in Sources */,
 			);

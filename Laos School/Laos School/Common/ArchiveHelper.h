@@ -49,6 +49,8 @@
 - (void)savePersonalData:(NSObject *)personObject withKey:(NSString *)key;
 - (NSObject *)loadPersonalDataWithKey:(NSString *)key;
 
+- (void)saveAuthKey:(NSString *)authKey;
+- (NSString *)loadAuthKey;
 
 - (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
 - (NSString *)trashFileAtPath:(NSString *)path;
