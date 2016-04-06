@@ -13,6 +13,7 @@
 #define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws/api"
 #define API_NAME_LOGIN @"/login"
 #define API_NAME_MYPROFILE @"/users/myprofile"
+#define API_NAME_MESSAGELIST @"/messages"
 
 #define HttpOK 200
 #define Accepted 201
@@ -23,7 +24,6 @@
 
 @protocol RequestToServerDelegate <NSObject>
 
-
 @optional // Delegate protocols
 
 - (void)failToConnectToServer;
@@ -33,12 +33,14 @@
 - (void)loginWithWrongUserPassword;
 - (void)didReceiveData:(NSDictionary *)jsonObj;
 @end
+
 @interface RequestToServer : NSObject
 
 // a singleton:
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
 
+- (void)getMessageListToUser:(NSString *)userID;
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
 - (void)postJsonStringToServer:(NSString *)jsonString withApi:(NSString *)api;

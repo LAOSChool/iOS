@@ -82,7 +82,6 @@
     classObject.pupilArray = nil;
     
     userObject.classObj = classObject;
-    userObject.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject.classArray = nil;
     
     userObject.selected = NO;
@@ -109,7 +108,6 @@
     classObject2.pupilArray = nil;
     
     userObject2.classObj = classObject2;
-    userObject2.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject2.classArray = nil;
     
     userObject2.selected = NO;
@@ -136,7 +134,6 @@
     classObject3.pupilArray = nil;
     
     userObject3.classObj = classObject3;
-    userObject3.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject3.classArray = nil;
     
     userObject3.selected = NO;

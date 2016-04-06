@@ -46,7 +46,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *shoolID;    //current shcool
 @property (nonatomic, strong) NSString *schoolName;
 @property (nonatomic, strong) ClassObject *classObj;
-@property (nonatomic, strong) NSString *currentTerm;
 @property (nonatomic, strong) NSArray *classArray; //array of classID that user belong to
 
 

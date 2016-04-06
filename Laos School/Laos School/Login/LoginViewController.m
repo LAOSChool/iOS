@@ -222,21 +222,25 @@
     userObject.username = [jsonObj objectForKey:@"fullname"];
     userObject.displayName = @"";
     userObject.nickName = [jsonObj objectForKey:@"nickname"];
-    userObject.avatarPath = @"";
-    userObject.phoneNumber = @"0938912885";
+    userObject.avatarPath = [jsonObj objectForKey:@"photo"];
+    userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
     userObject.userRole = UserRole_Teacher;
     userObject.permission = Permission_Normal | Permission_SendMessage;
     
-    userObject.shoolID = @"2";
+    userObject.shoolID = [jsonObj objectForKey:@"school_id"];
     userObject.schoolName = @"Bach khoa Ha Noi";
     
     ClassObject *classObject = [[ClassObject alloc] init];
-    classObject.classID = @"1";
-    classObject.className = @"Dien tu vien thong";
+    NSDictionary *classDictionary = [jsonObj objectForKey:@"eclass"];
+    
+    classObject.classID = [classDictionary objectForKey:@"id"];
+    classObject.className = [classDictionary objectForKey:@"title"];
+    classObject.classLocation = [classDictionary objectForKey:@"location"];
+    classObject.currentTerm = [classDictionary objectForKey:@"term"];
+    classObject.currentYear = [classDictionary objectForKey:@"years"];
     classObject.pupilArray = nil;
     
     userObject.classObj = classObject;
-    userObject.currentTerm = @"2015 - 2016 Hoc ky 1";
     userObject.classArray = nil;
     
     [[ShareData sharedShareData] setUserObj:userObject];

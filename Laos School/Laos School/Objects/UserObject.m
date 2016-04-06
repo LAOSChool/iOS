@@ -41,7 +41,6 @@
         self.shoolID = @"";
         self.schoolName = @"";
         self.classObj = nil;
-        self.currentTerm = @"";
         self.classArray = nil;
         
         self.selected = NO;

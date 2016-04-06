@@ -16,6 +16,7 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "SVProgressHUD.h"
+#import "RequestToServer.h"
 
 #import "ShareData.h"
 #import "Common.h"
@@ -24,6 +25,8 @@
 {
     NSMutableArray *messagesArray;
     NSMutableArray *searchResults;
+    
+    RequestToServer *requestToServer;
 }
 @end
 
@@ -68,7 +71,15 @@
         messagesArray = [[NSMutableArray alloc] init];
     }
     
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
+    
+    [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID];
+    
     //for test
+    /*
     MessageObject *messObj = [[MessageObject alloc] init];
     
     messObj.messsageID = @"1";
@@ -100,6 +111,7 @@
             [SVProgressHUD dismiss];
         });
     });
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -296,5 +308,73 @@
     [messagesTableView beginUpdates];
     [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [messagesTableView endUpdates];
+}
+
+
+#pragma mark RequestToServer delegate
+- (void)didReceiveData:(NSDictionary *)jsonObj {
+    NSArray *messagesArray = [jsonObj objectForKey:@"list"];
+    /*
+     {
+     
+     channel = 1;
+     
+     "class_id" = 1;
+     
+     content = "test message";
+     
+     "from_usr_id" = 1;
+     
+     id = 1;
+     
+     "imp_flg" = 1;
+     
+     "is_read" = 1;
+     
+     "is_sent" = 1;
+     
+     other = "ko co gi quan trong";
+     
+     "read_dt" = "2016-03-24 00:00:00.0";
+     
+     "school_id" = 1;
+     
+     "sent_dt" = "2016-03-24 00:00:00.0";
+     
+     "to_usr_id" = 2;
+     
+     },*/
+    for (NSDictionary *messageDict in messagesArray) {
+        MessageObject *messObj = [[MessageObject alloc] init];
+        
+        messObj.messsageID = [messageDict valueForKey:@"id"];
+        messObj.subject = [messageDict valueForKey:@"id"];
+        messObj.content = [messageDict valueForKey:@"content"];
+        messObj.fromID = @"1";
+        messObj.fromUsername = @"Phạm Phương Thảo";
+        messObj.toID = @"2";
+        messObj.toUsername = @"Nguyễn Huyền Trang";
+        messObj.unreadFlag = YES;
+        messObj.incomeOutgoType = MessageIncome;
+        messObj.messageType = MessageComment;
+        messObj.importanceType = ImportanceNormal;
+        messObj.messageTypeIcon = MT_COMMENT;
+        messObj.importanceTypeIcon = @"";
+        messObj.dateTime = @"2016-03-20 16:00";
+        
+        [messagesArray addObject:messObj];
+    }
+}
+
+- (void)failToConnectToServer {
+
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+
+}
+
+- (void)sendPostRequestSuccessfully {
+
 }
 @end

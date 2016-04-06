@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSString *className;
 @property (nonatomic, strong) NSString *teacherID;
 @property (nonatomic, strong) NSString *classLocation;
+@property (nonatomic, strong) NSString *currentTerm;
+@property (nonatomic, strong) NSString *currentYear;
 @property (nonatomic, strong) NSMutableArray *pupilArray;
 
 @end
