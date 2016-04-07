@@ -90,11 +90,9 @@
     messObj.toID = @"2";
     messObj.toUsername = @"Nguyễn Huyền Trang";
     messObj.unreadFlag = YES;
-    messObj.incomeOutgoType = MessageIncome;
     messObj.messageType = MessageComment;
     messObj.importanceType = ImportanceNormal;
     messObj.messageTypeIcon = MT_COMMENT;
-    messObj.importanceTypeIcon = @"";
     messObj.dateTime = @"2016-03-20 16:00";
     
     [messagesArray addObject:messObj];
@@ -211,11 +209,25 @@
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
-    cell.tag = [messageObj.messsageID integerValue];
-    cell.lbSubject.text = messageObj.subject;
-    cell.lbBriefContent.text = messageObj.content;
-    cell.lbTime.text = messageObj.dateTime;
-    cell.lbSenderName.text = messageObj.fromUsername;
+    if (messageObj.messsageID != (id)[NSNull null]) {
+        cell.tag = [messageObj.messsageID integerValue];
+    }
+    
+    if (messageObj.subject != (id)[NSNull null]) {
+        cell.lbSubject.text = messageObj.subject;
+    }
+    
+    if (messageObj.content != (id)[NSNull null]) {
+        cell.lbBriefContent.text = messageObj.content;
+    }
+    
+    if (messageObj.dateTime != (id)[NSNull null]) {
+        cell.lbTime.text = messageObj.dateTime;
+    }
+    
+    if (messageObj.fromUsername != (id)[NSNull null]) {
+        cell.lbSenderName.text = messageObj.fromUsername;
+    }
     
     //set message type icon and importance icon
     cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:[UIColor blueColor]];
@@ -313,57 +325,58 @@
 
 #pragma mark RequestToServer delegate
 - (void)didReceiveData:(NSDictionary *)jsonObj {
-    NSArray *messagesArray = [jsonObj objectForKey:@"list"];
+    NSArray *messages = [jsonObj objectForKey:@"list"];
     /*
      {
-     
      channel = 1;
-     
      "class_id" = 1;
-     
      content = "test message";
-     
+     "from_user_name" = NamNT1;
      "from_usr_id" = 1;
-     
      id = 1;
-     
      "imp_flg" = 1;
-     
      "is_read" = 1;
-     
      "is_sent" = 1;
-     
+     messageType = NX;
+     "msg_type_id" = 1;
      other = "ko co gi quan trong";
-     
      "read_dt" = "2016-03-24 00:00:00.0";
-     
+     schoolName = "Truong Tieu Hoc Thanh Xuan Trung";
      "school_id" = 1;
-     
      "sent_dt" = "2016-03-24 00:00:00.0";
-     
+     title = title;
+     "to_user_name" = Hue1;
      "to_usr_id" = 2;
+     }
      
      },*/
-    for (NSDictionary *messageDict in messagesArray) {
+    for (NSDictionary *messageDict in messages) {
         MessageObject *messObj = [[MessageObject alloc] init];
         
         messObj.messsageID = [messageDict valueForKey:@"id"];
-        messObj.subject = [messageDict valueForKey:@"id"];
+        messObj.subject = [messageDict valueForKey:@"title"];
         messObj.content = [messageDict valueForKey:@"content"];
-        messObj.fromID = @"1";
-        messObj.fromUsername = @"Phạm Phương Thảo";
-        messObj.toID = @"2";
-        messObj.toUsername = @"Nguyễn Huyền Trang";
-        messObj.unreadFlag = YES;
-        messObj.incomeOutgoType = MessageIncome;
+        messObj.fromID = [messageDict valueForKey:@"from_usr_id"];
+        messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
+        messObj.toID = [messageDict valueForKey:@"to_usr_id"];
+        messObj.toUsername = [messageDict valueForKey:@"to_user_name"];
+        messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
         messObj.messageType = MessageComment;
-        messObj.importanceType = ImportanceNormal;
-        messObj.messageTypeIcon = MT_COMMENT;
-        messObj.importanceTypeIcon = @"";
-        messObj.dateTime = @"2016-03-20 16:00";
+        
+        if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
+            messObj.importanceType = ImportanceHigh;
+            
+        } else {
+            messObj.importanceType = ImportanceNormal;
+        }
+        
+        messObj.messageTypeIcon = [messageDict valueForKey:@"messageType"];
+        messObj.dateTime = [messageDict valueForKey:@"sent_dt"];
         
         [messagesArray addObject:messObj];
     }
+    
+    [messagesTableView reloadData];
 }
 
 - (void)failToConnectToServer {
@@ -377,4 +390,9 @@
 - (void)sendPostRequestSuccessfully {
 
 }
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
 @end

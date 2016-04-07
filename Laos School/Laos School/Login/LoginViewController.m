@@ -167,6 +167,21 @@
 }
 
 #pragma mark RequestToServer delegate
+- (void)failToConnectToServer {
+
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+
+}
+
+- (void)sendPostRequestSuccessfully {
+
+}
+
+- (void)loginWithWrongUserPassword {
+
+}
 - (void)loginSuccessfully {
     [requestToServer getMyProfile];
 }
@@ -224,21 +239,23 @@
     userObject.nickName = [jsonObj objectForKey:@"nickname"];
     userObject.avatarPath = [jsonObj objectForKey:@"photo"];
     userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
-    userObject.userRole = UserRole_Teacher;
+    userObject.userRole = UserRole_Student;
     userObject.permission = Permission_Normal | Permission_SendMessage;
     
     userObject.shoolID = [jsonObj objectForKey:@"school_id"];
     userObject.schoolName = @"Bach khoa Ha Noi";
     
     ClassObject *classObject = [[ClassObject alloc] init];
-    NSDictionary *classDictionary = [jsonObj objectForKey:@"eclass"];
+    NSDictionary *classDictionary = [jsonObj objectForKey:@"classes"];
     
-    classObject.classID = [classDictionary objectForKey:@"id"];
-    classObject.className = [classDictionary objectForKey:@"title"];
-    classObject.classLocation = [classDictionary objectForKey:@"location"];
-    classObject.currentTerm = [classDictionary objectForKey:@"term"];
-    classObject.currentYear = [classDictionary objectForKey:@"years"];
-    classObject.pupilArray = nil;
+    if (classDictionary && [classDictionary isKindOfClass:[NSDictionary class]]&& [classDictionary count] > 0) {
+        classObject.classID = [classDictionary objectForKey:@"id"];
+        classObject.className = [classDictionary objectForKey:@"title"];
+        classObject.classLocation = [classDictionary objectForKey:@"location"];
+        classObject.currentTerm = [classDictionary objectForKey:@"term"];
+        classObject.currentYear = [classDictionary objectForKey:@"years"];
+        classObject.pupilArray = nil;
+    }
     
     userObject.classObj = classObject;
     userObject.classArray = nil;

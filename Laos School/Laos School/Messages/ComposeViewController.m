@@ -10,12 +10,16 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "StudentsListViewController.h"
 
+#import "ShareData.h"
+#import "RequestToServer.h"
 #import "LocalizeHelper.h"
 #import "UserObject.h"
 #import "CommonDefine.h"
 
 @interface ComposeViewController ()
-
+{
+    RequestToServer *requestToServer;
+}
 @end
 
 @implementation ComposeViewController
@@ -33,6 +37,11 @@
     
     if (_messageObject == nil) {
         _messageObject = [[MessageObject alloc] init];
+    }
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
     }
     
     UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(sendNewMessage)];
@@ -69,6 +78,50 @@
 }
 
 - (void)sendNewMessage {
+    if ([_receiverArray count] == 0 && [[ShareData sharedShareData] userObj].userRole == UserRole_Student) {
+        [_receiverArray addObject:[[ShareData sharedShareData] userObj].classObj.teacherID];
+    }
+    
+    NSMutableDictionary *messageDict = [[NSMutableDictionary alloc] init];
+    //create message json
+    /*
+     {
+     channel = 1;
+     "class_id" = 1;
+     content = "test message";
+     "from_user_name" = NamNT1;
+     "from_usr_id" = 1;
+     id = 1;
+     "imp_flg" = 1;
+     "is_read" = 1;
+     "is_sent" = 1;
+     messageType = NX;
+     "msg_type_id" = 1;
+     other = "ko co gi quan trong";
+     "read_dt" = "2016-03-24 00:00:00.0";
+     schoolName = "Truong Tieu Hoc Thanh Xuan Trung";
+     "school_id" = 1;
+     "sent_dt" = "2016-03-24 00:00:00.0";
+     title = title;
+     "to_user_name" = Hue1;
+     "to_usr_id" = "2,3,4,5,6";
+     }
+     
+     },*/
+    
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    [messageDict setValue:txtSubject.text forKey:@"title"];
+    [messageDict setValue:txtContent.text forKey:@"content"];
+    
+    if (_messageObject.importanceType == ImportanceHigh) {
+        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"imp_flg"];
+        
+    } else {
+        [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
+    }
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
@@ -120,5 +173,21 @@
     }
     
     lbTeacherReceiverList.text = receiverString;
+}
+
+#pragma mark RequestToServer delegate
+- (void)didReceiveData:(NSDictionary *)jsonObj {
+}
+
+- (void)failToConnectToServer {
+    
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    
+}
+
+- (void)sendPostRequestSuccessfully {
+    
 }
 @end

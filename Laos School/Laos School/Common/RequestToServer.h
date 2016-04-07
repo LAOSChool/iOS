@@ -14,6 +14,7 @@
 #define API_NAME_LOGIN @"/login"
 #define API_NAME_MYPROFILE @"/users/myprofile"
 #define API_NAME_MESSAGELIST @"/messages"
+#define API_NAME_CREATEMESSAGE @"/messages/create"
 
 #define HttpOK 200
 #define Accepted 201
@@ -40,6 +41,7 @@
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
 
+- (void)createMessageWithObject:(NSDictionary *)messageDict;
 - (void)getMessageListToUser:(NSString *)userID;
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;

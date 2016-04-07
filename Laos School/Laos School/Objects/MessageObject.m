@@ -18,11 +18,9 @@
  @property (nonatomic, strong) NSString *toID;
  @property (nonatomic, strong) NSString *toUsername;
  @property (nonatomic, assign) BOOL unreadFlag;
- @property (nonatomic, assign) INCOME_OUTGO_TYPE *incomeOutgoType;
  @property (nonatomic, assign) MESSAGE_TYPE *messageType;
  @property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
  @property (nonatomic, strong) NSString *messageTypeIcon;
- @property (nonatomic, strong) NSString *importanceTypeIcon;
  @property (nonatomic, strong) NSString *dateTime;
  */
 @implementation MessageObject
@@ -38,11 +36,9 @@
         self.toID = @"";
         self.toUsername = @"";
         self.unreadFlag = YES;
-        self.incomeOutgoType = MessageIncome;
         self.messageType = MessageAnnouncement;
         self.importanceType = ImportanceNormal;
         self.messageTypeIcon = @"";
-        self.importanceTypeIcon = @"";
         self.dateTime = @"";
     }
     return self;
@@ -59,11 +55,9 @@
     [encoder encodeObject:self.toID forKey:@"toID"];
     [encoder encodeObject:self.toUsername forKey:@"toUsername"];
     [encoder encodeBool:self.unreadFlag forKey:@"unreadFlag"];
-    [encoder encodeInteger:self.incomeOutgoType forKey:@"incomeOutgoType"];
     [encoder encodeInteger:self.messageType forKey:@"messageType"];
     [encoder encodeInteger:self.importanceType forKey:@"importanceType"];
     [encoder encodeObject:self.messageTypeIcon forKey:@"messageTypeIcon"];
-    [encoder encodeObject:self.importanceTypeIcon forKey:@"importanceTypeIcon"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
 }
 
@@ -78,11 +72,9 @@
         self.toID = [decoder decodeObjectForKey:@"toID"];
         self.toUsername = [decoder decodeObjectForKey:@"toUsername"];
         self.unreadFlag = [decoder decodeBoolForKey:@"unreadFlag"];
-        self.incomeOutgoType = (INCOME_OUTGO_TYPE)[decoder decodeIntegerForKey:@"incomeOutgoType"];
         self.messageType = (MESSAGE_TYPE)[decoder decodeIntegerForKey:@"messageType"];
         self.importanceType = (IMPORTANCE_TYPE)[decoder decodeIntegerForKey:@"importanceType"];
         self.messageTypeIcon = [decoder decodeObjectForKey:@"messageTypeIcon"];
-        self.importanceTypeIcon = [decoder decodeObjectForKey:@"importanceTypeIcon"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
     }
     

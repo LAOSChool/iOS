@@ -18,12 +18,6 @@
 #define MT_SCORE @"SC"
 
 typedef enum {
-    MessageIncome = 0,
-    MessageOutgo,
-    MessageIncomeOutgoMax,
-} INCOME_OUTGO_TYPE;
-
-typedef enum {
     MessageAnnouncement = 0,
     MessageAttendance,
     MessageComment,
@@ -51,11 +45,9 @@ typedef enum {
 @property (nonatomic, strong) NSString *toID;
 @property (nonatomic, strong) NSString *toUsername;
 @property (nonatomic, assign) BOOL unreadFlag;
-@property (nonatomic, assign) INCOME_OUTGO_TYPE incomeOutgoType;
 @property (nonatomic, assign) MESSAGE_TYPE messageType;
 @property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
 @property (nonatomic, strong) NSString *messageTypeIcon;
-@property (nonatomic, strong) NSString *importanceTypeIcon;
 @property (nonatomic, strong) NSString *dateTime;
 
 @end

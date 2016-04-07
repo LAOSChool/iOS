@@ -70,6 +70,23 @@ static RequestToServer* sharedRequestToServer = nil;
     [postDataTask resume];
 }
 
+- (void)createMessageWithObject:(NSDictionary *)messageDict {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATEMESSAGE];
+//    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@", requestString, userID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 - (void)getMessageListToUser:(NSString *)userID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
     requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@", requestString, userID];
