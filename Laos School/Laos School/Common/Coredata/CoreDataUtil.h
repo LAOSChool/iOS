@@ -9,6 +9,7 @@
 #ifndef LaosSchool_CoreDataUtil_h
 #define LaosSchool_CoreDataUtil_h
 #import <CoreData/CoreData.h>
+#import "MessageObject.h"
 
 @interface CoreDataUtil : NSObject
 {
@@ -21,8 +22,7 @@
 +(dispatch_queue_t)getDispatch;
 
 //-(void)insertPhoneType:(PhoneType *)phoneType;
-//-(void)insertContactInfo:(ContactInfoDAO *)contactInfoDAO;
-//-(BOOL)commitInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+-(void)insertNewMessage:(MessageObject *)messageObject;
 //-(NSArray *)getAllContacts;
 
 @end

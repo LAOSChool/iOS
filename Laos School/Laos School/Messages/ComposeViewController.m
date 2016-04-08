@@ -15,6 +15,7 @@
 #import "LocalizeHelper.h"
 #import "UserObject.h"
 #import "CommonDefine.h"
+#import "SVProgressHUD.h"
 
 @interface ComposeViewController ()
 {
@@ -42,6 +43,10 @@
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
+    }
+    
+    if ([[ShareData sharedShareData] userObj].userRole == UserRole_Student) {
+        lbTeacherReceiverList.text = [[ShareData sharedShareData] userObj].classObj.teacherName;
     }
     
     UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(sendNewMessage)];
@@ -112,6 +117,8 @@
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:txtSubject.text forKey:@"title"];
     [messageDict setValue:txtContent.text forKey:@"content"];
     
@@ -121,6 +128,8 @@
     } else {
         [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
     }
+    
+    [requestToServer createMessageWithObject:messageDict];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
@@ -177,6 +186,7 @@
 
 #pragma mark RequestToServer delegate
 - (void)didReceiveData:(NSDictionary *)jsonObj {
+    [SVProgressHUD showSuccessWithStatus:@"Sent"];
 }
 
 - (void)failToConnectToServer {

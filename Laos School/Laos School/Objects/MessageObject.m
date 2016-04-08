@@ -38,7 +38,7 @@
         self.unreadFlag = YES;
         self.messageType = MessageAnnouncement;
         self.importanceType = ImportanceNormal;
-        self.messageTypeIcon = @"";
+        self.messageTypeIcon = @"NX";
         self.dateTime = @"";
     }
     return self;

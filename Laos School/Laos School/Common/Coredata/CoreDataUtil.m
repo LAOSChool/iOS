@@ -53,17 +53,7 @@
     return YES;
 }
 
-//-(void)insertPhoneType:(PhoneType *)phoneType {
-//    PhoneType *pt = [NSEntityDescription
-//                             insertNewObjectForEntityForName:@"PhoneType"
-//                             inManagedObjectContext:self.defaultManagedObjectContext];
-//    
-//    [pt setPhoneType:phoneType.phoneType];
-//    [pt setPhoneTypeID:phoneType.phoneTypeID];
-//    
-//    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
-//}
-//
+
 //-(void)insertContactInfo:(ContactInfoDAO *)contactInfoDAO {
 //    ContactInfo *ct = [NSEntityDescription
 //                     insertNewObjectForEntityForName:@"ContactInfo"

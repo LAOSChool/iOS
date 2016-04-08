@@ -26,7 +26,7 @@
 #define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 
 #define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
-#define NORMAL_IMPORTANCE_COLOR [UIColor greenColor]
+#define NORMAL_IMPORTANCE_COLOR [UIColor lightGrayColor]
 #define HIGH_IMPORTANCE_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
 
 #define ALERT_COLOR [UIColor colorWithRed:169/255.f green:31/255.f blue:24/255.f alpha:1]

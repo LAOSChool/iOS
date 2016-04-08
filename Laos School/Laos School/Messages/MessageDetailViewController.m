@@ -35,10 +35,22 @@
     } else {
         [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
-    lbFromUsername.text = _messageObject.fromUsername;
-    lbDateTime.text = _messageObject.dateTime;
-    lbSubject.text = _messageObject.subject;
-    txtContent.text = _messageObject.content;
+
+    if (_messageObject.subject != (id)[NSNull null]) {
+        lbSubject.text = _messageObject.subject;
+    }
+    
+    if (_messageObject.content != (id)[NSNull null]) {
+        txtContent.text = _messageObject.content;
+    }
+    
+    if (_messageObject.dateTime != (id)[NSNull null]) {
+        lbDateTime.text = _messageObject.dateTime;
+    }
+    
+    if (_messageObject.fromUsername != (id)[NSNull null]) {
+        lbFromUsername.text = _messageObject.fromUsername;
+    }
     
 }
 

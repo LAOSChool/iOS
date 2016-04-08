@@ -209,28 +209,32 @@
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
-    if (messageObj.messsageID != (id)[NSNull null]) {
+    if (messageObj.messsageID) {
         cell.tag = [messageObj.messsageID integerValue];
     }
     
-    if (messageObj.subject != (id)[NSNull null]) {
+    if (messageObj.subject) {
         cell.lbSubject.text = messageObj.subject;
     }
     
-    if (messageObj.content != (id)[NSNull null]) {
+    if (messageObj.content) {
         cell.lbBriefContent.text = messageObj.content;
     }
     
-    if (messageObj.dateTime != (id)[NSNull null]) {
+    if (messageObj.dateTime) {
         cell.lbTime.text = messageObj.dateTime;
     }
     
-    if (messageObj.fromUsername != (id)[NSNull null]) {
+    if (messageObj.fromUsername) {
         cell.lbSenderName.text = messageObj.fromUsername;
     }
     
     //set message type icon and importance icon
-    cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:[UIColor blueColor]];
+    
+    if (messageObj.messageTypeIcon) {
+        cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:[UIColor blueColor]];
+    }
+    
     if (messageObj.importanceType == ImportanceHigh) {
         [cell.btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
         
@@ -353,25 +357,56 @@
     for (NSDictionary *messageDict in messages) {
         MessageObject *messObj = [[MessageObject alloc] init];
         
-        messObj.messsageID = [messageDict valueForKey:@"id"];
-        messObj.subject = [messageDict valueForKey:@"title"];
-        messObj.content = [messageDict valueForKey:@"content"];
-        messObj.fromID = [messageDict valueForKey:@"from_usr_id"];
-        messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
-        messObj.toID = [messageDict valueForKey:@"to_usr_id"];
-        messObj.toUsername = [messageDict valueForKey:@"to_user_name"];
-        messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
-        messObj.messageType = MessageComment;
-        
-        if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
-            messObj.importanceType = ImportanceHigh;
-            
-        } else {
-            messObj.importanceType = ImportanceNormal;
+        if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
+            messObj.messsageID = [messageDict valueForKey:@"id"];
         }
         
-        messObj.messageTypeIcon = [messageDict valueForKey:@"messageType"];
-        messObj.dateTime = [messageDict valueForKey:@"sent_dt"];
+        if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
+            messObj.subject = [messageDict valueForKey:@"title"];
+        }
+        
+        if ([messageDict valueForKey:@"content"] != (id)[NSNull null]) {
+            messObj.content = [messageDict valueForKey:@"content"];
+        }
+        
+        if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
+            messObj.fromID = [messageDict valueForKey:@"from_usr_id"];
+        }
+        
+        if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
+            messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
+        }
+        
+        if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
+            messObj.toID = [messageDict valueForKey:@"to_usr_id"];
+        }
+        
+        if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
+            messObj.toUsername = [messageDict valueForKey:@"to_user_name"];
+        }
+        
+        if ([messageDict valueForKey:@"is_read"] != (id)[NSNull null]) {
+            messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
+        }
+        
+        if ([messageDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
+            if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
+                messObj.importanceType = ImportanceHigh;
+                
+            } else {
+                messObj.importanceType = ImportanceNormal;
+            }
+        }
+        
+        messObj.messageType = MessageComment;
+        
+        if ([messageDict valueForKey:@"messageType"] != (id)[NSNull null]) {
+            messObj.messageTypeIcon = [messageDict valueForKey:@"messageType"];
+        }
+        
+        if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
+            messObj.dateTime = [messageDict valueForKey:@"sent_dt"];
+        }
         
         [messagesArray addObject:messObj];
     }

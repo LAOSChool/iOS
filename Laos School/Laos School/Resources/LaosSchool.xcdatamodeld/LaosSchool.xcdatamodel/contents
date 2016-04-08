@@ -6,7 +6,6 @@
         <attribute name="fromID" attributeType="String" syncable="YES"/>
         <attribute name="fromUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="importanceType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="incomeOutgoType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="messageID" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,8 +13,7 @@
         <attribute name="toUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadFlag" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
-    <fetchRequest name="FetchRequest" entity="Messages" predicateString="unreadFlag == 0"/>
     <elements>
-        <element name="Messages" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Messages" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>

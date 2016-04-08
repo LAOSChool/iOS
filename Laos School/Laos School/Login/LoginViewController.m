@@ -246,15 +246,19 @@
     userObject.schoolName = @"Bach khoa Ha Noi";
     
     ClassObject *classObject = [[ClassObject alloc] init];
-    NSDictionary *classDictionary = [jsonObj objectForKey:@"classes"];
-    
-    if (classDictionary && [classDictionary isKindOfClass:[NSDictionary class]]&& [classDictionary count] > 0) {
-        classObject.classID = [classDictionary objectForKey:@"id"];
-        classObject.className = [classDictionary objectForKey:@"title"];
-        classObject.classLocation = [classDictionary objectForKey:@"location"];
-        classObject.currentTerm = [classDictionary objectForKey:@"term"];
-        classObject.currentYear = [classDictionary objectForKey:@"years"];
-        classObject.pupilArray = nil;
+    NSArray *classesArr = [jsonObj objectForKey:@"classes"];
+    if ([classesArr count] > 0) {
+        NSDictionary *classDictionary = [classesArr objectAtIndex:0];
+        if (classDictionary) {
+            classObject.classID = [classDictionary valueForKey:@"id"];
+            classObject.className = [classDictionary valueForKey:@"title"];
+            classObject.teacherID = [classDictionary valueForKey:@"head_teacher_id"];
+            classObject.teacherName = [classDictionary valueForKey:@"head_teacher_name"];
+            classObject.classLocation = [classDictionary valueForKey:@"location"];
+            classObject.currentTerm = [classDictionary valueForKey:@"term"];
+            classObject.currentYear = [classDictionary valueForKey:@"years"];
+            classObject.pupilArray = nil;
+        }
     }
     
     userObject.classObj = classObject;

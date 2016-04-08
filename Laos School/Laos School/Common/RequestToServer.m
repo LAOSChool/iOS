@@ -17,7 +17,9 @@
 static RequestToServer* sharedRequestToServer = nil;
 
 @implementation RequestToServer
-
+{
+    
+}
 
 //-------------------------------------------------------------
 // allways return the same singleton
@@ -77,10 +79,19 @@ static RequestToServer* sharedRequestToServer = nil;
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
     // Specify that it will be a POST request
-    [request setHTTPMethod:@"GET"];
+    [request setHTTPMethod:@"POST"];
     [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
     [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError * err;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&err];
+    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [request setValue:[NSString
+                       stringWithFormat:@"%lu", (unsigned long)[myString length]] forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[myString
+                          dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
@@ -93,7 +104,7 @@ static RequestToServer* sharedRequestToServer = nil;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
-    // Specify that it will be a POST request
+    // Specify that it will be a GET request
     [request setHTTPMethod:@"GET"];
     [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
     [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
@@ -156,8 +167,9 @@ static RequestToServer* sharedRequestToServer = nil;
                 if ([[[response URL] lastPathComponent] isEqualToString:@"login"]) {
                     if ([response respondsToSelector:@selector(allHeaderFields)]) {
                         NSDictionary *dictionary = [response allHeaderFields];
-                        
-                        [[ArchiveHelper sharedArchiveHelper] saveAuthKey:[dictionary valueForKey:@"auth_key"]];
+                        NSString *authKey = [dictionary valueForKey:@"auth_key"];
+
+                        [[ArchiveHelper sharedArchiveHelper] saveAuthKey:authKey];
                         [self loginSuccessfully];
                     }
                 }
@@ -168,6 +180,8 @@ static RequestToServer* sharedRequestToServer = nil;
                 break;
                 
             default:
+                
+                NSLog(@"error code ::  %ld", (long)response.statusCode);
                 [self sendPostRequestFailedWithUnknownError];
                 break;
                 
