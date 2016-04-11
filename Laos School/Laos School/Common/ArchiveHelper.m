@@ -8,6 +8,7 @@
 
 #import "ArchiveHelper.h"
 #import "CommonDefine.h"
+#import "MSKeychainHelper.h"
 #import "UIKit/UIKit.h"
 
 // Singleton
@@ -135,14 +136,29 @@ static ArchiveHelper* sharedArchiveHelper = nil;
 }
 
 - (void)saveAuthKey:(NSString *)authKey {
-    [self saveDataToUserDefaultStandard:authKey withKey:KEY_AUTH_KEY];
+    [MSKeychainHelper savePassword:authKey forUsername:KEY_AUTH_KEY];
 }
 
 - (NSString *)loadAuthKey {
     NSString *authKey = @"";
-    authKey = [self loadDataFromUserDefaultStandardWithKey:KEY_AUTH_KEY];
+    NSDictionary *credentials = [MSKeychainHelper getCredentials];
+    
+    if (credentials) {
+        authKey = [credentials valueForKey:@"password"];
+    }
     
     return authKey;
+}
+
+- (void)saveUsername:(NSString *)username {
+    [self saveDataToUserDefaultStandard:username withKey:KEY_USERNAME];
+}
+
+- (NSString *)loadUsername {
+    NSString *username = @"";
+    username = [self loadDataFromUserDefaultStandardWithKey:KEY_USERNAME];
+    
+    return username;
 }
 
 #pragma mark file operations

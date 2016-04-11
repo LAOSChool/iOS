@@ -328,7 +328,7 @@
 
 
 #pragma mark RequestToServer delegate
-- (void)didReceiveData:(NSDictionary *)jsonObj {
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     NSArray *messages = [jsonObj objectForKey:@"list"];
     /*
      {

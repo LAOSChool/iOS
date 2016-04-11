@@ -18,7 +18,7 @@ static RequestToServer* sharedRequestToServer = nil;
 
 @implementation RequestToServer
 {
-    
+    NSMutableData *responseData;
 }
 
 //-------------------------------------------------------------
@@ -147,9 +147,6 @@ static RequestToServer* sharedRequestToServer = nil;
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     [connection start];
-    
-    //save user/pass, remove if login failed
-    [MSKeychainHelper savePassword:username forUsername:password];
 }
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
@@ -161,50 +158,53 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
 {
-    
-        switch (response.statusCode) {
-            case HttpOK:
-                if ([[[response URL] lastPathComponent] isEqualToString:@"login"]) {
-                    if ([response respondsToSelector:@selector(allHeaderFields)]) {
-                        NSDictionary *dictionary = [response allHeaderFields];
-                        NSString *authKey = [dictionary valueForKey:@"auth_key"];
+    responseData = [[NSMutableData alloc] init];
+    switch (response.statusCode) {
+        case HttpOK:
+            if ([[[response URL] lastPathComponent] isEqualToString:@"login"]) {
+                if ([response respondsToSelector:@selector(allHeaderFields)]) {
+                    NSDictionary *dictionary = [response allHeaderFields];
+                    NSString *authKey = [dictionary valueForKey:@"auth_key"];
 
-                        [[ArchiveHelper sharedArchiveHelper] saveAuthKey:authKey];
-                        [self loginSuccessfully];
-                    }
+                    [[ArchiveHelper sharedArchiveHelper] saveAuthKey:authKey];
+                    [self loginSuccessfully];
                 }
-                break;
-             
-            case BadCredentials:
-                [self loginWithWrongUserPassword];
-                break;
-                
-            default:
-                
-                NSLog(@"error code ::  %ld", (long)response.statusCode);
-                [self sendPostRequestFailedWithUnknownError];
-                break;
-                
-        }
+            }
+            break;
+         
+        case BadCredentials:
+            [self loginWithWrongUserPassword];
+            break;
+            
+        default:
+            
+            NSLog(@"error code ::  %ld", (long)response.statusCode);
+            [self sendPostRequestFailedWithUnknownError];
+            break;
+            
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSError *error;
-    NSDictionary *jsonObj = nil;
     if (data) {
-        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-        if (error == nil && [jsonObj count] > 0) {
-            [self.delegate didReceiveData:jsonObj];
-            
-        }
+        [responseData appendData:data];
     }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    NSError *error;
+    NSDictionary *jsonObj = nil;
+    if (responseData) {
 
+        jsonObj = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+        
+        if (error == nil && [jsonObj count] > 0) {
+            [self.delegate connectionDidFinishLoading:jsonObj];
+            
+        }
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)inError

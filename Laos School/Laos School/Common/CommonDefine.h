@@ -39,6 +39,7 @@
 
 //user default keys
 #define KEY_AUTH_KEY @"authenkey"
+#define KEY_USERNAME @"usernamekey"
 
 @interface CommonDefine : NSObject
 

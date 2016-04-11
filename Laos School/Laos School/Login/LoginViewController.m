@@ -30,6 +30,8 @@
 
 #import "UserObject.h"
 #import "ShareData.h"
+#import "ArchiveHelper.h"
+#import "SVProgressHUD.h"
 
 @interface LoginViewController ()
 {
@@ -51,6 +53,14 @@
         requestToServer.delegate = (id)self;
     }
     
+    NSString *username = [[ArchiveHelper sharedArchiveHelper] loadUsername];
+    
+    if (username && username.length > 0) {
+        txtUsername.text = username;
+        
+        [SVProgressHUD show];
+        [requestToServer getMyProfile];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,8 +132,7 @@
     
     if (username.length == 0 || txtPassword.text.length == 0) {
         //show alert invalid
-//        res = NO;
-        res = YES;//for test
+        res = NO;
     }
     
     return res;
@@ -132,6 +141,8 @@
 - (void)login {
     if ([self validateInputs]) {
         NSString *username = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtUsername.text];
+        
+        [[ArchiveHelper sharedArchiveHelper] saveUsername:username];
         
         [requestToServer loginWithUsername:username andPassword:txtPassword.text];
         
@@ -168,26 +179,30 @@
 
 #pragma mark RequestToServer delegate
 - (void)failToConnectToServer {
-
+    [SVProgressHUD dismiss];
+    [self showAlertFailedToConnectToServer];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-
+    [SVProgressHUD dismiss];
+    [self showAlertUnknowError];
 }
 
 - (void)sendPostRequestSuccessfully {
-
+    [SVProgressHUD dismiss];
 }
 
 - (void)loginWithWrongUserPassword {
-
+    [SVProgressHUD dismiss];
+    
+    [self showAlertWrongUsernamePassword];
 }
 - (void)loginSuccessfully {
     [requestToServer getMyProfile];
 }
 
-- (void)didReceiveData:(NSDictionary *)jsonObj {
-    
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
     /*
      {
      addr1 = "<null>";
@@ -253,7 +268,7 @@
             classObject.classID = [classDictionary valueForKey:@"id"];
             classObject.className = [classDictionary valueForKey:@"title"];
             classObject.teacherID = [classDictionary valueForKey:@"head_teacher_id"];
-            classObject.teacherName = [classDictionary valueForKey:@"head_teacher_name"];
+            classObject.teacherName = [classDictionary valueForKey:@"headTeacherName"];
             classObject.classLocation = [classDictionary valueForKey:@"location"];
             classObject.currentTerm = [classDictionary valueForKey:@"term"];
             classObject.currentYear = [classDictionary valueForKey:@"years"];
@@ -356,6 +371,27 @@
 - (void)showAlertInvalidInputs {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your user name and password!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 1;
+    
+    [alert show];
+}
+
+- (void)showAlertWrongUsernamePassword {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Username or password is incorrect!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)showAlertFailedToConnectToServer {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)showAlertUnknowError {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 3;
     
     [alert show];
 }

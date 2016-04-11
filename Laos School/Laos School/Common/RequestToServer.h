@@ -32,7 +32,7 @@
 - (void)sendPostRequestSuccessfully;
 - (void)loginSuccessfully;
 - (void)loginWithWrongUserPassword;
-- (void)didReceiveData:(NSDictionary *)jsonObj;
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj;
 @end
 
 @interface RequestToServer : NSObject

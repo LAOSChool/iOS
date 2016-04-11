@@ -52,6 +52,9 @@
 - (void)saveAuthKey:(NSString *)authKey;
 - (NSString *)loadAuthKey;
 
+- (void)saveUsername:(NSString *)username;
+- (NSString *)loadUsername;
+
 - (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
 - (NSString *)trashFileAtPath:(NSString *)path;
 - (void)emptyTrash;

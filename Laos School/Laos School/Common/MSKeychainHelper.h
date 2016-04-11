@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
-#define serviceName @"spicecall"
+#define serviceName @"LaosSchool"
 
 @interface MSKeychainHelper : NSObject
 

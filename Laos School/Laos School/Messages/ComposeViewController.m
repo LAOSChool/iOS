@@ -185,7 +185,7 @@
 }
 
 #pragma mark RequestToServer delegate
-- (void)didReceiveData:(NSDictionary *)jsonObj {
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD showSuccessWithStatus:@"Sent"];
 }
 
