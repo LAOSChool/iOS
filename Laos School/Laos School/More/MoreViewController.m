@@ -20,6 +20,7 @@
 #import "LocalizeHelper.h"
 #import "Common.h"
 #import "UIView+CustomUIView.h"
+#import "ArchiveHelper.h"
 
 @interface MoreViewController ()
 
@@ -288,6 +289,10 @@
 }
 
 - (void)backTologinScreen {
+    //clear authen key
+    [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
+    
+    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     LoginViewController *loginView = nil;
     

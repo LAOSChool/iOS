@@ -24,6 +24,8 @@
     
     [self.navigationController setNavigationColor];
     
+    [txtPhonenumber setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_phone_gray"]];
+    
     UIBarButtonItem *btnSave = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveInfo)];
     
     self.navigationItem.rightBarButtonItems = @[btnSave];

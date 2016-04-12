@@ -150,6 +150,10 @@ static ArchiveHelper* sharedArchiveHelper = nil;
     return authKey;
 }
 
+- (void)clearAuthKey {
+    [MSKeychainHelper clearCredentials];
+}
+
 - (void)saveUsername:(NSString *)username {
     [self saveDataToUserDefaultStandard:username withKey:KEY_USERNAME];
 }

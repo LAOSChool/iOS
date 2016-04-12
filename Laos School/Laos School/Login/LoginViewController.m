@@ -44,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.view setBackgroundColor:COMMON_COLOR];
     
     [txtUsername setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
     [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
@@ -53,10 +54,13 @@
         requestToServer.delegate = (id)self;
     }
     
+    NSString *authkey = [[ArchiveHelper sharedArchiveHelper] loadAuthKey];
     NSString *username = [[ArchiveHelper sharedArchiveHelper] loadUsername];
     
-    if (username && username.length > 0) {
-        txtUsername.text = username;
+    if (authkey && authkey.length > 0) {
+        if (username && username.length > 0) {
+            txtUsername.text = username;
+        }
         
         [SVProgressHUD show];
         [requestToServer getMyProfile];

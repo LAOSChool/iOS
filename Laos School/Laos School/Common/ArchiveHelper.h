@@ -51,6 +51,7 @@
 
 - (void)saveAuthKey:(NSString *)authKey;
 - (NSString *)loadAuthKey;
+- (void)clearAuthKey;
 
 - (void)saveUsername:(NSString *)username;
 - (NSString *)loadUsername;

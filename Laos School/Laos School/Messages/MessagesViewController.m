@@ -12,6 +12,7 @@
 #import "MessageDetailViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "ComposeViewController.h"
+#import "MessagesConversationViewController.h"
 
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
@@ -267,10 +268,13 @@
         messageObj = [messagesArray objectAtIndex:indexPath.row];
     }
     
-    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
-    messageDetailViewController.messageObject = messageObj;
+//    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+//    messageDetailViewController.messageObject = messageObj;
+//    
+//    [self.navigationController pushViewController:messageDetailViewController animated:YES];
     
-    [self.navigationController pushViewController:messageDetailViewController animated:YES];
+    MessagesConversationViewController *vc = [MessagesConversationViewController messagesViewController];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

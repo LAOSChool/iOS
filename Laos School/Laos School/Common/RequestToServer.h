@@ -10,11 +10,12 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
-#define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws/api"
+#define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws"
 #define API_NAME_LOGIN @"/login"
-#define API_NAME_MYPROFILE @"/users/myprofile"
-#define API_NAME_MESSAGELIST @"/messages"
-#define API_NAME_CREATEMESSAGE @"/messages/create"
+#define API_NAME_MYPROFILE @"/api/users/myprofile"
+#define API_NAME_MESSAGELIST @"/api/messages"
+#define API_NAME_CREATEMESSAGE @"/api/messages/create"
+#define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
 
 #define HttpOK 200
 #define Accepted 201
@@ -41,11 +42,12 @@
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
 
+- (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber;
 - (void)createMessageWithObject:(NSDictionary *)messageDict;
 - (void)getMessageListToUser:(NSString *)userID;
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
-- (void)postJsonStringToServer:(NSString *)jsonString withApi:(NSString *)api;
+
 
 @property(nonatomic, readwrite) id <RequestToServerDelegate> delegate;
 @end

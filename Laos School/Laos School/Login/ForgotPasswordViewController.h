@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTextField.h"
 
 @interface ForgotPasswordViewController : UIViewController
-
+{
+    IBOutlet UILabel *lbGuide1;
+    IBOutlet UILabel *lbGuide2;
+    
+    IBOutlet CustomTextField *txtUsername;
+    IBOutlet CustomTextField *txtPhonenumber;
+    IBOutlet UIButton *btnSubmit;
+}
 @end

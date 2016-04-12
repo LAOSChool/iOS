@@ -44,32 +44,20 @@ static RequestToServer* sharedRequestToServer = nil;
     return self;
 }
 
-- (void)postJsonStringToServer:(NSString *)jsonString withApi:(NSString *)api {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, api];
+- (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_RESET_FORGOT_PASS];
+    requestString = [NSString stringWithFormat:@"%@?sso_id=%@&phone=%@", requestString, username, phonenumber];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
     // Specify that it will be a POST request
     [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"auth_key"       : [self getAPIKey],
-                                                   @"Content-Type"  : @"application/json"
-                                                   };
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-    [request setValue:[NSString
-                       stringWithFormat:@"%lu", (unsigned long)[jsonString length]] forHTTPHeaderField:@"Content-length"];
-    
-    [request setHTTPBody:[jsonString
-                          dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        // The server answers with an error because it doesn't receive the params
-        NSLog(@"%@ :: %@", response, error);
-    }];
-    [postDataTask resume];
+    [connection start];
 }
 
 - (void)createMessageWithObject:(NSDictionary *)messageDict {

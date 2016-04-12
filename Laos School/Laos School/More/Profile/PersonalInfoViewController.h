@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTextField.h"
 
 @interface PersonalInfoViewController : UIViewController
 {
-    IBOutlet UITextField *txtPhonenumber;
+    IBOutlet CustomTextField *txtPhonenumber;
     IBOutlet UIImageView *imgAvatar;
     
 }
