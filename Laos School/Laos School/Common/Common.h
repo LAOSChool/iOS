@@ -10,6 +10,7 @@
 #ifndef ImportContact_common_h
 #define ImportContact_common_h
 #import "CommonDefine.h"
+#import "DateTimeHelper.h"
 #import <UIKit/UIKit.h>
 
 

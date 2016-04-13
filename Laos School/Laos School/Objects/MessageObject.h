@@ -37,6 +37,8 @@ typedef enum {
     
 }
 
+- (id)initWithMessageDictionary:(NSDictionary *)messageDict;
+
 @property (nonatomic, strong) NSString *messsageID;
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *content;

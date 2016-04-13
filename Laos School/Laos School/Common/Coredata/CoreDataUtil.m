@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CoreDataUtil.h"
+#import "Messages+CoreDataProperties.h"
 
 
 @implementation CoreDataUtil
@@ -54,31 +55,42 @@
 }
 
 
-//-(void)insertContactInfo:(ContactInfoDAO *)contactInfoDAO {
-//    ContactInfo *ct = [NSEntityDescription
-//                     insertNewObjectForEntityForName:@"ContactInfo"
-//                     inManagedObjectContext:self.defaultManagedObjectContext];
-//    
-//    [ct setContactID:[NSNumber numberWithInteger:contactInfoDAO.contactID]];
-//    [ct setFirstName:contactInfoDAO.firstName];
-//    [ct setLastName:contactInfoDAO.lastName];
-//    [ct setAvatar:contactInfoDAO.avatar];
-//    
-//    if (contactInfoDAO.phoneNumberArr != nil) {
-//        for (PhoneNumberDAO *phoneNumberDAO in contactInfoDAO.phoneNumberArr) {
-//            PhoneNumber *phoneNumber = [NSEntityDescription
-//                                        insertNewObjectForEntityForName:@"PhoneNumber"
-//                                        inManagedObjectContext:self.defaultManagedObjectContext];
-//            [phoneNumber setPhoneType:phoneNumberDAO.phoneType];
-//            [phoneNumber setPhoneNumber:phoneNumberDAO.phoneNumber];
-//            [phoneNumber setToContactInfo:ct];
-//            
-//            [ct addToPhoneNumberObject:phoneNumber];
-//        }
-//    }
-//    
-//    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
-//}
+- (void)insertNewMessage:(MessageObject *)messageObject {
+    Messages *mess = [NSEntityDescription
+                     insertNewObjectForEntityForName:@"Messages"
+                     inManagedObjectContext:self.defaultManagedObjectContext];
+    /*
+     @property (nullable, nonatomic, retain) NSString *content;
+     @property (nullable, nonatomic, retain) NSString *dateTime;
+     @property (nullable, nonatomic, retain) NSString *fromID;
+     @property (nullable, nonatomic, retain) NSString *fromUsername;
+     @property (nullable, nonatomic, retain) NSNumber *importanceType;
+     @property (nullable, nonatomic, retain) NSString *messageID;
+     @property (nullable, nonatomic, retain) NSNumber *messageType;
+     @property (nullable, nonatomic, retain) NSString *subject;
+     @property (nullable, nonatomic, retain) NSString *toID;
+     @property (nullable, nonatomic, retain) NSString *toUsername;
+     @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+     */
+    [mess setMessageID:[NSNumber numberWithInteger:[messageObject.messsageID integerValue]]];
+    [mess setSubject:messageObject.subject];
+    [mess setContent:messageObject.content];
+    [mess setDateTime:messageObject.dateTime];
+    [mess setFromID:messageObject.fromID];
+    [mess setFromUsername:messageObject.fromUsername];
+    [mess setImportanceType:[NSNumber numberWithInteger:messageObject.importanceType]];
+    [mess setMessageType:[NSNumber numberWithInteger:messageObject.messageType]];
+    [mess setToID:messageObject.toID];
+    [mess setToUsername:messageObject.toUsername];
+    
+    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
+}
+
+- (void)insertMessagesArray:(NSArray *)messageArr {
+    for (MessageObject *messageObj in messageArr) {
+        [self insertNewMessage:messageObj];
+    }
+}
 //
 //-(NSArray *)fetchContactsWithPredicate:(NSPredicate *)predicate {
 //    NSArray *results = nil;

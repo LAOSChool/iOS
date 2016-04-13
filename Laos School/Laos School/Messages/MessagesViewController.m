@@ -21,6 +21,7 @@
 
 #import "ShareData.h"
 #import "Common.h"
+#import "CoreDataUtil.h"
 
 @interface MessagesViewController ()
 {
@@ -199,6 +200,7 @@
     }
     
     cell.delegate = (id)self;
+    [cell.lbSubject setTextColor:TITLE_COLOR];
     
     MessageObject *messageObj = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -233,7 +235,7 @@
     //set message type icon and importance icon
     
     if (messageObj.messageTypeIcon) {
-        cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:[UIColor blueColor]];
+        cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:GREEN_COLOR];
     }
     
     if (messageObj.importanceType == ImportanceHigh) {
@@ -268,13 +270,13 @@
         messageObj = [messagesArray objectAtIndex:indexPath.row];
     }
     
-//    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
-//    messageDetailViewController.messageObject = messageObj;
-//    
-//    [self.navigationController pushViewController:messageDetailViewController animated:YES];
+    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+    messageDetailViewController.messageObject = messageObj;
     
-    MessagesConversationViewController *vc = [MessagesConversationViewController messagesViewController];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:messageDetailViewController animated:YES];
+    
+//    MessagesConversationViewController *vc = [MessagesConversationViewController messagesViewController];
+//    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -374,7 +376,7 @@
         }
         
         if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
-            messObj.fromID = [messageDict valueForKey:@"from_usr_id"];
+            messObj.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
         }
         
         if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
@@ -382,7 +384,7 @@
         }
         
         if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
-            messObj.toID = [messageDict valueForKey:@"to_usr_id"];
+            messObj.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
         }
         
         if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
@@ -409,13 +411,22 @@
         }
         
         if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-            messObj.dateTime = [messageDict valueForKey:@"sent_dt"];
+            messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
         }
         
         [messagesArray addObject:messObj];
     }
     
     [messagesTableView reloadData];
+    
+    dispatch_async([CoreDataUtil getDispatch], ^(){
+
+        [[CoreDataUtil sharedCoreDataUtil] insertMessagesArray:messagesArray];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^(){
+//            
+//        });
+    });
 }
 
 - (void)failToConnectToServer {

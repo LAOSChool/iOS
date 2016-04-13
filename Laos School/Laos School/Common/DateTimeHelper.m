@@ -125,6 +125,11 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZ";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyyMMdd";
         date = [dateFormatter dateFromString:dateStr];
     }
@@ -184,9 +189,9 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     return date;
 }
 
-- (NSString *)stringDateFromString:(NSString *)dateStr {
+- (NSString *)stringDateFromString:(NSString *)dateStr withFormat:(NSString *)formatString {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"dd/MM/yyyy";
+    dateFormatter.dateFormat = formatString;
     NSString *rv = [dateFormatter stringFromDate:[self dateFromString:dateStr]];
     dateFormatter = nil;
     return rv;

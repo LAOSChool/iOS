@@ -16,6 +16,7 @@
 #import "UserObject.h"
 #import "CommonDefine.h"
 #import "SVProgressHUD.h"
+#import "CoreDataUtil.h"
 
 @interface ComposeViewController ()
 {
@@ -187,6 +188,19 @@
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD showSuccessWithStatus:@"Sent"];
+    
+    MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:jsonObj];
+    
+    if (messageObj) {
+        dispatch_async([CoreDataUtil getDispatch], ^(){
+            
+            [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
+            //
+            //        dispatch_async(dispatch_get_main_queue(), ^(){
+            //
+            //        });
+        });
+    }
 }
 
 - (void)failToConnectToServer {

@@ -164,6 +164,10 @@ static RequestToServer* sharedRequestToServer = nil;
             [self loginWithWrongUserPassword];
             break;
             
+        case NonAuthen:
+            [self accountLoginByOtherDevice];
+            break;
+            
         default:
             
             NSLog(@"error code ::  %ld", (long)response.statusCode);
@@ -228,5 +232,9 @@ static RequestToServer* sharedRequestToServer = nil;
 - (void)loginWithWrongUserPassword {
     [MSKeychainHelper clearCredentials];
     [self.delegate loginWithWrongUserPassword];
+}
+
+- (void)accountLoginByOtherDevice {
+    [self.delegate accountLoginByOtherDevice];
 }
 @end

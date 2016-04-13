@@ -44,6 +44,62 @@
     return self;
 }
 
+- (id)initWithMessageDictionary:(NSDictionary *)messageDict {
+    self = [super init];
+    if (self) {
+        if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
+            self.messsageID = [messageDict valueForKey:@"id"];
+        }
+        
+        if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
+            self.subject = [messageDict valueForKey:@"title"];
+        }
+        
+        if ([messageDict valueForKey:@"content"] != (id)[NSNull null]) {
+            self.content = [messageDict valueForKey:@"content"];
+        }
+        
+        if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
+            self.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
+        }
+        
+        if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
+            self.fromUsername = [messageDict valueForKey:@"from_user_name"];
+        }
+        
+        if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
+            self.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
+        }
+        
+        if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
+            self.toUsername = [messageDict valueForKey:@"to_user_name"];
+        }
+        
+        if ([messageDict valueForKey:@"is_read"] != (id)[NSNull null]) {
+            self.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
+        }
+        
+        if ([messageDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
+            if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
+                self.importanceType = ImportanceHigh;
+                
+            } else {
+                self.importanceType = ImportanceNormal;
+            }
+        }
+        
+        self.messageType = MessageComment;
+        
+        if ([messageDict valueForKey:@"messageType"] != (id)[NSNull null]) {
+            self.messageTypeIcon = [messageDict valueForKey:@"messageType"];
+        }
+        
+        if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
+            self.dateTime = [messageDict valueForKey:@"sent_dt"];
+        }
+    }
+    return self;
+}
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     
@@ -80,4 +136,5 @@
     
     return self;
 }
+
 @end

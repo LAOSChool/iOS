@@ -205,6 +205,11 @@
     [requestToServer getMyProfile];
 }
 
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
     /*
@@ -399,4 +404,13 @@
     
     [alert show];
 }
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
+    
+    [alert show];
+}
+
+
 @end

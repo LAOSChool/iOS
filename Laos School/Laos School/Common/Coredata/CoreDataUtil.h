@@ -22,7 +22,8 @@
 +(dispatch_queue_t)getDispatch;
 
 //-(void)insertPhoneType:(PhoneType *)phoneType;
--(void)insertNewMessage:(MessageObject *)messageObject;
+- (void)insertNewMessage:(MessageObject *)messageObject;
+- (void)insertMessagesArray:(NSArray *)messageArr;
 //-(NSArray *)getAllContacts;
 
 @end

@@ -6,7 +6,11 @@
         <attribute name="fromID" attributeType="String" syncable="YES"/>
         <attribute name="fromUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="importanceType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="messageID" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="messageID" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="key" value="value"/>
+            </userInfo>
+        </attribute>
         <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toID" attributeType="String" syncable="YES"/>

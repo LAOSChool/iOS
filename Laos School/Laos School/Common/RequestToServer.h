@@ -19,6 +19,7 @@
 
 #define HttpOK 200
 #define Accepted 201
+#define NonAuthen 203
 #define HttpNoResponse 204
 #define RangeReceived 206
 #define BadCredentials 401
@@ -33,6 +34,7 @@
 - (void)sendPostRequestSuccessfully;
 - (void)loginSuccessfully;
 - (void)loginWithWrongUserPassword;
+- (void)accountLoginByOtherDevice;
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj;
 @end
 

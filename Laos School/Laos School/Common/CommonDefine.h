@@ -21,9 +21,10 @@
 #define IS_ZOOMED_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0 && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale < [UIScreen mainScreen].scale)
 
 #define COMMON_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
-#define GREEN_COLOR [UIColor colorWithRed:60/255.f green:159/255.f blue:30/255.f alpha:1]
+#define GREEN_COLOR [UIColor colorWithRed:0/255.f green:162/255.f blue:97/255.f alpha:1]
 #define BLUE_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 #define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
+#define TITLE_COLOR [UIColor colorWithRed:77/255.f green:131/255.f blue:242/255.f alpha:1]
 
 #define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
 #define NORMAL_IMPORTANCE_COLOR [UIColor lightGrayColor]

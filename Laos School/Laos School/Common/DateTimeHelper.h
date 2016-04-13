@@ -20,7 +20,7 @@
 - (NSString *)getNextDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)dateStringFromDate:(NSDate *)date withFormat:(NSString *)formatString;
 - (NSString *)timeStringFromDate:(NSDate *)date;
-- (NSString *)stringDateFromString:(NSString *)dateStr;
+- (NSString *)stringDateFromString:(NSString *)dateStr withFormat:(NSString *)formatString;
 - (NSDate *)dateFromString:(NSString *)dateStr;
 - (NSTimeInterval)getCurrentDatetimeInMinisec;
 - (NSTimeInterval)getBeginOfDayInMinisec;

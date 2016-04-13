@@ -673,6 +673,7 @@
 		55B108F51C802F1F00EB695C /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		55B108F61C802F1F00EB695C /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		55B108F71C802F1F00EB695C /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool_v2.xcdatamodel; sourceTree = "<group>"; };
 		55BA86F21C8D74CB000221D7 /* ic_edit_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_black.png; sourceTree = "<group>"; };
 		55BA86F31C8D74CB000221D7 /* ic_edit_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_black@2x.png"; sourceTree = "<group>"; };
 		55BA86F41C8D74CB000221D7 /* ic_edit_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_black@3x.png"; sourceTree = "<group>"; };
@@ -2362,9 +2363,10 @@
 		5547698D1C9151EC00269EBB /* LaosSchool.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */,
 				5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */,
 			);
-			currentVersion = 5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */;
+			currentVersion = 55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */;
 			path = LaosSchool.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
