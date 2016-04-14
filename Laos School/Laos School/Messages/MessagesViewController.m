@@ -26,9 +26,13 @@
 @interface MessagesViewController ()
 {
     NSMutableArray *messagesArray;
+    NSMutableArray *unreadMessagesArray;
+    NSMutableArray *sentMessagesArray;
     NSMutableArray *searchResults;
     
     RequestToServer *requestToServer;
+    
+    UISegmentedControl *segmentedControl;
 }
 @end
 
@@ -51,7 +55,7 @@
         self.navigationItem.rightBarButtonItems = @[composeButton];
     }
     
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:
                                             [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"), LocalizedString(@"Sent"),
                                              nil]];
     segmentedControl.frame = CGRectMake(0, 0, 210, 30);
@@ -73,18 +77,27 @@
         messagesArray = [[NSMutableArray alloc] init];
     }
     
+    if (unreadMessagesArray == nil) {
+        unreadMessagesArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (sentMessagesArray == nil) {
+        sentMessagesArray = [[NSMutableArray alloc] init];
+    }
+    
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
     
-    [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID];
+    //Load data
+    [self loadData];
     
     //for test
     /*
     MessageObject *messObj = [[MessageObject alloc] init];
     
-    messObj.messsageID = @"1";
+    messObj.messageID = @"1";
     messObj.subject = @"Nhận xét học tập";
     messObj.content = @"Con học dốt như bò";
     messObj.fromID = @"1";
@@ -129,8 +142,115 @@
 }
 */
 
-- (IBAction)segmentAction:(id)sender {
+- (void)loadData {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        //load data from local coredata
+        [self loadMessagesFromCoredata];
+        
+        [self loadNewMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        //load data from local coredata
+        [self loadUnreadMessagesFromCoredata];
+        
+        [self loadUnreadMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        //load data from local coredata
+        [self loadSentMessagesFromCoredata];
+        
+        [self loadSentMessageFromServer];
+        
+    }
+}
 
+#pragma mark load all message
+- (void)loadMessagesFromCoredata {
+    MessageObject *lastMessage = nil;
+    
+    if ([messagesArray count] > 0) {
+        lastMessage = [messagesArray lastObject];   //last object is the oldest message in this array
+        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+    } else {
+        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:nil toUserID:[[ShareData sharedShareData] userObj].userID]];
+    }
+    
+    [self sortMessagesArrayByID:messagesArray];
+    NSLog(@"first");
+}
+
+- (void)loadNewMessageFromServer {
+    //get last message
+    MessageObject *lastMessage = nil;
+    
+    if ([messagesArray count] > 0) {
+        lastMessage = [messagesArray firstObject];
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        
+    } else {
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
+    }
+}
+
+#pragma mark load unread message
+- (void)loadUnreadMessagesFromCoredata {
+    MessageObject *lastMessage = nil;
+    
+    if ([unreadMessagesArray count] > 0) {
+        lastMessage = [unreadMessagesArray lastObject];
+        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+    } else {
+        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:nil toUserID:[[ShareData sharedShareData] userObj].userID]];
+    }
+    
+    [self sortMessagesArrayByID:unreadMessagesArray];
+}
+
+- (void)loadUnreadMessageFromServer {
+    //get last message
+    MessageObject *lastMessage = nil;
+    
+    if ([unreadMessagesArray count] > 0) {
+        lastMessage = [unreadMessagesArray firstObject];
+        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        
+    } else {
+        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
+    }
+}
+
+#pragma mark load all message
+- (void)loadSentMessagesFromCoredata {
+    MessageObject *lastMessage = nil;
+    
+    if ([sentMessagesArray count] > 0) {
+        lastMessage = [sentMessagesArray lastObject];
+        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:lastMessage.messageID fromUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+    } else {
+        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:nil fromUserID:[[ShareData sharedShareData] userObj].userID]];
+    }
+    
+    [self sortMessagesArrayByID:sentMessagesArray];
+}
+
+- (void)loadSentMessageFromServer {
+    //get last message
+    MessageObject *lastMessage = nil;
+    
+    if ([sentMessagesArray count] > 0) {
+        lastMessage = [sentMessagesArray firstObject];
+        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        
+    } else {
+        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
+    }
+}
+
+- (IBAction)segmentAction:(id)sender {
+    [self loadData];
 }
 
 - (void)composeNewMessage {
@@ -180,8 +300,40 @@
         return [searchResults count];
         
     } else {
-        return [messagesArray count];
+        return [self getCountMessages];
     }
+}
+
+- (NSInteger)getCountMessages {
+    NSInteger res = 0;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        res = [messagesArray count];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        res = [unreadMessagesArray count];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        res = [sentMessagesArray count];
+        
+    }
+    
+    return res;
+}
+
+- (MessageObject *)getMessageObjectAtIndex:(NSInteger)index {
+    MessageObject *messageObj = nil;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        messageObj = [messagesArray objectAtIndex:index];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        messageObj = [unreadMessagesArray objectAtIndex:index];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        messageObj = [sentMessagesArray objectAtIndex:index];
+        
+    }
+    
+    return messageObj;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -207,13 +359,13 @@
         messageObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        messageObj = [messagesArray objectAtIndex:indexPath.row];
+        messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
-    if (messageObj.messsageID) {
-        cell.tag = [messageObj.messsageID integerValue];
+    if (messageObj.messageID) {
+        cell.tag = [messageObj.messageID integerValue];
     }
     
     if (messageObj.subject) {
@@ -229,7 +381,11 @@
     }
     
     if (messageObj.fromUsername) {
-        cell.lbSenderName.text = messageObj.fromUsername;
+        if (segmentedControl.selectedSegmentIndex == 2) {
+            cell.lbSenderName.text = messageObj.toUsername;
+        } else {
+            cell.lbSenderName.text = messageObj.fromUsername;
+        }
     }
     
     //set message type icon and importance icon
@@ -267,7 +423,7 @@
         messageObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        messageObj = [messagesArray objectAtIndex:indexPath.row];
+        messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
     MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
@@ -285,20 +441,35 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self->searchResults removeAllObjects]; // First clear the filtered array.
-    
+    NSArray *currentArr = [self currentMessageArray];
     if (searchString == nil || searchString.length == 0) {
-        self->searchResults = [messagesArray mutableCopy];
+        self->searchResults = [currentArr mutableCopy];
         
     } else {
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
         //        NSArray *keys = [dataDic allKeys];
         //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
         //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [messagesArray filteredArrayUsingPredicate:filterPredicate];
+        NSArray *filterKeys = [currentArr filteredArrayUsingPredicate:filterPredicate];
         self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
     }
     // Return YES to cause the search result table view to be reloaded.
     return YES;
+}
+
+- (NSArray *)currentMessageArray {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        return messagesArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        return unreadMessagesArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        return sentMessagesArray;
+        
+    }
+    
+    return [[NSMutableArray alloc] init];
 }
 
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
@@ -318,7 +489,7 @@
     MessageTableViewCell *cell = (MessageTableViewCell *)sender;
     
     NSIndexPath *indexPath = [messagesTableView indexPathForCell:cell];
-    MessageObject *messageObj = [messagesArray objectAtIndex:indexPath.row];
+    MessageObject *messageObj = [self getMessageObjectAtIndex:indexPath.row];
     
     if (messageObj.importanceType == ImportanceNormal) {
         messageObj.importanceType = ImportanceHigh;
@@ -336,6 +507,7 @@
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     NSArray *messages = [jsonObj objectForKey:@"list"];
+    NSMutableArray *newArr = [[NSMutableArray alloc] init];
     /*
      {
      channel = 1;
@@ -360,73 +532,121 @@
      }
      
      },*/
-    for (NSDictionary *messageDict in messages) {
-        MessageObject *messObj = [[MessageObject alloc] init];
-        
-        if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
-            messObj.messsageID = [messageDict valueForKey:@"id"];
-        }
-        
-        if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
-            messObj.subject = [messageDict valueForKey:@"title"];
-        }
-        
-        if ([messageDict valueForKey:@"content"] != (id)[NSNull null]) {
-            messObj.content = [messageDict valueForKey:@"content"];
-        }
-        
-        if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
-            messObj.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
-        }
-        
-        if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
-            messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
-        }
-        
-        if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
-            messObj.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
-        }
-        
-        if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
-            messObj.toUsername = [messageDict valueForKey:@"to_user_name"];
-        }
-        
-        if ([messageDict valueForKey:@"is_read"] != (id)[NSNull null]) {
-            messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
-        }
-        
-        if ([messageDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
-            if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
-                messObj.importanceType = ImportanceHigh;
-                
-            } else {
-                messObj.importanceType = ImportanceNormal;
+    NSLog(@"second");
+    if (messages != (id)[NSNull null]) {
+        for (NSDictionary *messageDict in messages) {
+            MessageObject *messObj = [[MessageObject alloc] init];
+            
+            if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
+                messObj.messageID = [messageDict valueForKey:@"id"];
             }
+            
+            if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
+                messObj.subject = [messageDict valueForKey:@"title"];
+            }
+            
+            if ([messageDict valueForKey:@"content"] != (id)[NSNull null]) {
+                messObj.content = [messageDict valueForKey:@"content"];
+            }
+            
+            if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
+                messObj.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
+            }
+            
+            if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
+                messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
+            }
+            
+            if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
+                messObj.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
+            }
+            
+            if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
+                messObj.toUsername = [messageDict valueForKey:@"to_user_name"];
+            }
+            
+            if ([messageDict valueForKey:@"is_read"] != (id)[NSNull null]) {
+                messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
+            }
+            
+            if ([messageDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
+                if ([[messageDict valueForKey:@"imp_flg"] boolValue] == YES) {
+                    messObj.importanceType = ImportanceHigh;
+                    
+                } else {
+                    messObj.importanceType = ImportanceNormal;
+                }
+            }
+            
+            messObj.messageTypeIcon = MT_COMMENT;
+            
+            if ([messageDict valueForKey:@"messageType"] != (id)[NSNull null]) {
+                messObj.messageType = (MESSAGE_TYPE)[[messageDict valueForKey:@"messageType"] integerValue];
+            }
+            
+            if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
+                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
+            }
+            
+            [newArr addObject:messObj];
         }
         
-        messObj.messageType = MessageComment;
-        
-        if ([messageDict valueForKey:@"messageType"] != (id)[NSNull null]) {
-            messObj.messageTypeIcon = [messageDict valueForKey:@"messageType"];
+        if ([newArr count] > 0) {
+            [self insertArrayToArray:newArr];
+            
+            dispatch_async([CoreDataUtil getDispatch], ^(){
+                
+                [[CoreDataUtil sharedCoreDataUtil] insertMessagesArray:newArr];
+                //
+                //        dispatch_async(dispatch_get_main_queue(), ^(){
+                //
+                //        });
+            });
         }
         
-        if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-            messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
-        }
-        
-        [messagesArray addObject:messObj];
+        [self sortMessagesArrayByID];
     }
     
     [messagesTableView reloadData];
-    
-    dispatch_async([CoreDataUtil getDispatch], ^(){
+}
 
-        [[CoreDataUtil sharedCoreDataUtil] insertMessagesArray:messagesArray];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^(){
-//            
-//        });
-    });
+- (void)insertObjectToArray:(MessageObject *)messObj {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [messagesArray addObject:messObj];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [unreadMessagesArray addObject:messObj];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [sentMessagesArray addObject:messObj];
+        
+    }
+}
+
+- (void)insertArrayToArray:(NSArray *)arr {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [messagesArray addObjectsFromArray:arr];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [unreadMessagesArray addObjectsFromArray:arr];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [sentMessagesArray addObjectsFromArray:arr];
+        
+    }
+}
+
+- (void)sortMessagesArrayByID {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [self sortMessagesArrayByID:messagesArray];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [self sortMessagesArrayByID:unreadMessagesArray];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [self sortMessagesArrayByID:sentMessagesArray];
+        
+    }
 }
 
 - (void)failToConnectToServer {
@@ -443,6 +663,25 @@
 
 - (void)loginWithWrongUserPassword {
     
+}
+
+- (void)accountLoginByOtherDevice {
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
+
+- (void)sortMessagesArrayByID:(NSMutableArray *)messArr {
+    NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"messageID" ascending:NO];
+    NSArray *resultArr = [messArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
+    
+    [messArr removeAllObjects];
+    [messArr addObjectsFromArray:resultArr];
 }
 
 @end

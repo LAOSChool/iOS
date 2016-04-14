@@ -86,9 +86,43 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getMessageListToUser:(NSString *)userID {
+- (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@", requestString, userID];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%@", requestString, userID, messageID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%@&filter_is_read=0", requestString, userID, messageID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSString *)messageID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%@", requestString, userID, messageID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

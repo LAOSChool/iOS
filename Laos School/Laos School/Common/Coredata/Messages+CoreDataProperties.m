@@ -2,7 +2,7 @@
 //  Messages+CoreDataProperties.m
 //  Laos School
 //
-//  Created by HuKhong on 4/13/16.
+//  Created by HuKhong on 4/14/16.
 //  Copyright © 2016 com.born2go.laosschool. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -24,5 +24,6 @@
 @dynamic toID;
 @dynamic toUsername;
 @dynamic unreadFlag;
+@dynamic messageTypeIcon;
 
 @end

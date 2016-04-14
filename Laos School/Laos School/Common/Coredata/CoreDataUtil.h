@@ -24,7 +24,8 @@
 //-(void)insertPhoneType:(PhoneType *)phoneType;
 - (void)insertNewMessage:(MessageObject *)messageObject;
 - (void)insertMessagesArray:(NSArray *)messageArr;
-//-(NSArray *)getAllContacts;
-
+- (NSArray *)loadAllMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID;
+- (NSArray *)loadUnreadMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID;
+- (NSArray *)loadSentMessagesFromID:(NSString *)messageID fromUserID:(NSString *)userID;
 @end
 #endif

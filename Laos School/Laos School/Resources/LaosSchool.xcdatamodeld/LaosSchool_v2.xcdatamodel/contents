@@ -12,12 +12,13 @@
             </userInfo>
         </attribute>
         <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="messageTypeIcon" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toID" attributeType="String" syncable="YES"/>
         <attribute name="toUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadFlag" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Messages" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="Messages" positionX="-63" positionY="-18" width="128" height="225"/>
     </elements>
 </model>

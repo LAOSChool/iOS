@@ -10,6 +10,7 @@
 #import "CoreDataUtil.h"
 #import "Messages+CoreDataProperties.h"
 
+#define PAGING_REQUEST 30
 
 @implementation CoreDataUtil
 
@@ -72,7 +73,7 @@
      @property (nullable, nonatomic, retain) NSString *toUsername;
      @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
      */
-    [mess setMessageID:[NSNumber numberWithInteger:[messageObject.messsageID integerValue]]];
+    [mess setMessageID:[NSNumber numberWithInteger:[messageObject.messageID integerValue]]];
     [mess setSubject:messageObject.subject];
     [mess setContent:messageObject.content];
     [mess setDateTime:messageObject.dateTime];
@@ -80,6 +81,7 @@
     [mess setFromUsername:messageObject.fromUsername];
     [mess setImportanceType:[NSNumber numberWithInteger:messageObject.importanceType]];
     [mess setMessageType:[NSNumber numberWithInteger:messageObject.messageType]];
+    [mess setMessageTypeIcon:messageObject.messageTypeIcon];
     [mess setToID:messageObject.toID];
     [mess setToUsername:messageObject.toUsername];
     
@@ -91,25 +93,92 @@
         [self insertNewMessage:messageObj];
     }
 }
-//
-//-(NSArray *)fetchContactsWithPredicate:(NSPredicate *)predicate {
-//    NSArray *results = nil;
-//    if (self.defaultManagedObjectContext) {
-//        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ContactInfo" inManagedObjectContext:self.defaultManagedObjectContext];
-//        
-//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//        [fetchRequest setEntity:entityDescription];
-//        if (predicate != nil) {  // Suspect the check is not required
-//            [fetchRequest setPredicate:predicate];
-//        }
-//        NSError *error;
-//        results = [self.defaultManagedObjectContext executeFetchRequest:fetchRequest error:&error];
-//    }
-//    return results;
-//}
-//
-//-(NSArray *)getAllContacts {
-//    return [self fetchContactsWithPredicate:nil];
-//}
+
+- (NSArray *)fetchMessagesWithPredicate:(NSPredicate *)predicate {
+    NSArray *results = nil;
+    if (self.defaultManagedObjectContext) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:self.defaultManagedObjectContext];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        [fetchRequest setEntity:entityDescription];
+        fetchRequest.fetchLimit = PAGING_REQUEST;
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"messageID" ascending:NO];
+        fetchRequest.sortDescriptors = @[ sortDescriptor ];
+        
+        if (predicate != nil) {  // Suspect the check is not required
+            [fetchRequest setPredicate:predicate];
+        }
+        NSError *error;
+        results = [self.defaultManagedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+    return results;
+}
+
+- (NSArray *)loadAllMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID {
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (messageID == nil) {
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@)", userID];
+        
+    } else {
+    
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d)", userID, [messageID integerValue]];
+        
+        
+    }
+    results = [self fetchMessagesWithPredicate:predicate];
+    
+    return results;
+}
+
+- (NSArray *)loadUnreadMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID {
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (messageID == nil) {
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (unreadFlag == 1)", userID];
+        
+    } else {
+        
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d) AND (unreadFlag == 1)", userID, [messageID integerValue]];
+        
+    }
+    
+    results = [self fetchMessagesWithPredicate:predicate];
+    
+    return results;
+}
+
+- (NSArray *)loadSentMessagesFromID:(NSString *)messageID fromUserID:(NSString *)userID {
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (messageID == nil) {
+        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@)", userID];
+        
+    } else {
+        
+        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@) AND (messageID < %d)", userID, [messageID integerValue]];
+        
+    }
+    
+    results = [self fetchMessagesWithPredicate:predicate];
+    
+    return results;
+}
 
 @end
