@@ -114,7 +114,8 @@
      }
      
      },*/
-    
+    [messageDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
@@ -133,8 +134,6 @@
     [requestToServer createMessageWithObject:messageDict];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
 }
 
 #pragma mark teacher view
@@ -188,18 +187,29 @@
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD showSuccessWithStatus:@"Sent"];
+    NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
-    MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:jsonObj];
-    
-    if (messageObj) {
-        dispatch_async([CoreDataUtil getDispatch], ^(){
+    if (statusCode == HttpOK) {
+        MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:[jsonObj objectForKey:@"messageObject"]];
+        
+        if (messageObj) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
             
-            [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
-            //
-            //        dispatch_async(dispatch_get_main_queue(), ^(){
-            //
-            //        });
-        });
+            dispatch_async([CoreDataUtil getDispatch], ^(){
+                
+                [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
+                //
+                //        dispatch_async(dispatch_get_main_queue(), ^(){
+                //
+                //        });
+            });
+        } else {
+            [self sendMessageFailed];
+        }
+    } else {
+        [self sendMessageFailed];
+        
+        
     }
 }
 
@@ -211,7 +221,21 @@
     
 }
 
-- (void)sendPostRequestSuccessfully {
+- (void)accountLoginByOtherDevice {
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
     
+    [alert show];
+}
+
+- (void)sendMessageFailed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending message. Please try again later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
 }
 @end

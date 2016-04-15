@@ -86,9 +86,9 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID {
+- (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%@", requestString, userID, messageID];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)messageID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -103,9 +103,9 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID {
+- (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%@&filter_is_read=0", requestString, userID, messageID];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0", requestString, userID, (long)messageID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -120,9 +120,9 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSString *)messageID {
+- (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%@", requestString, userID, messageID];
+    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)messageID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -246,17 +246,11 @@ static RequestToServer* sharedRequestToServer = nil;
  }
 
 - (void)failToConnectToServer {
-    [MSKeychainHelper clearCredentials];
     [self.delegate failToConnectToServer];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-    [MSKeychainHelper clearCredentials];
     [self.delegate sendPostRequestFailedWithUnknownError];
-}
-
-- (void)sendPostRequestSuccessfully {
-    [self.delegate sendPostRequestSuccessfully];
 }
 
 - (void)loginSuccessfully {
@@ -264,7 +258,6 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 - (void)loginWithWrongUserPassword {
-    [MSKeychainHelper clearCredentials];
     [self.delegate loginWithWrongUserPassword];
 }
 

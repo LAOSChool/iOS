@@ -192,13 +192,9 @@
     [self showAlertUnknowError];
 }
 
-- (void)sendPostRequestSuccessfully {
-    [SVProgressHUD dismiss];
-}
-
 - (void)loginWithWrongUserPassword {
     [SVProgressHUD dismiss];
-    
+    [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
     [self showAlertWrongUsernamePassword];
 }
 - (void)loginSuccessfully {
@@ -207,6 +203,7 @@
 
 - (void)accountLoginByOtherDevice {
     [SVProgressHUD dismiss];
+    [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
     [self showAlertAccountLoginByOtherDevice];
 }
 

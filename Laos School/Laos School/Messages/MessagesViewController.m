@@ -23,6 +23,7 @@
 #import "Common.h"
 #import "CoreDataUtil.h"
 
+
 @interface MessagesViewController ()
 {
     NSMutableArray *messagesArray;
@@ -93,11 +94,16 @@
     //Load data
     [self loadData];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAfterSentNewMessage)
+                                                 name:@"SentNewMessage"
+                                               object:nil];
+    
     //for test
     /*
     MessageObject *messObj = [[MessageObject alloc] init];
     
-    messObj.messageID = @"1";
+    messObj.messageID = 1;
     messObj.subject = @"Nhận xét học tập";
     messObj.content = @"Con học dốt như bò";
     messObj.fromID = @"1";
@@ -142,6 +148,10 @@
 }
 */
 
+- (void)refreshAfterSentNewMessage {
+    [self loadData];
+}
+
 - (void)loadData {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         //load data from local coredata
@@ -173,7 +183,7 @@
         [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
         
     } else {
-        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:nil toUserID:[[ShareData sharedShareData] userObj].userID]];
+        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID]];
     }
     
     [self sortMessagesArrayByID:messagesArray];
@@ -185,7 +195,7 @@
     MessageObject *lastMessage = nil;
     
     if ([messagesArray count] > 0) {
-        lastMessage = [messagesArray firstObject];
+        lastMessage = [messagesArray firstObject];  //the first object is the newest message in this array
         [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
         
     } else {
@@ -202,7 +212,7 @@
         [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
         
     } else {
-        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:nil toUserID:[[ShareData sharedShareData] userObj].userID]];
+        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID]];
     }
     
     [self sortMessagesArrayByID:unreadMessagesArray];
@@ -230,7 +240,7 @@
         [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:lastMessage.messageID fromUserID:[[ShareData sharedShareData] userObj].userID]];
         
     } else {
-        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:nil fromUserID:[[ShareData sharedShareData] userObj].userID]];
+        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:0 fromUserID:[[ShareData sharedShareData] userObj].userID]];
     }
     
     [self sortMessagesArrayByID:sentMessagesArray];
@@ -365,7 +375,7 @@
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
     if (messageObj.messageID) {
-        cell.tag = [messageObj.messageID integerValue];
+        cell.tag = messageObj.messageID;
     }
     
     if (messageObj.subject) {
@@ -376,7 +386,7 @@
         cell.lbBriefContent.text = messageObj.content;
     }
     
-    if (messageObj.dateTime) {
+    if (messageObj.dateTime && messageObj.dateTime.length > 0) {
         cell.lbTime.text = messageObj.dateTime;
     }
     
@@ -391,7 +401,7 @@
     //set message type icon and importance icon
     
     if (messageObj.messageTypeIcon) {
-        cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:GREEN_COLOR];
+    //    cell.imgMesseageType.image = [[Common sharedCommon] imageFromText:messageObj.messageTypeIcon withColor:GREEN_COLOR];
     }
     
     if (messageObj.importanceType == ImportanceHigh) {
@@ -534,11 +544,12 @@
      },*/
     NSLog(@"second");
     if (messages != (id)[NSNull null]) {
+        NSLog(@"third");
         for (NSDictionary *messageDict in messages) {
             MessageObject *messObj = [[MessageObject alloc] init];
             
             if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
-                messObj.messageID = [messageDict valueForKey:@"id"];
+                messObj.messageID = [[messageDict valueForKey:@"id"] integerValue];
             }
             
             if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
@@ -566,7 +577,7 @@
             }
             
             if ([messageDict valueForKey:@"is_read"] != (id)[NSNull null]) {
-                messObj.unreadFlag = [[messageDict valueForKey:@"is_read"] boolValue];
+                messObj.unreadFlag = ![[messageDict valueForKey:@"is_read"] boolValue];
             }
             
             if ([messageDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
@@ -654,10 +665,6 @@
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-
-}
-
-- (void)sendPostRequestSuccessfully {
 
 }
 

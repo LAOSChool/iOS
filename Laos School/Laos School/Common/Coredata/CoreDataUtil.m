@@ -73,7 +73,7 @@
      @property (nullable, nonatomic, retain) NSString *toUsername;
      @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
      */
-    [mess setMessageID:[NSNumber numberWithInteger:[messageObject.messageID integerValue]]];
+    [mess setMessageID:[NSNumber numberWithInteger:messageObject.messageID]];
     [mess setSubject:messageObject.subject];
     [mess setContent:messageObject.content];
     [mess setDateTime:messageObject.dateTime];
@@ -84,6 +84,7 @@
     [mess setMessageTypeIcon:messageObject.messageTypeIcon];
     [mess setToID:messageObject.toID];
     [mess setToUsername:messageObject.toUsername];
+    [mess setUnreadFlag:[NSNumber numberWithBool:messageObject.unreadFlag]];
     
     [self commitInManagedObjectContext:self.defaultManagedObjectContext];
 }
@@ -115,7 +116,7 @@
     return results;
 }
 
-- (NSArray *)loadAllMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID {
+- (NSArray *)loadAllMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID {
     NSArray *results = nil;
     NSPredicate *predicate = nil;
     
@@ -123,21 +124,22 @@
         userID = @"";
     }
     
-    if (messageID == nil) {
+    if (messageID == 0) {
         predicate = [NSPredicate predicateWithFormat:@"(toID == %@)", userID];
         
     } else {
     
-        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d)", userID, [messageID integerValue]];
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d)", userID, messageID];
         
         
     }
     results = [self fetchMessagesWithPredicate:predicate];
+    results = [self transferFromMessageToMessageObject:results];
     
     return results;
 }
 
-- (NSArray *)loadUnreadMessagesFromID:(NSString *)messageID toUserID:(NSString *)userID {
+- (NSArray *)loadUnreadMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID {
     NSArray *results = nil;
     NSPredicate *predicate = nil;
     
@@ -145,21 +147,22 @@
         userID = @"";
     }
     
-    if (messageID == nil) {
+    if (messageID == 0) {
         predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (unreadFlag == 1)", userID];
         
     } else {
         
-        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d) AND (unreadFlag == 1)", userID, [messageID integerValue]];
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (messageID < %d) AND (unreadFlag == 1)", userID, messageID];
         
     }
     
     results = [self fetchMessagesWithPredicate:predicate];
+    results = [self transferFromMessageToMessageObject:results];
     
     return results;
 }
 
-- (NSArray *)loadSentMessagesFromID:(NSString *)messageID fromUserID:(NSString *)userID {
+- (NSArray *)loadSentMessagesFromID:(NSInteger)messageID fromUserID:(NSString *)userID {
     NSArray *results = nil;
     NSPredicate *predicate = nil;
     
@@ -167,18 +170,55 @@
         userID = @"";
     }
     
-    if (messageID == nil) {
+    if (messageID == 0) {
         predicate = [NSPredicate predicateWithFormat:@"(fromID == %@)", userID];
         
     } else {
         
-        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@) AND (messageID < %d)", userID, [messageID integerValue]];
+        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@) AND (messageID < %d)", userID, messageID];
         
     }
     
     results = [self fetchMessagesWithPredicate:predicate];
-    
+    results = [self transferFromMessageToMessageObject:results];
     return results;
 }
 
+- (NSArray *)transferFromMessageToMessageObject:(NSArray *)messages {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    if ([messages count] > 0) {
+        /*@property (nullable, nonatomic, retain) NSString *content;
+         @property (nullable, nonatomic, retain) NSString *dateTime;
+         @property (nullable, nonatomic, retain) NSString *fromID;
+         @property (nullable, nonatomic, retain) NSString *fromUsername;
+         @property (nullable, nonatomic, retain) NSNumber *importanceType;
+         @property (nullable, nonatomic, retain) NSNumber *messageID;
+         @property (nullable, nonatomic, retain) NSNumber *messageType;
+         @property (nullable, nonatomic, retain) NSString *subject;
+         @property (nullable, nonatomic, retain) NSString *toID;
+         @property (nullable, nonatomic, retain) NSString *toUsername;
+         @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+         @property (nullable, nonatomic, retain) NSString *messageTypeIcon;
+         */
+        for (Messages *mess in messages) {
+            MessageObject *messageObj = [[MessageObject alloc] init];
+            
+            messageObj.messageID = [mess.messageID integerValue];
+            messageObj.content = mess.content;
+            messageObj.dateTime = mess.dateTime;
+            messageObj.fromID = mess.fromID;
+            messageObj.fromUsername = mess.fromUsername;
+            messageObj.importanceType = (IMPORTANCE_TYPE)[mess.importanceType integerValue];
+            messageObj.messageType = (MESSAGE_TYPE)[mess.messageType integerValue];
+            messageObj.subject = mess.subject;
+            messageObj.toID = mess.toID;
+            messageObj.toUsername = mess.toUsername;
+            messageObj.unreadFlag = [mess.unreadFlag boolValue];
+            
+            [results addObject:messageObj];
+        }
+    }
+    
+    return results;
+}
 @end

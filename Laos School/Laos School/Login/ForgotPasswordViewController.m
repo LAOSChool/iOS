@@ -82,10 +82,6 @@
     [SVProgressHUD dismiss];
 }
 
-- (void)sendPostRequestSuccessfully {
-    [SVProgressHUD dismiss];
-}
-
 - (void)loginWithWrongUserPassword {
     [SVProgressHUD dismiss];
     

@@ -31,7 +31,6 @@
 
 - (void)failToConnectToServer;
 - (void)sendPostRequestFailedWithUnknownError;
-- (void)sendPostRequestSuccessfully;
 - (void)loginSuccessfully;
 - (void)loginWithWrongUserPassword;
 - (void)accountLoginByOtherDevice;
@@ -46,9 +45,9 @@
 
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber;
 - (void)createMessageWithObject:(NSDictionary *)messageDict;
-- (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID;
-- (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSString *)messageID;
-- (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSString *)messageID;
+- (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
 

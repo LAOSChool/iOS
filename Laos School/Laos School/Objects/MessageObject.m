@@ -10,7 +10,7 @@
 #import "MessageObject.h"
 
 /*
- @property (nonatomic, strong) NSString *messageID;
+ @property (nonatomic, assign) NSInteger messageID;
  @property (nonatomic, strong) NSString *subject;
  @property (nonatomic, strong) NSString *content;
  @property (nonatomic, strong) NSString *fromID;
@@ -28,7 +28,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.messageID = @"";
+        self.messageID = 0;
         self.subject = @"";
         self.content = @"";
         self.fromID = @"";
@@ -48,7 +48,7 @@
     self = [super init];
     if (self) {
         if ([messageDict valueForKey:@"id"] != (id)[NSNull null]) {
-            self.messageID = [messageDict valueForKey:@"id"];
+            self.messageID = [[messageDict valueForKey:@"id"] integerValue];
         }
         
         if ([messageDict valueForKey:@"title"] != (id)[NSNull null]) {
@@ -103,7 +103,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     
-    [encoder encodeObject:self.messageID forKey:@"messageID"];
+    [encoder encodeInteger:self.messageID forKey:@"messageID"];
     [encoder encodeObject:self.subject forKey:@"subject"];
     [encoder encodeObject:self.content forKey:@"content"];
     [encoder encodeObject:self.fromID forKey:@"fromID"];
@@ -120,7 +120,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) // Superclass init
     {
-        self.messageID = [decoder decodeObjectForKey:@"messageID"];
+        self.messageID = [decoder decodeIntegerForKey:@"messageID"];
         self.subject = [decoder decodeObjectForKey:@"subject"];
         self.content = [decoder decodeObjectForKey:@"content"];
         self.fromID = [decoder decodeObjectForKey:@"fromID"];
