@@ -44,6 +44,25 @@ static RequestToServer* sharedRequestToServer = nil;
     return self;
 }
 
+#pragma mark announcement
+- (void)getAnnouncementListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+#pragma mark login and password
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_RESET_FORGOT_PASS];
     requestString = [NSString stringWithFormat:@"%@?sso_id=%@&phone=%@", requestString, username, phonenumber];
@@ -60,6 +79,41 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
+- (void)getMyProfile {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MYPROFILE];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_LOGIN];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    
+    [request setValue:username forHTTPHeaderField:@"sso_id"];
+    [request setValue:password forHTTPHeaderField:@"password"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+#pragma mark messages
 - (void)createMessageWithObject:(NSDictionary *)messageDict {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATEMESSAGE];
 //    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@", requestString, userID];
@@ -137,46 +191,12 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getMyProfile {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MYPROFILE];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:30.0];
-    // Specify that it will be a POST request
-    [request setHTTPMethod:@"GET"];
-    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
-    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    [connection start];
-}
-
-- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_LOGIN];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:30.0];
-    // Specify that it will be a POST request
-    [request setHTTPMethod:@"POST"];
-    
-    [request setValue:username forHTTPHeaderField:@"sso_id"];
-    [request setValue:password forHTTPHeaderField:@"password"];
-    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    [connection start];
-}
+#pragma mark - NSURLConnectionDelegate
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
     [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
 }
-
-#pragma mark - NSURLConnectionDelegate
 
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
 {

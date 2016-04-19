@@ -25,7 +25,7 @@ typedef enum {
     
 }
 
-@property (nonatomic, strong) NSString *announcementID;
+@property (nonatomic, strong) NSInteger announcementID;
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *dateTime;

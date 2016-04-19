@@ -17,10 +17,16 @@
 #import "CommonDefine.h"
 #import "PhotoObject.h"
 
+#import "RequestToServer.h"
+
 @interface AnnouncementViewController ()
 {
     NSMutableArray *announceArray;
     NSMutableArray *searchResults;
+    
+    UISegmentedControl *segmentedControl;
+    
+    RequestToServer *requestToServer;
 }
 @end
 
@@ -34,11 +40,38 @@
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
-        
+    if (([ShareData sharedShareData].userObj.permission & Permission_SendAnnouncement) == Permission_SendAnnouncement) {
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewAnnouncement)];
         
         self.navigationItem.rightBarButtonItems = @[addButton];
+        
+        segmentedControl = [[UISegmentedControl alloc] initWithItems:
+                            [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"), LocalizedString(@"Sent"),
+                             nil]];
+        segmentedControl.frame = CGRectMake(0, 0, 210, 30);
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:2];
+        
+        [segmentedControl setSelectedSegmentIndex:0];
+        
+        [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+        
+        self.navigationItem.titleView = segmentedControl;
+        
+    } else {
+        segmentedControl = [[UISegmentedControl alloc] initWithItems:
+                            [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"),
+                             nil]];
+        segmentedControl.frame = CGRectMake(0, 0, 140, 30);
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
+        
+        [segmentedControl setSelectedSegmentIndex:0];
+        
+        [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+        
+        self.navigationItem.titleView = segmentedControl;
     }
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
@@ -46,10 +79,19 @@
                                                                             target:nil
                                                                             action:nil];
     
-    //for test
     if (announceArray == nil) {
         announceArray = [[NSMutableArray alloc] init];
     }
+
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
+    
+    [requestToServer getAnnouncementListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
+    
+    //for test
+#if 0
     AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
     
     announcementObj.announcementID = @"1";
@@ -73,6 +115,7 @@
     [announcementObj.imgArray addObject:phototObj2];
     
     [announceArray addObject:announcementObj];
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,6 +132,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)segmentAction:(id)sender {
+
+}
+
 
 - (void)addNewAnnouncement {
     CreatePostViewController *composeViewController = nil;
@@ -259,5 +307,79 @@
     [announcementTableView beginUpdates];
     [announcementTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [announcementTableView endUpdates];
+}
+
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    NSArray *announcements = [jsonObj objectForKey:@"list"];
+    NSMutableArray *newArr = [[NSMutableArray alloc] init];
+    /*
+     {
+     channel = 1;
+     "class_id" = 1;
+     content = "test notify";
+     "file_path" = "funny5.jpg";
+     "file_url" = "http://192.168.0.202:9090/eschool_content/funny5.jpg";
+     "file_zip" = "<null>";
+     "from_usr_id" = 1;
+     id = 5;
+     "imp_flg" = 0;
+     "is_read" = 1;
+     "is_sent" = 1;
+     other = nothing;
+     "read_dt" = "2016-03-25 00:00:00.0";
+     "school_id" = 1;
+     "sent_dt" = "2016-03-25 00:00:00.0";
+     "to_usr_id" = 2;
+     },*/
+    NSLog(@"second");
+    if (announcements != (id)[NSNull null]) {
+        NSLog(@"third");
+        for (NSDictionary *announcementDict in announcements) {
+            AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
+            
+            if ([announcementDict valueForKey:@"id"] != (id)[NSNull null]) {
+                announcementObj.announcementID = [[announcementDict valueForKey:@"id"] integerValue];
+            }
+            
+            announcementObj.announcementID = announcementDict ;
+            announcementObj.subject = @"Thong bao 1";
+            announcementObj.content = @"Con học dốt như bò";
+            announcementObj.senderUser = @"Giao vien chu nhiem";
+            announcementObj.unreadFlag = YES;
+            announcementObj.importanceType = ImportanceNormal;
+            announcementObj.dateTime = @"2016-03-20 16:00";
+            
+            PhotoObject *phototObj = [[PhotoObject alloc] init];
+            phototObj.caption = @"image 1";
+            phototObj.filePath = @"https://lh3.googleusercontent.com/-mm4BmO6_yxY/VoD8n3O-ztI/AAAAAAAATYw/q_wBVhUNDdA/s640/gai-ngoan-khoe-hang-18.jpg";
+            
+            [announcementObj.imgArray addObject:phototObj];
+            
+            [announceArray addObject:announcementObj];
+        }
+    }
+}
+
+- (void)failToConnectToServer {
+    
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
 }
 @end

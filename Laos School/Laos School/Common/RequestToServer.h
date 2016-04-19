@@ -17,6 +17,8 @@
 #define API_NAME_CREATEMESSAGE @"/api/messages/create"
 #define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
 
+#define API_NAME_ANNOUNCEMENTLIST @"/api/notifies"
+
 #define HttpOK 200
 #define Accepted 201
 #define NonAuthen 203
@@ -43,11 +45,17 @@
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
 
-- (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber;
+//announcements
+- (void)getAnnouncementListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
+
+//messages
 - (void)createMessageWithObject:(NSDictionary *)messageDict;
 - (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+
+//login and password
+- (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber;
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
 

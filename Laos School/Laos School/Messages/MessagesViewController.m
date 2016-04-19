@@ -34,6 +34,9 @@
     RequestToServer *requestToServer;
     
     UISegmentedControl *segmentedControl;
+    
+    BOOL isReachToEnd;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -49,6 +52,8 @@
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
+    isReachToEnd = NO;
+    
     if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
         
         UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNewMessage)];
@@ -90,6 +95,10 @@
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadDataFromServer) forControlEvents:UIControlEventValueChanged];
+    [messagesTableView addSubview:refreshControl];
     
     //Load data
     [self loadData];
@@ -174,16 +183,78 @@
     }
 }
 
+- (BOOL)isReachToBottom:(NSInteger)row {
+    BOOL res = NO;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        if (row == [messagesArray count] - 1) {
+            res = YES;
+        }
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        if (row == [unreadMessagesArray count] - 1) {
+            res = YES;
+        }
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        if (row == [sentMessagesArray count] - 1) {
+            res = YES;
+        }
+        
+    }
+    
+    return res;
+}
+
+- (void)loadDataFromCoredata {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        //load data from local coredata
+        [self loadMessagesFromCoredata];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        //load data from local coredata
+        [self loadUnreadMessagesFromCoredata];
+
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        //load data from local coredata
+        [self loadSentMessagesFromCoredata];
+    }
+    
+    [messagesTableView reloadData];
+}
+
+- (void)loadDataFromServer {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [self loadNewMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [self loadUnreadMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [self loadSentMessageFromServer];
+        
+    }
+}
+
 #pragma mark load all message
 - (void)loadMessagesFromCoredata {
     MessageObject *lastMessage = nil;
+    NSArray *newData = nil;
     
     if ([messagesArray count] > 0) {
         lastMessage = [messagesArray lastObject];   //last object is the oldest message in this array
-        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID];
+        
+        [messagesArray addObjectsFromArray:newData];
         
     } else {
-        [messagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID]];
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
+        [messagesArray addObjectsFromArray:newData];
+
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
     }
     
     [self sortMessagesArrayByID:messagesArray];
@@ -206,13 +277,21 @@
 #pragma mark load unread message
 - (void)loadUnreadMessagesFromCoredata {
     MessageObject *lastMessage = nil;
+    NSArray *newData = nil;
     
     if ([unreadMessagesArray count] > 0) {
         lastMessage = [unreadMessagesArray lastObject];
-        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:lastMessage.messageID toUserID:[[ShareData sharedShareData] userObj].userID];
+        [unreadMessagesArray addObjectsFromArray:newData];
         
     } else {
-        [unreadMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID]];
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
+        [unreadMessagesArray addObjectsFromArray:newData];
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
     }
     
     [self sortMessagesArrayByID:unreadMessagesArray];
@@ -234,13 +313,22 @@
 #pragma mark load all message
 - (void)loadSentMessagesFromCoredata {
     MessageObject *lastMessage = nil;
+    NSArray *newData = nil;
     
     if ([sentMessagesArray count] > 0) {
         lastMessage = [sentMessagesArray lastObject];
-        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:lastMessage.messageID fromUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:lastMessage.messageID fromUserID:[[ShareData sharedShareData] userObj].userID];
+        [sentMessagesArray addObjectsFromArray:newData];
         
     } else {
-        [sentMessagesArray addObjectsFromArray:[[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:0 fromUserID:[[ShareData sharedShareData] userObj].userID]];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadSentMessagesFromID:0 fromUserID:[[ShareData sharedShareData] userObj].userID];
+        [sentMessagesArray addObjectsFromArray:newData];
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
     }
     
     [self sortMessagesArrayByID:sentMessagesArray];
@@ -260,6 +348,7 @@
 }
 
 - (IBAction)segmentAction:(id)sender {
+    isReachToEnd = NO;
     [self loadData];
 }
 
@@ -387,7 +476,7 @@
     }
     
     if (messageObj.dateTime && messageObj.dateTime.length > 0) {
-        cell.lbTime.text = messageObj.dateTime;
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd hh:mm"];
     }
     
     if (messageObj.fromUsername) {
@@ -418,6 +507,10 @@
     } else {
         [cell.contentView setBackgroundColor:READ_COLOR];
         [cell setBackgroundColor:READ_COLOR];
+    }
+    
+    if (isReachToEnd == NO && [self isReachToBottom:indexPath.row]) {
+        [self loadDataFromCoredata];
     }
     
     return cell;
@@ -516,6 +609,7 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [refreshControl endRefreshing];
     NSArray *messages = [jsonObj objectForKey:@"list"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
     /*

@@ -25,7 +25,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.announcementID = @"";
+        self.announcementID = 0;
         self.subject = @"";
         self.content = @"";
         self.importanceType = ImportanceNormal;
