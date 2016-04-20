@@ -221,4 +221,25 @@
     
     return results;
 }
+
+#pragma mark announcement
+- (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject {
+    
+}
+
+- (void)insertAnnouncementsArray:(NSArray *)announcementArr {
+    
+}
+
+- (NSArray *)loadAllAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID {
+    return nil;
+}
+
+- (NSArray *)loadUnreadAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID {
+    return nil;
+}
+
+- (NSArray *)loadSentAnnouncementsFromID:(NSInteger)announcementID fromUserID:(NSString *)userID {
+    return nil;
+}
 @end

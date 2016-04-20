@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
+    <entity name="Announcements" syncable="YES"/>
     <entity name="Messages" representedClassName="Messages" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateTime" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,5 +21,6 @@
     </entity>
     <elements>
         <element name="Messages" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Announcements" positionX="-63" positionY="72" width="128" height="45"/>
     </elements>
 </model>

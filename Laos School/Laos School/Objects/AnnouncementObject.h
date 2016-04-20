@@ -25,11 +25,14 @@ typedef enum {
     
 }
 
-@property (nonatomic, strong) NSInteger announcementID;
+@property (nonatomic, assign) NSInteger announcementID;
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *dateTime;
-@property (nonatomic, strong) NSString *senderUser;
+@property (nonatomic, strong) NSString *fromID;
+@property (nonatomic, strong) NSString *fromUsername;
+@property (nonatomic, strong) NSString *toID;
+@property (nonatomic, strong) NSString *toUsername;
 @property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
 @property (nonatomic, strong) NSMutableArray *imgArray;
 @property (nonatomic, assign) BOOL unreadFlag;

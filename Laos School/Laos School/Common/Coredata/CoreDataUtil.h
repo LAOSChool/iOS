@@ -10,6 +10,7 @@
 #define LaosSchool_CoreDataUtil_h
 #import <CoreData/CoreData.h>
 #import "MessageObject.h"
+#import "AnnouncementObject.h"
 
 @interface CoreDataUtil : NSObject
 {
@@ -27,5 +28,11 @@
 - (NSArray *)loadAllMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID;
 - (NSArray *)loadUnreadMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID;
 - (NSArray *)loadSentMessagesFromID:(NSInteger)messageID fromUserID:(NSString *)userID;
+
+- (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject;
+- (void)insertAnnouncementsArray:(NSArray *)announcementArr;
+- (NSArray *)loadAllAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID;
+- (NSArray *)loadUnreadAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID;
+- (NSArray *)loadSentAnnouncementsFromID:(NSInteger)announcementID fromUserID:(NSString *)userID;
 @end
 #endif

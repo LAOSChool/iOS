@@ -261,7 +261,7 @@
     userObject.avatarPath = [jsonObj objectForKey:@"photo"];
     userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
     userObject.userRole = UserRole_Student;
-    userObject.permission = Permission_Normal | Permission_SendMessage;
+    userObject.permission = Permission_Normal | Permission_SendMessage | Permission_SendAnnouncement;
     
     userObject.shoolID = [jsonObj objectForKey:@"school_id"];
     userObject.schoolName = @"Bach khoa Ha Noi";

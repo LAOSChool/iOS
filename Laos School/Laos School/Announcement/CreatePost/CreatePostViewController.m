@@ -49,6 +49,9 @@
         textViewTitle.text = _announcementObject.subject;
         textViewPost.text = _announcementObject.content;
         
+        textViewPost.textColor = [UIColor blackColor];
+        textViewTitle.textColor = [UIColor blackColor];
+        
     } else {
         [self setTitle:LocalizedString(@"New Anouncement")];
         
@@ -68,8 +71,8 @@
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
     
-    textViewPost.userInteractionEnabled = !_isViewDetail;
-    textViewTitle.userInteractionEnabled = !_isViewDetail;
+    textViewPost.editable = !_isViewDetail;
+    textViewTitle.editable = !_isViewDetail;
     btnCamera.enabled = !_isViewDetail;
     
     if (_isViewDetail) {
@@ -99,9 +102,20 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return TRUE;
+}
+
+- (IBAction)tapGestureHandle:(id)sender {
+    [textViewPost resignFirstResponder];
+    [textViewTitle resignFirstResponder];
+}
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [textViewPost resignFirstResponder];
+    [textViewTitle resignFirstResponder];
 }
 
 #pragma mark - keyboard movements
@@ -110,7 +124,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect rect = toolbar.frame;
-        rect.origin.y = rect.origin.y -                                                                                                                      keyboardSize.height;
+        rect.origin.y = self.view.frame.size.height - (rect.size.height +                                                                                                                      keyboardSize.height);
         toolbar.frame = rect;
     }];
 }
@@ -171,6 +185,9 @@
 
 #pragma mark toolbar handle
 - (IBAction)photoHandle:(id)sender {
+    [textViewPost resignFirstResponder];
+    [textViewTitle resignFirstResponder];
+    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select photo source" delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo library", nil];
     
     actionSheet.tag = 1;
@@ -300,7 +317,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     //scroll content size
     CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
-    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
+    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
 }
 
@@ -336,7 +353,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     //load the image
     customImageView.imageView.imageURL = [NSURL URLWithString:photo.filePath];
-
+    customImageView.txtCaption.text = photo.caption;
     customImageView.tag = [imageViewArray count];
     customImageView.delegate = (id)self;
     

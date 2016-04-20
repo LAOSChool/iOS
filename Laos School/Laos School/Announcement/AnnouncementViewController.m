@@ -18,15 +18,22 @@
 #import "PhotoObject.h"
 
 #import "RequestToServer.h"
+#import "DateTimeHelper.h"
+#import "CoreDataUtil.h"
 
 @interface AnnouncementViewController ()
 {
     NSMutableArray *announceArray;
+    NSMutableArray *unreadAnnouncementsArray;
+    NSMutableArray *sentAnnouncementsArray;
     NSMutableArray *searchResults;
     
     UISegmentedControl *segmentedControl;
     
     RequestToServer *requestToServer;
+    
+    BOOL isReachToEnd;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -39,6 +46,8 @@
     
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    isReachToEnd = NO;
     
     if (([ShareData sharedShareData].userObj.permission & Permission_SendAnnouncement) == Permission_SendAnnouncement) {
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewAnnouncement)];
@@ -58,6 +67,11 @@
         [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
         
         self.navigationItem.titleView = segmentedControl;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshAfterSentNewAnnouncement)
+                                                     name:@"SentNewAnnouncement"
+                                                   object:nil];
         
     } else {
         segmentedControl = [[UISegmentedControl alloc] initWithItems:
@@ -82,12 +96,27 @@
     if (announceArray == nil) {
         announceArray = [[NSMutableArray alloc] init];
     }
+    
+    if (unreadAnnouncementsArray == nil) {
+        unreadAnnouncementsArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (sentAnnouncementsArray == nil) {
+        sentAnnouncementsArray = [[NSMutableArray alloc] init];
+    }
 
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
     
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadDataFromServer) forControlEvents:UIControlEventValueChanged];
+    [announcementTableView addSubview:refreshControl];
+    
+    //Load data
+    [self loadData];
+
     [requestToServer getAnnouncementListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
     
     //for test
@@ -147,6 +176,100 @@
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
     
+}
+
+- (void)refreshAfterSentNewAnnouncement {
+    [self loadData];
+}
+
+- (void)loadData {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+//        //load data from local coredata
+//        [self loadMessagesFromCoredata];
+//        
+//        [self loadNewMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+//        //load data from local coredata
+//        [self loadUnreadMessagesFromCoredata];
+//        
+//        [self loadUnreadMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        //load data from local coredata
+//        [self loadSentMessagesFromCoredata];
+//        
+//        [self loadSentMessageFromServer];
+        
+    }
+}
+
+- (void)loadDataFromCoredata {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        //load data from local coredata
+//        [self loadMessagesFromCoredata];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        //load data from local coredata
+//        [self loadUnreadMessagesFromCoredata];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        //load data from local coredata
+//        [self loadSentMessagesFromCoredata];
+    }
+    
+    [announcementTableView reloadData];
+}
+
+- (void)loadDataFromServer {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+//        [self loadNewMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+//        [self loadUnreadMessageFromServer];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+//        [self loadSentMessageFromServer];
+        
+    }
+}
+
+#pragma mark load all message
+- (void)loadAnnouncementsFromCoredata {
+    AnnouncementObject *lastAnnouncement = nil;
+    NSArray *newData = nil;
+    
+    if ([announceArray count] > 0) {
+        lastAnnouncement = [announceArray lastObject];   //last object is the oldest message in this array
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
+        
+        [announceArray addObjectsFromArray:newData];
+        
+    } else {
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
+        [announceArray addObjectsFromArray:newData];
+        
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
+    }
+    
+    [self sortMessagesArrayByID:announceArray];
+    NSLog(@"first");
+}
+
+- (void)loadNewAnnouncementFromServer {
+    AnnouncementObject *lastAnnouncement = nil;
+    
+    if ([announceArray count] > 0) {
+        lastAnnouncement = [announceArray firstObject];  //the first object is the newest message in this array
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastAnnouncement.announcementID];
+        
+    } else {
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
+    }
 }
 
 #pragma mark data source
@@ -211,11 +334,11 @@
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
-    cell.tag = [announcementObjectObj.announcementID integerValue];
+    cell.tag = announcementObjectObj.announcementID;
     cell.lbSubject.text = announcementObjectObj.subject;
     cell.lbBriefContent.text = announcementObjectObj.content;
     cell.lbTime.text = announcementObjectObj.dateTime;
-    cell.lbSenderName.text = announcementObjectObj.senderUser;
+    cell.lbSenderName.text = announcementObjectObj.fromUsername;
     
     if (announcementObjectObj.importanceType == ImportanceHigh) {
         [cell.btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
@@ -341,23 +464,73 @@
                 announcementObj.announcementID = [[announcementDict valueForKey:@"id"] integerValue];
             }
             
-            announcementObj.announcementID = announcementDict ;
-            announcementObj.subject = @"Thong bao 1";
-            announcementObj.content = @"Con học dốt như bò";
-            announcementObj.senderUser = @"Giao vien chu nhiem";
-            announcementObj.unreadFlag = YES;
-            announcementObj.importanceType = ImportanceNormal;
-            announcementObj.dateTime = @"2016-03-20 16:00";
+            if ([announcementDict valueForKey:@"title"] != (id)[NSNull null]) {
+                announcementObj.subject = [announcementDict valueForKey:@"title"];
+            }
             
-            PhotoObject *phototObj = [[PhotoObject alloc] init];
-            phototObj.caption = @"image 1";
-            phototObj.filePath = @"https://lh3.googleusercontent.com/-mm4BmO6_yxY/VoD8n3O-ztI/AAAAAAAATYw/q_wBVhUNDdA/s640/gai-ngoan-khoe-hang-18.jpg";
+            if ([announcementDict valueForKey:@"content"] != (id)[NSNull null]) {
+                announcementObj.content = [announcementDict valueForKey:@"content"];
+            }
+
+            if ([announcementDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
+                announcementObj.fromID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"from_usr_id"]];
+            }
             
-            [announcementObj.imgArray addObject:phototObj];
+            if ([announcementDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
+                announcementObj.fromUsername = [announcementDict valueForKey:@"from_user_name"];
+            }
+            
+            if ([announcementDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
+                announcementObj.toID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"to_usr_id"]];
+            }
+            
+            if ([announcementDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
+                announcementObj.toUsername = [announcementDict valueForKey:@"to_user_name"];
+            }
+            
+            if ([announcementDict valueForKey:@"is_read"] != (id)[NSNull null]) {
+                announcementObj.unreadFlag = ![[announcementDict valueForKey:@"is_read"] boolValue];
+            }
+            
+            if ([announcementDict valueForKey:@"imp_flg"] != (id)[NSNull null]) {
+                if ([[announcementDict valueForKey:@"imp_flg"] boolValue] == YES) {
+                    announcementObj.importanceType = ImportanceHigh;
+                    
+                } else {
+                    announcementObj.importanceType = ImportanceNormal;
+                }
+            }
+            
+            if ([announcementDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
+                announcementObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[announcementDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
+            }
+            
+            if ([announcementDict valueForKey:@"notifyImages"] != (id)[NSNull null]) {
+                NSArray *photoArr = [announcementDict objectForKey:@"notifyImages"];
+                
+                if (photoArr && [photoArr count] > 0) {
+                    for (NSDictionary *photoDict in photoArr) {
+                        PhotoObject *phototObj = [[PhotoObject alloc] init];
+                        
+                        if ([photoDict valueForKey:@"caption"] != (id)[NSNull null]) {
+                            phototObj.caption = [photoDict valueForKey:@"caption" ];
+                        }
+                        
+                        if ([photoDict valueForKey:@"file_url"] != (id)[NSNull null]) {
+                            phototObj.filePath = [photoDict valueForKey:@"file_url" ];
+                        }
+                        
+                        [announcementObj.imgArray addObject:phototObj];
+                    }
+                }
+                
+            }
             
             [announceArray addObject:announcementObj];
         }
     }
+    
+    [announcementTableView reloadData];
 }
 
 - (void)failToConnectToServer {
@@ -381,5 +554,13 @@
     alert.tag = 1;
     
     [alert show];
+}
+
+- (void)sortMessagesArrayByID:(NSMutableArray *)announcementArr {
+    NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
+    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
+    
+    [announcementArr removeAllObjects];
+    [announcementArr addObjectsFromArray:resultArr];
 }
 @end
