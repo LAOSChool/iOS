@@ -14,6 +14,8 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.photoID = 0;
+        self.order = 0;
         self.image = nil;
         self.caption = @"";
         self.filePath = @"";
@@ -23,6 +25,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     
+    [encoder encodeInteger:self.photoID forKey:@"photoID"];
+    [encoder encodeInteger:self.order forKey:@"order"];
     [encoder encodeObject:self.caption forKey:@"caption"];
     [encoder encodeObject:self.filePath forKey:@"filePath"];
 }
@@ -30,6 +34,8 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) // Superclass init
     {
+        self.photoID = [decoder decodeIntegerForKey:@"photoID"];
+        self.order = [decoder decodeIntegerForKey:@"order"];
         self.caption = [decoder decodeObjectForKey:@"caption"];
         self.filePath = [decoder decodeObjectForKey:@"filePath"];
     }

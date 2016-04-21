@@ -258,7 +258,6 @@
     }
     
     [self sortMessagesArrayByID:messagesArray];
-    NSLog(@"first");
 }
 
 - (void)loadNewMessageFromServer {
@@ -636,9 +635,9 @@
      }
      
      },*/
-    NSLog(@"second");
+
     if (messages != (id)[NSNull null]) {
-        NSLog(@"third");
+
         for (NSDictionary *messageDict in messages) {
             MessageObject *messObj = [[MessageObject alloc] init];
             
@@ -702,10 +701,6 @@
             dispatch_async([CoreDataUtil getDispatch], ^(){
                 
                 [[CoreDataUtil sharedCoreDataUtil] insertMessagesArray:newArr];
-                //
-                //        dispatch_async(dispatch_get_main_queue(), ^(){
-                //
-                //        });
             });
         }
         

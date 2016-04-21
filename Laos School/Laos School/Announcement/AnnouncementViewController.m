@@ -116,8 +116,6 @@
     
     //Load data
     [self loadData];
-
-    [requestToServer getAnnouncementListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
     
     //for test
 #if 0
@@ -162,8 +160,31 @@
 }
 */
 
-- (IBAction)segmentAction:(id)sender {
+- (BOOL)isReachToBottom:(NSInteger)row {
+    BOOL res = NO;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        if (row == [announceArray count] - 1) {
+            res = YES;
+        }
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        if (row == [unreadAnnouncementsArray count] - 1) {
+            res = YES;
+        }
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        if (row == [sentAnnouncementsArray count] - 1) {
+            res = YES;
+        }
+        
+    }
+    
+    return res;
+}
 
+- (IBAction)segmentAction:(id)sender {
+    isReachToEnd = NO;
+    [self loadData];
 }
 
 
@@ -184,22 +205,22 @@
 
 - (void)loadData {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-//        //load data from local coredata
-//        [self loadMessagesFromCoredata];
-//        
-//        [self loadNewMessageFromServer];
+        //load data from local coredata
+        [self loadAnnouncementsFromCoredata];
+        
+        [self loadNewAnnouncementFromServer];
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-//        //load data from local coredata
-//        [self loadUnreadMessagesFromCoredata];
-//        
-//        [self loadUnreadMessageFromServer];
+        //load data from local coredata
+        [self loadUnreadAnnouncementsFromCoredata];
+        
+        [self loadUnreadAnnouncementsFromServer];
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
         //load data from local coredata
-//        [self loadSentMessagesFromCoredata];
-//        
-//        [self loadSentMessageFromServer];
+        [self loadSentAnnouncementsFromCoredata];
+        
+        [self loadSentAnnouncementsFromServer];
         
     }
 }
@@ -207,15 +228,15 @@
 - (void)loadDataFromCoredata {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         //load data from local coredata
-//        [self loadMessagesFromCoredata];
+        [self loadAnnouncementsFromCoredata];
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
         //load data from local coredata
-//        [self loadUnreadMessagesFromCoredata];
+        [self loadUnreadAnnouncementsFromCoredata];
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
         //load data from local coredata
-//        [self loadSentMessagesFromCoredata];
+        [self loadSentAnnouncementsFromCoredata];
     }
     
     [announcementTableView reloadData];
@@ -223,13 +244,13 @@
 
 - (void)loadDataFromServer {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-//        [self loadNewMessageFromServer];
+        [self loadNewAnnouncementFromServer];
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-//        [self loadUnreadMessageFromServer];
+        [self loadUnreadAnnouncementsFromServer];
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-//        [self loadSentMessageFromServer];
+        [self loadSentAnnouncementsFromServer];
         
     }
 }
@@ -242,12 +263,12 @@
     if ([announceArray count] > 0) {
         lastAnnouncement = [announceArray lastObject];   //last object is the oldest message in this array
         
-        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllAnnouncementsFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
         
         [announceArray addObjectsFromArray:newData];
         
     } else {
-        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllMessagesFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadAllAnnouncementsFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
         [announceArray addObjectsFromArray:newData];
         
     }
@@ -256,8 +277,8 @@
         isReachToEnd = YES;
     }
     
-    [self sortMessagesArrayByID:announceArray];
-    NSLog(@"first");
+    [self sortAnnouncementsArrayByID:announceArray];
+
 }
 
 - (void)loadNewAnnouncementFromServer {
@@ -265,10 +286,82 @@
     
     if ([announceArray count] > 0) {
         lastAnnouncement = [announceArray firstObject];  //the first object is the newest message in this array
-        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastAnnouncement.announcementID];
+        [requestToServer getAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
         
     } else {
-        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
+        [requestToServer getAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
+    }
+}
+
+#pragma mark load unread message
+- (void)loadUnreadAnnouncementsFromCoredata {
+    AnnouncementObject *lastAnnouncement = nil;
+    NSArray *newData = nil;
+    
+    if ([unreadAnnouncementsArray count] > 0) {
+        lastAnnouncement = [unreadAnnouncementsArray lastObject];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadAnnouncementsFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
+        [unreadAnnouncementsArray addObjectsFromArray:newData];
+        
+    } else {
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadAnnouncementsFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
+        [unreadAnnouncementsArray addObjectsFromArray:newData];
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
+    }
+    
+    [self sortAnnouncementsArrayByID:unreadAnnouncementsArray];
+}
+
+- (void)loadUnreadAnnouncementsFromServer {
+    //get last message
+    AnnouncementObject *lastAnnouncement = nil;
+    
+    if ([unreadAnnouncementsArray count] > 0) {
+        lastAnnouncement = [unreadAnnouncementsArray firstObject];
+        [requestToServer getUnreadAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+        
+    } else {
+        [requestToServer getUnreadAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
+    }
+}
+
+#pragma mark load all message
+- (void)loadSentAnnouncementsFromCoredata {
+    AnnouncementObject *lastAnnouncement = nil;
+    NSArray *newData = nil;
+    
+    if ([sentAnnouncementsArray count] > 0) {
+        lastAnnouncement = [sentAnnouncementsArray lastObject];
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadSentAnnouncementsFromID:lastAnnouncement.announcementID fromUserID:[[ShareData sharedShareData] userObj].userID];
+        [sentAnnouncementsArray addObjectsFromArray:newData];
+        
+    } else {
+        
+        newData = [[CoreDataUtil sharedCoreDataUtil] loadSentAnnouncementsFromID:0 fromUserID:[[ShareData sharedShareData] userObj].userID];
+        [sentAnnouncementsArray addObjectsFromArray:newData];
+    }
+    
+    if ([newData count] == 0) {
+        isReachToEnd = YES;
+    }
+    
+    [self sortAnnouncementsArrayByID:sentAnnouncementsArray];
+}
+
+- (void)loadSentAnnouncementsFromServer {
+    AnnouncementObject *lastAnnouncement = nil;
+    
+    if ([sentAnnouncementsArray count] > 0) {
+        lastAnnouncement = [sentAnnouncementsArray firstObject];
+        [requestToServer getSentAnnouncementsListFromUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+        
+    } else {
+        [requestToServer getSentAnnouncementsListFromUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
     }
 }
 
@@ -354,6 +447,10 @@
     } else {
         [cell.contentView setBackgroundColor:READ_COLOR];
         [cell setBackgroundColor:READ_COLOR];
+    }
+    
+    if (isReachToEnd == NO && [self isReachToBottom:indexPath.row]) {
+        [self loadDataFromCoredata];
     }
     
     return cell;
@@ -454,9 +551,9 @@
      "sent_dt" = "2016-03-25 00:00:00.0";
      "to_usr_id" = 2;
      },*/
-    NSLog(@"second");
+
     if (announcements != (id)[NSNull null]) {
-        NSLog(@"third");
+
         for (NSDictionary *announcementDict in announcements) {
             AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
             
@@ -512,6 +609,14 @@
                     for (NSDictionary *photoDict in photoArr) {
                         PhotoObject *phototObj = [[PhotoObject alloc] init];
                         
+                        if ([photoDict valueForKey:@"id"] != (id)[NSNull null]) {
+                            phototObj.photoID = [[photoDict valueForKey:@"id"] integerValue];
+                        }
+                        
+                        if ([photoDict valueForKey:@"order"] != (id)[NSNull null]) {
+                            phototObj.order = [[photoDict valueForKey:@"order"] integerValue];
+                        }
+                        
                         if ([photoDict valueForKey:@"caption"] != (id)[NSNull null]) {
                             phototObj.caption = [photoDict valueForKey:@"caption" ];
                         }
@@ -522,15 +627,54 @@
                         
                         [announcementObj.imgArray addObject:phototObj];
                     }
+                    
+                    [self sortPhotosArrayByID:announcementObj.imgArray];
                 }
                 
             }
             
-            [announceArray addObject:announcementObj];
+            [newArr addObject:announcementObj];
         }
+        
+        if ([newArr count] > 0) {
+            [self insertArrayToArray:newArr];
+            
+            dispatch_async([CoreDataUtil getDispatch], ^(){
+                
+                [[CoreDataUtil sharedCoreDataUtil] insertAnnouncementsArray:newArr];
+            });
+        }
+        
+        [self sortAnnouncementsArrayByID];
     }
     
     [announcementTableView reloadData];
+}
+
+- (void)insertArrayToArray:(NSArray *)arr {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [announceArray addObjectsFromArray:arr];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [unreadAnnouncementsArray addObjectsFromArray:arr];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [sentAnnouncementsArray addObjectsFromArray:arr];
+        
+    }
+}
+
+- (void)sortAnnouncementsArrayByID {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        [self sortAnnouncementsArrayByID:announceArray];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        [self sortAnnouncementsArrayByID:unreadAnnouncementsArray];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        [self sortAnnouncementsArrayByID:sentAnnouncementsArray];
+        
+    }
 }
 
 - (void)failToConnectToServer {
@@ -556,11 +700,19 @@
     [alert show];
 }
 
-- (void)sortMessagesArrayByID:(NSMutableArray *)announcementArr {
+- (void)sortAnnouncementsArrayByID:(NSMutableArray *)announcementArr {
     NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
     NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
     
     [announcementArr removeAllObjects];
     [announcementArr addObjectsFromArray:resultArr];
+}
+
+- (void)sortPhotosArrayByID:(NSMutableArray *)photoArr {
+    NSSortDescriptor *orderSort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
+    NSArray *resultArr = [photoArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderSort, nil]];
+    
+    [photoArr removeAllObjects];
+    [photoArr addObjectsFromArray:resultArr];
 }
 @end

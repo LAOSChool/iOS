@@ -46,7 +46,9 @@
 - (NSString *)getAPIKey;
 
 //announcements
-- (void)getAnnouncementListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
+- (void)getAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
+- (void)getUnreadAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
+- (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
 
 //messages
 - (void)createMessageWithObject:(NSDictionary *)messageDict;

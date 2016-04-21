@@ -28,7 +28,7 @@
         self.announcementID = 0;
         self.subject = @"";
         self.content = @"";
-        self.importanceType = ImportanceNormal;
+        self.importanceType = AnnouncementImportanceNormal;
         self.dateTime = @"";
         self.imgArray = [[NSMutableArray alloc] init];
     }

@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "MessageObject.h"
 #import "AnnouncementObject.h"
+#import "PhotoObject.h"
 
 @interface CoreDataUtil : NSObject
 {

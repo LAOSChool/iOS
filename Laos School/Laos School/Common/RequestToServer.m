@@ -45,7 +45,7 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 #pragma mark announcement
-- (void)getAnnouncementListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
+- (void)getAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
     requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
@@ -61,6 +61,41 @@ static RequestToServer* sharedRequestToServer = nil;
     
     [connection start];
 }
+
+- (void)getUnreadAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0", requestString, userID, (long)announcementID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 
 #pragma mark login and password
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber {

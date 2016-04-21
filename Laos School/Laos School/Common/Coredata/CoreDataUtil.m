@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "CoreDataUtil.h"
-#import "Messages+CoreDataProperties.h"
+#import "Messages.h"
+#import "Announcements.h"
+#import "Photos.h"
+
+#import "ArchiveHelper.h"
 
 #define PAGING_REQUEST 30
+#define ENTITY_MESSAGES @"Messages"
+#define ENTITY_ANNOUNCEMENTS @"Announcements"
 
 @implementation CoreDataUtil
 
@@ -95,16 +101,24 @@
     }
 }
 
-- (NSArray *)fetchMessagesWithPredicate:(NSPredicate *)predicate {
+- (NSArray *)fetchDataWithPredicate:(NSPredicate *)predicate fromEntity:(NSString *)entityName {
     NSArray *results = nil;
     if (self.defaultManagedObjectContext) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:self.defaultManagedObjectContext];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.defaultManagedObjectContext];
         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         [fetchRequest setEntity:entityDescription];
         fetchRequest.fetchLimit = PAGING_REQUEST;
         
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"messageID" ascending:NO];
+        NSSortDescriptor *sortDescriptor = nil;
+        
+        if ([entityName isEqualToString:ENTITY_MESSAGES]) {
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"messageID" ascending:NO];
+            
+        } else if ([entityName isEqualToString:ENTITY_ANNOUNCEMENTS]) {
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"announcementID" ascending:NO];
+        }
+        
         fetchRequest.sortDescriptors = @[ sortDescriptor ];
         
         if (predicate != nil) {  // Suspect the check is not required
@@ -133,7 +147,7 @@
         
         
     }
-    results = [self fetchMessagesWithPredicate:predicate];
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
     results = [self transferFromMessageToMessageObject:results];
     
     return results;
@@ -156,7 +170,7 @@
         
     }
     
-    results = [self fetchMessagesWithPredicate:predicate];
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
     results = [self transferFromMessageToMessageObject:results];
     
     return results;
@@ -179,7 +193,7 @@
         
     }
     
-    results = [self fetchMessagesWithPredicate:predicate];
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
     results = [self transferFromMessageToMessageObject:results];
     return results;
 }
@@ -224,22 +238,171 @@
 
 #pragma mark announcement
 - (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject {
+    Announcements *announcement = [NSEntityDescription
+                      insertNewObjectForEntityForName:@"Announcements"
+                      inManagedObjectContext:self.defaultManagedObjectContext];
+    /*
+     @property (nullable, nonatomic, retain) NSString *content;
+     @property (nullable, nonatomic, retain) NSString *datetime;
+     @property (nullable, nonatomic, retain) NSString *fromID;
+     @property (nullable, nonatomic, retain) NSString *fromUsername;
+     @property (nullable, nonatomic, retain) NSNumber *importanceType;
+     @property (nullable, nonatomic, retain) NSNumber *announcementID;
+     @property (nullable, nonatomic, retain) NSString *subject;
+     @property (nullable, nonatomic, retain) NSString *toID;
+     @property (nullable, nonatomic, retain) NSString *toUsername;
+     @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+     @property (nullable, nonatomic, retain) NSSet<Photos *> *announcementToPhotos;
+     */
+    [announcement setAnnouncementID:[NSNumber numberWithInteger:announcementObject.announcementID]];
+    [announcement setSubject:announcementObject.subject];
+    [announcement setContent:announcementObject.content];
+    [announcement setDateTime:announcementObject.dateTime];
+    [announcement setFromID:announcementObject.fromID];
+    [announcement setFromUsername:announcementObject.fromUsername];
+    [announcement setImportanceType:[NSNumber numberWithInteger:announcementObject.importanceType]];
+    [announcement setToID:announcementObject.toID];
+    [announcement setToUsername:announcementObject.toUsername];
+    [announcement setUnreadFlag:[NSNumber numberWithBool:announcementObject.unreadFlag]];
     
+    for (PhotoObject *photoObj in announcementObject.imgArray) {
+        Photos *photo = [NSEntityDescription
+                                       insertNewObjectForEntityForName:@"Photos"
+                                       inManagedObjectContext:self.defaultManagedObjectContext];
+        
+        [photo setPhotoID:[NSNumber numberWithInteger:photoObj.photoID]];
+        [photo setOrder:[NSNumber numberWithInteger:photoObj.order]];
+        [photo setCaption:photoObj.caption];
+        
+        //save file to local then change file path
+        NSString *newPath = [[ArchiveHelper sharedArchiveHelper] savePhotoWithPath:photoObj.filePath];
+        [photo setFilePath:newPath];
+        
+        [announcement addAnnouncementToPhotosObject:photo];
+    }
+    
+    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
 }
 
 - (void)insertAnnouncementsArray:(NSArray *)announcementArr {
-    
+    for (AnnouncementObject *announcementObj in announcementArr) {
+        [self insertNewAnnouncement:announcementObj];
+    }
 }
 
 - (NSArray *)loadAllAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID {
-    return nil;
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (announcementID == 0) {
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@)", userID];
+        
+    } else {
+        
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (announcementID < %d)", userID, announcementID];
+        
+        
+    }
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    results = [self transferFromMessageToMessageObject:results];
+    
+    return results;
 }
 
 - (NSArray *)loadUnreadAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID {
-    return nil;
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (announcementID == 0) {
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (unreadFlag == 1)", userID];
+        
+    } else {
+        
+        predicate = [NSPredicate predicateWithFormat:@"(toID == %@) AND (announcementID < %d) AND (unreadFlag == 1)", userID, announcementID];
+        
+    }
+    
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    results = [self transferFromMessageToMessageObject:results];
+    
+    return results;
 }
 
 - (NSArray *)loadSentAnnouncementsFromID:(NSInteger)announcementID fromUserID:(NSString *)userID {
-    return nil;
+    NSArray *results = nil;
+    NSPredicate *predicate = nil;
+    
+    if (userID == nil) {
+        userID = @"";
+    }
+    
+    if (announcementID == 0) {
+        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@)", userID];
+        
+    } else {
+        
+        predicate = [NSPredicate predicateWithFormat:@"(fromID == %@) AND (announcementID < %d)", userID, announcementID];
+        
+    }
+    
+    results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    results = [self transferFromMessageToMessageObject:results];
+    return results;
+}
+
+- (NSArray *)transferFromAnnouncementsToAnnouncementObject:(NSArray *)announcements {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    if ([announcements count] > 0) {
+        /*
+         @property (nonatomic, assign) NSInteger announcementID;
+         @property (nonatomic, strong) NSString *subject;
+         @property (nonatomic, strong) NSString *content;
+         @property (nonatomic, strong) NSString *dateTime;
+         @property (nonatomic, strong) NSString *fromID;
+         @property (nonatomic, strong) NSString *fromUsername;
+         @property (nonatomic, strong) NSString *toID;
+         @property (nonatomic, strong) NSString *toUsername;
+         @property (nonatomic, assign) ANNOUNCEMENT_IMPORTANCE_TYPE importanceType;
+         @property (nonatomic, strong) NSMutableArray *imgArray;
+         @property (nonatomic, assign) BOOL unreadFlag;
+         */
+        for (Announcements *announcement in announcements) {
+            AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
+            
+            announcementObj.announcementID = [announcement.announcementID integerValue];
+            announcementObj.content = announcement.content;
+            announcementObj.dateTime = announcement.dateTime;
+            announcementObj.fromID = announcement.fromID;
+            announcementObj.fromUsername = announcement.fromUsername;
+            announcementObj.importanceType = (ANNOUNCEMENT_IMPORTANCE_TYPE)[announcement.importanceType integerValue];
+            announcementObj.subject = announcement.subject;
+            announcementObj.toID = announcement.toID;
+            announcementObj.toUsername = announcement.toUsername;
+            announcementObj.unreadFlag = [announcement.unreadFlag boolValue];
+            
+            for (Photos *photo in announcement.announcementToPhotos) {
+                PhotoObject *photoObj = [[PhotoObject alloc] init];
+                
+                photoObj.photoID = [photo.photoID integerValue];
+                photoObj.order = [photo.order integerValue];
+                photoObj.caption = photo.caption;
+                photoObj.filePath = photo.filePath;
+                
+                [announcementObj.imgArray addObject:photoObj];
+            }
+            
+            [results addObject:announcementObj];
+        }
+    }
+    
+    return results;
 }
 @end

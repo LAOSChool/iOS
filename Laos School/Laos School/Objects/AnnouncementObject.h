@@ -15,10 +15,10 @@
 //#define QUEUE_UNKNOWN 0
 
 typedef enum {
-    ImportanceNormal = 0,
-    ImportanceHigh,
-    ImportanceTypeMax,
-} IMPORTANCE_TYPE;
+    AnnouncementImportanceNormal = 0,
+    AnnouncementImportanceHigh,
+    AnnouncementImportanceTypeMax,
+} ANNOUNCEMENT_IMPORTANCE_TYPE;
 
 @interface AnnouncementObject : NSObject
 {
@@ -33,7 +33,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *fromUsername;
 @property (nonatomic, strong) NSString *toID;
 @property (nonatomic, strong) NSString *toUsername;
-@property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
+@property (nonatomic, assign) ANNOUNCEMENT_IMPORTANCE_TYPE importanceType;
 @property (nonatomic, strong) NSMutableArray *imgArray;
 @property (nonatomic, assign) BOOL unreadFlag;
 

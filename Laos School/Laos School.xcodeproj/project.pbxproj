@@ -241,6 +241,10 @@
 		55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B108E51C802CA200EB695C /* ic_speaker@3x.png */; };
 		55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108F61C802F1F00EB695C /* HelpViewController.m */; };
 		55B108F91C802F1F00EB695C /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B108F71C802F1F00EB695C /* HelpViewController.xib */; };
+		55B50D551CC89360002B3412 /* Announcements+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D521CC89360002B3412 /* Announcements+CoreDataProperties.m */; };
+		55B50D561CC89360002B3412 /* Announcements.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D541CC89360002B3412 /* Announcements.m */; };
+		55B50D5B1CC8AC2A002B3412 /* Photos+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D581CC8AC2A002B3412 /* Photos+CoreDataProperties.m */; };
+		55B50D5C1CC8AC2A002B3412 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D5A1CC8AC2A002B3412 /* Photos.m */; };
 		55BA86F51C8D74CB000221D7 /* ic_edit_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86F21C8D74CB000221D7 /* ic_edit_black.png */; };
 		55BA86F61C8D74CB000221D7 /* ic_edit_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86F31C8D74CB000221D7 /* ic_edit_black@2x.png */; };
 		55BA86F71C8D74CB000221D7 /* ic_edit_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86F41C8D74CB000221D7 /* ic_edit_black@3x.png */; };
@@ -673,6 +677,14 @@
 		55B108F51C802F1F00EB695C /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		55B108F61C802F1F00EB695C /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		55B108F71C802F1F00EB695C /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		55B50D511CC89360002B3412 /* Announcements+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Announcements+CoreDataProperties.h"; sourceTree = "<group>"; };
+		55B50D521CC89360002B3412 /* Announcements+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Announcements+CoreDataProperties.m"; sourceTree = "<group>"; };
+		55B50D531CC89360002B3412 /* Announcements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Announcements.h; sourceTree = "<group>"; };
+		55B50D541CC89360002B3412 /* Announcements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Announcements.m; sourceTree = "<group>"; };
+		55B50D571CC8AC2A002B3412 /* Photos+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photos+CoreDataProperties.h"; sourceTree = "<group>"; };
+		55B50D581CC8AC2A002B3412 /* Photos+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photos+CoreDataProperties.m"; sourceTree = "<group>"; };
+		55B50D591CC8AC2A002B3412 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
+		55B50D5A1CC8AC2A002B3412 /* Photos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos.m; sourceTree = "<group>"; };
 		55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool_v2.xcdatamodel; sourceTree = "<group>"; };
 		55BA86F21C8D74CB000221D7 /* ic_edit_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_black.png; sourceTree = "<group>"; };
 		55BA86F31C8D74CB000221D7 /* ic_edit_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_black@2x.png"; sourceTree = "<group>"; };
@@ -1328,6 +1340,14 @@
 		554769901C9165DD00269EBB /* Coredata */ = {
 			isa = PBXGroup;
 			children = (
+				55B50D571CC8AC2A002B3412 /* Photos+CoreDataProperties.h */,
+				55B50D581CC8AC2A002B3412 /* Photos+CoreDataProperties.m */,
+				55B50D591CC8AC2A002B3412 /* Photos.h */,
+				55B50D5A1CC8AC2A002B3412 /* Photos.m */,
+				55B50D511CC89360002B3412 /* Announcements+CoreDataProperties.h */,
+				55B50D521CC89360002B3412 /* Announcements+CoreDataProperties.m */,
+				55B50D531CC89360002B3412 /* Announcements.h */,
+				55B50D541CC89360002B3412 /* Announcements.m */,
 				554769AC1C916BE600269EBB /* Messages+CoreDataProperties.h */,
 				554769AD1C916BE600269EBB /* Messages+CoreDataProperties.m */,
 				554769AE1C916BE600269EBB /* Messages.h */,
@@ -1852,6 +1872,7 @@
 				TargetAttributes = {
 					550FD27F1C7AF60C009D7159 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 23G9UAL37D;
 					};
 				};
 			};
@@ -2069,6 +2090,7 @@
 				5538A97A1CBCF3E500659C8A /* JSQMediaItem.m in Sources */,
 				55FC72381C7C599D00B0B8D0 /* NSArray+MK_Misc.m in Sources */,
 				5538A9991CBCF6C300659C8A /* ConversationModelData.m in Sources */,
+				55B50D561CC89360002B3412 /* Announcements.m in Sources */,
 				55FEDB991C841EC100DD0D24 /* ComposeViewController.m in Sources */,
 				55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */,
 				55FEDB9E1C84365000DD0D24 /* MessageObject.m in Sources */,
@@ -2093,6 +2115,7 @@
 				552400F81C883AAA00F7D057 /* StuAttendanceTableViewCell.m in Sources */,
 				5587824D1C9010B800365369 /* TeacherListViewController.m in Sources */,
 				55797CA21C86960100A0098D /* StudentTimeTableViewController.m in Sources */,
+				55B50D5B1CC8AC2A002B3412 /* Photos+CoreDataProperties.m in Sources */,
 				5538A9671CBCF3E500659C8A /* UIColor+JSQMessages.m in Sources */,
 				55BA86FB1C8D7710000221D7 /* PersonalInfoViewController.m in Sources */,
 				557D78CB1C97C8FB008096A0 /* StudentsListTableViewCell.m in Sources */,
@@ -2161,6 +2184,7 @@
 				557D78C61C97BDE5008096A0 /* StudentsListViewController.m in Sources */,
 				5538A97E1CBCF3E500659C8A /* JSQPhotoMediaItem.m in Sources */,
 				55D6575D1C96933100A0E4F3 /* ShareData.m in Sources */,
+				55B50D5C1CC8AC2A002B3412 /* Photos.m in Sources */,
 				5575ED631CA4EB7C00EFC02C /* WSAlbumTableViewController.m in Sources */,
 				55FC71DA1C7C3F8900B0B8D0 /* DateTimeHelper.m in Sources */,
 				5575ED641CA4EB7C00EFC02C /* WSAssetPickerController.m in Sources */,
@@ -2184,6 +2208,7 @@
 				5575ED481CA4EA4E00EFC02C /* CreatePostViewController.m in Sources */,
 				5538A98A1CBCF3E500659C8A /* JSQMessagesLoadEarlierHeaderView.m in Sources */,
 				55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */,
+				55B50D551CC89360002B3412 /* Announcements+CoreDataProperties.m in Sources */,
 				5538A9811CBCF3E500659C8A /* JSQMessagesCollectionView.m in Sources */,
 				5538A97C1CBCF3E500659C8A /* JSQMessagesAvatarImage.m in Sources */,
 				5538A9891CBCF3E500659C8A /* JSQMessagesLabel.m in Sources */,
@@ -2303,6 +2328,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2322,6 +2348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

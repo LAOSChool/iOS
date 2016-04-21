@@ -62,6 +62,7 @@
 - (BOOL)checkFileExist:(NSString *)filePath;
 - (NSString *)fileExistingInTempFolder;
 
+- (NSString *)savePhotoWithPath:(NSString *)filePath;
 @end
 
 #endif
