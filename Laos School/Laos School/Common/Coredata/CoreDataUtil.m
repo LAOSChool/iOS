@@ -308,7 +308,7 @@
         
     }
     results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
-    results = [self transferFromMessageToMessageObject:results];
+    results = [self transferFromAnnouncementsToAnnouncementObject:results];
     
     return results;
 }
@@ -331,7 +331,7 @@
     }
     
     results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
-    results = [self transferFromMessageToMessageObject:results];
+    results = [self transferFromAnnouncementsToAnnouncementObject:results];
     
     return results;
 }
@@ -354,7 +354,7 @@
     }
     
     results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
-    results = [self transferFromMessageToMessageObject:results];
+    results = [self transferFromAnnouncementsToAnnouncementObject:results];
     return results;
 }
 

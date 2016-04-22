@@ -750,11 +750,11 @@
 }
 
 - (void)failToConnectToServer {
-
+    [refreshControl endRefreshing];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-
+    [refreshControl endRefreshing];
 }
 
 - (void)loginWithWrongUserPassword {
@@ -762,6 +762,7 @@
 }
 
 - (void)accountLoginByOtherDevice {
+    [refreshControl endRefreshing];
     [self showAlertAccountLoginByOtherDevice];
 }
 

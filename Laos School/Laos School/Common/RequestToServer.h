@@ -10,7 +10,14 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
+//#define TESTSERVER @"https://192.168.0.116:8443/laoschoolws"
+
+#ifdef TESTSERVER
+#define SERVER_PATH TESTSERVER
+#else
 #define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws"
+#endif
+
 #define API_NAME_LOGIN @"/login"
 #define API_NAME_MYPROFILE @"/api/users/myprofile"
 #define API_NAME_MESSAGELIST @"/api/messages"
@@ -18,6 +25,7 @@
 #define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
 
 #define API_NAME_ANNOUNCEMENTLIST @"/api/notifies"
+#define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
 
 #define HttpOK 200
 #define Accepted 201

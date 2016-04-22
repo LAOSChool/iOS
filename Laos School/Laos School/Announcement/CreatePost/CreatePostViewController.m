@@ -11,9 +11,14 @@
 #import "WSAssetPicker.h"
 #import "Common.h"
 #import "PhotoObject.h"
+#import "UserObject.h"
+#import "ClassObject.h"
 #import "CustomImageView.h"
 #import "SVProgressHUD.h"
 #import "LocalizeHelper.h"
+#import "RequestToServer.h"
+#import "ShareData.h"
+#import "ArchiveHelper.h"
 
 #import "UINavigationController+CustomNavigation.h"
 
@@ -27,6 +32,8 @@
 {
     NSMutableArray *photoArray;
     NSMutableArray *imageViewArray;
+    
+    NSMutableData *responseData;
 }
 @end
 
@@ -59,7 +66,7 @@
         
         self.navigationItem.leftBarButtonItems = @[btnCancel];
         
-        UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:(id)self action:@selector(sendRequestToGetPostLink)];
+        UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:(id)self action:@selector(sendNewAnnouncement)];
         self.navigationItem.rightBarButtonItem = postBarBtn;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -367,50 +374,21 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 #pragma mark post
-- (void)sendRequestToGetPostLink {
-//    [SVProgressHUD showWithStatus:LocalizedString(@"Uploading")];
+- (void)sendNewAnnouncement {
+    [SVProgressHUD showWithStatus:LocalizedString(@"Uploading")];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATE_ANNOUNCEMENT];
     
-    //for test
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-//    NSString *reqest = REQUEST_POST_LINK;
-//    
-//    //for test
-//    NSURL *url = [NSURL URLWithString:[@"http://192.168.0.116:8080/api?" stringByAppendingString:reqest]];
-////    NSURL *url = [NSURL URLWithString:[SERVER_LINK stringByAppendingString:reqest]];
-//    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-//    
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    
-//    [NSURLConnection sendAsynchronousRequest:urlReq queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-//     {
-//         dispatch_sync(dispatch_get_main_queue(), ^{
-//             if (error == nil && data != nil) {
-//                 [self didReceivePostLink:data];
-//                 
-//             } else {
-//                 //                 [[CommonAlert sharedCommonAlert] showServerCommonErrorAlert];
-//             }
-//         });
-//     }];
-    
-    
-}
-/*
-- (void)didReceivePostLink:(NSData *)data {
-    NSString* postLink = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    //for test
-    postLink = [postLink stringByReplacingOccurrencesOfString:@"VUQUANGHOA"
-                                         withString:@"192.168.0.116"];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:postLink]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
     // Specify that it will be a POST request
     [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    
     //—————————
-//    NSString *boundary = @"---------------------------14737809831466499882746641449";
-    NSString *boundary = @"born2go14737809831466499882746641449";
+    //    NSString *boundary = @"---------------------------14737809831466499882746641449";
+    NSString *boundary = @"laosshool14737809831466499882746641449";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
     [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
     
@@ -419,60 +397,71 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     NSMutableData *body = [NSMutableData data];
     
     //image files
+    NSInteger order = 0;
     for (CustomImageView *view in imageViewArray) {
+        order ++;
+        
+        //order
+        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"order\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"%ld", (long)order] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        //caption
+        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"caption\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"%@", view.txtCaption.text] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        //image
         NSData *imageData = UIImagePNGRepresentation(view.imageView.image);
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-        [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", view.txtCaption.text]] dataUsingEncoding:NSUTF8StringEncoding]];
-
+        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"tmp.jpg\"\r\n\r\n"]] dataUsingEncoding:NSUTF8StringEncoding]];
+        
         [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[NSData dataWithData:imageData]];
+        [body appendData:[NSData dataWithData:[[NSData alloc] init]]];
+//        [body appendData:[NSData dataWithData:imageData]];
+
     }
     
-    //post title
-    [self insertParameterToBody:body paramKey:@"title" paramValue:textViewTitle.text withBoundary:boundary];
+    //post json_in_string
+    /*{ "school_id": 1,  "class_id":1, "content": "thong bao thong bao",  "title": "Xin chao phu huynh hoc sinh lop 5A5","dest_type":"1"}
+     */
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
     
-    //post content
-    [self insertParameterToBody:body paramKey:@"post_content" paramValue:textViewPost.text withBoundary:boundary];
+    [jsonDict setValue:userObj.shoolID forKey:@"school_id"];
+    [jsonDict setValue:classObj.classID forKey:@"class_id"];
+    [jsonDict setValue:textViewPost.text forKey:@"content"];
+    [jsonDict setValue:textViewTitle.text forKey:@"title"];
+    [jsonDict setValue:@"1" forKey:@"dest_type"];
     
-    //trip_id
-//    [self insertParameterToBody:body paramKey:@"trip_id" paramValue:_tripID withBoundary:boundary];
-    //for test
-    [self insertParameterToBody:body paramKey:@"trip_id" paramValue:@"4925812092436480" withBoundary:boundary];
-   
-    //access_token
-    NSString *token = [[FBHelper sharedFBHelper] getAccessToken];
-    [self insertParameterToBody:body paramKey:@"access_token" paramValue:token withBoundary:boundary];
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:nil];
+    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    //date time
-    NSTimeInterval datetime = [[Common sharedCommon] getCurrentDatetimeInMinisec];
-    NSString *dateString = [NSString stringWithFormat:@"%.0f",datetime];
-
-    [self insertParameterToBody:body paramKey:@"created_date" paramValue:dateString withBoundary:boundary];
+    [self insertParameterToBody:body paramKey:@"json_in_string" paramValue:myString withBoundary:boundary];
+    
+    NSString* test = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+    NSLog(@"test ::: %@", test);
     
     //finish
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request setHTTPBody:body];
     
-//    NSString* test = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-//    NSLog(@"test ::: %@", test);
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         dispatch_sync(dispatch_get_main_queue(), ^{
-             [SVProgressHUD dismiss];
-             if (error == nil && data != nil) {
-                 [self didPostingResponse:data];
-                 
-             } else {
-//                 [[CommonAlert sharedCommonAlert] showServerCommonErrorAlert];
-             }
-         });
-     }];
+    [connection start];
+    
+    
 }
-*/
+
 - (void)didPostingResponse:(NSData *)data {
     NSString *status = @"ok";
     NSString *err_msg = @"no error";
@@ -507,13 +496,98 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition:form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     
  //   [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"%@", value] dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+}
+
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response
+{
+    responseData = [[NSMutableData alloc] init];
+    switch (response.statusCode) {
+        case HttpOK:
+            
+            break;
+            
+        case BadCredentials:
+            [self loginWithWrongUserPassword];
+            break;
+            
+        case NonAuthen:
+            [self accountLoginByOtherDevice];
+            break;
+            
+        default:
+            
+            NSLog(@"error code ::  %ld", (long)response.statusCode);
+            [self sendPostRequestFailedWithUnknownError];
+            break;
+            
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    if (data) {
+        [responseData appendData:data];
+    }
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    [SVProgressHUD dismiss];
+    NSError *error;
+    NSDictionary *jsonObj = nil;
+    if (responseData) {
+        
+        jsonObj = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+        
+        if (error == nil && [jsonObj count] > 0) {
+            [self receivedData:jsonObj];
+            
+        }
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)inError
+{
+    NSLog(@"didFailWithError :: %@", [inError description]);
+    
+    [self failToConnectToServer];
+}
+
+- (NSString *)getAPIKey {
+    NSString *apiKey = @"TEST_API_KEY";
+    return apiKey;
+}
+
+- (void)failToConnectToServer {
+
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+
+}
+
+- (void)loginWithWrongUserPassword {
+
+}
+
+- (void)accountLoginByOtherDevice {
+
+}
+
+- (void)receivedData:(NSDictionary *)jsonObj {
+    
+}
 @end

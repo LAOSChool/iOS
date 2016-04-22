@@ -335,11 +335,17 @@ static ArchiveHelper* sharedArchiveHelper = nil;
 }
 
 - (NSString *)savePhotoWithPath:(NSString *)filePath {
-    NSString *res = filePath;
+    NSString *fileName = [filePath lastPathComponent];
+    NSString *res = [[self dataFolder] stringByAppendingPathComponent:fileName];
     
-    if (filePath && filePath.length > 0) {
+    if (fileName && fileName.length > 0) {
         NSData *storeImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:filePath]];
-        [storeImageData writeToFile:[[self dataFolder] stringByAppendingPathComponent:@"myfile.png"] atomically:YES];
+        [storeImageData writeToFile:res atomically:YES];
+        
+    } else {
+        res = filePath;
     }
+    
+    return res;
 }
 @end

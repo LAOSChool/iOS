@@ -530,6 +530,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [refreshControl endRefreshing];
     NSArray *announcements = [jsonObj objectForKey:@"list"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
     /*
@@ -613,8 +614,8 @@
                             phototObj.photoID = [[photoDict valueForKey:@"id"] integerValue];
                         }
                         
-                        if ([photoDict valueForKey:@"order"] != (id)[NSNull null]) {
-                            phototObj.order = [[photoDict valueForKey:@"order"] integerValue];
+                        if ([photoDict valueForKey:@"idx"] != (id)[NSNull null]) {
+                            phototObj.order = [[photoDict valueForKey:@"idx"] integerValue];
                         }
                         
                         if ([photoDict valueForKey:@"caption"] != (id)[NSNull null]) {
@@ -678,11 +679,11 @@
 }
 
 - (void)failToConnectToServer {
-    
+    [refreshControl endRefreshing];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-    
+    [refreshControl endRefreshing];
 }
 
 - (void)loginWithWrongUserPassword {
@@ -690,6 +691,7 @@
 }
 
 - (void)accountLoginByOtherDevice {
+    [refreshControl endRefreshing];
     [self showAlertAccountLoginByOtherDevice];
 }
 
@@ -701,8 +703,8 @@
 }
 
 - (void)sortAnnouncementsArrayByID:(NSMutableArray *)announcementArr {
-    NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
-    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
+    NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
+    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementID, nil]];
     
     [announcementArr removeAllObjects];
     [announcementArr addObjectsFromArray:resultArr];
