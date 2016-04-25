@@ -8,7 +8,6 @@
 
 #import "CreatePostViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "WSAssetPicker.h"
 #import "Common.h"
 #import "PhotoObject.h"
 #import "UserObject.h"
@@ -22,11 +21,14 @@
 
 #import "UINavigationController+CustomNavigation.h"
 
+#import "CTAssetsPickerController.h"
+#import "CTAssetsPageViewController.h"
+
 #define IMAGE_VIEW_HEIGHT 275
 #define IMAGE_VIEW_OFFSET 8
 #define IMAGE_KEYBOARD_OFFSET 250
 
-#define IMAGE_LIMIT_NUMBER 10
+#define IMAGE_LIMIT_NUMBER 5
 
 @interface CreatePostViewController ()
 {
@@ -34,6 +36,7 @@
     NSMutableArray *imageViewArray;
     
     NSMutableData *responseData;
+    PHImageRequestOptions *requestOptions;
 }
 @end
 
@@ -49,6 +52,10 @@
     
     photoArray = [[NSMutableArray alloc] init];
     imageViewArray = [[NSMutableArray alloc] init];
+    
+    requestOptions = [[PHImageRequestOptions alloc] init];
+    requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     
     if (_isViewDetail) {
         [self setTitle:_announcementObject.subject];
@@ -202,41 +209,6 @@
     [actionSheet showInView:self.view];
 }
 
-#pragma mark - WSAssetPickerControllerDelegate Methods
-
-- (void)assetPickerControllerDidCancel:(WSAssetPickerController *)sender
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)assetPickerControllerDidLimitSelection:(WSAssetPickerController *)sender {
-//    if ([TSMessage isNotificationActive] == NO) {
-//        [TSMessage showNotificationInViewController:sender withTitle:@"Selection limit reached." withMessage:nil withType:TSMessageNotificationTypeWarning withDuration:2.0];
-//    }
-}
-
-- (void)assetPickerController:(WSAssetPickerController *)sender didFinishPickingMediaWithAssets:(NSArray *)assets
-{
-    // Dismiss the picker controller.
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-        if (assets.count == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return;
-        }
-        
-        for (ALAsset *asset in assets) {
-            
-            UIImage *image = [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullScreenImage];
-            image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:IMAGE_VIEW_HEIGHT];
-            
-            [photoArray addObject:image];
-            
-            [self addImageToList:image];
-        }
-    }];
-}
-
 #pragma mark action sheet delegate
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
@@ -261,18 +233,94 @@
                 
                 return;
             }
-        
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        
-            WSAssetPickerController *picker = [[WSAssetPickerController alloc] initWithAssetsLibrary:library];
-            picker.delegate = (id)self;
-            [picker setSelectionLimit:IMAGE_LIMIT_NUMBER];
-            
-            [self presentViewController:picker animated:YES completion:nil];
-            
+
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    // init picker
+                    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+                    
+                    // set delegate
+                    picker.delegate = (id)self;
+                    
+                    // create options for fetching photo only
+                    PHFetchOptions *fetchOptions = [PHFetchOptions new];
+                    fetchOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
+                    
+                    // assign options
+                    picker.assetsFetchOptions = fetchOptions;
+                    
+                    // to show selection order
+                    picker.showsSelectionIndex = YES;
+                    
+                    // to present picker as a form sheet in iPad
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                        picker.modalPresentationStyle = UIModalPresentationFormSheet;
+                    
+                    // present picker
+                    [self presentViewController:picker animated:YES completion:nil];
+                    
+                });
+            }];
         } else if (buttonIndex == 2) {
             NSLog(@"Cancel");
         }
+    }
+}
+
+// implement should select asset delegate
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset
+{
+    NSInteger max = IMAGE_LIMIT_NUMBER;
+    
+    // show alert gracefully
+    if (picker.selectedAssets.count >= max)
+    {
+        UIAlertController *alert =
+        [UIAlertController alertControllerWithTitle:@"Attention"
+                                            message:[NSString stringWithFormat:@"You reached to the limitation. Only allow %ld photos.", (long)max]
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action =
+        [UIAlertAction actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                               handler:nil];
+        
+        [alert addAction:action];
+        
+        [picker presentViewController:alert animated:YES completion:nil];
+    }
+    
+    // limit selection to max
+    return (picker.selectedAssets.count < max);
+}
+
+#pragma mark - Assets Picker Delegate
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
+    [photoArray removeAllObjects];
+    
+    if (assets.count == 0) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    for (PHAsset *asset in assets) {
+
+        PHImageManager *manager = [PHImageManager defaultManager];
+        CGFloat scale = UIScreen.mainScreen.scale;
+        CGSize targetSize = CGSizeMake(IMAGE_VIEW_HEIGHT * scale, IMAGE_VIEW_HEIGHT * scale);
+        
+        [manager requestImageForAsset:asset
+                           targetSize:targetSize
+                          contentMode:PHImageContentModeAspectFill
+                              options:requestOptions
+                        resultHandler:^(UIImage *image, NSDictionary *info){
+                            [photoArray addObject:image];
+                            
+                            [self addImageToList:image];
+                        }];
     }
 }
 
@@ -281,11 +329,28 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     UIImage* image = [info objectForKey: UIImagePickerControllerOriginalImage];
     image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:IMAGE_VIEW_HEIGHT];
     
-    [photoArray addObject:image];
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    [self addImageToList:image];
+    if ([photoArray count] < IMAGE_LIMIT_NUMBER) {
+        [photoArray addObject:image];
+        
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        
+        [self addImageToList:image];
+        
+    } else {
+        UIAlertController *alert =
+        [UIAlertController alertControllerWithTitle:@"Attention"
+                                            message:[NSString stringWithFormat:@"You reached to the limitation. Only allow %ld photos.", (long)IMAGE_LIMIT_NUMBER]
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action =
+        [UIAlertAction actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                               handler:nil];
+        
+        [alert addAction:action];
+        
+        [picker presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 #pragma mark custom image delegate
@@ -401,32 +466,33 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     for (CustomImageView *view in imageViewArray) {
         order ++;
         
-        //order
-        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"order\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[[NSString stringWithFormat:@"%ld", (long)order] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        //caption
-        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"caption\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[[NSString stringWithFormat:@"%@", view.txtCaption.text] dataUsingEncoding:NSUTF8StringEncoding]];
-        
         //image
         NSData *imageData = UIImagePNGRepresentation(view.imageView.image);
-        [body appendData:[[NSString stringWithFormat:@"\r\n\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         
         [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"tmp.jpg\"\r\n\r\n"]] dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[NSData dataWithData:[[NSData alloc] init]]];
-//        [body appendData:[NSData dataWithData:imageData]];
+//        [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//        [body appendData:[NSData dataWithData:[[NSData alloc] init]]];
+        [body appendData:[NSData dataWithData:imageData]];
+        
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        //caption
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"caption\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+ //       [body appendData:[@"Content-Type: text/plain\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"%@", view.txtCaption.text] dataUsingEncoding:NSUTF8StringEncoding]];
 
+        //order
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"order\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+ //       [body appendData:[@"Content-Type: text/plain\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"%ld", (long)order] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     //post json_in_string
@@ -497,7 +563,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition:form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     
  //   [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     

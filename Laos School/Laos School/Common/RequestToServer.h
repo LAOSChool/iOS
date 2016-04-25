@@ -10,7 +10,7 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
-//#define TESTSERVER @"https://192.168.0.116:8443/laoschoolws"
+//#define TESTSERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef TESTSERVER
 #define SERVER_PATH TESTSERVER
