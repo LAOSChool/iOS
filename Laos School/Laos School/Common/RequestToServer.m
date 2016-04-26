@@ -149,6 +149,40 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 #pragma mark messages
+- (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_UPDATEMESSAGE];
+    requestString = [NSString stringWithFormat:@"%@/%ld?is_read=%d", requestString, (long)messageID, flag];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_UPDATEMESSAGE];
+    requestString = [NSString stringWithFormat:@"%@/%ld?imp_flg=%d", requestString, (long)messageID, flag];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 - (void)createMessageWithObject:(NSDictionary *)messageDict {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATEMESSAGE];
 //    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@", requestString, userID];
@@ -284,6 +318,8 @@ static RequestToServer* sharedRequestToServer = nil;
         if (error == nil && [jsonObj count] > 0) {
             [self.delegate connectionDidFinishLoading:jsonObj];
             
+        } else {
+            [self.delegate sendPostRequestFailedWithUnknownError];
         }
     }
 }

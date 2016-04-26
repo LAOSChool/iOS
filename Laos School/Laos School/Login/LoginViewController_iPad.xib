@@ -11,8 +11,6 @@
                 <outlet property="btnLogin" destination="y6c-Js-3Cm" id="3XR-FX-Tn8"/>
                 <outlet property="imgBackground" destination="sJX-fW-U6Q" id="ZWx-Gl-pSR"/>
                 <outlet property="lbAppName" destination="qw8-jM-Wri" id="HPs-gq-JBe"/>
-                <outlet property="lbPassword" destination="UzH-zb-tM3" id="i1V-5U-WCG"/>
-                <outlet property="lbUsername" destination="oOz-Jk-PWQ" id="doS-3T-FM2"/>
                 <outlet property="txtPassword" destination="hEm-3u-Jnh" id="dNs-Tx-XdW"/>
                 <outlet property="txtUsername" destination="ah5-WF-7Fr" id="pzk-GW-T67"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mwN-nA-t1B"/>
@@ -29,11 +27,11 @@
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="MoS-cs-EUq">
-                    <rect key="frame" x="224" y="394" width="320" height="236"/>
+                    <rect key="frame" x="224" y="394" width="320" height="191"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="ah5-WF-7Fr" customClass="CustomTextField">
-                            <rect key="frame" x="8" y="44" width="304" height="30"/>
+                            <rect key="frame" x="8" y="33" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
@@ -41,8 +39,8 @@
                                 <outlet property="delegate" destination="-1" id="VV7-H4-lxI"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" id="hEm-3u-Jnh" customClass="CustomTextField">
-                            <rect key="frame" x="8" y="111" width="304" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="hEm-3u-Jnh" customClass="CustomTextField">
+                            <rect key="frame" x="8" y="71" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" secureTextEntry="YES"/>
@@ -50,22 +48,8 @@
                                 <outlet property="delegate" destination="-1" id="OH3-IP-vcy"/>
                             </connections>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oOz-Jk-PWQ">
-                            <rect key="frame" x="8" y="15" width="258" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UzH-zb-tM3">
-                            <rect key="frame" x="8" y="82" width="304" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="43E-GC-ldn">
-                            <rect key="frame" x="282" y="9" width="38" height="34"/>
+                            <rect key="frame" x="282" y="0.0" width="38" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_help.png"/>
                             <connections>
@@ -73,7 +57,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y6c-Js-3Cm">
-                            <rect key="frame" x="80" y="156" width="160" height="30"/>
+                            <rect key="frame" x="80" y="109" width="160" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="Login">
@@ -84,7 +68,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yUr-7a-Jtd">
-                            <rect key="frame" x="80" y="194" width="160" height="30"/>
+                            <rect key="frame" x="80" y="141" width="160" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="Forgot password?">

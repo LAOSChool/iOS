@@ -9,23 +9,31 @@
 #ifndef LazzyBee_RequestToServer_h
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
+//#define PRODUCTION_SERVER @"https://222.255.29.25:8443/laoschoolws"
+//#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
-//#define TESTSERVER @"https://192.168.0.119:8443/laoschoolws"
-
-#ifdef TESTSERVER
-#define SERVER_PATH TESTSERVER
+#ifdef PRODUCTION_SERVER
+#define SERVER_PATH PRODUCTION_SERVER
+#else
+#ifdef TEST_SERVER
+#define SERVER_PATH TEST_SERVER
 #else
 #define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws"
+#endif
 #endif
 
 #define API_NAME_LOGIN @"/login"
 #define API_NAME_MYPROFILE @"/api/users/myprofile"
+#define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
+
 #define API_NAME_MESSAGELIST @"/api/messages"
 #define API_NAME_CREATEMESSAGE @"/api/messages/create"
-#define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
+#define API_NAME_UPDATEMESSAGE @"/api/messages/update"
+
 
 #define API_NAME_ANNOUNCEMENTLIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
+
 
 #define HttpOK 200
 #define Accepted 201
@@ -59,6 +67,8 @@
 - (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
 
 //messages
+- (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag;
+- (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag;
 - (void)createMessageWithObject:(NSDictionary *)messageDict;
 - (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;

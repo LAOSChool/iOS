@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncImageView.h"
 
 @protocol AnnouncementCellDelegate <NSObject>
 
@@ -21,6 +22,7 @@
     
 }
 
+@property (nonatomic, strong) IBOutlet AsyncImageView *imgAvatar;
 @property (nonatomic, strong) IBOutlet UILabel *lbSubject;
 @property (nonatomic, strong) IBOutlet UILabel *lbBriefContent;
 @property (nonatomic, strong) IBOutlet UILabel *lbTime;

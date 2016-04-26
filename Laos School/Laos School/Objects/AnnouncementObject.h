@@ -36,6 +36,7 @@ typedef enum {
 @property (nonatomic, assign) ANNOUNCEMENT_IMPORTANCE_TYPE importanceType;
 @property (nonatomic, strong) NSMutableArray *imgArray;
 @property (nonatomic, assign) BOOL unreadFlag;
+@property (nonatomic, strong) NSString *userAvatar;
 
 @end
 

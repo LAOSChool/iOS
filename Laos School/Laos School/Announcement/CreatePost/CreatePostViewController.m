@@ -18,6 +18,7 @@
 #import "RequestToServer.h"
 #import "ShareData.h"
 #import "ArchiveHelper.h"
+#import "CommonAlert.h"
 
 #import "UINavigationController+CustomNavigation.h"
 
@@ -56,6 +57,7 @@
     requestOptions = [[PHImageRequestOptions alloc] init];
     requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
     requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    requestOptions.networkAccessAllowed = YES;
     
     if (_isViewDetail) {
         [self setTitle:_announcementObject.subject];
@@ -73,7 +75,8 @@
         
         self.navigationItem.leftBarButtonItems = @[btnCancel];
         
-        UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:(id)self action:@selector(sendNewAnnouncement)];
+        UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
+
         self.navigationItem.rightBarButtonItem = postBarBtn;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -277,12 +280,12 @@
     if (picker.selectedAssets.count >= max)
     {
         UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:@"Attention"
-                                            message:[NSString stringWithFormat:@"You reached to the limitation. Only allow %ld photos.", (long)max]
+        [UIAlertController alertControllerWithTitle:LocalizedString(@"Attention")
+                                            message:[NSString stringWithFormat:LocalizedString(@"You have reached to the limitation. Only allow %ld photos."), (long)max]
                                      preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *action =
-        [UIAlertAction actionWithTitle:@"OK"
+        [UIAlertAction actionWithTitle:LocalizedString(@"OK")
                                  style:UIAlertActionStyleDefault
                                handler:nil];
         
@@ -299,7 +302,10 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [photoArray removeAllObjects];
+    // Dismiss the picker controller.
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self removeAllPhoto];
     
     if (assets.count == 0) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -338,12 +344,12 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         
     } else {
         UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:@"Attention"
-                                            message:[NSString stringWithFormat:@"You reached to the limitation. Only allow %ld photos.", (long)IMAGE_LIMIT_NUMBER]
+        [UIAlertController alertControllerWithTitle:LocalizedString(@"Attention")
+                                            message:[NSString stringWithFormat:LocalizedString(@"You have reached to the limitation. Only allow %ld photos."), (long)IMAGE_LIMIT_NUMBER]
                                      preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *action =
-        [UIAlertAction actionWithTitle:@"OK"
+        [UIAlertAction actionWithTitle:LocalizedString(@"OK")
                                  style:UIAlertActionStyleDefault
                                handler:nil];
         
@@ -351,6 +357,17 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         
         [picker presentViewController:alert animated:YES completion:nil];
     }
+}
+
+- (void)removeAllPhoto {
+    [photoArray removeAllObjects];
+    
+    //remove old subview
+    for (UIView *view in imageViewArray) {
+        [view removeFromSuperview];
+    }
+    
+    [imageViewArray removeAllObjects];
 }
 
 #pragma mark custom image delegate
@@ -439,6 +456,30 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 #pragma mark post
+//return NO if not valid
+- (BOOL)validateInputs {
+    BOOL res = YES;
+    
+    NSString *subject = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:textViewTitle.text];
+    NSString *content = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:textViewPost.text];
+    
+    if (subject.length == 0 || content.length == 0) {
+        //show alert invalid
+        res = NO;
+    }
+    
+    return res;
+}
+
+- (void)btnSendClick {
+    if ([self validateInputs]) {
+         [self confirmBeforeSendingAnnouncement];
+        
+    } else {
+        [self showAlertInvalidInputs];
+    }
+}
+
 - (void)sendNewAnnouncement {
     [SVProgressHUD showWithStatus:LocalizedString(@"Uploading")];
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATE_ANNOUNCEMENT];
@@ -528,36 +569,6 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
 }
 
-- (void)didPostingResponse:(NSData *)data {
-    NSString *status = @"ok";
-    NSString *err_msg = @"no error";
-    
-    NSString* test = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"test ::: %@", test);
-    
-    NSError *error;
-    NSDictionary *jsonObj = nil;
-    if (data) {
-        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-        if (error == nil && [jsonObj count] > 0) {
-            status = [jsonObj objectForKey:@"status"];
-            err_msg = [jsonObj objectForKey:@"err_msg"];
-            if (status && err_msg) {
-                if ([[status lowercaseString] isEqualToString:@"ok"]) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTrip" object:nil];
-                } else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:err_msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    alert.tag = 1;
-                    
-                    [alert show];
-                }
-            }
-        }
-    }
-}
-
 - (void)insertParameterToBody:(NSMutableData *)body paramKey:(NSString *)key paramValue:(NSString *)value withBoundary:(NSString *)boundary {
 
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -628,7 +639,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)inError
 {
     NSLog(@"didFailWithError :: %@", [inError description]);
-    
+    [SVProgressHUD dismiss];
     [self failToConnectToServer];
 }
 
@@ -638,22 +649,83 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (void)failToConnectToServer {
-
+    [self showAlertFailedToConnectToServer];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-
+    [SVProgressHUD dismiss];
 }
 
 - (void)loginWithWrongUserPassword {
-
+    
 }
 
 - (void)accountLoginByOtherDevice {
-
+    [SVProgressHUD dismiss];
+    [self showAlertAccountLoginByOtherDevice];
 }
 
 - (void)receivedData:(NSDictionary *)jsonObj {
+    [SVProgressHUD showSuccessWithStatus:@"Sent"];
+    NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
+    if (statusCode == HttpOK) {
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewAnnouncement" object:nil];
+        
+    } else {
+        [self sendAnnouncementFailed];
+        
+        
+    }
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
+
+- (void)sendAnnouncementFailed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending message. Please try again later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)showAlertFailedToConnectToServer {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)confirmBeforeSendingAnnouncement {
+    NSString *content = [NSString stringWithFormat:LocalizedString(@"Send this announcement to class %@"), [ShareData sharedShareData].userObj.classObj.className];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 4;
+    
+    [alert show];
+}
+
+- (void)showAlertInvalidInputs {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter subject and content!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 5;
+    
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if (alertView.tag == 4) {    //confirmBeforeSendingAnnouncement
+        if (buttonIndex != 0) {
+            if ([[Common sharedCommon]networkIsActive]) {
+                [self sendNewAnnouncement];
+            } else {
+                [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+            }
+        }
+    }
 }
 @end

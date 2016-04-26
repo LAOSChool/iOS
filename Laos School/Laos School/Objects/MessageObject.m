@@ -40,6 +40,7 @@
         self.importanceType = ImportanceNormal;
         self.messageTypeIcon = @"NX";
         self.dateTime = @"";
+        self.userAvatar = @"";
     }
     return self;
 }
@@ -97,6 +98,10 @@
         if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
             self.dateTime = [messageDict valueForKey:@"sent_dt"];
         }
+        
+        if ([messageDict valueForKey:@"userAvatar"] != (id)[NSNull null]) {
+            self.userAvatar = [messageDict valueForKey:@"userAvatar"];
+        }
     }
     return self;
 }
@@ -115,6 +120,7 @@
     [encoder encodeInteger:self.importanceType forKey:@"importanceType"];
     [encoder encodeObject:self.messageTypeIcon forKey:@"messageTypeIcon"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
+    [encoder encodeObject:self.userAvatar forKey:@"userAvatar"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -132,6 +138,7 @@
         self.importanceType = (IMPORTANCE_TYPE)[decoder decodeIntegerForKey:@"importanceType"];
         self.messageTypeIcon = [decoder decodeObjectForKey:@"messageTypeIcon"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
+        self.userAvatar = [decoder decodeObjectForKey:@"userAvatar"];
     }
     
     return self;

@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X3M-dX-ktq">
-                        <rect key="frame" x="8" y="2" width="306" height="21"/>
+                        <rect key="frame" x="41" y="2" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EFx-wJ-yYv">
-                        <rect key="frame" x="8" y="21" width="306" height="21"/>
+                        <rect key="frame" x="41" y="21" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AHA-23-jfu">
-                        <rect key="frame" x="8" y="41" width="229" height="21"/>
+                        <rect key="frame" x="41" y="41" width="196" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,10 +51,15 @@
                             <action selector="btnFlagClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eGq-Z3-e0O"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_gray.png" id="TTB-di-4l1" customClass="AsyncImageView">
+                        <rect key="frame" x="8" y="19" width="25" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="btnImportanceFlag" destination="9dR-Z7-xqZ" id="ZCi-RY-TkP"/>
+                <outlet property="imgAvatar" destination="TTB-di-4l1" id="8oA-aZ-CFg"/>
                 <outlet property="lbBriefContent" destination="EFx-wJ-yYv" id="m3X-aI-rcq"/>
                 <outlet property="lbSenderName" destination="AHA-23-jfu" id="aAb-hP-XJy"/>
                 <outlet property="lbSubject" destination="X3M-dX-ktq" id="32n-lT-uNF"/>
@@ -65,5 +70,6 @@
     </objects>
     <resources>
         <image name="ic_flag_white.png" width="30" height="30"/>
+        <image name="ic_user_gray.png" width="30" height="30"/>
     </resources>
 </document>

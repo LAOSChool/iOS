@@ -158,10 +158,11 @@
 */
 
 - (void)refreshAfterSentNewMessage {
-    [self loadData];
+    [self loadDataFromServer];
 }
 
 - (void)loadData {
+    [SVProgressHUD show];
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         //load data from local coredata
         [self loadMessagesFromCoredata];
@@ -223,6 +224,7 @@
 }
 
 - (void)loadDataFromServer {
+    [SVProgressHUD show];
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         [self loadNewMessageFromServer];
         
@@ -348,6 +350,7 @@
 
 - (IBAction)segmentAction:(id)sender {
     isReachToEnd = NO;
+    [messagesTableView reloadData];
     [self loadData];
 }
 
@@ -608,6 +611,7 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     NSArray *messages = [jsonObj objectForKey:@"list"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
@@ -692,6 +696,10 @@
                 messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
             }
             
+            if ([messageDict valueForKey:@"userAvatar"] != (id)[NSNull null]) {
+                messObj.userAvatar = [messageDict valueForKey:@"userAvatar"];
+            }
+            
             [newArr addObject:messObj];
         }
         
@@ -750,10 +758,12 @@
 }
 
 - (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
 }
 
@@ -762,6 +772,7 @@
 }
 
 - (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     [self showAlertAccountLoginByOtherDevice];
 }

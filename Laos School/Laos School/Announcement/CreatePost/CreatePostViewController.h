@@ -11,6 +11,8 @@
 
 @interface CreatePostViewController : UIViewController
 {
+    IBOutlet UILabel *lbTo;
+    IBOutlet UILabel *lbReceiverList;
     IBOutlet UIScrollView *mainScrollView;
     IBOutlet UITextView *textViewTitle;
     IBOutlet UITextView *textViewPost;

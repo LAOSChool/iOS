@@ -17,6 +17,8 @@
 #import "CommonDefine.h"
 #import "SVProgressHUD.h"
 #import "CoreDataUtil.h"
+#import "Common.h"
+#import "CommonAlert.h"
 
 @interface ComposeViewController ()
 {
@@ -50,7 +52,7 @@
         lbTeacherReceiverList.text = [[ShareData sharedShareData] userObj].classObj.teacherName;
     }
     
-    UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(sendNewMessage)];
+    UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
     
     self.navigationItem.rightBarButtonItems = @[btnSend];
     
@@ -81,6 +83,35 @@
 
 - (void)cancelButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)btnSendClick {
+    if ([[Common sharedCommon]networkIsActive]) {
+        if ([self validateInputs]) {
+            [self sendNewMessage];
+            
+        } else {
+            [self showAlertInvalidInputs];
+        }
+        
+    } else {
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    }
+}
+
+//return NO if not valid
+- (BOOL)validateInputs {
+    BOOL res = YES;
+    
+    NSString *subject = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtSubject.text];
+    NSString *content = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtContent.text];
+    
+    if (subject.length == 0 || content.length == 0) {
+        //show alert invalid
+        res = NO;
+    }
+    
+    return res;
 }
 
 - (void)sendNewMessage {
@@ -214,7 +245,7 @@
 }
 
 - (void)failToConnectToServer {
-    
+    [self showAlertFailedToConnectToServer];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
@@ -235,6 +266,20 @@
 - (void)sendMessageFailed {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending message. Please try again later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)showAlertFailedToConnectToServer {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)showAlertInvalidInputs {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter subject and content!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
     
     [alert show];
 }

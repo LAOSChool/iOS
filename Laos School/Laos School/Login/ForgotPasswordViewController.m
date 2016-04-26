@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "RequestToServer.h"
 #import "Common.h"
+#import "CommonAlert.h"
 
 @interface ForgotPasswordViewController ()
 {
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:LocalizedString(@"Forget password")];
+    [self setTitle:LocalizedString(@"Forgot password")];
     
     [self.navigationController setNavigationColor];
     
@@ -55,20 +56,48 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [txtUsername resignFirstResponder];
+    [txtPhonenumber resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isEqual:txtUsername]) {
+        [txtPhonenumber becomeFirstResponder];
+        
+    } else if ([textField isEqual:txtPhonenumber]) {
+        [txtPhonenumber resignFirstResponder];
+        
+        //call Submit function
+        [self btnSubmitClick:btnSubmit];
+    }
+    
+    return NO;
+}
 
 - (void)closeButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)btnSubmitClick:(id)sender {
 
-    if ([self validateInputs]) {
-        NSString *username = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtUsername.text];
-        
-        [requestToServer requestToResetForgotPassword:username andPhonenumber:txtPhonenumber.text];
+    if ([[Common sharedCommon]networkIsActive]) {
+        [txtUsername resignFirstResponder];
+        [txtPhonenumber resignFirstResponder];
+        if ([self validateInputs]) {
+            [SVProgressHUD show];
+            NSString *username = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtUsername.text];
+            
+            [requestToServer requestToResetForgotPassword:username andPhonenumber:txtPhonenumber.text];
+            
+        } else {
+            //show alert
+            [self showAlertInvalidInputs];
+        }
         
     } else {
-        //show alert
-        [self showAlertInvalidInputs];
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
     }
 }
 
@@ -91,9 +120,10 @@
 
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
-    NSString *statuscode = [jsonObj valueForKey:@"httpStatus"];
+    NSInteger statuscode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
-    if ([statuscode isEqualToString:@"200"]) {
+    if (statuscode == HttpOK) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SentForgotPassRequest" object:nil];
         [self showResetPassSuccessfully];
         [self dismissViewControllerAnimated:YES completion:nil];
         
@@ -139,7 +169,7 @@
 }
 
 - (void)showAlertInvalidInputs {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your user name and phone number!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your username and phone number!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 4;
     
     [alert show];

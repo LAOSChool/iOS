@@ -131,7 +131,8 @@
     if (photoCount > 0 && videoCount > 0)
         self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos, %@ Videos", nil), numberOfPhotos, numberOfVideos];
     else if (photoCount > 0 && videoCount <= 0)
-        self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos", nil), numberOfPhotos];
+//        self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos", nil), numberOfPhotos];
+        self.label.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%@ Photos", @"CTAssetsPicker", [NSBundle ctassetsPickerBundle], (nil)), numberOfPhotos];
     else if (photoCount <= 0 && videoCount > 0)
         self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Videos", nil), numberOfVideos];
     else

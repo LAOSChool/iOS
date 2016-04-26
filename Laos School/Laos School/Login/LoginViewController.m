@@ -32,10 +32,14 @@
 #import "ShareData.h"
 #import "ArchiveHelper.h"
 #import "SVProgressHUD.h"
+#import "CommonAlert.h"
 
 @interface LoginViewController ()
 {
     RequestToServer *requestToServer;
+    
+    NSInteger timeCounter;
+    NSTimer *timer;
 }
 @end
 
@@ -57,14 +61,20 @@
     NSString *authkey = [[ArchiveHelper sharedArchiveHelper] loadAuthKey];
     NSString *username = [[ArchiveHelper sharedArchiveHelper] loadUsername];
     
+    if (username && username.length > 0) {
+        txtUsername.text = username;
+    }
+    
     if (authkey && authkey.length > 0) {
-        if (username && username.length > 0) {
-            txtUsername.text = username;
-        }
         
         [SVProgressHUD show];
         [requestToServer getMyProfile];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(disableForgotPassword)
+                                                 name:@"SentForgotPassRequest"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,7 +103,11 @@
 
 - (IBAction)btnLoginClick:(id)sender {
     //call login function
-    [self login];
+    if ([[Common sharedCommon]networkIsActive]) {
+        [self login];
+    } else {
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    }
 }
 
 
@@ -118,7 +132,7 @@
     if ([textField isEqual:txtUsername]) {
         [txtPassword becomeFirstResponder];
         
-    } else if ([textField isEqual:txtUsername]) {
+    } else if ([textField isEqual:txtPassword]) {
         [txtPassword resignFirstResponder];
         
         //call login function
@@ -143,11 +157,14 @@
 }
 
 - (void)login {
+    [txtUsername resignFirstResponder];
+    [txtPassword resignFirstResponder];
     if ([self validateInputs]) {
         NSString *username = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtUsername.text];
         
         [[ArchiveHelper sharedArchiveHelper] saveUsername:username];
         
+        [SVProgressHUD showWithStatus:LocalizedString(@"Login...")];
         [requestToServer loginWithUsername:username andPassword:txtPassword.text];
         
         /*UserObject *userObject = [[UserObject alloc] init];
@@ -189,7 +206,6 @@
 
 - (void)sendPostRequestFailedWithUnknownError {
     [SVProgressHUD dismiss];
-    [self showAlertUnknowError];
 }
 
 - (void)loginWithWrongUserPassword {
@@ -375,7 +391,7 @@
 
 #pragma mark alert
 - (void)showAlertInvalidInputs {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your user name and password!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your username and password!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 1;
     
     [alert show];
@@ -409,5 +425,22 @@
     [alert show];
 }
 
+#pragma mark timer
+- (void)disableForgotPassword {
+    //disable Get PIN button for 60s
+    btnForgot.enabled = NO;
+    timeCounter = 60;
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(resetForgotButton) userInfo:nil repeats:YES];
+}
 
+- (void)resetForgotButton {
+    if (timeCounter == 0) {
+        btnForgot.enabled = YES;
+        [timer invalidate];
+        
+    } else {
+        timeCounter--;
+        btnForgot.enabled = NO;
+    }
+}
 @end

@@ -20,6 +20,7 @@
 #import "RequestToServer.h"
 #import "DateTimeHelper.h"
 #import "CoreDataUtil.h"
+#import "SVProgressHUD.h"
 
 @interface AnnouncementViewController ()
 {
@@ -55,12 +56,12 @@
         self.navigationItem.rightBarButtonItems = @[addButton];
         
         segmentedControl = [[UISegmentedControl alloc] initWithItems:
-                            [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"), LocalizedString(@"Sent"),
+                            [NSArray arrayWithObjects:LocalizedString(@"All"), LocalizedString(@"Unread"),
                              nil]];
-        segmentedControl.frame = CGRectMake(0, 0, 210, 30);
+        segmentedControl.frame = CGRectMake(0, 0, 140, 30);
         [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
         [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
-        [segmentedControl setWidth:70.0 forSegmentAtIndex:2];
+        //[segmentedControl setWidth:70.0 forSegmentAtIndex:2];
         
         [segmentedControl setSelectedSegmentIndex:0];
         
@@ -184,6 +185,7 @@
 
 - (IBAction)segmentAction:(id)sender {
     isReachToEnd = NO;
+    [announcementTableView reloadData];
     [self loadData];
 }
 
@@ -200,10 +202,11 @@
 }
 
 - (void)refreshAfterSentNewAnnouncement {
-    [self loadData];
+    [self loadDataFromServer];
 }
 
 - (void)loadData {
+    [SVProgressHUD show];
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         //load data from local coredata
         [self loadAnnouncementsFromCoredata];
@@ -243,6 +246,7 @@
 }
 
 - (void)loadDataFromServer {
+    [SVProgressHUD show];
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         [self loadNewAnnouncementFromServer];
         
@@ -530,6 +534,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     NSArray *announcements = [jsonObj objectForKey:@"list"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
@@ -679,10 +684,12 @@
 }
 
 - (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
 }
 
@@ -691,6 +698,7 @@
 }
 
 - (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     [self showAlertAccountLoginByOtherDevice];
 }
