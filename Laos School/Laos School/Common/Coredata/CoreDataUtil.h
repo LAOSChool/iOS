@@ -29,6 +29,8 @@
 - (NSArray *)loadAllMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID;
 - (NSArray *)loadUnreadMessagesFromID:(NSInteger)messageID toUserID:(NSString *)userID;
 - (NSArray *)loadSentMessagesFromID:(NSInteger)messageID fromUserID:(NSString *)userID;
+- (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag;
+- (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag;
 
 - (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject;
 - (void)insertAnnouncementsArray:(NSArray *)announcementArr;

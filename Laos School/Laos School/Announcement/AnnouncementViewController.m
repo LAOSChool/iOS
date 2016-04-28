@@ -118,6 +118,11 @@
     //Load data
     [self loadData];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAfterUpdateFlag)
+                                                 name:@"RefreshAfterUpdateFlag"
+                                               object:nil];
+    
     //for test
 #if 0
     AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
@@ -199,6 +204,10 @@
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
     
+}
+
+- (void)refreshAfterUpdateFlag {
+    [announcementTableView reloadData];
 }
 
 - (void)refreshAfterSentNewAnnouncement {

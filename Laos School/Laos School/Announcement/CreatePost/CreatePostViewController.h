@@ -14,9 +14,11 @@
     IBOutlet UILabel *lbTo;
     IBOutlet UILabel *lbReceiverList;
     IBOutlet UIScrollView *mainScrollView;
-    IBOutlet UITextView *textViewTitle;
+
+    IBOutlet UITextField *textViewTitle;
     IBOutlet UITextView *textViewPost;
     IBOutlet UIBarButtonItem *btnCamera;
+    IBOutlet UIButton *btnImportanceFlag;
     
     IBOutlet UIToolbar *toolbar;
 }

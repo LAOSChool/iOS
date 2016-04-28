@@ -30,6 +30,8 @@
 #define IMAGE_KEYBOARD_OFFSET 250
 
 #define IMAGE_LIMIT_NUMBER 5
+#define PLACEHOLDER_SUBJECT @"Subject"
+#define PLACEHOLDER_CONTENT @"Content"
 
 @interface CreatePostViewController ()
 {
@@ -59,6 +61,10 @@
     requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     requestOptions.networkAccessAllowed = YES;
     
+    if (_announcementObject == nil) {
+        _announcementObject = [[AnnouncementObject alloc] init];
+    }
+    
     if (_isViewDetail) {
         [self setTitle:_announcementObject.subject];
         
@@ -68,8 +74,13 @@
         textViewPost.textColor = [UIColor blackColor];
         textViewTitle.textColor = [UIColor blackColor];
         
+        lbTo.text = LocalizedString(@"From:");
+        lbReceiverList.text = _announcementObject.fromUsername;
+        
     } else {
         [self setTitle:LocalizedString(@"New Anouncement")];
+        lbTo.text = LocalizedString(@"To:");
+        lbReceiverList.text = [[[ShareData sharedShareData] userObj] classObj].className;
         
         UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
         
@@ -83,13 +94,20 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     
+    if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
+        [btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
+        
+    } else {
+        [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
+    }
+    
     //scroll content size
     CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
     
     textViewPost.editable = !_isViewDetail;
-    textViewTitle.editable = !_isViewDetail;
+    textViewTitle.userInteractionEnabled = !_isViewDetail;
     btnCamera.enabled = !_isViewDetail;
     
     if (_isViewDetail) {
@@ -129,6 +147,26 @@
     [textViewTitle resignFirstResponder];
 }
 
+- (IBAction)btnPriorityFlagClick:(id)sender {
+    if (_announcementObject.importanceType == AnnouncementImportanceNormal) {
+        _announcementObject.importanceType = AnnouncementImportanceHigh;
+        
+    } else {
+        _announcementObject.importanceType = AnnouncementImportanceNormal;
+    }
+    
+    if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
+        [btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
+        
+    } else {
+        [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
+    }
+    
+    if (_isViewDetail) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshAfterUpdateFlag" object:nil];
+    }
+}
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [textViewPost resignFirstResponder];
@@ -157,45 +195,49 @@
 #pragma mark text view delegate
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {
     
-    [textViewPost resignFirstResponder];
+    if ([textField isEqual:textViewTitle]) {
+        [textViewPost becomeFirstResponder];
+        
+    }
+    
     return YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     //set placeholder, because it's not support by default
-    if ([textView isEqual:textViewTitle]) {
-        if ([textView.text isEqualToString:@"Post title"]) {
-            textView.text = @"";
-            textView.textColor = [UIColor blackColor]; //optional
-        }
-        
-    } else if ([textView isEqual:textViewPost]) {
-        if ([textView.text isEqualToString:@"Post content"]) {
-            textView.text = @"";
-            textView.textColor = [UIColor blackColor]; //optional
-        }
-    }
-    
-    [textView becomeFirstResponder];
+//    if ([textView isEqual:textViewTitle]) {
+//        if ([textView.text isEqualToString:PLACEHOLDER_SUBJECT]) {
+//            textView.text = @"";
+//            textView.textColor = [UIColor blackColor]; //optional
+//        }
+//        
+//    } else if ([textView isEqual:textViewPost]) {
+//        if ([textView.text isEqualToString:PLACEHOLDER_CONTENT]) {
+//            textView.text = @"";
+//            textView.textColor = [UIColor blackColor]; //optional
+//        }
+//    }
+//    
+//    [textView becomeFirstResponder];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    if ([textView isEqual:textViewTitle]) {
-        if ([textView.text isEqualToString:@""]) {
-            textView.text = @"Post title";
-            textView.textColor = [UIColor lightGrayColor]; //optional
-        }
-        
-    } else if ([textView isEqual:textViewPost]) {
-        if ([textView.text isEqualToString:@""]) {
-            textView.text = @"Post content";
-            textView.textColor = [UIColor lightGrayColor]; //optional
-        }
-    }
-    
-    [textView resignFirstResponder];
+//    if ([textView isEqual:textViewTitle]) {
+//        if ([textView.text isEqualToString:@""]) {
+//            textView.text = PLACEHOLDER_SUBJECT;
+//            textView.textColor = [UIColor lightGrayColor]; //optional
+//        }
+//        
+//    } else if ([textView isEqual:textViewPost]) {
+//        if ([textView.text isEqualToString:@""]) {
+//            textView.text = PLACEHOLDER_CONTENT;
+//            textView.textColor = [UIColor lightGrayColor]; //optional
+//        }
+//    }
+//    
+//    [textView resignFirstResponder];
     
     //need scroll to this textview -> do this if have time
 }
@@ -549,6 +591,13 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [jsonDict setValue:textViewTitle.text forKey:@"title"];
     [jsonDict setValue:@"1" forKey:@"dest_type"];
     
+    if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
+        [jsonDict setObject:[NSNumber numberWithInteger:1] forKey:@"imp_flg"];
+        
+    } else {
+        [jsonDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
+    }
+    
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:nil];
     NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
@@ -673,6 +722,8 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewAnnouncement" object:nil];
         
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        
     } else {
         [self sendAnnouncementFailed];
         
@@ -688,7 +739,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (void)sendAnnouncementFailed {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending message. Please try again later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending announcement. Please try again later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 2;
     
     [alert show];

@@ -20,6 +20,9 @@
 #import "Common.h"
 #import "CommonAlert.h"
 
+#define PLACEHOLDER_SUBJECT @"Subject"
+#define PLACEHOLDER_CONTENT @"Content"
+
 @interface ComposeViewController ()
 {
     RequestToServer *requestToServer;
@@ -166,6 +169,45 @@
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark text view delegate
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    
+    if ([textField isEqual:txtSubject]) {
+        [txtContent becomeFirstResponder];
+        
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    //set placeholder, because it's not support by default
+//    if ([textView isEqual:txtContent]) {
+//        if ([textView.text isEqualToString:PLACEHOLDER_CONTENT]) {
+//            textView.text = @"";
+//            textView.textColor = [UIColor blackColor]; //optional
+//        }
+//    }
+//    
+//    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+//    if ([textView isEqual:txtContent]) {
+//        if ([textView.text isEqualToString:@""]) {
+//            textView.text = PLACEHOLDER_CONTENT;
+//            textView.textColor = [UIColor lightGrayColor]; //optional
+//        }
+//    }
+//    
+//    [textView resignFirstResponder];
+    
+    //need scroll to this textview -> do this if have time
+}
+
 
 #pragma mark teacher view
 - (IBAction)btnAddClick:(id)sender {

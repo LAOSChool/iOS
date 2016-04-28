@@ -318,8 +318,6 @@ static RequestToServer* sharedRequestToServer = nil;
         if (error == nil && [jsonObj count] > 0) {
             [self.delegate connectionDidFinishLoading:jsonObj];
             
-        } else {
-            [self.delegate sendPostRequestFailedWithUnknownError];
         }
     }
 }

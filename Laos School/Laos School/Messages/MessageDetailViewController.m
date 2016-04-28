@@ -9,9 +9,14 @@
 #import "MessageDetailViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "CommonDefine.h"
+#import "RequestToServer.h"
+#import "CoreDataUtil.h"
+#import "LocalizeHelper.h"
 
 @interface MessageDetailViewController ()
-
+{
+    RequestToServer *requestToServer;
+}
 @end
 
 @implementation MessageDetailViewController
@@ -52,6 +57,11 @@
         lbFromUsername.text = _messageObject.fromUsername;
     }
     
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,9 +84,13 @@
     
     if (_messageObject.importanceType == ImportanceNormal) {
         _messageObject.importanceType = ImportanceHigh;
+        [[CoreDataUtil sharedCoreDataUtil] updateMessageImportance:_messageObject.messageID withFlag:YES];
+        [requestToServer updateMessageImportance:_messageObject.messageID withFlag:YES];
         
     } else {
         _messageObject.importanceType = ImportanceNormal;
+        [[CoreDataUtil sharedCoreDataUtil] updateMessageImportance:_messageObject.messageID withFlag:NO];
+        [requestToServer updateMessageImportance:_messageObject.messageID withFlag:NO];
     }
     
     if (_messageObject.importanceType == ImportanceHigh) {
@@ -85,7 +99,31 @@
     } else {
         [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshAfterUpdateFlag" object:nil];
 }
 
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
 
+}
+
+- (void)failToConnectToServer {
+
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
 @end

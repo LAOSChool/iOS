@@ -60,7 +60,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="98" y="113"/>
+            <point key="canvasLocation" x="108" y="10"/>
         </view>
         <searchDisplayController id="aJ5-yr-fH4">
             <connections>

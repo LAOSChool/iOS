@@ -108,6 +108,11 @@
                                                  name:@"SentNewMessage"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAfterUpdateFlag)
+                                                 name:@"RefreshAfterUpdateFlag"
+                                               object:nil];
+    
     //for test
     /*
     MessageObject *messObj = [[MessageObject alloc] init];
@@ -156,6 +161,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)refreshAfterUpdateFlag {
+    [messagesTableView reloadData];
+}
 
 - (void)refreshAfterSentNewMessage {
     [self loadDataFromServer];
@@ -531,6 +540,14 @@
         messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
+    messageObj.unreadFlag = NO;
+    [messagesTableView beginUpdates];
+    [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [messagesTableView endUpdates];
+    
+    [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
+    [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
+    
     MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
     messageDetailViewController.messageObject = messageObj;
     
@@ -598,9 +615,13 @@
     
     if (messageObj.importanceType == ImportanceNormal) {
         messageObj.importanceType = ImportanceHigh;
+        [[CoreDataUtil sharedCoreDataUtil] updateMessageImportance:messageObj.messageID withFlag:YES];
+        [requestToServer updateMessageImportance:messageObj.messageID withFlag:YES];
         
     } else {
         messageObj.importanceType = ImportanceNormal;
+        [[CoreDataUtil sharedCoreDataUtil] updateMessageImportance:messageObj.messageID withFlag:NO];
+        [requestToServer updateMessageImportance:messageObj.messageID withFlag:NO];
     }
     
     [messagesTableView beginUpdates];

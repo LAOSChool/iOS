@@ -236,6 +236,38 @@
     return results;
 }
 
+- (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag {
+    NSPredicate *predicate = nil;
+    
+    predicate = [NSPredicate predicateWithFormat:@"(messageID == %d)", messageID];
+
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
+    
+    if ([results count] > 0) {
+        Messages *mess = [results objectAtIndex:0];
+        
+        [mess setUnreadFlag:[NSNumber numberWithBool:!flag]];
+        
+        [self.defaultManagedObjectContext save:nil];
+    }
+}
+
+- (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag {
+    NSPredicate *predicate = nil;
+    
+    predicate = [NSPredicate predicateWithFormat:@"(messageID == %d)", messageID];
+    
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
+    
+    if ([results count] > 0) {
+        Messages *mess = [results objectAtIndex:0];
+        
+        [mess setImportanceType:[NSNumber numberWithBool:flag]];
+        
+        [self.defaultManagedObjectContext save:nil];
+    }
+}
+
 #pragma mark announcement
 - (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject {
     Announcements *announcement = [NSEntityDescription

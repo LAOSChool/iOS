@@ -206,6 +206,7 @@
 
 - (void)sendPostRequestFailedWithUnknownError {
     [SVProgressHUD dismiss];
+    [self showAlertUnknowError];
 }
 
 - (void)loginWithWrongUserPassword {
