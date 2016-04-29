@@ -109,8 +109,8 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshAfterUpdateFlag)
-                                                 name:@"RefreshAfterUpdateFlag"
+                                             selector:@selector(refreshAfterUpdateFlag:)
+                                                 name:@"RefreshMessageAfterUpdateFlag"
                                                object:nil];
     
     //for test
@@ -162,8 +162,41 @@
 }
 */
 
-- (void)refreshAfterUpdateFlag {
+- (void)refreshAfterUpdateFlag:(NSNotification *)notification {
+    MessageObject *messageObj = (MessageObject *)notification.object;
+    
+    [self updateMessageArrayWithObject:messageObj];
     [messagesTableView reloadData];
+}
+
+- (void)updateMessageArrayWithObject:(MessageObject *)messageObj {
+    for (MessageObject *m in messagesArray) {
+        if (m.messageID == messageObj.messageID) {
+            m.unreadFlag = messageObj.unreadFlag;
+            m.importanceType = messageObj.importanceType;
+            break;
+        }
+    }
+    
+    for (MessageObject *m in unreadMessagesArray) {
+        if (m.messageID == messageObj.messageID) {
+            m.unreadFlag = messageObj.unreadFlag;
+            m.importanceType = messageObj.importanceType;
+            
+            if (m.unreadFlag == 0) {
+                [unreadMessagesArray removeObject:m];
+            }
+            break;
+        }
+    }
+    
+    for (MessageObject *m in sentMessagesArray) {
+        if (m.messageID == messageObj.messageID) {
+            m.unreadFlag = messageObj.unreadFlag;
+            m.importanceType = messageObj.importanceType;
+            break;
+        }
+    }
 }
 
 - (void)refreshAfterSentNewMessage {
@@ -511,6 +544,13 @@
         [cell.btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
     
+    if (messageObj.senderAvatar && messageObj.senderAvatar.length > 0) {
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
+        
+        //load the image
+        cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.senderAvatar];
+    }
     
     if (messageObj.unreadFlag) {
         [cell.contentView setBackgroundColor:UNREAD_COLOR];
@@ -544,6 +584,8 @@
     [messagesTableView beginUpdates];
     [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [messagesTableView endUpdates];
+    
+    [self updateMessageArrayWithObject:messageObj];
     
     [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
     [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
@@ -627,6 +669,8 @@
     [messagesTableView beginUpdates];
     [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [messagesTableView endUpdates];
+    
+    [self updateMessageArrayWithObject:messageObj];
 }
 
 
@@ -717,8 +761,8 @@
                 messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
             }
             
-            if ([messageDict valueForKey:@"userAvatar"] != (id)[NSNull null]) {
-                messObj.userAvatar = [messageDict valueForKey:@"userAvatar"];
+            if ([messageDict valueForKey:@"frm_user_photo"] != (id)[NSNull null]) {
+                messObj.senderAvatar = [messageDict valueForKey:@"frm_user_photo"];
             }
             
             [newArr addObject:messObj];

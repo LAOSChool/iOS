@@ -119,8 +119,8 @@
     [self loadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshAfterUpdateFlag)
-                                                 name:@"RefreshAfterUpdateFlag"
+                                             selector:@selector(refreshAfterUpdateFlag:)
+                                                 name:@"RefreshAnnouncementAfterUpdateFlag"
                                                object:nil];
     
     //for test
@@ -206,8 +206,42 @@
     
 }
 
-- (void)refreshAfterUpdateFlag {
+- (void)refreshAfterUpdateFlag:(NSNotification *)notification {
+    AnnouncementObject *announcementObj = (AnnouncementObject *)notification.object;
+    
+    [self updateAnnouncementArrayWithObject:announcementObj];
+    
     [announcementTableView reloadData];
+}
+
+- (void)updateAnnouncementArrayWithObject:(AnnouncementObject *)announcementObj {
+    for (AnnouncementObject *ann in announceArray) {
+        if (ann.announcementID == announcementObj.announcementID) {
+            ann.unreadFlag = announcementObj.unreadFlag;
+            ann.importanceType = announcementObj.importanceType;
+            break;
+        }
+    }
+    
+    for (AnnouncementObject *ann in unreadAnnouncementsArray) {
+        if (ann.announcementID == announcementObj.announcementID) {
+            ann.unreadFlag = announcementObj.unreadFlag;
+            ann.importanceType = announcementObj.importanceType;
+            
+            if (ann.unreadFlag == 0) {
+                [unreadAnnouncementsArray removeObject:ann];
+            }
+            break;
+        }
+    }
+    
+    for (AnnouncementObject *ann in sentAnnouncementsArray) {
+        if (ann.announcementID == announcementObj.announcementID) {
+            ann.unreadFlag = announcementObj.unreadFlag;
+            ann.importanceType = announcementObj.importanceType;
+            break;
+        }
+    }
 }
 
 - (void)refreshAfterSentNewAnnouncement {
@@ -409,8 +443,40 @@
         return [searchResults count];
         
     } else {
-        return [announceArray count];
+        return [self getCountAnnouncements];
     }
+}
+
+- (NSInteger)getCountAnnouncements {
+    NSInteger res = 0;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        res = [announceArray count];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        res = [unreadAnnouncementsArray count];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        res = [sentAnnouncementsArray count];
+        
+    }
+    
+    return res;
+}
+
+- (AnnouncementObject *)getAnnouncementObjectAtIndex:(NSInteger)index {
+    AnnouncementObject *announcementObj = nil;
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        announcementObj = [announceArray objectAtIndex:index];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        announcementObj = [unreadAnnouncementsArray objectAtIndex:index];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        announcementObj = [sentAnnouncementsArray objectAtIndex:index];
+        
+    }
+    
+    return announcementObj;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -435,7 +501,7 @@
         announcementObjectObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        announcementObjectObj = [announceArray objectAtIndex:indexPath.row];
+        announcementObjectObj = [self getAnnouncementObjectAtIndex:indexPath.row];
     }
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
@@ -479,8 +545,18 @@
         announcementObjectObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        announcementObjectObj = [announceArray objectAtIndex:indexPath.row];
+        announcementObjectObj = [self getAnnouncementObjectAtIndex:indexPath.row];
     }
+    
+    announcementObjectObj.unreadFlag = NO;
+    [announcementTableView beginUpdates];
+    [announcementTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [announcementTableView endUpdates];
+    
+    [self updateAnnouncementArrayWithObject:announcementObjectObj];
+    
+    [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementRead:announcementObjectObj.announcementID withFlag:YES];
+    [requestToServer updateAnnouncementRead:announcementObjectObj.announcementID withFlag:YES];
     
     CreatePostViewController *announcementDetailViewController = [[CreatePostViewController alloc] initWithNibName:@"CreatePostViewController" bundle:nil];
     announcementDetailViewController.isViewDetail = YES;
@@ -528,18 +604,25 @@
     AnnouncementTableViewCell *cell = (AnnouncementTableViewCell *)sender;
     
     NSIndexPath *indexPath = [announcementTableView indexPathForCell:cell];
-    AnnouncementObject *announcementObj = [announceArray objectAtIndex:indexPath.row];
+    AnnouncementObject *announcementObj = [self getAnnouncementObjectAtIndex:indexPath.row];
     
     if (announcementObj.importanceType == ImportanceNormal) {
         announcementObj.importanceType = ImportanceHigh;
+        [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementImportance:announcementObj.announcementID withFlag:YES];
+        [requestToServer updateAnnouncementImportance:announcementObj.announcementID withFlag:YES];
         
     } else {
         announcementObj.importanceType = ImportanceNormal;
+        [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementImportance:announcementObj.announcementID withFlag:NO];
+        [requestToServer updateAnnouncementImportance:announcementObj.announcementID withFlag:NO];
+        
     }
     
     [announcementTableView beginUpdates];
     [announcementTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [announcementTableView endUpdates];
+    
+    [self updateAnnouncementArrayWithObject:announcementObj];
 }
 
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {

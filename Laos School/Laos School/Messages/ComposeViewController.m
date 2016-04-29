@@ -63,6 +63,8 @@
     
     self.navigationItem.leftBarButtonItems = @[btnCancel];
     
+    [txtSubject becomeFirstResponder];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(selectReceiverCompletedHandle)
                                                  name:@"SelectReceiverCompleted"

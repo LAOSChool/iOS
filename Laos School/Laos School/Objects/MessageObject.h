@@ -51,7 +51,7 @@ typedef enum {
 @property (nonatomic, assign) IMPORTANCE_TYPE importanceType;
 @property (nonatomic, strong) NSString *messageTypeIcon;
 @property (nonatomic, strong) NSString *dateTime;
-@property (nonatomic, strong) NSString *userAvatar;
+@property (nonatomic, strong) NSString *senderAvatar;
 
 
 @end

@@ -63,6 +63,7 @@
 - (NSString *)fileExistingInTempFolder;
 
 - (NSString *)savePhotoWithPath:(NSString *)filePath;
+- (NSString *)getPhotoFullPath:(NSString *)fileName;
 @end
 
 #endif

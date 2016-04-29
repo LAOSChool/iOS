@@ -62,6 +62,14 @@
         requestToServer.delegate = (id)self;
     }
     
+    if (_messageObject.senderAvatar && _messageObject.senderAvatar.length > 0) {
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
+        
+        //load the image
+        imgAvatar.imageURL = [NSURL URLWithString:_messageObject.senderAvatar];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,7 +108,7 @@
         [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshAfterUpdateFlag" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMessageAfterUpdateFlag" object:_messageObject];
 }
 
 #pragma mark RequestToServer delegate

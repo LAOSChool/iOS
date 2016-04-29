@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessageDetailViewController">
             <connections>
                 <outlet property="btnImportanceFlag" destination="JW2-i7-coR" id="4I5-XL-Km3"/>
-                <outlet property="imgAvatar" destination="Sdr-Yz-7C4" id="fLZ-7r-t3L"/>
+                <outlet property="imgAvatar" destination="Sdr-Yz-7C4" id="rst-7q-Vfm"/>
                 <outlet property="lbDateTime" destination="6W3-o2-Xnw" id="Mml-DM-Nzw"/>
                 <outlet property="lbFromUsername" destination="Pzx-8u-xNw" id="ebI-Pg-HUT"/>
                 <outlet property="lbSubject" destination="QOf-zn-EcH" id="Rj2-qI-FwT"/>
@@ -28,7 +28,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_gray.png" id="Sdr-Yz-7C4">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_gray.png" id="Sdr-Yz-7C4" customClass="AsyncImageView">
                     <rect key="frame" x="8" y="8" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>

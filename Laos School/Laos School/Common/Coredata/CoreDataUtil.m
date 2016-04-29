@@ -63,36 +63,45 @@
 
 
 - (void)insertNewMessage:(MessageObject *)messageObject {
-    Messages *mess = [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Messages"
-                     inManagedObjectContext:self.defaultManagedObjectContext];
-    /*
-     @property (nullable, nonatomic, retain) NSString *content;
-     @property (nullable, nonatomic, retain) NSString *dateTime;
-     @property (nullable, nonatomic, retain) NSString *fromID;
-     @property (nullable, nonatomic, retain) NSString *fromUsername;
-     @property (nullable, nonatomic, retain) NSNumber *importanceType;
-     @property (nullable, nonatomic, retain) NSString *messageID;
-     @property (nullable, nonatomic, retain) NSNumber *messageType;
-     @property (nullable, nonatomic, retain) NSString *subject;
-     @property (nullable, nonatomic, retain) NSString *toID;
-     @property (nullable, nonatomic, retain) NSString *toUsername;
-     @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
-     */
-    [mess setMessageID:[NSNumber numberWithInteger:messageObject.messageID]];
-    [mess setSubject:messageObject.subject];
-    [mess setContent:messageObject.content];
-    [mess setDateTime:messageObject.dateTime];
-    [mess setFromID:messageObject.fromID];
-    [mess setFromUsername:messageObject.fromUsername];
-    [mess setImportanceType:[NSNumber numberWithInteger:messageObject.importanceType]];
-    [mess setMessageType:[NSNumber numberWithInteger:messageObject.messageType]];
-    [mess setMessageTypeIcon:messageObject.messageTypeIcon];
-    [mess setToID:messageObject.toID];
-    [mess setToUsername:messageObject.toUsername];
-    [mess setUnreadFlag:[NSNumber numberWithBool:messageObject.unreadFlag]];
+    NSPredicate *predicate = nil;
     
-    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
+    predicate = [NSPredicate predicateWithFormat:@"(messageID == %d)", messageObject.messageID];
+    
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_MESSAGES];
+    
+    if ([results count] == 0) {
+        Messages *mess = [NSEntityDescription
+                         insertNewObjectForEntityForName:@"Messages"
+                         inManagedObjectContext:self.defaultManagedObjectContext];
+        /*
+         @property (nullable, nonatomic, retain) NSString *content;
+         @property (nullable, nonatomic, retain) NSString *dateTime;
+         @property (nullable, nonatomic, retain) NSString *fromID;
+         @property (nullable, nonatomic, retain) NSString *fromUsername;
+         @property (nullable, nonatomic, retain) NSNumber *importanceType;
+         @property (nullable, nonatomic, retain) NSString *messageID;
+         @property (nullable, nonatomic, retain) NSNumber *messageType;
+         @property (nullable, nonatomic, retain) NSString *subject;
+         @property (nullable, nonatomic, retain) NSString *toID;
+         @property (nullable, nonatomic, retain) NSString *toUsername;
+         @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+         */
+        [mess setMessageID:[NSNumber numberWithInteger:messageObject.messageID]];
+        [mess setSubject:messageObject.subject];
+        [mess setContent:messageObject.content];
+        [mess setDateTime:messageObject.dateTime];
+        [mess setFromID:messageObject.fromID];
+        [mess setFromUsername:messageObject.fromUsername];
+        [mess setImportanceType:[NSNumber numberWithInteger:messageObject.importanceType]];
+        [mess setMessageType:[NSNumber numberWithInteger:messageObject.messageType]];
+        [mess setMessageTypeIcon:messageObject.messageTypeIcon];
+        [mess setToID:messageObject.toID];
+        [mess setToUsername:messageObject.toUsername];
+        [mess setSenderAvatar:messageObject.senderAvatar];
+        [mess setUnreadFlag:[NSNumber numberWithBool:messageObject.unreadFlag]];
+        
+        [self commitInManagedObjectContext:self.defaultManagedObjectContext];
+    }
 }
 
 - (void)insertMessagesArray:(NSArray *)messageArr {
@@ -227,6 +236,7 @@
             messageObj.subject = mess.subject;
             messageObj.toID = mess.toID;
             messageObj.toUsername = mess.toUsername;
+            messageObj.senderAvatar = mess.senderAvatar;
             messageObj.unreadFlag = [mess.unreadFlag boolValue];
             
             [results addObject:messageObj];
@@ -270,50 +280,59 @@
 
 #pragma mark announcement
 - (void)insertNewAnnouncement:(AnnouncementObject *)announcementObject {
-    Announcements *announcement = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Announcements"
-                      inManagedObjectContext:self.defaultManagedObjectContext];
-    /*
-     @property (nullable, nonatomic, retain) NSString *content;
-     @property (nullable, nonatomic, retain) NSString *datetime;
-     @property (nullable, nonatomic, retain) NSString *fromID;
-     @property (nullable, nonatomic, retain) NSString *fromUsername;
-     @property (nullable, nonatomic, retain) NSNumber *importanceType;
-     @property (nullable, nonatomic, retain) NSNumber *announcementID;
-     @property (nullable, nonatomic, retain) NSString *subject;
-     @property (nullable, nonatomic, retain) NSString *toID;
-     @property (nullable, nonatomic, retain) NSString *toUsername;
-     @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
-     @property (nullable, nonatomic, retain) NSSet<Photos *> *announcementToPhotos;
-     */
-    [announcement setAnnouncementID:[NSNumber numberWithInteger:announcementObject.announcementID]];
-    [announcement setSubject:announcementObject.subject];
-    [announcement setContent:announcementObject.content];
-    [announcement setDateTime:announcementObject.dateTime];
-    [announcement setFromID:announcementObject.fromID];
-    [announcement setFromUsername:announcementObject.fromUsername];
-    [announcement setImportanceType:[NSNumber numberWithInteger:announcementObject.importanceType]];
-    [announcement setToID:announcementObject.toID];
-    [announcement setToUsername:announcementObject.toUsername];
-    [announcement setUnreadFlag:[NSNumber numberWithBool:announcementObject.unreadFlag]];
+    NSPredicate *predicate = nil;
     
-    for (PhotoObject *photoObj in announcementObject.imgArray) {
-        Photos *photo = [NSEntityDescription
-                                       insertNewObjectForEntityForName:@"Photos"
-                                       inManagedObjectContext:self.defaultManagedObjectContext];
+    predicate = [NSPredicate predicateWithFormat:@"(announcementID == %d)", announcementObject.announcementID];
+    
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    
+    if ([results count] == 0) {
+        Announcements *announcement = [NSEntityDescription
+                          insertNewObjectForEntityForName:@"Announcements"
+                          inManagedObjectContext:self.defaultManagedObjectContext];
+        /*
+         @property (nullable, nonatomic, retain) NSString *content;
+         @property (nullable, nonatomic, retain) NSString *datetime;
+         @property (nullable, nonatomic, retain) NSString *fromID;
+         @property (nullable, nonatomic, retain) NSString *fromUsername;
+         @property (nullable, nonatomic, retain) NSNumber *importanceType;
+         @property (nullable, nonatomic, retain) NSNumber *announcementID;
+         @property (nullable, nonatomic, retain) NSString *subject;
+         @property (nullable, nonatomic, retain) NSString *toID;
+         @property (nullable, nonatomic, retain) NSString *toUsername;
+         @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+         @property (nullable, nonatomic, retain) NSSet<Photos *> *announcementToPhotos;
+         */
+        [announcement setAnnouncementID:[NSNumber numberWithInteger:announcementObject.announcementID]];
+        [announcement setSubject:announcementObject.subject];
+        [announcement setContent:announcementObject.content];
+        [announcement setDateTime:announcementObject.dateTime];
+        [announcement setFromID:announcementObject.fromID];
+        [announcement setFromUsername:announcementObject.fromUsername];
+        [announcement setImportanceType:[NSNumber numberWithInteger:announcementObject.importanceType]];
+        [announcement setToID:announcementObject.toID];
+        [announcement setToUsername:announcementObject.toUsername];
+        [announcement setSenderAvatar:announcementObject.senderAvatar];
+        [announcement setUnreadFlag:[NSNumber numberWithBool:announcementObject.unreadFlag]];
         
-        [photo setPhotoID:[NSNumber numberWithInteger:photoObj.photoID]];
-        [photo setOrder:[NSNumber numberWithInteger:photoObj.order]];
-        [photo setCaption:photoObj.caption];
+        for (PhotoObject *photoObj in announcementObject.imgArray) {
+            Photos *photo = [NSEntityDescription
+                                           insertNewObjectForEntityForName:@"Photos"
+                                           inManagedObjectContext:self.defaultManagedObjectContext];
+            
+            [photo setPhotoID:[NSNumber numberWithInteger:photoObj.photoID]];
+            [photo setOrder:[NSNumber numberWithInteger:photoObj.order]];
+            [photo setCaption:photoObj.caption];
+            
+            //save file to local then change file path
+            NSString *newPath = [[ArchiveHelper sharedArchiveHelper] savePhotoWithPath:photoObj.filePath];
+            [photo setFilePath:newPath];
+            
+            [announcement addAnnouncementToPhotosObject:photo];
+        }
         
-        //save file to local then change file path
-        NSString *newPath = [[ArchiveHelper sharedArchiveHelper] savePhotoWithPath:photoObj.filePath];
-        [photo setFilePath:newPath];
-        
-        [announcement addAnnouncementToPhotosObject:photo];
+        [self commitInManagedObjectContext:self.defaultManagedObjectContext];
     }
-    
-    [self commitInManagedObjectContext:self.defaultManagedObjectContext];
 }
 
 - (void)insertAnnouncementsArray:(NSArray *)announcementArr {
@@ -418,6 +437,7 @@
             announcementObj.subject = announcement.subject;
             announcementObj.toID = announcement.toID;
             announcementObj.toUsername = announcement.toUsername;
+            announcementObj.senderAvatar = announcement.senderAvatar;
             announcementObj.unreadFlag = [announcement.unreadFlag boolValue];
             
             for (Photos *photo in announcement.announcementToPhotos) {
@@ -436,5 +456,37 @@
     }
     
     return results;
+}
+
+- (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag {
+    NSPredicate *predicate = nil;
+    
+    predicate = [NSPredicate predicateWithFormat:@"(announcementID == %d)", announcementID];
+    
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    
+    if ([results count] > 0) {
+        Announcements *announcement = [results objectAtIndex:0];
+        
+        [announcement setUnreadFlag:[NSNumber numberWithBool:!flag]];
+        
+        [self.defaultManagedObjectContext save:nil];
+    }
+}
+
+- (void)updateAnnouncementImportance:(NSInteger)announcementID withFlag:(BOOL)flag {
+    NSPredicate *predicate = nil;
+    
+    predicate = [NSPredicate predicateWithFormat:@"(announcementID == %d)", announcementID];
+    
+    NSArray *results = [self fetchDataWithPredicate:predicate fromEntity:ENTITY_ANNOUNCEMENTS];
+    
+    if ([results count] > 0) {
+        Announcements *announcement = [results objectAtIndex:0];
+        
+        [announcement setImportanceType:[NSNumber numberWithBool:flag]];
+        
+        [self.defaultManagedObjectContext save:nil];
+    }
 }
 @end

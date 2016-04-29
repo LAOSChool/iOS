@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageObject.h"
+#import "AsyncImageView.h"
 
 @interface MessageDetailViewController : UIViewController
 {
-    IBOutlet UIImageView *imgAvatar;
+    IBOutlet AsyncImageView *imgAvatar;
     IBOutlet UIButton *btnImportanceFlag;
     IBOutlet UILabel *lbFromUsername;
     IBOutlet UILabel *lbDateTime;

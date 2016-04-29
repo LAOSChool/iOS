@@ -348,4 +348,10 @@ static ArchiveHelper* sharedArchiveHelper = nil;
     
     return res;
 }
+
+- (NSString *)getPhotoFullPath:(NSString *)fileName {
+    NSString *res = [[self dataFolder] stringByAppendingPathComponent:fileName];
+    
+    return res;
+}
 @end

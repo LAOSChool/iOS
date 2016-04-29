@@ -96,6 +96,40 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
+- (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_UPDATE_ANNOUNCEMENT];
+    requestString = [NSString stringWithFormat:@"%@/%ld?is_read=%d", requestString, (long)announcementID, flag];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)updateAnnouncementImportance:(NSInteger)announcementID withFlag:(BOOL)flag {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_UPDATE_ANNOUNCEMENT];
+    requestString = [NSString stringWithFormat:@"%@/%ld?imp_flg=%d", requestString, (long)announcementID, flag];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 
 #pragma mark login and password
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber {

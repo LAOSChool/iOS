@@ -66,9 +66,13 @@
     }
     
     if (authkey && authkey.length > 0) {
-        
-        [SVProgressHUD show];
-        [requestToServer getMyProfile];
+        if ([[Common sharedCommon]networkIsActive]) {
+            [SVProgressHUD show];
+            [requestToServer getMyProfile];
+            
+        } else {
+            [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -231,12 +235,14 @@
      addr1 = "<null>";
      addr2 = "<null>";
      birthday = "<null>";
-     eclass =     {
+     classes =     (
+     {
      "class_type" = 1;
      "end_dt" = "2017-06-30 00:00:00.0";
      fee = 0;
      "grade_type" = 1;
-     "head_teacher_id" = 3;
+     headTeacherName = "Teacher class 1";
+     "head_teacher_id" = 5;
      id = 1;
      location = "1A1room - floor 2";
      "school_id" = 1;
@@ -245,19 +251,23 @@
      term = 1;
      title = 1A1;
      years = "2016-2017";
-     };
+     }
+     );
+     "default_pass" = "<null>";
      email = "<null>";
      ext = "<null>";
-     fullname = "Nguyen Quang Huy";
+     fullname = "Student 10";
      gender = "<null>";
-     id = 1;
-     nickname = Huy;
-     phone = "<null>";
-     photo = "<null>";
-     roles = ADMIN;
+     id = 10;
+     nickname = "Student 10";
+     permisions = "<null>";
+     phone = 1234567890;
+     photo = "http://192.168.0.202:9090/eschool_content/avatar/student1.png";
+     roles = STUDENT;
+     schoolName = "Truong Tieu Hoc Thanh Xuan Trung";
      "school_id" = 1;
-     "sso_id" = huynq;
-     state = Active;
+     "sso_id" = 00000010;
+     state = 1;
      "std_contact_email" = "<null>";
      "std_contact_name" = "<null>";
      "std_contact_phone" = "<null>";
@@ -265,6 +275,7 @@
      "std_parent_name" = "<null>";
      "std_payment_dt" = "<null>";
      "std_valid_through_dt" = "<null>";
+     }
      }
      
      */

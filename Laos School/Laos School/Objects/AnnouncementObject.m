@@ -31,7 +31,7 @@
         self.importanceType = AnnouncementImportanceNormal;
         self.dateTime = @"";
         self.imgArray = [[NSMutableArray alloc] init];
-        self.userAvatar = @"";
+        self.senderAvatar = @"";
     }
     return self;
 }

@@ -19,6 +19,7 @@
 #import "ShareData.h"
 #import "ArchiveHelper.h"
 #import "CommonAlert.h"
+#import "CoreDataUtil.h"
 
 #import "UINavigationController+CustomNavigation.h"
 
@@ -40,6 +41,8 @@
     
     NSMutableData *responseData;
     PHImageRequestOptions *requestOptions;
+    
+    RequestToServer *requestToServer;
 }
 @end
 
@@ -63,6 +66,11 @@
     
     if (_announcementObject == nil) {
         _announcementObject = [[AnnouncementObject alloc] init];
+    }
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
     }
     
     if (_isViewDetail) {
@@ -89,6 +97,8 @@
         UIBarButtonItem *postBarBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
 
         self.navigationItem.rightBarButtonItem = postBarBtn;
+        
+        [textViewTitle becomeFirstResponder];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -150,9 +160,17 @@
 - (IBAction)btnPriorityFlagClick:(id)sender {
     if (_announcementObject.importanceType == AnnouncementImportanceNormal) {
         _announcementObject.importanceType = AnnouncementImportanceHigh;
+        if (_isViewDetail) {
+            [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementImportance:_announcementObject.announcementID withFlag:YES];
+            [requestToServer updateAnnouncementImportance:_announcementObject.announcementID withFlag:YES];
+        }
         
     } else {
         _announcementObject.importanceType = AnnouncementImportanceNormal;
+        if (_isViewDetail) {
+            [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementImportance:_announcementObject.announcementID withFlag:NO];
+            [requestToServer updateAnnouncementImportance:_announcementObject.announcementID withFlag:NO];
+        }
     }
     
     if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
@@ -163,7 +181,7 @@
     }
     
     if (_isViewDetail) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshAfterUpdateFlag" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshAnnouncementAfterUpdateFlag" object:_announcementObject];
     }
 }
 
@@ -365,6 +383,7 @@
                           contentMode:PHImageContentModeAspectFill
                               options:requestOptions
                         resultHandler:^(UIImage *image, NSDictionary *info){
+
                             [photoArray addObject:image];
                             
                             [self addImageToList:image];
@@ -483,7 +502,16 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customImageView.imageView];
     
     //load the image
-    customImageView.imageView.imageURL = [NSURL URLWithString:photo.filePath];
+    NSString *fullPath = [[ArchiveHelper sharedArchiveHelper] getPhotoFullPath:[photo.filePath lastPathComponent]];
+    NSURL *url = [NSURL URLWithString:photo.filePath];
+    
+    if ([[ArchiveHelper sharedArchiveHelper] checkFileExist:fullPath]) {
+        [customImageView.imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
+        
+    } else {
+        customImageView.imageView.imageURL = url;
+    }
+
     customImageView.txtCaption.text = photo.caption;
     customImageView.tag = [imageViewArray count];
     customImageView.delegate = (id)self;
@@ -715,14 +743,15 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (void)receivedData:(NSDictionary *)jsonObj {
-    [SVProgressHUD showSuccessWithStatus:@"Sent"];
     NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
     if (statusCode == HttpOK) {
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewAnnouncement" object:nil];
         
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^(void) {
+            [SVProgressHUD showSuccessWithStatus:@"Sent"];
+        }];
         
     } else {
         [self sendAnnouncementFailed];

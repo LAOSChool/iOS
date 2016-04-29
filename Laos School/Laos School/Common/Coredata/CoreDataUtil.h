@@ -37,5 +37,7 @@
 - (NSArray *)loadAllAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID;
 - (NSArray *)loadUnreadAnnouncementsFromID:(NSInteger)announcementID toUserID:(NSString *)userID;
 - (NSArray *)loadSentAnnouncementsFromID:(NSInteger)announcementID fromUserID:(NSString *)userID;
+- (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;
+- (void)updateAnnouncementImportance:(NSInteger)announcementID withFlag:(BOOL)flag;
 @end
 #endif

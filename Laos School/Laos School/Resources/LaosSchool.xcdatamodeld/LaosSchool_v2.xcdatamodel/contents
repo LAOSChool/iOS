@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
     <entity name="Announcements" representedClassName="Announcements" syncable="YES">
-        <attribute name="announcementID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="announcementID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fromID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fromUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="importanceType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="senderAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toUsername" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,6 +27,7 @@
         </attribute>
         <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="messageTypeIcon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toID" attributeType="String" syncable="YES"/>
         <attribute name="toUsername" optional="YES" attributeType="String" syncable="YES"/>
@@ -39,8 +41,8 @@
         <relationship name="photoToAnnouncement" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Announcements" inverseName="announcementToPhotos" inverseEntity="Announcements" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Announcements" positionX="-153" positionY="-63" width="128" height="208"/>
-        <element name="Messages" positionX="-335" positionY="-63" width="128" height="225"/>
+        <element name="Announcements" positionX="-153" positionY="-63" width="128" height="225"/>
+        <element name="Messages" positionX="-335" positionY="-63" width="128" height="240"/>
         <element name="Photos" positionX="-0" positionY="-54" width="128" height="118"/>
     </elements>
 </model>

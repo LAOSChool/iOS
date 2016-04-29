@@ -9,7 +9,7 @@
 #ifndef LazzyBee_RequestToServer_h
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
-//#define PRODUCTION_SERVER @"https://222.255.29.25:8443/laoschoolws"
+
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -33,6 +33,7 @@
 
 #define API_NAME_ANNOUNCEMENTLIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
+#define API_NAME_UPDATE_ANNOUNCEMENT @"/api/notifies/update"
 
 
 #define HttpOK 200
@@ -62,6 +63,8 @@
 - (NSString *)getAPIKey;
 
 //announcements
+- (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;
+- (void)updateAnnouncementImportance:(NSInteger)announcementID withFlag:(BOOL)flag;
 - (void)getAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
 - (void)getUnreadAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
 - (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;

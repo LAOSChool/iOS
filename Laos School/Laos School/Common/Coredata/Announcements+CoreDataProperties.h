@@ -2,7 +2,7 @@
 //  Announcements+CoreDataProperties.h
 //  Laos School
 //
-//  Created by HuKhong on 4/21/16.
+//  Created by HuKhong on 4/29/16.
 //  Copyright © 2016 com.born2go.laosschool. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,16 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Announcements (CoreDataProperties)
 
+@property (nullable, nonatomic, retain) NSNumber *announcementID;
 @property (nullable, nonatomic, retain) NSString *content;
 @property (nullable, nonatomic, retain) NSString *dateTime;
 @property (nullable, nonatomic, retain) NSString *fromID;
 @property (nullable, nonatomic, retain) NSString *fromUsername;
 @property (nullable, nonatomic, retain) NSNumber *importanceType;
-@property (nullable, nonatomic, retain) NSNumber *announcementID;
 @property (nullable, nonatomic, retain) NSString *subject;
 @property (nullable, nonatomic, retain) NSString *toID;
 @property (nullable, nonatomic, retain) NSString *toUsername;
 @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
+@property (nullable, nonatomic, retain) NSString *senderAvatar;
 @property (nullable, nonatomic, retain) NSSet<Photos *> *announcementToPhotos;
 
 @end
