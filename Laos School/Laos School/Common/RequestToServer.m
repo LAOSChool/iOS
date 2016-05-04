@@ -45,8 +45,26 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 #pragma mark announcement
+- (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_ATTENDANCE_LIST];
+    requestString = [NSString stringWithFormat:@"%@?filter_user_id=%@&filter_class_id=%@", requestString, userID, classID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+#pragma mark announcement
 - (void)getAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -63,7 +81,7 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 - (void)getUnreadAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0", requestString, userID, (long)announcementID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -80,7 +98,7 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 - (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENTLIST];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy

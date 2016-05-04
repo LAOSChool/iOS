@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" id="ssP-qe-2Zf">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ssP-qe-2Zf">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -57,7 +57,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" id="t4U-CN-Fd3">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" id="t4U-CN-Fd3">
                             <rect key="frame" x="8" y="99" width="304" height="130"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,6 +100,10 @@
                 </toolbar>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="6Y9-Qo-bmZ" appends="YES" id="mSE-WM-a2K"/>
+            </connections>
             <point key="canvasLocation" x="125" y="235"/>
         </view>
         <tapGestureRecognizer id="k8w-0W-ClN">
@@ -107,6 +111,12 @@
                 <action selector="tapGestureHandle:" destination="-1" id="kzB-Tc-IZ6"/>
             </connections>
         </tapGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="6Y9-Qo-bmZ">
+            <connections>
+                <action selector="swipeGestureHandle:" destination="-1" id="bi6-oQ-lbY"/>
+                <outlet property="delegate" destination="-1" id="wPW-3X-rW4"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_flag_white.png" width="30" height="30"/>

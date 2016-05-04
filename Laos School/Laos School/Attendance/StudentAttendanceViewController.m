@@ -12,9 +12,16 @@
 
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
+#import "SVProgressHUD.h"
+
+#import "RequestToServer.h"
+#import "ShareData.h"
 
 @interface StudentAttendanceViewController ()
-
+{
+    UISegmentedControl *segmentedControl;
+    RequestToServer *requestToServer;
+}
 @end
 
 @implementation StudentAttendanceViewController
@@ -29,7 +36,7 @@
     
     self.navigationItem.rightBarButtonItems = @[btnAdd];
     
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:
                                             [NSArray arrayWithObjects:LocalizedString(@"Term 1"), LocalizedString(@"Term 2"), LocalizedString(@"All"),
                                              nil]];
     segmentedControl.frame = CGRectMake(0, 0, 210, 30);
@@ -42,6 +49,14 @@
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     
     self.navigationItem.titleView = segmentedControl;
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
+    
+    //Load data
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +82,20 @@
 
 - (IBAction)segmentAction:(id)sender {
     
+}
+
+- (void)loadData {
+    [SVProgressHUD show];
+    if (segmentedControl.selectedSegmentIndex == 0) {  //term 1
+        [requestToServer getAttendancesListWithUserID:[[ShareData sharedShareData] userObj].userID inClass:[[ShareData sharedShareData] userObj].classObj.classID];
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //term 2
+        
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //year
+        
+        
+    }
 }
 
 - (void)createNewFormGetAllowance {
@@ -115,5 +144,138 @@
     
 }
 
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    /*
+     {
+     "from_row" = 0;
+     list =     (
+     {
+     absent = 1;
+     "att_dt" = "2016-04-16 00:00:00.0";
+     "chk_user_id" = 10;
+     "class_id" = 1;
+     excused = 0;
+     id = 1;
+     late = 0;
+     notice = "Test vang mat";
+     "school_id" = 1;
+     session = "Tiet 1";
+     "session_id" = 1;
+     subject = Toan;
+     "subject_id" = 1;
+     term = "Hoc Ky 1 - 2016";
+     "term_id" = 1;
+     "user_id" = 10;
+     "user_name" = HoavQ;
+     },
+     {
+     absent = 1;
+     "att_dt" = "2016-05-16 00:00:00.0";
+     "chk_user_id" = 10;
+     "class_id" = 1;
+     excused = 0;
+     id = 2;
+     late = 0;
+     notice = "test vang mat";
+     "school_id" = 1;
+     session = "Tiet 1";
+     "session_id" = 1;
+     subject = Toan;
+     "subject_id" = 1;
+     term = "Hoc Ky 1 - 2016";
+     "term_id" = 1;
+     "user_id" = 11;
+     "user_name" = HuyNQ;
+     },
+     {
+     absent = 1;
+     "att_dt" = "2016-04-16 00:00:00.0";
+     "chk_user_id" = 11;
+     "class_id" = 1;
+     excused = 0;
+     id = 3;
+     late = 0;
+     notice = "Test vang mat";
+     "school_id" = 1;
+     session = "Tiet 2";
+     "session_id" = 2;
+     subject = Toan;
+     "subject_id" = 1;
+     term = "Hoc Ky 1 - 2016";
+     "term_id" = 1;
+     "user_id" = 12;
+     "user_name" = HuyNQ;
+     },
+     {
+     absent = 1;
+     "att_dt" = "2016-04-16 00:00:00.0";
+     "chk_user_id" = 11;
+     "class_id" = 1;
+     excused = 0;
+     id = 4;
+     late = 0;
+     notice = "Test vang mat";
+     "school_id" = 1;
+     session = "Tiet 2";
+     "session_id" = 2;
+     subject = Toan;
+     "subject_id" = 1;
+     term = "Hoc Ky 1 - 2016";
+     "term_id" = 1;
+     "user_id" = 13;
+     "user_name" = HoavQ;
+     },
+     {
+     absent = 1;
+     "att_dt" = "2016-04-16 00:00:00.0";
+     "chk_user_id" = 12;
+     "class_id" = 1;
+     excused = 0;
+     id = 5;
+     late = 0;
+     notice = "Test vang mat";
+     "school_id" = 1;
+     session = "Tiet 2";
+     "session_id" = 2;
+     subject = Toan;
+     "subject_id" = 1;
+     term = "Hoc Ky 1 - 2016";
+     "term_id" = 1;
+     "user_id" = 14;
+     "user_name" = HoavQ;
+     }
+     );
+     "to_row" = 5;
+     "total_count" = 5;
+     }
+     */
+}
 
+- (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
 @end

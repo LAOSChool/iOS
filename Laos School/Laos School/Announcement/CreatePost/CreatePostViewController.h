@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AnnouncementObject.h"
+#import "FSImageViewerViewController.h"
 
-@interface CreatePostViewController : UIViewController
+@interface CreatePostViewController : UIViewController<FSImageViewerViewControllerDelegate>
 {
     IBOutlet UILabel *lbTo;
     IBOutlet UILabel *lbReceiverList;
@@ -25,4 +26,6 @@
 
 @property(nonatomic, strong) AnnouncementObject *announcementObject;
 @property(nonatomic, assign) BOOL isViewDetail;
+
+@property(strong, nonatomic) FSImageViewerViewController *imageViewController;
 @end

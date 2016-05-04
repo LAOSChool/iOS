@@ -63,12 +63,15 @@
     
     self.navigationItem.leftBarButtonItems = @[btnCancel];
     
-    [txtSubject becomeFirstResponder];
+    [txtContent becomeFirstResponder];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(selectReceiverCompletedHandle)
                                                  name:@"SelectReceiverCompleted"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +88,34 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return TRUE;
+}
+
+#pragma mark - keyboard movements
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = txtContent.frame;
+        rect.size.height = self.view.frame.size.height - (rect.origin.y +                                                                                                                      keyboardSize.height);
+        txtContent.frame = rect;
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification {
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = txtContent.frame;
+        rect.size.height = self.view.frame.size.height - rect.origin.y;
+        txtContent.frame = rect;
+    }];
+}
+- (IBAction)swipeGestureHandle:(id)sender {
+    [txtContent resignFirstResponder];
+    [txtSubject resignFirstResponder];
+}
 
 - (void)cancelButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -157,7 +188,13 @@
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
-    [messageDict setValue:txtSubject.text forKey:@"title"];
+    
+    if (txtSubject.text && txtSubject.text.length > 0) {
+        [messageDict setValue:txtSubject.text forKey:@"title"];
+    } else {
+        [messageDict setValue:@"[No subject]" forKey:@"title"];
+    }
+    
     [messageDict setValue:txtContent.text forKey:@"content"];
     
     if (_messageObject.importanceType == ImportanceHigh) {

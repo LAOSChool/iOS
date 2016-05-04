@@ -31,10 +31,13 @@
 #define API_NAME_UPDATEMESSAGE @"/api/messages/update"
 
 
-#define API_NAME_ANNOUNCEMENTLIST @"/api/notifies"
+#define API_NAME_ANNOUNCEMENT_LIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
 #define API_NAME_UPDATE_ANNOUNCEMENT @"/api/notifies/update"
 
+
+#define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances"
+#define API_NAME_STU_CREATE_ATTENDANCE @"/api/attendances/create"
 
 #define HttpOK 200
 #define Accepted 201
@@ -61,6 +64,9 @@
 // a singleton:
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
+
+//attendance
+- (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
 
 //announcements
 - (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;

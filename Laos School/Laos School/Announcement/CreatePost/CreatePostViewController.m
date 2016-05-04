@@ -26,6 +26,12 @@
 #import "CTAssetsPickerController.h"
 #import "CTAssetsPageViewController.h"
 
+#import "FSBasicImage.h"
+#import "FSBasicImageSource.h"
+
+#import "JTSImageViewController.h"
+#import "JTSImageInfo.h"
+
 #define IMAGE_VIEW_HEIGHT 275
 #define IMAGE_VIEW_OFFSET 8
 #define IMAGE_KEYBOARD_OFFSET 250
@@ -153,6 +159,10 @@
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
+    [textViewPost resignFirstResponder];
+    [textViewTitle resignFirstResponder];
+}
+- (IBAction)swipeGestureHandle:(id)sender {
     [textViewPost resignFirstResponder];
     [textViewTitle resignFirstResponder];
 }
@@ -808,4 +818,43 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         }
     }
 }
+
+- (void)tapOnImage:(id)sender {
+ /*   FSBasicImage *firstPhoto = [[FSBasicImage alloc] initWithImageURL:[NSURL URLWithString:@"http://farm8.staticflickr.com/7319/9668947331_3112b1fcca_b.jpg"] name:@"Photo by Brian Adamson"];
+    
+    FSBasicImageSource *photoSource = [[FSBasicImageSource alloc] initWithImages:@[firstPhoto]];
+    self.imageViewController = [[FSImageViewerViewController alloc] initWithImageSource:photoSource];
+    
+    _imageViewController.delegate = self;
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:_imageViewController];
+
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];*/
+    // Create image info
+    CustomImageView *imageView = (CustomImageView *)sender;
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+    imageInfo.image = imageView.imageView.image;
+    CGRect rect = imageView.frame;
+    rect.origin.y = rect.origin.y - 44;
+    imageInfo.referenceRect = rect;
+    imageInfo.referenceView = imageView.superview;
+    imageInfo.referenceContentMode = imageView.contentMode;
+    imageInfo.referenceCornerRadius = imageView.layer.cornerRadius;
+    
+    // Setup view controller
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundOption_Scaled];
+    
+    // Present the view controller.
+    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOriginalPosition];
+    
+    
+}
+
+- (void)imageViewerViewController:(FSImageViewerViewController *)imageViewerViewController didMoveToImageAtIndex:(NSInteger)index {
+    NSLog(@"FSImageViewerViewController: %@ didMoveToImageAtIndex: %li",imageViewerViewController, (long)index);
+}
+
 @end

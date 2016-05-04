@@ -491,10 +491,11 @@
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"AnnouncementTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     cell.delegate = (id)self;
+    [cell.lbSubject setTextColor:TITLE_COLOR];
     
     AnnouncementObject *announcementObjectObj = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {

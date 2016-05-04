@@ -71,4 +71,9 @@
         _btnClose.enabled = YES;
     }
 }
+
+- (IBAction)tapOnImage:(id)sender {
+    [self.delegate tapOnImage:self];
+}
+
 @end

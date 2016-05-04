@@ -13,6 +13,7 @@
 @optional // Delegate protocols
 
 - (void)cancelBtnClick:(NSInteger)tag;
+- (void)tapOnImage:(id)sender;
 
 @end
 
