@@ -34,6 +34,11 @@
 #import "SVProgressHUD.h"
 #import "CommonAlert.h"
 
+#define USER_ROLE_STUDENT @"STUDENT"
+#define USER_ROLE_PRESIDENT @"PRESIDENT"
+#define USER_ROLE_HEAD_TEACHER @"TEACHER"
+#define USER_ROLE_SUB_TEACHER @"TEACHER"
+
 @interface LoginViewController ()
 {
     RequestToServer *requestToServer;
@@ -279,7 +284,6 @@
      }
      
      */
-    //for test
     UserObject *userObject = [[UserObject alloc] init];
     
     userObject.userID = [jsonObj objectForKey:@"id"];
@@ -288,8 +292,25 @@
     userObject.nickName = [jsonObj objectForKey:@"nickname"];
     userObject.avatarPath = [jsonObj objectForKey:@"photo"];
     userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
-    userObject.userRole = UserRole_Student;
-    userObject.permission = Permission_Normal | Permission_SendMessage | Permission_SendAnnouncement;
+    
+    NSString *role = [jsonObj objectForKey:@"roles"];
+    if (role != (id)[NSNull null] && role && role.length > 0) {
+        
+        if ([role isEqualToString:USER_ROLE_STUDENT]) {
+            userObject.userRole = UserRole_Student;
+            userObject.permission = Permission_Normal | Permission_SendMessage;
+            
+        } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
+            userObject.userRole = UserRole_Student;
+            userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
+            
+        } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
+            userObject.userRole = UserRole_Teacher;
+            userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
+            
+        }
+        
+    }
     
     userObject.shoolID = [jsonObj objectForKey:@"school_id"];
     userObject.schoolName = @"Bach khoa Ha Noi";

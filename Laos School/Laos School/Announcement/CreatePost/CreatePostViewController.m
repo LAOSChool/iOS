@@ -461,7 +461,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     //re add
     for (UIImage *image in photoArray) {
-        CGFloat y = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+        CGFloat y = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
         y = y + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
         CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, self.view.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
         
@@ -476,13 +476,13 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     }
     
     //scroll content size
-    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    CGFloat height = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
 }
 
 - (void)addImageToList:(UIImage *)image {
-    CGFloat y = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    CGFloat y = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     y = y + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
     CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, self.view.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
     
@@ -496,13 +496,13 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [mainScrollView addSubview:customImageView];
     
     //scroll content size
-    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    CGFloat height = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
 }
 
 - (void)addImageToDetailView:(PhotoObject *)photo {
-    CGFloat y = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    CGFloat y = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     y = y + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
     CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, self.view.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
     
@@ -530,7 +530,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [mainScrollView addSubview:customImageView];
     
     //scroll content size
-    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+    CGFloat height = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
     [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
 }
