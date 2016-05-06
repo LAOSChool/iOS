@@ -82,6 +82,12 @@
     
     [[CoreDataUtil sharedCoreDataUtil] setDefaultManagedObjectContext:self.managedObjectContext];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushToLoginScreen)
+                                                 name:@"PushToLoginScreen"
+                                               object:nil];
+    
     return YES;
 }
 
@@ -145,6 +151,18 @@
     
     // Code to handle other urls.
     return NO;
+}
+
+- (void)pushToLoginScreen {
+    LoginViewController *loginViewController = nil;
+    
+    if (IS_IPAD) {
+        loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];
+    } else {
+        loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    }
+    
+    self.window.rootViewController = loginViewController;
 }
 
 #pragma mark - Core Data stack

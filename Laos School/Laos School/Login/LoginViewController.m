@@ -230,6 +230,7 @@
 - (void)accountLoginByOtherDevice {
     [SVProgressHUD dismiss];
     [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
+
     [self showAlertAccountLoginByOtherDevice];
 }
 

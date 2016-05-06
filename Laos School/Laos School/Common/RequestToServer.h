@@ -45,7 +45,7 @@
 #define RangeReceived 206
 #define BadCredentials 401
 #define HttpNotFound 404
-#define NonAuthen 407
+#define NonAuthen 409
 
 @protocol RequestToServerDelegate <NSObject>
 

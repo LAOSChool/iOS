@@ -403,6 +403,8 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 - (void)accountLoginByOtherDevice {
+    [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToLoginScreen" object:nil];
     [self.delegate accountLoginByOtherDevice];
 }
 @end
