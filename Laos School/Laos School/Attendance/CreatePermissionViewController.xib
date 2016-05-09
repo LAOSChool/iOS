@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePermissionViewController">
             <connections>
+                <outlet property="lbDate" destination="Ntk-7G-9wv" id="m8O-6g-lJW"/>
+                <outlet property="txtReason" destination="zAJ-lB-ta3" id="nkY-Qc-VXb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,8 +16,75 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="245" y="291"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="4NB-eQ-48s">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ntk-7G-9wv">
+                            <rect key="frame" x="8" y="10" width="271" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OZy-At-Hvu">
+                            <rect key="frame" x="289" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="ic_arrow_down.png"/>
+                            <connections>
+                                <action selector="btnChooseDateClick:" destination="-1" eventType="touchUpInside" id="gcs-ZC-wMT"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="jBJ-wD-73L" appends="YES" id="ZB8-gu-u1j"/>
+                    </connections>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" id="zAJ-lB-ta3">
+                    <rect key="frame" x="8" y="48" width="304" height="130"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Xzq-Ey-wF6"/>
+                    </connections>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="MUK-tp-jtp" appends="YES" id="wck-sN-xm3"/>
+                <outletCollection property="gestureRecognizers" destination="pCc-PJ-LSO" appends="YES" id="8SB-Ka-G5v"/>
+            </connections>
+            <point key="canvasLocation" x="239" y="273"/>
         </view>
+        <tapGestureRecognizer id="jBJ-wD-73L">
+            <connections>
+                <action selector="btnChooseDateClick:" destination="-1" id="DXz-hh-O5A"/>
+                <outlet property="delegate" destination="-1" id="Qtc-Zs-S0U"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="MUK-tp-jtp">
+            <connections>
+                <action selector="tapGestureHandle:" destination="-1" id="xAd-CP-U8w"/>
+                <outlet property="delegate" destination="-1" id="0aC-wh-D7y"/>
+            </connections>
+        </tapGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="pCc-PJ-LSO">
+            <connections>
+                <action selector="swipeGestureHandle:" destination="-1" id="dkd-TF-AzI"/>
+                <outlet property="delegate" destination="-1" id="nN8-fV-pMk"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
+    <resources>
+        <image name="ic_arrow_down.png" width="30" height="30"/>
+    </resources>
 </document>

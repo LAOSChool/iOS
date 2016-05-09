@@ -521,14 +521,14 @@
     }
     
     //for test
-    cell.lbBriefContent.text = @"Solo cùng Bolero đã quay trở lại, quy mô hơn, hoành tráng hơn, sân khấu sang trọng trang nhã, được đầu tư kỹ lưỡng về âm thanh, ánh sáng. Hãy cùng chờ đón không gian âm nhạc sang trọng và trữ tình của Solo cùng Bolero lúc 21h thứ sáu hàng tuần trên kênh THVL 1";
+  //  cell.lbBriefContent.text = @"Solo cùng Bolero đã quay trở lại, quy mô hơn, hoành tráng hơn, sân khấu sang trọng trang nhã, được đầu tư kỹ lưỡng về âm thanh, ánh sáng. Hãy cùng chờ đón không gian âm nhạc sang trọng và trữ tình của Solo cùng Bolero lúc 21h thứ sáu hàng tuần trên kênh THVL 1";
     
     if (messageObj.dateTime && messageObj.dateTime.length > 0) {
         //messageObj.dateTime
-//        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd hh:mm"];
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd hh:mm"];
     }
     //for test
-    cell.lbTime.text = @"05-25 15:27";
+//    cell.lbTime.text = @"05-25 15:27";
     
     if (messageObj.fromUsername) {
         if (segmentedControl.selectedSegmentIndex == 2) {

@@ -79,6 +79,31 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     return dateString;
 }
 
+- (NSString *)dateStringFromString:(NSString *)dateStr withFormat:(NSString *)formatString {
+    NSString *resturnDate = nil;
+    NSDate *date = [self dateFromString:dateStr];
+    
+    resturnDate = [self dateStringFromDate:date withFormat:formatString];
+    
+    return resturnDate;
+}
+
+- (NSDate *)currentDateWithFormat:(NSString *)formatString {
+    
+    NSDate *resDate = [self dateFromString:[self dateStringFromDate:[NSDate date] withFormat:formatString]];
+    
+    return resDate;
+}
+
+- (NSDate *)nextMonthWithFormat:(NSString *)formatString {
+    NSTimeInterval nextTimeInterval = [self getCurrentDatetimeInSec] + 24*3600*30;
+    NSDate *nextDate = [NSDate dateWithTimeIntervalSince1970:nextTimeInterval];
+    
+    NSDate *resDate = [self dateFromString:[self dateStringFromDate:nextDate withFormat:formatString]];
+    
+    return resDate;
+}
+
 - (NSString *)timeStringFromDate:(NSDate *)date {
     NSString *dateString = nil;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -176,6 +201,11 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     
     if (date == nil) {
         dateFormatter.dateFormat = @"yyyy-MM-dd";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
         date = [dateFormatter dateFromString:dateStr];
     }
     

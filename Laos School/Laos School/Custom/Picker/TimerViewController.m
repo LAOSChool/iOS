@@ -9,6 +9,8 @@
 #import "TimerViewController.h"
 #import "Common.h"
 
+#define DATE_FORMATE @"yyyy-MM-dd EEEE"
+
 @interface TimerViewController ()
 
 @end
@@ -18,21 +20,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
-//    
-//    if (!remindTime) {
-//        remindTime = @"08:00";
-//        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
-//    }
-//    
-//    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
-//    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
-//    [datetimePicker setLocale:currentLocale];
-//    [datetimePicker setTimeZone:[NSTimeZone localTimeZone]];
-//    
-//    datetimePicker.date = [[Common sharedCommon] dateFromString:remindTime];
-//    datetimePicker.minimumDate = [[Common sharedCommon] dateFromString:@"00:00"];
-//    datetimePicker.maximumDate = [[Common sharedCommon] dateFromString:@"23:59"];
+
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
+    [datetimePicker setLocale:currentLocale];
+    [datetimePicker setTimeZone:[NSTimeZone localTimeZone]];
+    
+    if (_dateTime && _dateTime.length > 0) {
+        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:_dateTime];
+        
+    } else {
+        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:DATE_FORMATE];
+    }
+    
+    datetimePicker.minimumDate = [NSDate date];
+    datetimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextMonthWithFormat:DATE_FORMATE];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setDateTime:(NSString *)dateTime {
+    _dateTime = dateTime;
+    
+    if (_dateTime && _dateTime.length > 0) {
+        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:_dateTime];
+        
+    } else {
+        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:DATE_FORMATE];
+    }
+}
 
 - (IBAction)tapGestureHandle:(id)sender {
     [UIView animateWithDuration:0.3 animations:^(void) {
@@ -70,7 +83,7 @@
         [self.view removeFromSuperview];
     }];
     
-    [self.delegate btnDoneClick:self withValueReturned:@""];
+    [self.delegate btnDoneClick:self withValueReturned:[[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:datetimePicker.date withFormat:DATE_FORMATE]];
 }
 
 @end

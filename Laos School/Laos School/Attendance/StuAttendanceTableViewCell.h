@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface StuAttendanceTableViewCell : UITableViewCell
+{
+    
+}
+
+@property (strong, nonatomic) IBOutlet UILabel *lbReason;
+@property (strong, nonatomic) IBOutlet UILabel *lbDate;
+@property (strong, nonatomic) IBOutlet UILabel *lbSession;
 
 @end

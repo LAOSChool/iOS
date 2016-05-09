@@ -16,11 +16,16 @@
 
 #import "RequestToServer.h"
 #import "ShareData.h"
+#import "CommonDefine.h"
+#import "AttendanceObject.h"
+#import "DateTimeHelper.h"
 
 @interface StudentAttendanceViewController ()
 {
+    NSMutableArray *attendancesArray;
     UISegmentedControl *segmentedControl;
     RequestToServer *requestToServer;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -32,10 +37,12 @@
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    [self setTitle:LocalizedString(@"Attendance")];
+    
     UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewFormGetAllowance)];
     
     self.navigationItem.rightBarButtonItems = @[btnAdd];
-    
+/*
     segmentedControl = [[UISegmentedControl alloc] initWithItems:
                                             [NSArray arrayWithObjects:LocalizedString(@"Term 1"), LocalizedString(@"Term 2"), LocalizedString(@"All"),
                                              nil]];
@@ -49,11 +56,24 @@
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     
     self.navigationItem.titleView = segmentedControl;
+ */
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
+    
+    if (attendancesArray == nil) {
+        attendancesArray = [[NSMutableArray alloc] init];
+    }
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadAttendanceData) forControlEvents:UIControlEventValueChanged];
+    [attendanceTable addSubview:refreshControl];
+    
+    lbTotal.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"Total"), 0];
+    lbRequested.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"Have reason"), 0];
+    lbNoRequested.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"No reason"), 0];
     
     //Load data
     [self loadData];
@@ -74,14 +94,13 @@
 }
 */
 
-- (void)viewWillAppear:(BOOL)animated {
-    lbTotalSection.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"Total"), 10];
-    lbPermittedSection.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"Permission"), 9];
-    lbNoPermittedSection.text = [NSString stringWithFormat:@"%@: %d", LocalizedString(@"No permission"), 1];
-}
 
 - (IBAction)segmentAction:(id)sender {
     
+}
+
+- (void)reloadAttendanceData {
+    [self loadData];
 }
 
 - (void)loadData {
@@ -115,22 +134,53 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return 0;
+    return [attendancesArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 44.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *studentAttendanceCellIdentifier = @"StudentAttendanceCellIdentifier";
     
-    StuAttendanceTableViewCell *cell = [permissionTable dequeueReusableCellWithIdentifier:studentAttendanceCellIdentifier];
+    StuAttendanceTableViewCell *cell = [attendanceTable dequeueReusableCellWithIdentifier:studentAttendanceCellIdentifier];
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StuAttendanceTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    AttendanceObject *attObj = [attendancesArray objectAtIndex:indexPath.row];
+
+    if (attObj.hasRequest) {
+        cell.lbReason.text = attObj.reason;
+        cell.lbReason.textColor = [UIColor grayColor];
+    } else {
+        cell.lbReason.text = LocalizedString(@"No reason");
+        cell.lbReason.textColor = [UIColor redColor];
+    }
+    
+    cell.lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:attObj.dateTime withFormat:@"yyyy-MM-dd"];
+    
+    NSString *session = @"";
+    if (attObj.session && attObj.session.length > 0) {
+        session = attObj.session;
+    }
+    
+    if (attObj.subject && attObj.subject.length > 0) {
+        session = [NSString stringWithFormat:@"%@ - %@", session, attObj.subject];
+    }
+    
+    cell.lbSession.text = session;
+    
+    if (attObj.hasRequest) {
+        [cell.contentView setBackgroundColor:READ_COLOR];
+        [cell setBackgroundColor:READ_COLOR];
+    } else {
+        [cell.contentView setBackgroundColor:UNREAD_COLOR];
+        [cell setBackgroundColor:UNREAD_COLOR];
     }
 
     return cell;
@@ -146,120 +196,94 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    NSInteger countRequest = 0;
+    NSInteger countNoRequest = 0;
+    
+    [attendancesArray removeAllObjects];
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    NSArray *attendances = [jsonObj objectForKey:@"list"];
+
     /*
      {
      "from_row" = 0;
      list =     (
      {
-     absent = 1;
-     "att_dt" = "2016-04-16 00:00:00.0";
-     "chk_user_id" = 10;
+     "att_dt" = "2016-04-16";
+     auditor = 2;
+     "auditor_name" = "Admin 1 -School 1";
      "class_id" = 1;
      excused = 0;
      id = 1;
-     late = 0;
+     "is_requested" = 0;
      notice = "Test vang mat";
+     "requested_dt" = "<null>";
      "school_id" = 1;
      session = "Tiet 1";
      "session_id" = 1;
+     state = 1;
+     "student_id" = 10;
+     "student_name" = "Student 10";
      subject = Toan;
      "subject_id" = 1;
      term = "Hoc Ky 1 - 2016";
      "term_id" = 1;
-     "user_id" = 10;
-     "user_name" = HoavQ;
-     },
-     {
-     absent = 1;
-     "att_dt" = "2016-05-16 00:00:00.0";
-     "chk_user_id" = 10;
-     "class_id" = 1;
-     excused = 0;
-     id = 2;
-     late = 0;
-     notice = "test vang mat";
-     "school_id" = 1;
-     session = "Tiet 1";
-     "session_id" = 1;
-     subject = Toan;
-     "subject_id" = 1;
-     term = "Hoc Ky 1 - 2016";
-     "term_id" = 1;
-     "user_id" = 11;
-     "user_name" = HuyNQ;
-     },
-     {
-     absent = 1;
-     "att_dt" = "2016-04-16 00:00:00.0";
-     "chk_user_id" = 11;
-     "class_id" = 1;
-     excused = 0;
-     id = 3;
-     late = 0;
-     notice = "Test vang mat";
-     "school_id" = 1;
-     session = "Tiet 2";
-     "session_id" = 2;
-     subject = Toan;
-     "subject_id" = 1;
-     term = "Hoc Ky 1 - 2016";
-     "term_id" = 1;
-     "user_id" = 12;
-     "user_name" = HuyNQ;
-     },
-     {
-     absent = 1;
-     "att_dt" = "2016-04-16 00:00:00.0";
-     "chk_user_id" = 11;
-     "class_id" = 1;
-     excused = 0;
-     id = 4;
-     late = 0;
-     notice = "Test vang mat";
-     "school_id" = 1;
-     session = "Tiet 2";
-     "session_id" = 2;
-     subject = Toan;
-     "subject_id" = 1;
-     term = "Hoc Ky 1 - 2016";
-     "term_id" = 1;
-     "user_id" = 13;
-     "user_name" = HoavQ;
-     },
-     {
-     absent = 1;
-     "att_dt" = "2016-04-16 00:00:00.0";
-     "chk_user_id" = 12;
-     "class_id" = 1;
-     excused = 0;
-     id = 5;
-     late = 0;
-     notice = "Test vang mat";
-     "school_id" = 1;
-     session = "Tiet 2";
-     "session_id" = 2;
-     subject = Toan;
-     "subject_id" = 1;
-     term = "Hoc Ky 1 - 2016";
-     "term_id" = 1;
-     "user_id" = 14;
-     "user_name" = HoavQ;
      }
      );
-     "to_row" = 5;
-     "total_count" = 5;
+     "to_row" = 1;
+     "total_count" = 1;
      }
      */
+    if (attendances != (id)[NSNull null]) {
+        
+        for (NSDictionary *attendanceDict in attendances) {
+            AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
+            
+            if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
+                attendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
+            }
+            
+            if ([attendanceDict valueForKey:@"is_requested"] != (id)[NSNull null]) {
+                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"is_requested"] boolValue];
+            }
+            
+            if (attendanceObj.hasRequest) {
+                countRequest ++;
+            } else {
+                countNoRequest ++;
+            }
+            
+            if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
+                attendanceObj.session = [attendanceDict valueForKey:@"session"];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                attendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
+            if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
+                attendanceObj.reason = [attendanceDict valueForKey:@"notice"];
+            }
+            
+            [attendancesArray addObject:attendanceObj];
+        }
+        
+        lbTotal.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[attendancesArray count]];
+        lbRequested.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"Have reason"), (long)countRequest];
+        lbNoRequested.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"No reason"), (long)countNoRequest];
+        
+        [attendanceTable reloadData];
+    }
 }
 
 - (void)failToConnectToServer {
     [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [refreshControl endRefreshing];
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
     [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [refreshControl endRefreshing];
 }
 
 - (void)loginWithWrongUserPassword {
@@ -268,7 +292,7 @@
 
 - (void)accountLoginByOtherDevice {
     [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [refreshControl endRefreshing];
     [self showAlertAccountLoginByOtherDevice];
 }
 

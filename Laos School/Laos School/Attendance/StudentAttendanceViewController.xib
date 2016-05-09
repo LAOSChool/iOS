@@ -7,10 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudentAttendanceViewController">
             <connections>
-                <outlet property="lbNoPermittedSection" destination="nrx-mY-lng" id="VKK-ad-smZ"/>
-                <outlet property="lbPermittedSection" destination="27M-IQ-Nqs" id="5g7-cR-Mr0"/>
-                <outlet property="lbTotalSection" destination="t78-Cf-AEA" id="cwO-Lk-Duj"/>
-                <outlet property="permissionTable" destination="JtY-Vz-Jvc" id="Avg-zm-1OY"/>
+                <outlet property="attendanceTable" destination="JtY-Vz-Jvc" id="sIx-eN-Ct9"/>
+                <outlet property="lbNoRequested" destination="nrx-mY-lng" id="Lze-F7-yfC"/>
+                <outlet property="lbRequested" destination="27M-IQ-Nqs" id="XVx-kM-SK3"/>
+                <outlet property="lbTotal" destination="t78-Cf-AEA" id="wNu-WJ-o2l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,35 +20,35 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="LO5-bp-AXP">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t78-Cf-AEA">
-                            <rect key="frame" x="8" y="8" width="304" height="21"/>
+                            <rect key="frame" x="8" y="7" width="304" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27M-IQ-Nqs">
-                            <rect key="frame" x="8" y="37" width="304" height="21"/>
+                            <rect key="frame" x="8" y="29" width="304" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nrx-mY-lng">
-                            <rect key="frame" x="8" y="66" width="304" height="21"/>
+                            <rect key="frame" x="8" y="51" width="304" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JtY-Vz-Jvc">
-                    <rect key="frame" x="0.0" y="91" width="320" height="477"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="JtY-Vz-Jvc">
+                    <rect key="frame" x="0.0" y="78" width="320" height="490"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -58,7 +58,7 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="275" y="446"/>
+            <point key="canvasLocation" x="262" y="307"/>
         </view>
     </objects>
 </document>

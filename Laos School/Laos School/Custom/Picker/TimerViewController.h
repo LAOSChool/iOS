@@ -23,4 +23,5 @@
 }
 
 @property(nonatomic, readwrite) id <TimerPickerViewDelegate> delegate;
+@property(nonatomic, strong) NSString *dateTime;
 @end

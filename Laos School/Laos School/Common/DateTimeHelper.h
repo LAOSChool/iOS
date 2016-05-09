@@ -19,6 +19,9 @@
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)getNextDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)dateStringFromDate:(NSDate *)date withFormat:(NSString *)formatString;
+- (NSString *)dateStringFromString:(NSString *)dateStr withFormat:(NSString *)formatString;
+- (NSDate *)currentDateWithFormat:(NSString *)formatString;
+- (NSDate *)nextMonthWithFormat:(NSString *)formatString;
 - (NSString *)timeStringFromDate:(NSDate *)date;
 - (NSString *)stringDateFromString:(NSString *)dateStr withFormat:(NSString *)formatString;
 - (NSDate *)dateFromString:(NSString *)dateStr;

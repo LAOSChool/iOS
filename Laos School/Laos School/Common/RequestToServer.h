@@ -36,8 +36,8 @@
 #define API_NAME_UPDATE_ANNOUNCEMENT @"/api/notifies/update"
 
 
-#define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances"
-#define API_NAME_STU_CREATE_ATTENDANCE @"/api/attendances/create"
+#define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
+#define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
 
 #define HttpOK 200
 #define Accepted 201
@@ -67,6 +67,7 @@
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
+- (void)createAbsenceRequest:(NSDictionary *)requestDict ;
 
 //announcements
 - (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;

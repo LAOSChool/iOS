@@ -10,41 +10,26 @@
 #import "AttendanceObject.h"
 
 /*
- @property (nonatomic, strong) NSString *wordid;
- @property (nonatomic, strong) NSString *question;
- @property (nonatomic, strong) NSString *answers;
- @property (nonatomic, strong) NSString *subcats;
- @property (nonatomic, strong) NSString *status;
- @property (nonatomic, strong) NSString *package;
- @property (nonatomic, strong) NSString *level;
- @property (nonatomic, strong) NSString *queue;
- @property (nonatomic, strong) NSString *due;
- @property (nonatomic, strong) NSString *revCount;
- @property (nonatomic, strong) NSString *lastInterval;
- @property (nonatomic, strong) NSString *eFactor;
+ @property (nonatomic, strong) NSString *userID;
+ @property (nonatomic, strong) NSString *dateTime;
+ @property (nonatomic, strong) NSString *session;    //blank if is off all day
+ @property (nonatomic, strong) NSString *subject;    //blank if is off all day
+ @property (nonatomic, assign) ABSENCE_TYPE absenceType;
+ @property (nonatomic, assign) BOOL hasRequest;
+ @property (nonatomic, strong) NSString *reason;
  */
 @implementation AttendanceObject
 
 - (id)init {
     self = [super init];
     if (self) {
-//        self.wordid = @"";
-//        self.gid = @"";
-//        self.question = @"";
-//        self.answers = @"";
-//        self.subcats = @"";
-//        self.status = @"";
-//        self.package = @"";
-//        self.level = @"";
-//        self.queue = @"";
-//        self.due = @"";
-//        self.revCount = @"";
-//        self.lastInterval = @"";
-//        self.eFactor = @"";
-//        self.langEN = @"";
-//        self.langVN = @"";
-//        self.userNote = @"";
-//        self.isFromServer = NO;
+        self.userID = @"";
+        self.dateTime = @"";
+        self.session = @"";
+        self.subject = @"";
+        self.absenceType = Absence_None;
+        self.hasRequest = YES;
+        self.reason = @"";
     }
     return self;
 }

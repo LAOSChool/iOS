@@ -10,10 +10,10 @@
 
 @interface StudentAttendanceViewController : UIViewController
 {
-    IBOutlet UILabel *lbTotalSection;
-    IBOutlet UILabel *lbPermittedSection;
-    IBOutlet UILabel *lbNoPermittedSection;
-    IBOutlet UITableView *permissionTable;
+    IBOutlet UILabel *lbTotal;
+    IBOutlet UILabel *lbRequested;
+    IBOutlet UILabel *lbNoRequested;
+    IBOutlet UITableView *attendanceTable;
     
 }
 @end
