@@ -118,10 +118,10 @@
     }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return TRUE;
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+//{
+//    return TRUE;
+//}
 
 - (IBAction)tapGestureHandle:(id)sender {
     [txtReason resignFirstResponder];
@@ -193,6 +193,14 @@
     [alert show];
 }
 
+- (void)showAlertRequestDuplicated {
+    NSString *content = [NSString stringWithFormat:LocalizedString(@"An absence request had been sent for day %@. Please double check."), [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 6;
+    
+    [alert show];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (alertView.tag == 1) {    //confirmBeforeSendingRequest
@@ -216,6 +224,8 @@
             [SVProgressHUD showSuccessWithStatus:@"Sent"];
         }];
         
+    } else if (statusCode == Confliction) {
+        [self showAlertRequestDuplicated];
     } else {
         [self sendRequestFailed];
         

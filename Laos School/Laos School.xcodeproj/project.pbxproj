@@ -292,6 +292,7 @@
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
+		55A454E51CE1D3820035FC50 /* AttendanceCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A454E41CE1D3820035FC50 /* AttendanceCellData.m */; };
 		55ABB5D91CB39D030035F2E0 /* MSKeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */; };
 		55B108D01C7FFE4E00EB695C /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CC1C7FFE4E00EB695C /* CustomTextField.m */; };
 		55B108D11C7FFE4E00EB695C /* UIView+CustomUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B108CE1C7FFE4E00EB695C /* UIView+CustomUIView.m */; };
@@ -869,6 +870,8 @@
 		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		55A454E31CE1D3820035FC50 /* AttendanceCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceCellData.h; sourceTree = "<group>"; };
+		55A454E41CE1D3820035FC50 /* AttendanceCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceCellData.m; sourceTree = "<group>"; };
 		55ABB5D71CB39D030035F2E0 /* MSKeychainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSKeychainHelper.h; sourceTree = "<group>"; };
 		55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSKeychainHelper.m; sourceTree = "<group>"; };
 		55B108CB1C7FFE4E00EB695C /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTextField.h; path = "Laos School/Custom/CustomTextField.h"; sourceTree = SOURCE_ROOT; };
@@ -2278,8 +2281,10 @@
 				558B78F41CAE2725003F437E /* ScoreObject.m */,
 				5575ED6A1CA51DC300EFC02C /* AnnouncementObject.h */,
 				5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */,
-				5595091D1C995BE300D06158 /* AttendanceObject.m */,
 				5595091E1C995BE300D06158 /* AttendanceObject.h */,
+				5595091D1C995BE300D06158 /* AttendanceObject.m */,
+				55A454E31CE1D3820035FC50 /* AttendanceCellData.h */,
+				55A454E41CE1D3820035FC50 /* AttendanceCellData.m */,
 				55D657581C9679E200A0E4F3 /* ClassObject.h */,
 				55D657591C9679E200A0E4F3 /* ClassObject.m */,
 				556C6E741C92AEB90077F4BE /* UserObject.h */,
@@ -2587,6 +2592,7 @@
 				55FC72371C7C599D00B0B8D0 /* NSArray+MK_Block.m in Sources */,
 				550A75E51CCE153A0050240B /* CTAssetsGridSelectedView.m in Sources */,
 				550A75EB1CCE153A0050240B /* CTAssetsNavigationController.m in Sources */,
+				55A454E51CE1D3820035FC50 /* AttendanceCellData.m in Sources */,
 				55510DC21CD9AE0D00638646 /* UIAlertView+AFNetworking.m in Sources */,
 				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
 				5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */,

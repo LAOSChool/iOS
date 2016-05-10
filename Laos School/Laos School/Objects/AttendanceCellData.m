@@ -1,5 +1,5 @@
 //
-//  AttendanceObject.m
+//  AttendanceCellData.m
 //  LazzyBee
 //
 //  Created by HuKhong on 3/31/15.
@@ -7,26 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AttendanceObject.h"
+#import "AttendanceCellData.h"
 
-/*
- @property (nonatomic, strong) NSString *userID;
- @property (nonatomic, strong) NSString *dateTime;
- @property (nonatomic, assign) ABSENCE_TYPE absenceType;
- @property (nonatomic, assign) BOOL hasRequest;
- @property (nonatomic, strong) NSString *reason;
- */
-@implementation AttendanceObject
+@implementation AttendanceCellData
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.userID = @"";
-        self.dateTime = @"";
-        self.absenceType = Absence_None;
-        self.hasRequest = YES;
-        self.reason = @"";
-        self.detailSession = [[NSMutableDictionary alloc] init];;
+        self.cellType = CellType_Normal;
+        self.cellData = nil;
+        self.isShowDetail = NO;
     }
     return self;
 }

@@ -46,6 +46,7 @@
 #define BadCredentials 401
 #define HttpNotFound 404
 #define NonAuthen 409
+#define Confliction 429
 
 @protocol RequestToServerDelegate <NSObject>
 

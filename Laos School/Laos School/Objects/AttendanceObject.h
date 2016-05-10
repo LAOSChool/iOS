@@ -27,11 +27,10 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *dateTime;
-@property (nonatomic, strong) NSString *session;    //blank if is off all day
-@property (nonatomic, strong) NSString *subject;    //blank if is off all day
 @property (nonatomic, assign) ABSENCE_TYPE absenceType;
 @property (nonatomic, assign) BOOL hasRequest;
 @property (nonatomic, strong) NSString *reason;
+@property (nonatomic, strong) NSMutableDictionary *detailSession;
 
 @end
 
