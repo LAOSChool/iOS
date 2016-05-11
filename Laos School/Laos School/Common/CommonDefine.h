@@ -22,9 +22,9 @@
 
 #define COMMON_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
 #define GREEN_COLOR [UIColor colorWithRed:0/255.f green:162/255.f blue:97/255.f alpha:1]
-#define BLUE_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
+#define BLUE_COLOR [UIColor colorWithRed:77/255.f green:131/255.f blue:242/255.f alpha:1]
 #define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
-#define TITLE_COLOR [UIColor colorWithRed:77/255.f green:131/255.f blue:242/255.f alpha:1]
+#define TITLE_COLOR BLUE_COLOR
 
 #define LOW_IMPORTANCE_COLOR [UIColor lightGrayColor]
 #define NORMAL_IMPORTANCE_COLOR [UIColor lightGrayColor]

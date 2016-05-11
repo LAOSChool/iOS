@@ -39,6 +39,9 @@
 #define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
 #define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
 
+
+#define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
+
 #define HttpOK 200
 #define Accepted 201
 #define HttpNoResponse 204
@@ -65,6 +68,9 @@
 // a singleton:
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
+
+//score
+- (void)getMyScoreList;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

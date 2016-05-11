@@ -161,7 +161,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 #pragma mark - Show Methods
 
 + (void)show{
-    [self setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [self setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [self showWithStatus:nil];
 }
 
@@ -173,7 +173,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 }
 
 + (void)showWithStatus:(NSString*)status{
-    [self setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [self setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [self sharedView];
     [self showProgress:SVProgressHUDUndefinedProgress status:status];
 }

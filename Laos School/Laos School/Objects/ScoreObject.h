@@ -14,6 +14,13 @@
 
 //#define QUEUE_UNKNOWN 0
 
+typedef enum {
+    ScoreType_Normal = 0,
+    ScoreType_Exam,
+    ScoreType_Final,
+    ScoreType_Max,
+} SCORE_TYPE;
+
 @interface ScoreObject : NSObject
 {
     
@@ -21,7 +28,8 @@
 
 @property (nonatomic, strong) NSString *scoreID;
 @property (nonatomic, strong) NSString *score;
-@property (nonatomic, strong) NSString *scoreType;
+@property (nonatomic, assign) SCORE_TYPE scoreType;
+@property (nonatomic, strong) NSString *month;
 @property (nonatomic, assign) NSInteger weight;
 
 @end

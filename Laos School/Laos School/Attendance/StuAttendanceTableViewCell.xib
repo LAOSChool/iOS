@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="StuAttendanceTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="StuAttendanceTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="364" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -15,26 +15,52 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="85X-zq-GRT">
-                        <rect key="frame" x="8" y="2" width="348" height="21"/>
+                        <rect key="frame" x="8" y="2" width="325" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oKR-6f-7yw">
-                        <rect key="frame" x="8" y="21" width="348" height="21"/>
+                        <rect key="frame" x="8" y="21" width="110" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down_arrow.png" id="btE-Ya-dFf">
+                        <rect key="frame" x="341" y="12" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UYY-qY-4br">
+                        <rect key="frame" x="121" y="21" width="212" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <gestureRecognizers/>
+                <connections>
+                    <outletCollection property="gestureRecognizers" destination="NYe-hn-c43" appends="YES" id="EYs-OQ-WI3"/>
+                </connections>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imgArrow" destination="btE-Ya-dFf" id="Ujt-dl-h2H"/>
                 <outlet property="lbDate" destination="oKR-6f-7yw" id="8lA-k4-Tav"/>
                 <outlet property="lbReason" destination="85X-zq-GRT" id="bjy-8m-OXv"/>
+                <outlet property="lbSession" destination="UYY-qY-4br" id="uFg-ka-epN"/>
             </connections>
-            <point key="canvasLocation" x="200" y="179"/>
+            <point key="canvasLocation" x="320" y="194"/>
         </tableViewCell>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="NYe-hn-c43">
+            <connections>
+                <action selector="longpressGestureHandle:" destination="KGk-i7-Jjw" id="JBv-Wq-fWF"/>
+                <outlet property="delegate" destination="-1" id="E84-41-eOT"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
+    <resources>
+        <image name="ic_down_arrow.png" width="30" height="30"/>
+    </resources>
 </document>

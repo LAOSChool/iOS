@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ScoresViewController : UIViewController
-
+{
+    
+    IBOutlet UITableView *scoresTableView;
+}
 @end

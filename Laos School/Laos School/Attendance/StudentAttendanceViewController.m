@@ -13,6 +13,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "SVProgressHUD.h"
+#import "AppDelegate.h"
 
 #import "RequestToServer.h"
 #import "ShareData.h"
@@ -20,6 +21,8 @@
 #import "AttendanceObject.h"
 #import "AttendanceCellData.h"
 #import "DateTimeHelper.h"
+
+#import "InformationViewController.h"
 
 @interface StudentAttendanceViewController ()
 {
@@ -29,6 +32,8 @@
     UISegmentedControl *segmentedControl;
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
+    
+    InformationViewController *infoView;
 }
 @end
 
@@ -112,16 +117,16 @@
 
 - (void)loadData {
     [SVProgressHUD show];
-    if (segmentedControl.selectedSegmentIndex == 0) {  //term 1
+//    if (segmentedControl.selectedSegmentIndex == 0) {  //term 1
         [requestToServer getAttendancesListWithUserID:[[ShareData sharedShareData] userObj].userID inClass:[[ShareData sharedShareData] userObj].classObj.classID];
         
-    } else if(segmentedControl.selectedSegmentIndex == 1) {    //term 2
+//    } else if(segmentedControl.selectedSegmentIndex == 1) {    //term 2
+    
         
-        
-    } else if(segmentedControl.selectedSegmentIndex == 2) {    //year
-        
-        
-    }
+//    } else if(segmentedControl.selectedSegmentIndex == 2) {    //year
+//        
+//        
+//    }
 }
 
 - (void)createNewFormGetAllowance {
@@ -190,11 +195,13 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    cell.delegate = (id)self;
+    
     AttendanceObject *attObj = (AttendanceObject *)attCellData.cellData;
     
     if (attObj.hasRequest) {
         cell.lbReason.text = attObj.reason;
-        cell.lbReason.textColor = [UIColor grayColor];
+        cell.lbReason.textColor = BLUE_COLOR;
     } else {
         cell.lbReason.text = LocalizedString(@"No reason");
         cell.lbReason.textColor = [UIColor redColor];
@@ -213,9 +220,12 @@
     NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
     
     if ([sessionArr count] > 0) {
-        cell.userInteractionEnabled = YES;
+        cell.imgArrow.hidden = NO;
+        cell.lbSession.text = [NSString stringWithFormat:@"%ld %@", [sessionArr count], LocalizedString(@"Session(s)")];
+        
     } else {
-        cell.userInteractionEnabled = NO;
+        cell.imgArrow.hidden = YES;
+        cell.lbSession.text = LocalizedString(@"Full day");
     }
     
     return cell;
@@ -229,8 +239,9 @@
     
     if (attCellData.cellType == CellType_Normal) {
         AttendanceObject *attObj = (AttendanceObject *)attCellData.cellData;
+        NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
         
-        if (attObj.dateTime.length > 0) {
+        if (attObj.dateTime.length > 0 && [sessionArr count] > 0) {
             if (attCellData.isShowDetail == NO) {
                 NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
                 
@@ -247,8 +258,8 @@
                     
                     [self insertDetailCellAtIndex:indexPath.row numberOfInsertCell:[sessionArr count]];
                     
-                    if (indexPath.row + 1 == [attendanceCellData count] - 1) {
-                        [attendanceTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                    if (indexPath.row + [sessionArr count] + 1 >= [attendanceCellData count]) {
+                        [attendanceTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + [sessionArr count] inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                     }
                     
                     attCellData.isShowDetail = YES;
@@ -286,10 +297,10 @@
     NSIndexPath *indexPathSelected = [NSIndexPath indexPathForRow:index inSection:0];
     
     //set color of the selected cell
-//    DocumentManifestCell *selectedCell = (DocumentManifestCell*)[documentTable cellForRowAtIndexPath:indexPathSelected];
+    StuAttendanceTableViewCell *selectedCell = (StuAttendanceTableViewCell*)[attendanceTable cellForRowAtIndexPath:indexPathSelected];
 //    selectedCell.contentView.backgroundColor = DOCUMENT_SELECTED_CELL_COLOR;
-//    //set indicator icon
-//    [selectedCell.indicatorIcon setImage:[UIImage imageNamed:@"arrow_up_light_.png"]];
+    //set indicator icon
+    [selectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_up_arrow.png"]];
     
     [attendanceTable beginUpdates];
     [attendanceTable insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
@@ -306,14 +317,44 @@
     NSIndexPath *indexPathOldSelected = [NSIndexPath indexPathForRow:index inSection:0];
     
     //set color of the old selected cell
-//    DocumentManifestCell *oldSelectedCell = (DocumentManifestCell*)[documentTable cellForRowAtIndexPath:indexPathOldSelected];
+    StuAttendanceTableViewCell *oldSelectedCell = (StuAttendanceTableViewCell*)[attendanceTable cellForRowAtIndexPath:indexPathOldSelected];
 //    oldSelectedCell.contentView.backgroundColor = DOCUMENT_NORMAL_CELL_COLOR;
-//    //set indicator icon
-//    [oldSelectedCell.indicatorIcon setImage:[UIImage imageNamed:@"arrow_down_darker_.png"]];
+    //set indicator icon
+    [oldSelectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_down_arrow.png"]];
     
     [attendanceTable beginUpdates];
     [attendanceTable deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     [attendanceTable endUpdates];
+}
+
+//cell delegate
+- (void)longpressGestureHandle:(id)sender {
+    StuAttendanceTableViewCell *cell = (StuAttendanceTableViewCell *)sender;
+    
+    NSIndexPath *indexPath = [attendanceTable indexPathForCell:cell];
+    AttendanceCellData *cellData = [attendanceCellData objectAtIndex:indexPath.row];
+    AttendanceObject *attObj = (AttendanceObject *)cellData.cellData;
+    
+    if (infoView == nil) {
+        infoView = [[InformationViewController alloc] initWithNibName:@"InformationViewController" bundle:nil];
+    }
+    
+    infoView.attObj = attObj;
+    infoView.view.alpha = 0;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    CGRect rect = appDelegate.window.frame;
+    [infoView.view setFrame:rect];
+    
+    [appDelegate.window addSubview:infoView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        infoView.view.alpha = 1;
+    }];
+    
+    [infoView loadInformation];
+    
 }
 
 #pragma mark RequestToServer delegate
@@ -371,12 +412,6 @@
                 attendanceObj.hasRequest = [[attendanceDict valueForKey:@"is_requested"] boolValue];
             }
             
-            if (attendanceObj.hasRequest) {
-                countRequest ++;
-            } else {
-                countNoRequest ++;
-            }
-            
             if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
                 attendanceObj.reason = [attendanceDict valueForKey:@"notice"];
             }
@@ -415,7 +450,7 @@
                         if (sessionArr && [sessionArr count] > 0) {
                             NSMutableArray *newArr = [[NSMutableArray alloc] initWithArray:sessionArr];
                             [newArr addObject:session];
-                            [attendanceObj.detailSession setObject:newArr forKey:attendanceObj.dateTime];
+                            [att.detailSession setObject:newArr forKey:attendanceObj.dateTime];
                             
                             found = YES;
                             break;
@@ -427,10 +462,24 @@
                         [newArr addObject:session];
                         [attendanceObj.detailSession setObject:newArr forKey:attendanceObj.dateTime];
                         
+                        //only count before add
+                        if (attendanceObj.hasRequest) {
+                            countRequest ++;
+                        } else {
+                            countNoRequest ++;
+                        }
+                        
                         [attendancesArray addObject:attendanceObj];
                     }
                     
                 } else {
+                    //only count before add
+                    if (attendanceObj.hasRequest) {
+                        countRequest ++;
+                    } else {
+                        countNoRequest ++;
+                    }
+                    
                     [attendancesArray addObject:attendanceObj];
                 }
             }
@@ -446,6 +495,8 @@
 }
 
 - (void)prepareDataForTableView {
+    [self sortAttendancesArrayByDateTime];
+    
     for (AttendanceObject *att in attendancesArray) {
         AttendanceCellData *cellData = [[AttendanceCellData alloc] init];
         
@@ -455,6 +506,14 @@
         
         [attendanceCellData addObject:cellData];
     }
+}
+
+- (void)sortAttendancesArrayByDateTime {
+    NSSortDescriptor *dateTime = [NSSortDescriptor sortDescriptorWithKey:@"dateTime" ascending:NO];
+    NSArray *resultArr = [attendancesArray sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dateTime, nil]];
+    
+    [attendancesArray removeAllObjects];
+    [attendancesArray addObjectsFromArray:resultArr];
 }
 
 - (void)failToConnectToServer {

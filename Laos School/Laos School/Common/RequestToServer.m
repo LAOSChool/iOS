@@ -44,6 +44,24 @@ static RequestToServer* sharedRequestToServer = nil;
     return self;
 }
 
+#pragma mark score
+- (void)getMyScoreList {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCORE_LIST];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 #pragma mark announcement
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_ATTENDANCE_LIST];
@@ -396,6 +414,8 @@ static RequestToServer* sharedRequestToServer = nil;
         if (error == nil && [jsonObj count] > 0) {
             [self.delegate connectionDidFinishLoading:jsonObj];
             
+        } else {
+            [SVProgressHUD dismiss];
         }
     }
 }

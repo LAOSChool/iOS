@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AttendanceCellDelegate <NSObject>
+
+@optional // Delegate protocols
+
+- (void)longpressGestureHandle:(id)sender;
+
+@end
+
 @interface StuAttendanceTableViewCell : UITableViewCell
 {
     
@@ -16,5 +24,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbReason;
 @property (strong, nonatomic) IBOutlet UILabel *lbDate;
 @property (strong, nonatomic) IBOutlet UILabel *lbSession;
+@property (strong, nonatomic) IBOutlet UIImageView *imgArrow;
+
+@property (strong, nonatomic) id<AttendanceCellDelegate> delegate;
 
 @end

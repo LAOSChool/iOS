@@ -20,4 +20,10 @@
     // Configure the view for the selected state
 }
 
+
+- (IBAction)longpressGestureHandle:(UILongPressGestureRecognizer*)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.delegate longpressGestureHandle:self];
+    }
+}
 @end

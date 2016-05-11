@@ -12,6 +12,9 @@
 /*
  @property (nonatomic, strong) NSString *scoreID;
  @property (nonatomic, strong) NSString *score;
+ @property (nonatomic, assign) SCORE_TYPE scoreType;
+ @property (nonatomic, strong) NSString *month;
+ @property (nonatomic, assign) NSInteger weight;
  */
 @implementation ScoreObject
 
@@ -20,7 +23,8 @@
     if (self) {
         self.scoreID = @"";
         self.score = @"";
-        self.scoreType = @"";
+        self.scoreType = ScoreType_Normal;
+        self.month = @"0";
         self.weight = 1;
     }
     return self;
@@ -30,7 +34,8 @@
     
     [encoder encodeObject:self.scoreID forKey:@"scoreID"];
     [encoder encodeObject:self.score forKey:@"score"];
-    [encoder encodeObject:self.scoreType forKey:@"scoreType"];
+    [encoder encodeInteger:self.scoreType forKey:@"scoreType"];
+    [encoder encodeObject:self.month forKey:@"month"];
     [encoder encodeInteger:self.weight forKey:@"weight"];
     
 }
@@ -40,7 +45,8 @@
     {
         self.scoreID = [decoder decodeObjectForKey:@"scoreID"];
         self.score = [decoder decodeObjectForKey:@"score"];
-        self.scoreType = [decoder decodeObjectForKey:@"scoreType"];
+        self.scoreType = (SCORE_TYPE)[decoder decodeIntegerForKey:@"scoreType"];
+        self.score = [decoder decodeObjectForKey:@"score"];
         self.weight = [decoder decodeIntegerForKey:@"weight"];
     }
     

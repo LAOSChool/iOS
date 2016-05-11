@@ -44,7 +44,7 @@
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
     }
-    
+#if 0
     //for test
     UserScore *userScore = [[UserScore alloc] init];
     userScore.userID = @"1";
@@ -89,7 +89,7 @@
     [studentsArray addObject:userScore];
     
     [searchResults addObjectsFromArray:studentsArray];
-    
+#endif
     
     
 }
@@ -239,16 +239,16 @@
     NSMutableDictionary *scoreGroupedByType = [[NSMutableDictionary alloc] init];
     NSArray *keyArr = nil;
     
-    for (ScoreObject *scoreObject in userScoreObject.scoreArray) {
-        NSMutableArray *arr = [scoreGroupedByType objectForKey:scoreObject.scoreType];
-        
-        if (arr == nil) {
-            arr = [[NSMutableArray alloc] init];
-        }
-        [arr addObject:scoreObject.score];
-        
-        [scoreGroupedByType setObject:arr forKey:scoreObject.scoreType];
-    }
+//    for (ScoreObject *scoreObject in userScoreObject.scoreArray) {
+//        NSMutableArray *arr = [scoreGroupedByType objectForKey:scoreObject.scoreType];
+//        
+//        if (arr == nil) {
+//            arr = [[NSMutableArray alloc] init];
+//        }
+//        [arr addObject:scoreObject.score];
+//        
+//        [scoreGroupedByType setObject:arr forKey:scoreObject.scoreType];
+//    }
     
     keyArr = [scoreGroupedByType allKeys];
     keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
