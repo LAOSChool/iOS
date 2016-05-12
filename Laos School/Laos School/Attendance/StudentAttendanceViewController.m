@@ -9,6 +9,7 @@
 #import "StudentAttendanceViewController.h"
 #import "CreatePermissionViewController.h"
 #import "StuAttendanceTableViewCell.h"
+#import "StuDetailAttendanceTableViewCell.h"
 
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
@@ -47,6 +48,8 @@
     
     [self setTitle:LocalizedString(@"Attendance")];
     
+    [viewHeader setBackgroundColor:GREEN_COLOR];
+    
     UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewFormGetAllowance)];
     
     self.navigationItem.rightBarButtonItems = @[btnAdd];
@@ -84,7 +87,7 @@
     [attendanceTable addSubview:refreshControl];
     
     lbTotal.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"Total"), 0];
-    lbRequested.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"Have reason"), 0];
+    lbRequested.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"Got reason"), 0];
     lbNoRequested.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"No reason"), 0];
     
     //Load data
@@ -153,7 +156,7 @@
     AttendanceCellData *attCellData = [attendanceCellData objectAtIndex:indexPath.row];
     
     if (attCellData.cellType == CellType_Detail) {
-        return 28;
+        return 40;
     }
     
     return 44.0;
@@ -166,22 +169,45 @@
     if (attCellData.cellType == CellType_Detail) {
         static NSString *stdAttendanceDetailIdentifier = @"StdAttendanceDetailIdentifier";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stdAttendanceDetailIdentifier];
+        StuDetailAttendanceTableViewCell *cell = [attendanceTable dequeueReusableCellWithIdentifier:stdAttendanceDetailIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stdAttendanceDetailIdentifier];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StuDetailAttendanceTableViewCell" owner:nil options:nil];
+            cell = [nib objectAtIndex:0];
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        
-        cell.textLabel.textColor = [UIColor whiteColor];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
         
         [cell.contentView setBackgroundColor:[UIColor lightGrayColor]];
         [cell setBackgroundColor:[UIColor lightGrayColor]];
         
-        NSString *session = (NSString *)attCellData.cellData;
-        cell.textLabel.text = session;
+        AttendanceObject *attObj = (AttendanceObject *)attCellData.cellData;
         
-        cell.userInteractionEnabled = NO;
+        if (attObj.hasRequest) {
+            cell.lbReason.textColor = [UIColor whiteColor];
+            cell.lbSession.textColor = [UIColor whiteColor];
+            cell.lbReason.text = LocalizedString(@"Got reason");
+            
+        } else {
+            cell.lbReason.textColor = [UIColor redColor];
+            cell.lbSession.textColor = [UIColor whiteColor];
+            cell.lbReason.text = LocalizedString(@"No reason");
+        }
+        
+        
+        
+        NSString *session = attObj.session;
+        NSString *subject = attObj.subject;
+        
+        if (session && session.length > 0) {
+            if (subject && subject.length > 0) {
+                session = [NSString stringWithFormat:@"%@ - %@", session, subject];
+            }
+        } else {
+            if (subject && subject.length > 0) {
+                session = subject;
+            }
+        }
+        
+        cell.lbSession.text = session;
         
         return cell;
     }
@@ -217,11 +243,9 @@
         [cell setBackgroundColor:UNREAD_COLOR];
     }
     
-    NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
-    
-    if ([sessionArr count] > 0) {
+    if ([attObj.detailSession count] > 0) {
         cell.imgArrow.hidden = NO;
-        cell.lbSession.text = [NSString stringWithFormat:@"%ld %@", [sessionArr count], LocalizedString(@"Session(s)")];
+        cell.lbSession.text = [NSString stringWithFormat:@"%ld %@", [attObj.detailSession count], LocalizedString(@"Session(s)")];
         
     } else {
         cell.imgArrow.hidden = YES;
@@ -239,31 +263,28 @@
     
     if (attCellData.cellType == CellType_Normal) {
         AttendanceObject *attObj = (AttendanceObject *)attCellData.cellData;
-        NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
+        NSArray *sessionArr = attObj.detailSession;
         
-        if (attObj.dateTime.length > 0 && [sessionArr count] > 0) {
+        if ([sessionArr count] > 0) {
             if (attCellData.isShowDetail == NO) {
-                NSArray *sessionArr = [attObj.detailSession valueForKey:attObj.dateTime];
-                
-                if (sessionArr && [sessionArr count] > 0) {
-                    for (NSString *session in sessionArr) {
-                        AttendanceCellData *cellData = [[AttendanceCellData alloc] init];
-                        
-                        cellData.cellData = session;
-                        cellData.cellType = CellType_Detail;
-                        cellData.isShowDetail = NO;
-                        
-                        [attendanceCellData insertObject:cellData atIndex:indexPath.row + 1];
-                    }
+
+                for (AttendanceObject *session in sessionArr) {
+                    AttendanceCellData *cellData = [[AttendanceCellData alloc] init];
                     
-                    [self insertDetailCellAtIndex:indexPath.row numberOfInsertCell:[sessionArr count]];
+                    cellData.cellData = session;
+                    cellData.cellType = CellType_Detail;
+                    cellData.isShowDetail = NO;
                     
-                    if (indexPath.row + [sessionArr count] + 1 >= [attendanceCellData count]) {
-                        [attendanceTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + [sessionArr count] inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                    }
-                    
-                    attCellData.isShowDetail = YES;
+                    [attendanceCellData insertObject:cellData atIndex:indexPath.row + 1];
                 }
+                
+                [self insertDetailCellAtIndex:indexPath.row numberOfInsertCell:[sessionArr count]];
+                
+                if (indexPath.row + [sessionArr count] + 1 >= [attendanceCellData count]) {
+                    [attendanceTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + [sessionArr count] inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                }
+                
+                attCellData.isShowDetail = YES;
                 
             } else {
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
@@ -283,7 +304,12 @@
                 
                 attCellData.isShowDetail = NO;
             }
+            
+        } else {
+            [self showReasonDetail:indexPath];
         }
+    } else {
+        [self showReasonDetail:indexPath];
     }
     
 }
@@ -328,10 +354,7 @@
 }
 
 //cell delegate
-- (void)longpressGestureHandle:(id)sender {
-    StuAttendanceTableViewCell *cell = (StuAttendanceTableViewCell *)sender;
-    
-    NSIndexPath *indexPath = [attendanceTable indexPathForCell:cell];
+- (void)showReasonDetail:(NSIndexPath *)indexPath {
     AttendanceCellData *cellData = [attendanceCellData objectAtIndex:indexPath.row];
     AttendanceObject *attObj = (AttendanceObject *)cellData.cellData;
     
@@ -416,12 +439,20 @@
                 attendanceObj.reason = [attendanceDict valueForKey:@"notice"];
             }
             
+            if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
+                attendanceObj.session = [attendanceDict valueForKey:@"session"];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                attendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
             //add every time that has the same day to detail session
             
             if (attendanceObj.dateTime.length > 0) {
                 if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null] ||
                     [attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                    
+                    /*
                     NSString *session = @"";
                     NSString *subject = @"";
                     
@@ -442,15 +473,19 @@
                             session = subject;
                         }
                     }
-                    
+                    */
                     BOOL found = NO;
                     for (AttendanceObject *att in attendancesArray) {
-                        NSArray *sessionArr = [att.detailSession valueForKey:attendanceObj.dateTime];
-                        
-                        if (sessionArr && [sessionArr count] > 0) {
-                            NSMutableArray *newArr = [[NSMutableArray alloc] initWithArray:sessionArr];
-                            [newArr addObject:session];
-                            [att.detailSession setObject:newArr forKey:attendanceObj.dateTime];
+                        if ([att.dateTime isEqualToString:attendanceObj.dateTime]) {
+                            [att.detailSession addObject:attendanceObj];
+                            
+                            if (attendanceObj.hasRequest == NO) {
+                                att.hasRequest = NO;
+                                
+                                //re-count
+                                countRequest --;
+                                countNoRequest ++;
+                            }
                             
                             found = YES;
                             break;
@@ -458,9 +493,8 @@
                     }
                     
                     if (found == NO) {
-                        NSMutableArray *newArr = [[NSMutableArray alloc] init];
-                        [newArr addObject:session];
-                        [attendanceObj.detailSession setObject:newArr forKey:attendanceObj.dateTime];
+                        //add itself into it
+                        [attendanceObj.detailSession addObject:attendanceObj];
                         
                         //only count before add
                         if (attendanceObj.hasRequest) {
@@ -486,7 +520,7 @@
         }
         
         lbTotal.text = [NSString stringWithFormat:@"%@: %lu day(s)", LocalizedString(@"Total"), (unsigned long)[attendancesArray count]];
-        lbRequested.text = [NSString stringWithFormat:@"%@: %ld day(s)", LocalizedString(@"Have reason"), (long)countRequest];
+        lbRequested.text = [NSString stringWithFormat:@"%@: %ld day(s)", LocalizedString(@"Got reason"), (long)countRequest];
         lbNoRequested.text = [NSString stringWithFormat:@"%@: %ld day(s)", LocalizedString(@"No reason"), (long)countNoRequest];
         
         [self prepareDataForTableView];

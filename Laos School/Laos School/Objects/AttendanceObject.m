@@ -26,7 +26,9 @@
         self.absenceType = Absence_None;
         self.hasRequest = YES;
         self.reason = @"";
-        self.detailSession = [[NSMutableDictionary alloc] init];;
+        self.session = @"";
+        self.subject = @"";
+        self.detailSession = [[NSMutableArray alloc] init];;
     }
     return self;
 }

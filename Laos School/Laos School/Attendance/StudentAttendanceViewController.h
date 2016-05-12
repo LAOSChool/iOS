@@ -14,6 +14,7 @@
     IBOutlet UILabel *lbRequested;
     IBOutlet UILabel *lbNoRequested;
     IBOutlet UITableView *attendanceTable;
+    IBOutlet UIView *viewHeader;
     
 }
 @end

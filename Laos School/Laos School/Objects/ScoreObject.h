@@ -28,9 +28,15 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *scoreID;
 @property (nonatomic, strong) NSString *score;
+@property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, assign) SCORE_TYPE scoreType;
 @property (nonatomic, strong) NSString *month;
 @property (nonatomic, assign) NSInteger weight;
+@property (nonatomic, strong) NSString *teacherName;
+@property (nonatomic, strong) NSString *comment;
+@property (nonatomic, strong) NSString *termID;
+@property (nonatomic, strong) NSString *term;
 
 @end
 

@@ -197,6 +197,12 @@
 		55510DE61CD9EA0E00638646 /* ic_right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 55510DE31CD9EA0E00638646 /* ic_right_arrow.png */; };
 		55510DE71CD9EA0E00638646 /* ic_right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55510DE41CD9EA0E00638646 /* ic_right_arrow@2x.png */; };
 		55510DE81CD9EA0E00638646 /* ic_right_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55510DE51CD9EA0E00638646 /* ic_right_arrow@3x.png */; };
+		555130761CE4260C0001B2F0 /* StudentScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 555130741CE4260C0001B2F0 /* StudentScoreTableViewCell.m */; };
+		555130771CE4260C0001B2F0 /* StudentScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555130751CE4260C0001B2F0 /* StudentScoreTableViewCell.xib */; };
+		5551307B1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 555130791CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m */; };
+		5551307C1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5551307A1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib */; };
+		555130801CE48EBD0001B2F0 /* ScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551307D1CE48EBD0001B2F0 /* ScoreCell.m */; };
+		555130811CE48EBD0001B2F0 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5551307F1CE48EBD0001B2F0 /* ScoreCell.xib */; };
 		55524FF71C7ED9D40027A4ED /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FF61C7ED9D40027A4ED /* CoreData.framework */; };
 		55524FF91C7ED9E20027A4ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FF81C7ED9E20027A4ED /* SystemConfiguration.framework */; };
 		55524FFB1C7ED9EE0027A4ED /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FFA1C7ED9EE0027A4ED /* libz.tbd */; };
@@ -742,6 +748,15 @@
 		55510DE31CD9EA0E00638646 /* ic_right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_right_arrow.png; sourceTree = "<group>"; };
 		55510DE41CD9EA0E00638646 /* ic_right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_right_arrow@2x.png"; sourceTree = "<group>"; };
 		55510DE51CD9EA0E00638646 /* ic_right_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_right_arrow@3x.png"; sourceTree = "<group>"; };
+		555130731CE4260C0001B2F0 /* StudentScoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentScoreTableViewCell.h; sourceTree = "<group>"; };
+		555130741CE4260C0001B2F0 /* StudentScoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentScoreTableViewCell.m; sourceTree = "<group>"; };
+		555130751CE4260C0001B2F0 /* StudentScoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudentScoreTableViewCell.xib; sourceTree = "<group>"; };
+		555130781CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StuDetailAttendanceTableViewCell.h; sourceTree = "<group>"; };
+		555130791CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StuDetailAttendanceTableViewCell.m; sourceTree = "<group>"; };
+		5551307A1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StuDetailAttendanceTableViewCell.xib; sourceTree = "<group>"; };
+		5551307D1CE48EBD0001B2F0 /* ScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCell.m; sourceTree = "<group>"; };
+		5551307E1CE48EBD0001B2F0 /* ScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCell.h; sourceTree = "<group>"; };
+		5551307F1CE48EBD0001B2F0 /* ScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		55524FF61C7ED9D40027A4ED /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		55524FF81C7ED9E20027A4ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55524FFA1C7ED9EE0027A4ED /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -2186,6 +2201,9 @@
 				552400F51C883AA900F7D057 /* StuAttendanceTableViewCell.h */,
 				552400F61C883AAA00F7D057 /* StuAttendanceTableViewCell.m */,
 				552400F71C883AAA00F7D057 /* StuAttendanceTableViewCell.xib */,
+				555130781CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.h */,
+				555130791CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m */,
+				5551307A1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib */,
 			);
 			path = Attendance;
 			sourceTree = "<group>";
@@ -2207,6 +2225,9 @@
 		55FC72541C7C620C00B0B8D0 /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				5551307E1CE48EBD0001B2F0 /* ScoreCell.h */,
+				5551307D1CE48EBD0001B2F0 /* ScoreCell.m */,
+				5551307F1CE48EBD0001B2F0 /* ScoreCell.xib */,
 				557D055D1CA1288000860832 /* ScoresViewController.h */,
 				557D055B1CA1288000860832 /* ScoresViewController.m */,
 				557D055C1CA1288000860832 /* ScoresViewController.xib */,
@@ -2216,6 +2237,9 @@
 				5578C1061CAD00A500C02841 /* TeacherScoresTableViewCell.h */,
 				5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */,
 				5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */,
+				555130731CE4260C0001B2F0 /* StudentScoreTableViewCell.h */,
+				555130741CE4260C0001B2F0 /* StudentScoreTableViewCell.m */,
+				555130751CE4260C0001B2F0 /* StudentScoreTableViewCell.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2412,6 +2436,7 @@
 				55FC72351C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55B108F01C802CA200EB695C /* ic_setting@2x.png in Resources */,
 				55510DE81CD9EA0E00638646 /* ic_right_arrow@3x.png in Resources */,
+				555130771CE4260C0001B2F0 /* StudentScoreTableViewCell.xib in Resources */,
 				5520944C1C8932CF004670B3 /* ic_class.png in Resources */,
 				558D6DDF1CA27B0500EE34BD /* ic_add.png in Resources */,
 				555C89BC1C9A4FCD006180F6 /* ic_clear.png in Resources */,
@@ -2555,6 +2580,7 @@
 				55797CC11C86D08A00A0098D /* ic_attendance@3x.png in Resources */,
 				5538A8F31CBCA56900659C8A /* ic_phone_gray.png in Resources */,
 				552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */,
+				555130811CE48EBD0001B2F0 /* ScoreCell.xib in Resources */,
 				558782341C8FCB3800365369 /* ic_phone_black@2x.png in Resources */,
 				55797CBD1C86D08A00A0098D /* ic_announcement@2x.png in Resources */,
 				55FC722E1C7C599D00B0B8D0 /* FontAwesome.ttf in Resources */,
@@ -2571,6 +2597,7 @@
 				559509091C99002A00D06158 /* ic_expand.png in Resources */,
 				55FC72331C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55797CCE1C86D08A00A0098D /* ic_timetable@3x.png in Resources */,
+				5551307C1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib in Resources */,
 				55B108F21C802CA200EB695C /* ic_speaker.png in Resources */,
 				55BA86F61C8D74CB000221D7 /* ic_edit_black@2x.png in Resources */,
 				558D6DDE1CA27B0500EE34BD /* ic_add@2x.png in Resources */,
@@ -2627,6 +2654,7 @@
 				5531DBEA1CE2EB8000FBD6A4 /* InformationViewController.m in Sources */,
 				550A75EB1CCE153A0050240B /* CTAssetsNavigationController.m in Sources */,
 				55A454E51CE1D3820035FC50 /* AttendanceCellData.m in Sources */,
+				555130761CE4260C0001B2F0 /* StudentScoreTableViewCell.m in Sources */,
 				55510DC21CD9AE0D00638646 /* UIAlertView+AFNetworking.m in Sources */,
 				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
 				5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */,
@@ -2710,6 +2738,7 @@
 				5538A96B1CBCF3E500659C8A /* JSQMessagesKeyboardController.m in Sources */,
 				5538A9871CBCF3E500659C8A /* JSQMessagesComposerTextView.m in Sources */,
 				55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */,
+				5551307B1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m in Sources */,
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
 				55B108D51C802A3B00EB695C /* ForgotPasswordViewController.m in Sources */,
 				55FC71D21C7C3C8100B0B8D0 /* HTMLHelper.m in Sources */,
@@ -2735,6 +2764,7 @@
 				55510D0C1CD9A97F00638646 /* FSImageViewerViewController.m in Sources */,
 				550FD2851C7AF60C009D7159 /* main.m in Sources */,
 				550A75F81CCE153A0050240B /* NSLayoutConstraint+PureLayout.m in Sources */,
+				555130801CE48EBD0001B2F0 /* ScoreCell.m in Sources */,
 				55510D0A1CD9A97F00638646 /* FSImageView.m in Sources */,
 				5538A9821CBCF3E500659C8A /* JSQMessagesCollectionViewCell.m in Sources */,
 				550A75D81CCE153A0050240B /* NSNumberFormatter+CTAssetsPickerController.m in Sources */,

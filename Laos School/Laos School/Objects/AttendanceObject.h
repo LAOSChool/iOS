@@ -30,7 +30,9 @@ typedef enum {
 @property (nonatomic, assign) ABSENCE_TYPE absenceType;
 @property (nonatomic, assign) BOOL hasRequest;
 @property (nonatomic, strong) NSString *reason;
-@property (nonatomic, strong) NSMutableDictionary *detailSession;
+@property (nonatomic, strong) NSString *session;
+@property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSMutableArray *detailSession;
 
 @end
 

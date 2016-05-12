@@ -33,8 +33,7 @@
     [self.navigationController setNavigationColor];
     
     segmentedControl = [[UISegmentedControl alloc] initWithItems:
-                                            [NSArray arrayWithObjects:LocalizedString(@"Term I"), LocalizedString(@"Term II")
-                                             nil]];
+                                            [NSArray arrayWithObjects:LocalizedString(@"Term I"), LocalizedString(@"Term II"),                                             nil]];
     segmentedControl.frame = CGRectMake(0, 0, 140, 30);
     [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
     [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
@@ -138,12 +137,95 @@
         
         for (NSDictionary *scoreDict in scores) {
             ScoreObject *scoreObj = [[ScoreObject alloc] init];
-            
-            if ([scoreDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
-//                scoreObj.dateTime = [scoreDict valueForKey:@"att_dt"];
+            /*
+             {
+             "class_id" = 1;
+             "exam_dt" = "2016-05-12 14:18:54.0";
+             "exam_month" = 1;
+             "exam_type" = 1; 1: normal :: 2: final
+             "exam_year" = 2016;
+             fresult = 1;
+             id = 30;
+             iresult = 8;
+             notice = Good;
+             "result_type_id" = 1;
+             "school_id" = 1;
+             sresult = OK;
+             "student_id" = 10;
+             "student_name" = "Student 10";
+             subject = Toan;
+             "subject_id" = 1;
+             teacher = "Teacher class 1";
+             "teacher_id" = 5;
+             term = "Hoc Ky 1 - 2016";
+             "term_id" = 1;
+             }
+             */
+            /*
+             @property (nonatomic, strong) NSString *scoreID;
+             @property (nonatomic, strong) NSString *score;
+             @property (nonatomic, strong) NSString *subject;
+             @property (nonatomic, strong) NSString *dateTime;
+             @property (nonatomic, assign) SCORE_TYPE scoreType;
+             @property (nonatomic, strong) NSString *month;
+             @property (nonatomic, assign) NSInteger weight;
+             @property (nonatomic, strong) NSString *teacherName;
+             @property (nonatomic, strong) NSString *comment;
+             @property (nonatomic, strong) NSString *termID;
+             @property (nonatomic, strong) NSString *term;
+             */
+            if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
+                scoreObj.scoreID = [scoreDict valueForKey:@"id"];
             }
+            
+            if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
+                scoreObj.scoreID = [scoreDict valueForKey:@"sresult"];
+            }
+            
+            if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                scoreObj.subject = [scoreDict valueForKey:@"subject"];
+            }
+            
+            if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
+                scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
+            }
+            
+            if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
+                NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];
+                
+                if (type == 1) {
+                    scoreObj.scoreType = ScoreType_Normal;
+                    
+                } else if (type == 2) {
+                    scoreObj.scoreType = ScoreType_Final;
+                }
+            }
+            
+            if ([scoreDict valueForKey:@"month"] != (id)[NSNull null]) {
+                scoreObj.month = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"month"]];
+            }
+            
+            if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
+                scoreObj.teacherName = [scoreDict valueForKey:@"teacher"];
+            }
+            
+            if ([scoreDict valueForKey:@"notice"] != (id)[NSNull null]) {
+                scoreObj.comment = [scoreDict valueForKey:@"notice"];
+            }
+            
+            if ([scoreDict valueForKey:@"term_id"] != (id)[NSNull null]) {
+                scoreObj.termID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"term_id"]];
+            }
+            
+            if ([scoreDict valueForKey:@"term"] != (id)[NSNull null]) {
+                scoreObj.term = [scoreDict valueForKey:@"term"];
+            }
+
+            [scoresArray addObject:scoreObj];
         }
     }
+    
+    [scoresTableView reloadData];
 }
 
 - (void)failToConnectToServer {

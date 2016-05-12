@@ -14,17 +14,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="364" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="85X-zq-GRT">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="85X-zq-GRT">
                         <rect key="frame" x="8" y="2" width="325" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oKR-6f-7yw">
-                        <rect key="frame" x="8" y="21" width="110" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oKR-6f-7yw">
+                        <rect key="frame" x="8" y="12" width="123" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -32,18 +32,15 @@
                         <rect key="frame" x="341" y="12" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UYY-qY-4br">
-                        <rect key="frame" x="121" y="21" width="212" height="21"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UYY-qY-4br">
+                        <rect key="frame" x="133" y="12" width="200" height="21"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <gestureRecognizers/>
-                <connections>
-                    <outletCollection property="gestureRecognizers" destination="NYe-hn-c43" appends="YES" id="EYs-OQ-WI3"/>
-                </connections>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgArrow" destination="btE-Ya-dFf" id="Ujt-dl-h2H"/>
@@ -51,14 +48,9 @@
                 <outlet property="lbReason" destination="85X-zq-GRT" id="bjy-8m-OXv"/>
                 <outlet property="lbSession" destination="UYY-qY-4br" id="uFg-ka-epN"/>
             </connections>
-            <point key="canvasLocation" x="320" y="194"/>
+            <point key="canvasLocation" x="426" y="211"/>
         </tableViewCell>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="NYe-hn-c43">
-            <connections>
-                <action selector="longpressGestureHandle:" destination="KGk-i7-Jjw" id="JBv-Wq-fWF"/>
-                <outlet property="delegate" destination="-1" id="E84-41-eOT"/>
-            </connections>
-        </pongPressGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="NYe-hn-c43"/>
     </objects>
     <resources>
         <image name="ic_down_arrow.png" width="30" height="30"/>

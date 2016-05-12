@@ -61,6 +61,26 @@
 - (void)loadInformation {
     lbDate.text = _attObj.dateTime;
     
+    if ([_attObj.detailSession count] > 0) {
+        NSString *session = _attObj.session;
+        NSString *subject = _attObj.subject;
+        
+        if (session && session.length > 0) {
+            if (subject && subject.length > 0) {
+                session = [NSString stringWithFormat:@"%@ - %@", session, subject];
+            }
+        } else {
+            if (subject && subject.length > 0) {
+                session = subject;
+            }
+        }
+        
+        lbSession.text = session;
+        
+    } else {
+        lbSession.text = LocalizedString(@"Full day");
+    }
+    
     if (_attObj.hasRequest) {
         txtContent.text = _attObj.reason;
         txtContent.textColor = [UIColor blackColor];

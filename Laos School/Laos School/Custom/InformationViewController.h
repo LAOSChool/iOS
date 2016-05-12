@@ -13,6 +13,7 @@
 {
     IBOutlet UILabel *lbDate;
     IBOutlet UITextView *txtContent;
+    IBOutlet UILabel *lbSession;
 
 }
 
