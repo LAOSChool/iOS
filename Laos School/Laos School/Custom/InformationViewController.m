@@ -10,6 +10,7 @@
 
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
+#import "DateTimeHelper.h"
 
 @interface InformationViewController ()
 {
@@ -59,9 +60,9 @@
 }
 
 - (void)loadInformation {
-    lbDate.text = _attObj.dateTime;
+    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_attObj.dateTime withFormat:@"yyyy-MM-dd"];
     
-    if ([_attObj.detailSession count] > 0) {
+    if ([_attObj.detailSession count] > 0 || _isDetail == YES) {
         NSString *session = _attObj.session;
         NSString *subject = _attObj.subject;
         

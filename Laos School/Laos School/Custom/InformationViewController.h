@@ -18,6 +18,7 @@
 }
 
 @property(nonatomic, strong) AttendanceObject *attObj;
+@property(nonatomic, assign) BOOL isDetail;
 
 - (void)loadInformation;
 @end

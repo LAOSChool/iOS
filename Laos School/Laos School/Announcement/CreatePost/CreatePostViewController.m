@@ -90,11 +90,13 @@
         
         lbTo.text = LocalizedString(@"From:");
         lbReceiverList.text = _announcementObject.fromUsername;
+        lbDateTime.text = _announcementObject.dateTime;
         
     } else {
         [self setTitle:LocalizedString(@"New Anouncement")];
         lbTo.text = LocalizedString(@"To:");
         lbReceiverList.text = [[[ShareData sharedShareData] userObj] classObj].className;
+        lbDateTime.text = @"";
         
         UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
         

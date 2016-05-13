@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScoreObject.h"
 
 @interface ScoreCell : UIView
 {
     
     IBOutlet UILabel *lbMonth;
     IBOutlet UILabel *lbScore;
+    IBOutlet UIView *viewMonth;
     
 }
 
 @property (strong, nonatomic) IBOutlet UIView *view;
 
 
-@property (strong, nonatomic) NSString *month;
-@property (assign, nonatomic) NSString *score;
+@property (assign, nonatomic) ScoreObject *scoreObj;
 
 @end

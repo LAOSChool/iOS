@@ -7,9 +7,7 @@
 //
 
 #import "ScoreCell.h"
-
-// This is defined in Math.h
-#define M_PI   3.14159265358979323846264338327950288   /* pi */
+#import "CommonDefine.h"
 
 // Our conversion definition
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
@@ -30,24 +28,19 @@
         rect.origin.y = 0;
         [self.view setFrame:rect];
         [self addSubview:self.view];
-/*        self.view.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        self.view.layer.borderWidth = 3.0f;
-        
+        self.view.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.view.layer.borderWidth = 1.0f;
+        rect = self.frame;
         self.view.layer.cornerRadius = 5.0f;
         self.view.clipsToBounds = YES;
         
+        viewMonth.backgroundColor = GREEN_COLOR;
+
+        /*
         self.view.layer.masksToBounds = NO;
         self.view.layer.shadowOffset = CGSizeMake(-5, 10);
         self.view.layer.shadowRadius = 5;
         self.view.layer.shadowOpacity = 0.5;*/
-        
-        if (_streakStatus) {
-            [imgRing setImage:[UIImage imageNamed:@"day_ring"]];
-        } else {
-            [imgRing setImage:[UIImage imageNamed:@"day_ring_gray"]];
-        }
-        
-        lbDay.text = _strDay;
         
     }
     return self;
@@ -61,22 +54,61 @@
 }
 */
 
-- (void)setStrDay:(NSString *)strDay {
-    _strDay = strDay;
+- (void)setScoreObj:(ScoreObject *)scoreObj {
+    _scoreObj = scoreObj;
     
-    if (strDay && strDay.length > 3) {
-        lbDay.text = [strDay substringToIndex:3];
-    } else {
-        lbDay.text = strDay;
+    if (_scoreObj) {
+        lbMonth.text = [self convertMonthFromInt:[_scoreObj.month integerValue]];
+        lbScore.text = _scoreObj.score;
     }
 }
 
-- (void)setStreakStatus:(BOOL)streakStatus {
-    _streakStatus = streakStatus;
-    if (streakStatus) {
-        [imgRing setImage:[UIImage imageNamed:@"day_ring"]];
-    } else {
-        [imgRing setImage:[UIImage imageNamed:@"day_ring_gray"]];
+- (NSString *)convertMonthFromInt:(NSInteger)month {
+    NSString *res = @"";
+    
+    switch (month) {
+        case 1:
+            res = @"Jan";
+            break;
+            
+        case 2:
+            res = @"Feb";
+            break;
+        case 3:
+            res = @"Mar";
+            break;
+        case 4:
+            res = @"Apr";
+            break;
+        case 5:
+            res = @"May";
+            break;
+        case 6:
+            res = @"Jun";
+            break;
+        case 7:
+            res = @"Jul";
+            break;
+        case 8:
+            res = @"Aug";
+            break;
+        case 9:
+            res = @"Sep";
+            break;
+        case 10:
+            res = @"Oct";
+            break;
+        case 11:
+            res = @"Nov";
+            break;
+        case 12:
+            res = @"Dec";
+            break;
+            
+        default:
+            break;
     }
+    
+    return res;
 }
 @end

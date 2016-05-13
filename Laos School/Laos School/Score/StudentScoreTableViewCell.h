@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface StudentScoreTableViewCell : UITableViewCell
+{
+    IBOutlet UIView *viewScorePanel;
+    
+}
+@property (strong, nonatomic) IBOutlet UILabel *lbSubject;
 
+@property (nonatomic, strong) NSArray *scoresArray;
 @end

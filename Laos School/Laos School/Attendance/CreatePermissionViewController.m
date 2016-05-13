@@ -222,6 +222,8 @@
     if (statusCode == HttpOK) {
         [self.navigationController dismissViewControllerAnimated:YES completion:^(void) {
             [SVProgressHUD showSuccessWithStatus:@"Sent"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SentAttendanceRequest" object:nil];
         }];
         
     } else if (statusCode == Confliction) {

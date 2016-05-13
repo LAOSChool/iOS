@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnCamera" destination="Geu-rQ-yvj" id="TqZ-Uu-0rf"/>
                 <outlet property="btnImportanceFlag" destination="dr7-Pl-gq7" id="2pf-Sd-eAX"/>
+                <outlet property="lbDateTime" destination="l5d-tt-NwN" id="9kg-u6-s03"/>
                 <outlet property="lbReceiverList" destination="n4i-hi-zj5" id="qYv-uf-6ZS"/>
                 <outlet property="lbTo" destination="q8W-7z-c04" id="oaV-9W-TB1"/>
                 <outlet property="mainScrollView" destination="ssP-qe-2Zf" id="J5a-ik-MV2"/>
@@ -51,9 +52,9 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l5d-tt-NwN">
-                            <rect key="frame" x="8" y="39" width="304" height="21"/>
+                            <rect key="frame" x="8" y="33" width="304" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>

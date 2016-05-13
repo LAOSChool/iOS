@@ -7,10 +7,13 @@
 //
 
 #import "ScoresViewController.h"
+#import "StudentScoreTableViewCell.h"
+
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
 #import "ScoreObject.h"
+#import "CommonDefine.h"
 
 #import "SVProgressHUD.h"
 
@@ -21,6 +24,8 @@
     UIRefreshControl *refreshControl;
     
     NSMutableArray *scoresArray;
+    NSMutableDictionary *scoresStore;
+    NSMutableDictionary *groupBySubject;
 }
 @end
 
@@ -51,6 +56,14 @@
     
     if (scoresArray == nil) {
         scoresArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (scoresStore == nil) {
+        scoresStore = [[NSMutableDictionary alloc] init];
+    }
+    
+    if (groupBySubject == nil) {
+        groupBySubject = [[NSMutableDictionary alloc] init];
     }
     
     refreshControl = [[UIRefreshControl alloc] init];
@@ -106,15 +119,36 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [scoresArray count];
+    return [[groupBySubject allKeys] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 94.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    static NSString *studentScoreCellIdentifier = @"StudentScoreCellIdentifier";
+    
+    StudentScoreTableViewCell *cell = [scoresTableView dequeueReusableCellWithIdentifier:studentScoreCellIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudentScoreTableViewCell" owner:nil options:nil];
+        cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    NSArray *keyArr = [groupBySubject allKeys];
+    
+    if (indexPath.row < [keyArr count]) {
+        NSString *subject  = [keyArr objectAtIndex:indexPath.row];
+        NSArray *arr = [groupBySubject objectForKey:subject];
+        
+        cell.scoresArray = arr;
+        cell.lbSubject.text = subject;
+        
+        cell.lbSubject.textColor = BLUE_COLOR;
+    }
+    
+    return cell;
 }
 
 #pragma mark table delegate
@@ -128,6 +162,8 @@
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
 
     [scoresArray removeAllObjects];
+    [scoresStore removeAllObjects];
+    [groupBySubject removeAllObjects];
     
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
@@ -140,21 +176,18 @@
             /*
              {
              "class_id" = 1;
-             "exam_dt" = "2016-05-12 14:18:54.0";
+             "exam_dt" = "2016-05-12 09:40:27.0";
              "exam_month" = 1;
-             "exam_type" = 1; 1: normal :: 2: final
+             "exam_type" = 1;
              "exam_year" = 2016;
-             fresult = 1;
-             id = 30;
-             iresult = 8;
+             id = 1;
              notice = Good;
-             "result_type_id" = 1;
              "school_id" = 1;
-             sresult = OK;
+             sresult = 12222;
              "student_id" = 10;
              "student_name" = "Student 10";
-             subject = Toan;
-             "subject_id" = 1;
+             subject = Ly;
+             "subject_id" = 2;
              teacher = "Teacher class 1";
              "teacher_id" = 5;
              term = "Hoc Ky 1 - 2016";
@@ -179,7 +212,7 @@
             }
             
             if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
-                scoreObj.scoreID = [scoreDict valueForKey:@"sresult"];
+                scoreObj.score = [scoreDict valueForKey:@"sresult"];
             }
             
             if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
@@ -201,8 +234,8 @@
                 }
             }
             
-            if ([scoreDict valueForKey:@"month"] != (id)[NSNull null]) {
-                scoreObj.month = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"month"]];
+            if ([scoreDict valueForKey:@"exam_month"] != (id)[NSNull null]) {
+                scoreObj.month = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_month"]];
             }
             
             if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
@@ -221,11 +254,50 @@
                 scoreObj.term = [scoreDict valueForKey:@"term"];
             }
 
-            [scoresArray addObject:scoreObj];
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[scoresStore objectForKey:scoreObj.termID]];
+            
+            [arr addObject:scoreObj];
+            [scoresStore setObject:arr forKey:scoreObj.termID];
         }
     }
     
+    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
+    [self groupDataBySubject];
     [scoresTableView reloadData];
+}
+
+//group data by term
+- (void)prepareDataForSegment:(NSInteger)segmentID {
+    [scoresArray removeAllObjects];
+    NSArray *keyArr = [scoresStore allKeys];
+    
+    if ([keyArr count] > 1) {
+        [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            if ([obj1 intValue]==[obj2 intValue])
+                return NSOrderedSame;
+            
+            else if ([obj1 intValue]<[obj2 intValue])
+                return NSOrderedAscending;
+            else
+                return NSOrderedDescending;
+            
+        }];
+        
+        [scoresArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:segmentID]]];
+    }
+}
+
+- (void)groupDataBySubject {
+    [groupBySubject removeAllObjects];
+    
+    if ([scoresArray count] > 0) {
+        for (ScoreObject *scoreObj in scoresArray) {
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[groupBySubject objectForKey:scoreObj.subject]];
+            
+            [arr addObject:scoreObj];
+            [groupBySubject setObject:arr forKey:scoreObj.subject];
+        }
+    }
 }
 
 - (void)failToConnectToServer {

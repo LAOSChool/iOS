@@ -525,7 +525,7 @@
     
     if (messageObj.dateTime && messageObj.dateTime.length > 0) {
         //messageObj.dateTime
-        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd hh:mm"];
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd HH:mm"];
     }
     //for test
 //    cell.lbTime.text = @"05-25 15:27";
@@ -765,7 +765,7 @@
             }
             
             if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
+                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"MM-dd HH:mm"];
             }
             
             if ([messageDict valueForKey:@"frm_user_photo"] != (id)[NSNull null]) {

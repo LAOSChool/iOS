@@ -12,6 +12,7 @@
 
 @interface CreatePostViewController : UIViewController<FSImageViewerViewControllerDelegate>
 {
+    IBOutlet UILabel *lbDateTime;
     IBOutlet UILabel *lbTo;
     IBOutlet UILabel *lbReceiverList;
     IBOutlet UIScrollView *mainScrollView;
