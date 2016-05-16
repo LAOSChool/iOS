@@ -485,7 +485,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *messageCellIdentifier = @"MessageCellIdentifier";
+    static NSString *messageCellIdentifier = @"MessageTableViewCell";
     
     MessageTableViewCell *cell = [messagesTableView dequeueReusableCellWithIdentifier:messageCellIdentifier];
     if (cell == nil) {

@@ -485,7 +485,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *announcementCellIdentifier = @"AnnouncementCellIdentifier";
+    static NSString *announcementCellIdentifier = @"AnnouncementTableViewCell";
     
     AnnouncementTableViewCell *cell = [announcementTableView dequeueReusableCellWithIdentifier:announcementCellIdentifier];
     if (cell == nil) {

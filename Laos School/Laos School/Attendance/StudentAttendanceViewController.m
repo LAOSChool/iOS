@@ -177,7 +177,7 @@
     AttendanceCellData *attCellData = [attendanceCellData objectAtIndex:indexPath.row];
     
     if (attCellData.cellType == CellType_Detail) {
-        static NSString *stdAttendanceDetailIdentifier = @"StdAttendanceDetailIdentifier";
+        static NSString *stdAttendanceDetailIdentifier = @"StuDetailAttendanceTableViewCell";
         
         StuDetailAttendanceTableViewCell *cell = [attendanceTable dequeueReusableCellWithIdentifier:stdAttendanceDetailIdentifier];
         if (cell == nil) {
@@ -222,7 +222,7 @@
         return cell;
     }
     
-    static NSString *studentAttendanceCellIdentifier = @"StudentAttendanceCellIdentifier";
+    static NSString *studentAttendanceCellIdentifier = @"StuAttendanceTableViewCell";
     
     StuAttendanceTableViewCell *cell = [attendanceTable dequeueReusableCellWithIdentifier:studentAttendanceCellIdentifier];
     if (cell == nil) {
@@ -247,9 +247,21 @@
     
     if ([attObj.detailSession count] > 0) {
         cell.imgArrow.hidden = NO;
-        cell.lbSession.text = [NSString stringWithFormat:@"%ld %@", [attObj.detailSession count], LocalizedString(@"Session(s)")];
-        cell.lbReason.text = LocalizedString(@"(Tap to show detail)");
+        
+        cell.lbSession.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)[attObj.detailSession count], LocalizedString(@"Session(s)")];
+        cell.lbReason.text = LocalizedString(@"(Tap to view detail)");
         cell.lbReason.textColor = [UIColor lightGrayColor];
+        
+//        CGRect rect = cell.lbSession.frame;
+//        CGRect rectImgArrow = cell.imgArrow.frame;
+//        rect.origin.y = rectImgArrow.origin.y + 2;
+//        
+//        [cell.lbSession setFrame:rect];
+//        
+//        rect = cell.lbDate.frame;
+//        rect.origin.y = rectImgArrow.origin.y + 2;
+//        
+//        [cell.lbDate setFrame:rect];
         
     } else {
         cell.imgArrow.hidden = YES;

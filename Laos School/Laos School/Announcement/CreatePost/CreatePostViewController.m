@@ -67,8 +67,8 @@
     
     requestOptions = [[PHImageRequestOptions alloc] init];
     requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
-    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-    requestOptions.networkAccessAllowed = YES;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    requestOptions.networkAccessAllowed = NO;
     
     if (_announcementObject == nil) {
         _announcementObject = [[AnnouncementObject alloc] init];
@@ -321,6 +321,7 @@
                     // create options for fetching photo only
                     PHFetchOptions *fetchOptions = [PHFetchOptions new];
                     fetchOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
+                    fetchOptions.includeAssetSourceTypes = PHAssetSourceTypeUserLibrary;
                     
                     // assign options
                     picker.assetsFetchOptions = fetchOptions;
@@ -396,9 +397,12 @@
                               options:requestOptions
                         resultHandler:^(UIImage *image, NSDictionary *info){
 
-                            [photoArray addObject:image];
+                            if (image) {
+                                [photoArray addObject:image];
+                                
+                                [self addImageToList:image];
+                            }
                             
-                            [self addImageToList:image];
                         }];
     }
 }
