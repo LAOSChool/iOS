@@ -32,7 +32,8 @@
         self.subject = @"";
         self.dateTime = @"";
         self.scoreType = ScoreType_Normal;
-        self.month = @"0";
+        self.month = 0;
+        self.year = 0;
         self.weight = 1;
         
         self.teacherName = @"";
@@ -50,7 +51,8 @@
     [encoder encodeObject:self.subject forKey:@"subject"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
     [encoder encodeInteger:self.scoreType forKey:@"scoreType"];
-    [encoder encodeObject:self.month forKey:@"month"];
+    [encoder encodeInteger:self.month forKey:@"month"];
+    [encoder encodeInteger:self.year forKey:@"year"];
     [encoder encodeInteger:self.weight forKey:@"weight"];
     
     [encoder encodeObject:self.teacherName forKey:@"teacherName"];
@@ -68,7 +70,8 @@
         self.subject = [decoder decodeObjectForKey:@"subject"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
         self.scoreType = (SCORE_TYPE)[decoder decodeIntegerForKey:@"scoreType"];
-        self.score = [decoder decodeObjectForKey:@"score"];
+        self.month = (SCORE_TYPE)[decoder decodeIntegerForKey:@"month"];
+        self.year = (SCORE_TYPE)[decoder decodeIntegerForKey:@"year"];
         self.weight = [decoder decodeIntegerForKey:@"weight"];
         
         self.teacherName = [decoder decodeObjectForKey:@"teacherName"];
@@ -79,4 +82,5 @@
     
     return self;
 }
+
 @end

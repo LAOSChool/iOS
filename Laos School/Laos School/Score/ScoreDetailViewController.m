@@ -1,29 +1,34 @@
 //
-//  InformationViewController.m
+//  ScoreDetailViewController.m
 //  LazzyBee
 //
 //  Created by HuKhong on 6/4/15.
 //  Copyright (c) 2015 HuKhong. All rights reserved.
 //
 
-#import "InformationViewController.h"
+#import "ScoreDetailViewController.h"
 
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "DateTimeHelper.h"
+#import "CommonDefine.h"
 
-@interface InformationViewController ()
+@interface ScoreDetailViewController ()
 {
 
 }
 @end
 
-@implementation InformationViewController
+@implementation ScoreDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TagManagerHelper pushOpenScreenEvent:@"iAttendanceInfomation"];
+    [TagManagerHelper pushOpenScreenEvent:@"iScoreDetail"];
     // Do any additional setup after loading the view from its nib.
+    [lbSubject setTextColor:BLUE_COLOR];
+    [lbScore setTextColor:[UIColor redColor]];
+    [lbComment setTextColor:GREEN_COLOR];
+
 
     viewContainer.layer.borderColor = [UIColor darkGrayColor].CGColor;
     viewContainer.layer.borderWidth = 1.0f;
@@ -34,7 +39,6 @@
     viewContainer.layer.shadowOffset = CGSizeMake(-5, 10);
     viewContainer.layer.shadowRadius = 5;
     viewContainer.layer.shadowOpacity = 0.5;
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,34 +73,23 @@
 }
 
 - (void)loadInformation {
-    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_attObj.dateTime withFormat:@"yyyy-MM-dd"];
+    lbSubject.text = _scoreObj.subject;
+    lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term , [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month]];
     
-    if ([_attObj.detailSession count] > 0 || _isDetail == YES) {
-        NSString *session = _attObj.session;
-        NSString *subject = _attObj.subject;
+    if (_scoreObj.scoreType == ScoreType_Normal) {
+        lbScoreMonth.textColor = [UIColor darkGrayColor];
         
-        if (session && session.length > 0) {
-            if (subject && subject.length > 0) {
-                session = [NSString stringWithFormat:@"%@ - %@", session, subject];
-            }
-        } else {
-            if (subject && subject.length > 0) {
-                session = subject;
-            }
-        }
-        
-        lbSession.text = session;
-        
-    } else {
-        lbSession.text = LocalizedString(@"Full day");
+    } else if (_scoreObj.scoreType == ScoreType_Final) {
+        lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term ,  LocalizedString(@"Final")];
+        lbScoreMonth.textColor = [UIColor redColor];
     }
     
-    if (_attObj.hasRequest) {
-        txtContent.text = _attObj.reason;
-        txtContent.textColor = [UIColor blackColor];
-    } else {
-        txtContent.text = LocalizedString(@"No reason");
-        txtContent.textColor = [UIColor redColor];
-    }
+    
+    lbScore.text = _scoreObj.score;
+    
+    lbComment.text = _scoreObj.comment;
+    lbTeacherName.text = _scoreObj.teacherName;
+    lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_scoreObj.dateTime withFormat:@"yyyy-MM-dd"];
+    
 }
 @end

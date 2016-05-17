@@ -31,7 +31,7 @@
 - (NSTimeInterval)getBeginOfDayInSec;
 - (NSString *)getDayOfWeek:(NSDate *)date;
 - (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek;
-
+- (NSString *)convertMonthFromInt:(NSInteger)month;
 @end
 
 #endif

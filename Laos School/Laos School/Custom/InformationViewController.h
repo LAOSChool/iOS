@@ -15,6 +15,7 @@
     IBOutlet UITextView *txtContent;
     IBOutlet UILabel *lbSession;
 
+    IBOutlet UIView *viewContainer;
 }
 
 @property(nonatomic, strong) AttendanceObject *attObj;

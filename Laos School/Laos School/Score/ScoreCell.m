@@ -8,6 +8,8 @@
 
 #import "ScoreCell.h"
 #import "CommonDefine.h"
+#import "Common.h"
+#import "LocalizeHelper.h"
 
 // Our conversion definition
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
@@ -33,8 +35,6 @@
         rect = self.frame;
         self.view.layer.cornerRadius = 5.0f;
         self.view.clipsToBounds = YES;
-        
-        viewMonth.backgroundColor = GREEN_COLOR;
 
         /*
         self.view.layer.masksToBounds = NO;
@@ -58,57 +58,21 @@
     _scoreObj = scoreObj;
     
     if (_scoreObj) {
-        lbMonth.text = [self convertMonthFromInt:[_scoreObj.month integerValue]];
+        lbMonth.text = [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month];
         lbScore.text = _scoreObj.score;
+        
+        if (_scoreObj.scoreType == ScoreType_Normal) {
+            viewMonth.backgroundColor = GREEN_COLOR;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Final) {
+            lbMonth.text = LocalizedString(@"Final");
+            viewMonth.backgroundColor = [UIColor redColor];
+        }
     }
 }
 
-- (NSString *)convertMonthFromInt:(NSInteger)month {
-    NSString *res = @"";
-    
-    switch (month) {
-        case 1:
-            res = @"Jan";
-            break;
-            
-        case 2:
-            res = @"Feb";
-            break;
-        case 3:
-            res = @"Mar";
-            break;
-        case 4:
-            res = @"Apr";
-            break;
-        case 5:
-            res = @"May";
-            break;
-        case 6:
-            res = @"Jun";
-            break;
-        case 7:
-            res = @"Jul";
-            break;
-        case 8:
-            res = @"Aug";
-            break;
-        case 9:
-            res = @"Sep";
-            break;
-        case 10:
-            res = @"Oct";
-            break;
-        case 11:
-            res = @"Nov";
-            break;
-        case 12:
-            res = @"Dec";
-            break;
-            
-        default:
-            break;
-    }
-    
-    return res;
+
+- (IBAction)tapGestureHandle:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:_scoreObj];
 }
 @end

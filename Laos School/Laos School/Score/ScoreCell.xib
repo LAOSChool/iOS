@@ -41,9 +41,19 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="e6n-1P-4Wn" appends="YES" id="hLV-E6-UtM"/>
+            </connections>
             <point key="canvasLocation" x="50" y="230"/>
         </view>
+        <tapGestureRecognizer id="e6n-1P-4Wn">
+            <connections>
+                <action selector="tapGestureHandle:" destination="-1" id="EYz-hB-NuH"/>
+                <outlet property="delegate" destination="-1" id="RSc-kE-H7C"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

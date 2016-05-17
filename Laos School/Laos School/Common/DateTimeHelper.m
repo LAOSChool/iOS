@@ -7,6 +7,7 @@
 //
 
 #import "DateTimeHelper.h"
+#import "LocalizeHelper.h"
 #import "UIKit/UIKit.h"
 
 // Singleton
@@ -318,5 +319,54 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     NSTimeInterval datetime = [curDate timeIntervalSince1970];
     
     return datetime;
+}
+
+- (NSString *)convertMonthFromInt:(NSInteger)month {
+    NSString *res = @"";
+    
+    switch (month) {
+        case 1:
+            res = LocalizedString(@"Jan");
+            break;
+            
+        case 2:
+            res = LocalizedString(@"Feb");
+            break;
+        case 3:
+            res = LocalizedString(@"Mar");
+            break;
+        case 4:
+            res = LocalizedString(@"Apr");
+            break;
+        case 5:
+            res = LocalizedString(@"May");
+            break;
+        case 6:
+            res = LocalizedString(@"Jun");
+            break;
+        case 7:
+            res = LocalizedString(@"Jul");
+            break;
+        case 8:
+            res = LocalizedString(@"Aug");
+            break;
+        case 9:
+            res = LocalizedString(@"Sep");
+            break;
+        case 10:
+            res = LocalizedString(@"Oct");
+            break;
+        case 11:
+            res = LocalizedString(@"Nov");
+            break;
+        case 12:
+            res = LocalizedString(@"Dec");
+            break;
+            
+        default:
+            break;
+    }
+    
+    return res;
 }
 @end

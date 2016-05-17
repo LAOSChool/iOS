@@ -53,5 +53,6 @@ typedef enum {
 
 - (NSString *)getDeviceUUID;
 
+
 @end
 #endif

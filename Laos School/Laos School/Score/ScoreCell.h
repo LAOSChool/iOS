@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "ScoreObject.h"
 
+@protocol ScoreCellDelegate <NSObject>
+
+@optional // Delegate protocols
+
+- (void)tapGestureHandle:(id)sender;
+
+@end
+
 @interface ScoreCell : UIView
 {
     
@@ -22,5 +30,7 @@
 
 
 @property (assign, nonatomic) ScoreObject *scoreObj;
+
+@property (strong, nonatomic) id<ScoreCellDelegate> delegate;
 
 @end

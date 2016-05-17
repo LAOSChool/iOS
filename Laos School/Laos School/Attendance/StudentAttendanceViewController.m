@@ -85,10 +85,18 @@
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(reloadAttendanceData) forControlEvents:UIControlEventValueChanged];
     [attendanceTable addSubview:refreshControl];
+
+    lbTotal.text = @"";
+    lbRequested.text = LocalizedString(@"Got reason");
+    lbNoRequested.text = LocalizedString(@"No reason");
     
-    lbTotal.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"Total"), 0];
-    lbRequested.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"Got reason"), 0];
-    lbNoRequested.text = [NSString stringWithFormat:@"%@: %d day(s)", LocalizedString(@"No reason"), 0];
+    lbFullday.text = LocalizedString(@"Full day");
+    lbSession.text = LocalizedString(@"Session");
+    
+    lbFulldayGotReasonValue.text = @"0";
+    lbFulldayNoReasonValue.text = @"0";
+    lbSessionGotReasonValue.text = @"0";
+    lbSessionNoReasonValue.text = @"0";
     
     //Load data
     [self loadData];
@@ -410,8 +418,10 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    NSInteger countRequest = 0;
-    NSInteger countNoRequest = 0;
+    NSInteger countFDRequest = 0;
+    NSInteger countFDNoRequest = 0;
+    NSInteger countSessionRequest = 0;
+    NSInteger countSessionNORequest = 0;
     
     [attendancesArray removeAllObjects];
     [attendanceCellData removeAllObjects];
@@ -453,6 +463,7 @@
     if (attendances != (id)[NSNull null]) {
         
         for (NSDictionary *attendanceDict in attendances) {
+            
             AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
             
             if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
@@ -476,47 +487,33 @@
             }
             
             //add every time that has the same day to detail session
-            
             if (attendanceObj.dateTime.length > 0) {
-                if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null] ||
-                    [attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                    /*
-                    NSString *session = @"";
-                    NSString *subject = @"";
-                    
-                    if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
-                        session = [attendanceDict valueForKey:@"session"];
-                    }
-                    
-                    if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                        subject = [attendanceDict valueForKey:@"subject"];
-                    }
-                    
-                    if (session && session.length > 0) {
-                        if (subject && subject.length > 0) {
-                            session = [NSString stringWithFormat:@"%@ - %@", session, subject];
-                        }
-                    } else {
-                        if (subject && subject.length > 0) {
-                            session = subject;
-                        }
-                    }
-                    */
+                if (attendanceObj.session.length > 0 ||
+                    attendanceObj.subject.length > 0) {
+
                     BOOL found = NO;
                     for (AttendanceObject *att in attendancesArray) {
                         if ([att.dateTime isEqualToString:attendanceObj.dateTime]) {
-                            [att.detailSession addObject:attendanceObj];
-                            
-                            if (attendanceObj.hasRequest == NO && att.hasRequest == YES) {
-                                att.hasRequest = NO;
+                            //add if it is not a fullday off
+                            if (att.session.length > 0 ||
+                                att.subject.length > 0) {
                                 
-                                //re-count
-                                countRequest --;
-                                countNoRequest ++;
+                                [att.detailSession addObject:attendanceObj];
+                                
+                                if (attendanceObj.hasRequest) {
+                                    countSessionRequest ++;
+                                    
+                                } else {
+                                    if (att.hasRequest == YES) {
+                                        att.hasRequest = NO;
+                                    }
+                                    
+                                    countSessionNORequest ++;
+                                }
+                                
+                                found = YES;
+                                break;
                             }
-                            
-                            found = YES;
-                            break;
                         }
                     }
                     
@@ -526,9 +523,9 @@
                         
                         //only count before add
                         if (attendanceObj.hasRequest) {
-                            countRequest ++;
+                            countSessionRequest ++;
                         } else {
-                            countNoRequest ++;
+                            countSessionNORequest ++;
                         }
                         
                         [attendancesArray addObject:attendanceObj];
@@ -537,9 +534,9 @@
                 } else {
                     //only count before add
                     if (attendanceObj.hasRequest) {
-                        countRequest ++;
+                        countFDRequest ++;
                     } else {
-                        countNoRequest ++;
+                        countFDNoRequest ++;
                     }
                     
                     [attendancesArray addObject:attendanceObj];
@@ -547,9 +544,12 @@
             }
         }
         
-        lbTotal.text = [NSString stringWithFormat:@"%@: %lu day(s)", LocalizedString(@"Total"), (unsigned long)[attendancesArray count]];
-        lbRequested.text = [NSString stringWithFormat:@"%@: %ld day(s)", LocalizedString(@"Got reason"), (long)countRequest];
-        lbNoRequested.text = [NSString stringWithFormat:@"%@: %ld day(s)", LocalizedString(@"No reason"), (long)countNoRequest];
+        lbTotal.text = @"";
+        
+        lbFulldayGotReasonValue.text = [NSString stringWithFormat:@"%ld", (long)countFDRequest];
+        lbFulldayNoReasonValue.text = [NSString stringWithFormat:@"%ld", (long)countFDNoRequest];
+        lbSessionGotReasonValue.text = [NSString stringWithFormat:@"%ld", (long)countSessionRequest];
+        lbSessionNoReasonValue.text = [NSString stringWithFormat:@"%ld", (long)countSessionNORequest];
         
         [self prepareDataForTableView];
         [attendanceTable reloadData];

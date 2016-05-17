@@ -13,6 +13,12 @@
     IBOutlet UILabel *lbTotal;
     IBOutlet UILabel *lbRequested;
     IBOutlet UILabel *lbNoRequested;
+    IBOutlet UILabel *lbFullday;
+    IBOutlet UILabel *lbSession;
+    IBOutlet UILabel *lbFulldayGotReasonValue;
+    IBOutlet UILabel *lbFulldayNoReasonValue;
+    IBOutlet UILabel *lbSessionGotReasonValue;
+    IBOutlet UILabel *lbSessionNoReasonValue;
     IBOutlet UITableView *attendanceTable;
     IBOutlet UIView *viewHeader;
     

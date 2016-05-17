@@ -8,6 +8,8 @@
 
 #import "ScoresViewController.h"
 #import "StudentScoreTableViewCell.h"
+#import "ScoreDetailViewController.h"
+#import "AppDelegate.h"
 
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
@@ -26,6 +28,8 @@
     NSMutableArray *scoresArray;
     NSMutableDictionary *scoresStore;
     NSMutableDictionary *groupBySubject;
+    
+    ScoreDetailViewController *scoreDetailView;
 }
 @end
 
@@ -71,6 +75,11 @@
     [scoresTableView addSubview:refreshControl];
     
     [self loadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showScoreDetail:)
+                                                 name:@"TapOnScoreCell"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,7 +98,7 @@
 */
 
 - (IBAction)segmentAction:(id)sender {
-    
+    [self loadData];
 }
 
 - (void)reloadScoreData {
@@ -98,17 +107,33 @@
 
 - (void)loadData {
     [SVProgressHUD show];
-    if (segmentedControl.selectedSegmentIndex == 0) {  //term 1
-        [requestToServer getMyScoreList];
-        
-    } else if(segmentedControl.selectedSegmentIndex == 1) {    //term 2
-        
-        
-    } else if(segmentedControl.selectedSegmentIndex == 2) {    //year
-        
-        
-    }
+    [requestToServer getMyScoreList];
 }
+
+- (void)showScoreDetail:(NSNotification *)notification {
+    ScoreObject *scoreObj = (ScoreObject *)notification.object;
+    
+    if (scoreDetailView == nil) {
+        scoreDetailView = [[ScoreDetailViewController alloc] initWithNibName:@"ScoreDetailViewController" bundle:nil];
+    }
+    
+    scoreDetailView.scoreObj = scoreObj;
+    scoreDetailView.view.alpha = 0;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    CGRect rect = appDelegate.window.frame;
+    [scoreDetailView.view setFrame:rect];
+    
+    [appDelegate.window addSubview:scoreDetailView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        scoreDetailView.view.alpha = 1;
+    }];
+    
+    [scoreDetailView loadInformation];
+}
+
 
 #pragma mark data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -142,7 +167,7 @@
         NSString *subject  = [keyArr objectAtIndex:indexPath.row];
         NSArray *arr = [groupBySubject objectForKey:subject];
         
-        cell.scoresArray = arr;
+        cell.scoresArray = [self sortScoresArrayByMonth:arr];
         cell.lbSubject.text = subject;
         
         cell.lbSubject.textColor = BLUE_COLOR;
@@ -235,7 +260,11 @@
             }
             
             if ([scoreDict valueForKey:@"exam_month"] != (id)[NSNull null]) {
-                scoreObj.month = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_month"]];
+                scoreObj.month = [[scoreDict valueForKey:@"exam_month"] integerValue];
+            }
+            
+            if ([scoreDict valueForKey:@"exam_year"] != (id)[NSNull null]) {
+                scoreObj.year = [[scoreDict valueForKey:@"exam_year"] integerValue];
             }
             
             if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
@@ -295,9 +324,19 @@
             NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[groupBySubject objectForKey:scoreObj.subject]];
             
             [arr addObject:scoreObj];
+
             [groupBySubject setObject:arr forKey:scoreObj.subject];
         }
     }
+}
+
+- (NSArray *)sortScoresArrayByMonth:(NSArray *)scores {
+    NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"month" ascending:YES];
+    NSSortDescriptor *sortYearDes = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
+    NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+    NSArray *resultArr = [scores sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortYearDes, sortMonthDes, nil]];
+    
+    return resultArr;
 }
 
 - (void)failToConnectToServer {
