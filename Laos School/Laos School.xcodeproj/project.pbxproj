@@ -307,6 +307,14 @@
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
 		55A454E51CE1D3820035FC50 /* AttendanceCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A454E41CE1D3820035FC50 /* AttendanceCellData.m */; };
+		55A579571CEC62F2000597D2 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A579541CEC62F2000597D2 /* MHTabBarController.m */; };
+		55A579581CEC62F2000597D2 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A579551CEC62F2000597D2 /* MHTabBarIndicator.png */; };
+		55A579591CEC62F2000597D2 /* MHTabBarIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A579561CEC62F2000597D2 /* MHTabBarIndicator@2x.png */; };
+		55A5795D1CEC65E6000597D2 /* StdTimeTableDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5795B1CEC65E6000597D2 /* StdTimeTableDayViewController.m */; };
+		55A5795E1CEC65E6000597D2 /* StdTimeTableDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A5795C1CEC65E6000597D2 /* StdTimeTableDayViewController.xib */; };
+		55A579611CEC67FC000597D2 /* TTSessionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5795F1CEC67FC000597D2 /* TTSessionObject.m */; };
+		55A579651CEC794B000597D2 /* StdSessionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A579631CEC794B000597D2 /* StdSessionTableViewCell.m */; };
+		55A579661CEC794B000597D2 /* StdSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A579641CEC794B000597D2 /* StdSessionTableViewCell.xib */; };
 		55ABB5D91CB39D030035F2E0 /* MSKeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */; };
 		55AD977F1CEAF4DE004A7BDD /* ScoreDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AD977C1CEAF4DE004A7BDD /* ScoreDetailViewController.xib */; };
 		55AD97801CEAF4DE004A7BDD /* ScoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AD977D1CEAF4DE004A7BDD /* ScoreDetailViewController.m */; };
@@ -906,6 +914,18 @@
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
 		55A454E31CE1D3820035FC50 /* AttendanceCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceCellData.h; sourceTree = "<group>"; };
 		55A454E41CE1D3820035FC50 /* AttendanceCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceCellData.m; sourceTree = "<group>"; };
+		55A579531CEC62F2000597D2 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
+		55A579541CEC62F2000597D2 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
+		55A579551CEC62F2000597D2 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
+		55A579561CEC62F2000597D2 /* MHTabBarIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MHTabBarIndicator@2x.png"; sourceTree = "<group>"; };
+		55A5795A1CEC65E6000597D2 /* StdTimeTableDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdTimeTableDayViewController.h; sourceTree = "<group>"; };
+		55A5795B1CEC65E6000597D2 /* StdTimeTableDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StdTimeTableDayViewController.m; sourceTree = "<group>"; };
+		55A5795C1CEC65E6000597D2 /* StdTimeTableDayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StdTimeTableDayViewController.xib; sourceTree = "<group>"; };
+		55A5795F1CEC67FC000597D2 /* TTSessionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSessionObject.m; sourceTree = "<group>"; };
+		55A579601CEC67FC000597D2 /* TTSessionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSessionObject.h; sourceTree = "<group>"; };
+		55A579621CEC794B000597D2 /* StdSessionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdSessionTableViewCell.h; sourceTree = "<group>"; };
+		55A579631CEC794B000597D2 /* StdSessionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StdSessionTableViewCell.m; sourceTree = "<group>"; };
+		55A579641CEC794B000597D2 /* StdSessionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StdSessionTableViewCell.xib; sourceTree = "<group>"; };
 		55ABB5D71CB39D030035F2E0 /* MSKeychainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSKeychainHelper.h; sourceTree = "<group>"; };
 		55ABB5D81CB39D030035F2E0 /* MSKeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSKeychainHelper.m; sourceTree = "<group>"; };
 		55AD977C1CEAF4DE004A7BDD /* ScoreDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreDetailViewController.xib; sourceTree = "<group>"; };
@@ -1286,6 +1306,7 @@
 		550FD29B1C7AFABD009D7159 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				55A579521CEC62F2000597D2 /* MHTabBarController */,
 				55510DD01CD9CF2500638646 /* JTSImageVC */,
 				55510BC21CD9A97F00638646 /* FSImageViewer */,
 				550A75681CCE153A0050240B /* CTAssetsPickerController */,
@@ -1975,6 +1996,17 @@
 			path = CreatePost;
 			sourceTree = "<group>";
 		};
+		55A579521CEC62F2000597D2 /* MHTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				55A579531CEC62F2000597D2 /* MHTabBarController.h */,
+				55A579541CEC62F2000597D2 /* MHTabBarController.m */,
+				55A579551CEC62F2000597D2 /* MHTabBarIndicator.png */,
+				55A579561CEC62F2000597D2 /* MHTabBarIndicator@2x.png */,
+			);
+			path = MHTabBarController;
+			sourceTree = "<group>";
+		};
 		55ABB5D61CB39CDF0035F2E0 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
@@ -2261,6 +2293,12 @@
 				55797CA41C86961400A0098D /* TeacherTimeTableViewController.h */,
 				55797CA51C86961400A0098D /* TeacherTimeTableViewController.m */,
 				55797CA61C86961400A0098D /* TeacherTimeTableViewController.xib */,
+				55A5795A1CEC65E6000597D2 /* StdTimeTableDayViewController.h */,
+				55A5795B1CEC65E6000597D2 /* StdTimeTableDayViewController.m */,
+				55A5795C1CEC65E6000597D2 /* StdTimeTableDayViewController.xib */,
+				55A579621CEC794B000597D2 /* StdSessionTableViewCell.h */,
+				55A579631CEC794B000597D2 /* StdSessionTableViewCell.m */,
+				55A579641CEC794B000597D2 /* StdSessionTableViewCell.xib */,
 			);
 			name = TimeTable;
 			path = ../TimeTable;
@@ -2333,6 +2371,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				55A579601CEC67FC000597D2 /* TTSessionObject.h */,
+				55A5795F1CEC67FC000597D2 /* TTSessionObject.m */,
 				558B78F81CAE2ABC003F437E /* UserScore.h */,
 				558B78F71CAE2ABC003F437E /* UserScore.m */,
 				558B78F51CAE2725003F437E /* ScoreObject.h */,
@@ -2435,6 +2475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5520945D1C89852D004670B3 /* ic_school@2x.png in Resources */,
+				55A579661CEC794B000597D2 /* StdSessionTableViewCell.xib in Resources */,
 				554769C91C917FA700269EBB /* btn_165_30@3x.png in Resources */,
 				55CF10DA1C857E2D00DC1AB9 /* ic_flag_white@2x.png in Resources */,
 				55797CC31C86D08A00A0098D /* ic_camera@2x.png in Resources */,
@@ -2485,6 +2526,7 @@
 				552094521C8932CF004670B3 /* ic_user_black.png in Resources */,
 				558D6DE01CA27B0500EE34BD /* ic_add@3x.png in Resources */,
 				5538A96D1CBCF3E500659C8A /* JSQMessagesViewController.xib in Resources */,
+				55A5795E1CEC65E6000597D2 /* StdTimeTableDayViewController.xib in Resources */,
 				550A82211C9AA6AF001F652B /* ic_radio_check@2x.png in Resources */,
 				55B108F11C802CA200EB695C /* ic_setting@3x.png in Resources */,
 				55510D0B1CD9A97F00638646 /* FSImageViewer.bundle in Resources */,
@@ -2565,6 +2607,7 @@
 				55B108E71C802CA200EB695C /* ic_alert_white.png in Resources */,
 				559509171C99574200D06158 /* ic_late.png in Resources */,
 				55510DBE1CD9AE0D00638646 /* LICENSE in Resources */,
+				55A579591CEC62F2000597D2 /* MHTabBarIndicator@2x.png in Resources */,
 				55CF10E31C85927B00DC1AB9 /* ic_edit@2x.png in Resources */,
 				558782531C9010FE00365369 /* SettingsViewController.xib in Resources */,
 				55B108EC1C802CA200EB695C /* ic_help.png in Resources */,
@@ -2614,6 +2657,7 @@
 				55CF10DB1C857E2D00DC1AB9 /* ic_flag_white@3x.png in Resources */,
 				55CF10CF1C8573F000DC1AB9 /* ic_user_gray@3x.png in Resources */,
 				554769C31C917C9300269EBB /* ic_holder@3x.png in Resources */,
+				55A579581CEC62F2000597D2 /* MHTabBarIndicator.png in Resources */,
 				550A82221C9AA6AF001F652B /* ic_radio_check@3x.png in Resources */,
 				5595091A1C99574200D06158 /* ic_off.png in Resources */,
 				55BA86F51C8D74CB000221D7 /* ic_edit_black.png in Resources */,
@@ -2647,6 +2691,7 @@
 				5538A9991CBCF6C300659C8A /* ConversationModelData.m in Sources */,
 				55510D8A1CD9AD8500638646 /* README.mdown in Sources */,
 				55B50D561CC89360002B3412 /* Announcements.m in Sources */,
+				55A579651CEC794B000597D2 /* StdSessionTableViewCell.m in Sources */,
 				55FEDB991C841EC100DD0D24 /* ComposeViewController.m in Sources */,
 				55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */,
 				55FEDB9E1C84365000DD0D24 /* MessageObject.m in Sources */,
@@ -2676,6 +2721,7 @@
 				550A75DC1CCE153A0050240B /* UIImage+CTAssetsPickerController.m in Sources */,
 				55510DBF1CD9AE0D00638646 /* README.md in Sources */,
 				55510DC01CD9AE0D00638646 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				55A579611CEC67FC000597D2 /* TTSessionObject.m in Sources */,
 				550A75E41CCE153A0050240B /* CTAssetSelectionLabel.m in Sources */,
 				55510DC71CD9AE0D00638646 /* UIWebView+AFNetworking.m in Sources */,
 				55FEDB941C841EA800DD0D24 /* MessagesViewController.m in Sources */,
@@ -2704,6 +2750,7 @@
 				55510DDE1CD9CF2500638646 /* JTSImageInfo.m in Sources */,
 				558B78F61CAE2725003F437E /* ScoreObject.m in Sources */,
 				55CF10DE1C85850300DC1AB9 /* ImportanceFlagButton.m in Sources */,
+				55A5795D1CEC65E6000597D2 /* StdTimeTableDayViewController.m in Sources */,
 				55B108D01C7FFE4E00EB695C /* CustomTextField.m in Sources */,
 				55510DC61CD9AE0D00638646 /* UIRefreshControl+AFNetworking.m in Sources */,
 				55FC722B1C7C599D00B0B8D0 /* BButton.m in Sources */,
@@ -2733,6 +2780,7 @@
 				55FC72451C7C599D00B0B8D0 /* SVIndefiniteAnimatedView.m in Sources */,
 				5538A99A1CBCF6C300659C8A /* MessagesConversationViewController.m in Sources */,
 				5538A96E1CBCF3E500659C8A /* JSQMessagesAvatarImageFactory.m in Sources */,
+				55A579571CEC62F2000597D2 /* MHTabBarController.m in Sources */,
 				55797CA71C86961400A0098D /* TeacherTimeTableViewController.m in Sources */,
 				554769CE1C91805600269EBB /* LevelPickerViewController.m in Sources */,
 				5538A9701CBCF3E500659C8A /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,

@@ -10,7 +10,8 @@
 
 @interface StudentTimeTableViewController : UIViewController
 {
-    IBOutlet UIWebView *webView;
+
+    IBOutlet UIView *viewContainer;
     
 }
 @end

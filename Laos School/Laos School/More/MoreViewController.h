@@ -17,7 +17,7 @@ typedef enum {
 
 typedef enum {
     ProfileSectionProfile = 0,
-    ProfileSectionScore,
+    ProfileSectionTimeTable,
     ProfileSectionMax
 } PROFILE_SECTION;
 

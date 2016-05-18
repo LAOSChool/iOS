@@ -42,6 +42,9 @@
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
 
+#define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
+
+
 #define HttpOK 200
 #define Accepted 201
 #define HttpNoResponse 204
@@ -68,6 +71,10 @@
 // a singleton:
 + (RequestToServer*) sharedRequestToServer;
 - (NSString *)getAPIKey;
+
+//Time table
+- (void)getMyTimeTable:(NSString *)classID;
+
 
 //score
 - (void)getMyScoreList;

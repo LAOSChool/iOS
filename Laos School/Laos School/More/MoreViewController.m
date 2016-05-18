@@ -15,6 +15,7 @@
 #import "TeacherListViewController.h"
 #import "ScoresViewController.h"
 #import "LoginViewController.h"
+#import "StudentTimeTableViewController.h"
 #import "AppDelegate.h"
 
 #import "LocalizeHelper.h"
@@ -118,14 +119,14 @@
             switch (indexPath.row) {
                 case ProfileSectionProfile:
                 {
-                    cell.textLabel.text = LocalizedString(@"Profile");
+                    cell.textLabel.text = LocalizedString(@"Personal profile");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;
                    
-                case ProfileSectionScore:
+                case ProfileSectionTimeTable:
                 {
-                    cell.textLabel.text = LocalizedString(@"Scores table");
+                    cell.textLabel.text = LocalizedString(@"Time table");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;
@@ -215,16 +216,16 @@
                     //Time table
 //                    StudentTimeTableViewController *timetableViewController = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
 //                    UINavigationController *navTimeTable = [[UINavigationController alloc] initWithRootViewController:timetableViewController];
-                case ProfileSectionScore:
+                case ProfileSectionTimeTable:
                 {
-                    ScoresViewController *scoreView = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
+                    StudentTimeTableViewController *timeTableView = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
                     
                     if (IS_IPAD) {
-                        UINavigationController *navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreView];
+                        UINavigationController *navTimeTableView = [[UINavigationController alloc] initWithRootViewController:timeTableView];
                         
-                        [self.splitViewController showDetailViewController:navScoreView sender:self];
+                        [self.splitViewController showDetailViewController:navTimeTableView sender:self];
                     } else {
-                        [self.navigationController pushViewController:scoreView animated:YES];
+                        [self.navigationController pushViewController:timeTableView animated:YES];
                     }
                 }
                     break;
