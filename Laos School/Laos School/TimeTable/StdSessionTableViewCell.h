@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface StdSessionTableViewCell : UITableViewCell
-
+{
+    
+}
+@property (strong, nonatomic) IBOutlet UILabel *lbSession;
+@property (strong, nonatomic) IBOutlet UILabel *lbDuration;
+@property (strong, nonatomic) IBOutlet UILabel *lbSubject;
+@property (strong, nonatomic) IBOutlet UILabel *lbTeacherName;
+@property (strong, nonatomic) IBOutlet UILabel *lbAddionalInfo;
 @end

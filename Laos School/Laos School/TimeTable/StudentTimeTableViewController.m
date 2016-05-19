@@ -7,10 +7,14 @@
 //
 
 #import "StudentTimeTableViewController.h"
+#import "StdTimeTableDayViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "RequestToServer.h"
 #import "ShareData.h"
 #import "TTSessionObject.h"
+#import "UserObject.h"
+#import "ClassObject.h"
+#import "CommonDefine.h"
 
 #import "MHTabBarController.h"
 #import "SVProgressHUD.h"
@@ -23,7 +27,7 @@
     
     RequestToServer *requestToServer;
     
-    NSMutableArray *sessionsArray;
+    NSMutableDictionary *sessionsGroupByDay;
 }
 @end
 
@@ -35,31 +39,28 @@
     [self setTitle:LocalizedString(@"Time table")];
     
     [self.navigationController setNavigationColor];
-
-//    tabViewController = [[MHTabBarController alloc] init];
-//    
-//    tabViewController.delegate = (id)self;
-//    tabViewController.viewControllers = nil;
-//    
-//    [tabViewController.view setFrame:viewContainer.frame];
-//    
-//    tabViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-//    UIViewAutoresizingFlexibleHeight |
-//    UIViewAutoresizingFlexibleLeftMargin |
-//    UIViewAutoresizingFlexibleRightMargin |
-//    UIViewAutoresizingFlexibleBottomMargin |
-//    UIViewAutoresizingFlexibleTopMargin;
-//    
-//    [viewContainer addSubview:tabViewController.view];
+    [viewHeader setBackgroundColor:GREEN_COLOR];
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadTimeTableData)];
+    
+    self.navigationItem.rightBarButtonItems = @[refreshButton];
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
     
-    if (sessionsArray == nil) {
-        sessionsArray = [[NSMutableArray alloc] init];
+    if (sessionsGroupByDay == nil) {
+        sessionsGroupByDay = [[NSMutableDictionary alloc] init];
     }
+    
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+    
+    lbClass.text = classObj.className;
+    lbTeacherName.text = classObj.teacherName;
+    lbTerm.text = [NSString stringWithFormat:@"%@ %@ %@", classObj.currentYear, LocalizedString(@"Term") , classObj.currentTerm];
+    
     
     [self loadData];
     
@@ -80,7 +81,7 @@
 }
 */
 
-- (void)reloadScoreData {
+- (void)reloadTimeTableData {
     [self loadData];
 }
 
@@ -92,7 +93,7 @@
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     
-    [sessionsArray removeAllObjects];
+    [sessionsGroupByDay removeAllObjects];
     
     [SVProgressHUD dismiss];
     
@@ -119,6 +120,7 @@
              "weekday_id" = 1;
              }
              
+             @property (nonatomic, strong) NSString *weekDay;
              @property (nonatomic, strong) NSString *subject;
              @property (nonatomic, strong) NSString *session;
              @property (nonatomic, assign) SESSION_TYPE sessionType;
@@ -130,8 +132,111 @@
             if ([sessionDict valueForKey:@"subject"] != (id)[NSNull null]) {
                 sessionObj.subject = [sessionDict valueForKey:@"subject"];
             }
+            
+            if ([sessionDict valueForKey:@"description"] != (id)[NSNull null]) {
+                sessionObj.additionalInfo = [sessionDict valueForKey:@"description"];
+            }
+            
+            if ([sessionDict valueForKey:@"teacher_name"] != (id)[NSNull null]) {
+                sessionObj.teacherName = [sessionDict valueForKey:@"teacher_name"];
+            }
+            
+            if ([sessionDict valueForKey:@"weekday_id"] != (id)[NSNull null]) {
+                sessionObj.weekDayID = [[sessionDict valueForKey:@"weekday_id"] integerValue];
+            }
+            
+            if ([sessionDict valueForKey:@"weekday"] != (id)[NSNull null]) {
+                sessionObj.weekDay = [sessionDict valueForKey:@"weekday"];
+            }
+            
+            if ([sessionDict valueForKey:@"session"] != (id)[NSNull null]) {
+                NSString *val = [sessionDict valueForKey:@"session"];
+                
+                NSArray *splitedArr = [val componentsSeparatedByString:@"@"];
+                
+                if ([splitedArr count] == 4) {
+                    sessionObj.session = [splitedArr objectAtIndex:0];
+                    sessionObj.duration = [splitedArr objectAtIndex:1];
+                    
+                    if ([[splitedArr objectAtIndex:2] isEqualToString:@"1"]) {
+                        sessionObj.sessionType = SessionType_Morning;
+                        
+                    } else if ([[splitedArr objectAtIndex:2] isEqualToString:@"2"]) {
+                        sessionObj.sessionType = SessionType_Afternoon;
+                        
+                    } else if ([[splitedArr objectAtIndex:2] isEqualToString:@"3"]) {
+                        sessionObj.sessionType = SessionType_Evening;
+                    }
+                    
+                    sessionObj.order = [[splitedArr objectAtIndex:3] integerValue];
+                }
+            }
+            
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[sessionsGroupByDay objectForKey:sessionObj.weekDay]];
+            
+            [arr addObject:sessionObj];
+            [sessionsGroupByDay setObject:arr forKey:sessionObj.weekDay];
         }
+
+        if ([sessionsGroupByDay count] > 0) {
+            //group session by weekday
+            NSArray *keyArr = [sessionsGroupByDay allKeys];
+            keyArr = [self sortSessionByWeekDay:keyArr];
+            
+            if (tabViewController == nil) {
+                tabViewController = [[MHTabBarController alloc] init];
+                
+            } else {
+                [tabViewController.view removeFromSuperview];
+            }
+            
+            tabViewController.delegate = (id)self;
+            
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] init];;
+            
+            for (NSString *key in keyArr) {
+                StdTimeTableDayViewController *weekDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
+                weekDayViewController.title = key;
+                weekDayViewController.sessionsArray = [sessionsGroupByDay objectForKey:key];
+                
+                [viewControllers addObject:weekDayViewController];
+                
+            }
+            
+            if ([viewControllers  count] > 0) {
+                tabViewController.viewControllers = viewControllers;
+                CGRect rect = viewContainer.frame;
+                rect.origin.y = 0;
+                [tabViewController.view setFrame:rect];
+                
+                tabViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                UIViewAutoresizingFlexibleHeight |
+                UIViewAutoresizingFlexibleLeftMargin |
+                UIViewAutoresizingFlexibleRightMargin |
+                UIViewAutoresizingFlexibleBottomMargin |
+                UIViewAutoresizingFlexibleTopMargin;
+                
+                [viewContainer addSubview:tabViewController.view];
+            }
+
+        } else {
+            [tabViewController.view removeFromSuperview];
+        }
+        
     }
+}
+
+- (NSArray *)sortSessionByWeekDay:(NSArray *)arr {
+    
+    if ([arr count] > 1) {
+        NSMutableArray *sortArr = [[NSMutableArray alloc] initWithArray:arr];
+        [sortArr sortUsingComparator:^(NSString *a, NSString *b){
+            return [a compare:b];
+        }];
+        
+        return sortArr;
+    }
+    return arr;
 }
 
 - (void)failToConnectToServer {

@@ -24,8 +24,12 @@ typedef enum {
     
 }
 
+@property (nonatomic, strong) NSString *weekDay;
+@property (nonatomic, assign) NSInteger weekDayID;
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *session;
+@property (nonatomic, assign) NSInteger order;
+@property (nonatomic, strong) NSString *additionalInfo;
 @property (nonatomic, assign) SESSION_TYPE sessionType;
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *teacherName;

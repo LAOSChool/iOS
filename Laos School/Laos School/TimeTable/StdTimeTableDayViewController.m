@@ -7,9 +7,16 @@
 //
 
 #import "StdTimeTableDayViewController.h"
+#import "StdSessionTableViewCell.h"
+#import "TTSessionObject.h"
+#import "LocalizeHelper.h"
+#import "CommonDefine.h"
 
 @interface StdTimeTableDayViewController ()
-
+{
+    NSMutableDictionary *sessionGroupByType;
+    NSArray *allKeys;
+}
 @end
 
 @implementation StdTimeTableDayViewController
@@ -17,6 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if (sessionGroupByType ==  nil) {
+        sessionGroupByType = [[NSMutableDictionary alloc] init];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +44,165 @@
 }
 */
 
+- (NSArray *)sortSessionBySession:(NSArray *)arr {
+    NSSortDescriptor *session = [NSSortDescriptor sortDescriptorWithKey:@"session" ascending:YES];
+
+    NSArray *resultArr = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:session, nil]];
+    
+    return resultArr;
+}
+
+- (void)setSessionsArray:(NSArray *)sessionsArray {
+    _sessionsArray = [self sortSessionBySession:sessionsArray];
+
+    if (sessionGroupByType ==  nil) {
+        sessionGroupByType = [[NSMutableDictionary alloc] init];
+    }
+    
+    for (TTSessionObject *sessionObj in _sessionsArray) {
+        NSString *sessionType = [NSString stringWithFormat:@"%d", sessionObj.sessionType];
+        
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[sessionGroupByType objectForKey:sessionType]];
+        
+        [arr addObject:sessionObj];
+        [sessionGroupByType setObject:arr forKey:sessionType];
+    }
+    
+    allKeys = [self sortKey:[sessionGroupByType allKeys]];
+    
+    if ([allKeys count] > 0) {
+        [timeTableView reloadData];
+    }
+    
+}
+
+- (NSArray *)sortKey:(NSArray *)arr {
+    
+    if ([arr count] > 1) {
+        NSMutableArray *sortArr = [[NSMutableArray alloc] initWithArray:arr];
+        [sortArr sortUsingComparator:^(NSString *a, NSString *b){
+            return [a compare:b];
+        }];
+        
+        return sortArr;
+    }
+    return arr;
+}
+
+#pragma mark data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return [allKeys count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *headerTitle = @"";
+
+    if (section < [allKeys count]) {
+        NSString *key = [allKeys objectAtIndex:section];
+        
+        if ([key isEqualToString:[NSString stringWithFormat:@"%d", SessionType_Morning]]) {
+            headerTitle = LocalizedString(@"Morning");
+            
+        } else if ([key isEqualToString:[NSString stringWithFormat:@"%d", SessionType_Afternoon]]) {
+            headerTitle = LocalizedString(@"Afternoon");
+            
+        } else if ([key isEqualToString:[NSString stringWithFormat:@"%d", SessionType_Evening]]) {
+            headerTitle = LocalizedString(@"Evening");
+        }
+    }
+    
+    return headerTitle;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    
+        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+        
+        header.textLabel.textColor = [UIColor whiteColor];
+        header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        CGRect headerFrame = header.frame;
+        header.textLabel.frame = headerFrame;
+        header.textLabel.textAlignment = NSTextAlignmentLeft;
+        
+        header.backgroundView.backgroundColor = [UIColor lightGrayColor];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    // If you're serving data from an array, return the length of the array:
+    
+    if ([allKeys count] > 0) {
+        NSString *key = [allKeys objectAtIndex:section];
+        NSArray *arr = [sessionGroupByType objectForKey:key];
+        return [arr count];
+        
+    } else {
+        return 0;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 64;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *studentSessionTableCellIdentifier = @"StdSessionTableViewCell";
+    
+    StdSessionTableViewCell *cell = [timeTableView dequeueReusableCellWithIdentifier:studentSessionTableCellIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StdSessionTableViewCell" owner:nil options:nil];
+        cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    NSString *key = [allKeys objectAtIndex:indexPath.section];
+    NSArray *arr = [sessionGroupByType objectForKey:key];
+    TTSessionObject *sessionObj = [arr objectAtIndex:indexPath.row];
+    
+    if (![sessionObj.subject isEqualToString:@""]) {
+        //set color
+        [cell.lbSession setTextColor:[UIColor darkGrayColor]];
+        [cell.lbSubject setTextColor:BLUE_COLOR];
+        [cell.lbDuration setTextColor:[UIColor darkGrayColor]];
+        [cell.lbTeacherName setTextColor:[UIColor darkGrayColor]];
+        [cell.lbAddionalInfo setTextColor:[UIColor darkGrayColor]];
+        
+        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+        [cell setBackgroundColor:[UIColor whiteColor]];
+        
+        //fill data
+        cell.lbSession.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Session"), sessionObj.session];
+        cell.lbDuration.text = sessionObj.duration;
+        cell.lbSubject.text = sessionObj.subject;
+        cell.lbTeacherName.text = sessionObj.teacherName;
+        cell.lbAddionalInfo.text = sessionObj.additionalInfo;
+        
+    } else {
+        //set color
+        [cell.lbSession setTextColor:[UIColor whiteColor]];
+        [cell.lbSubject setTextColor:[UIColor whiteColor]];
+        [cell.lbDuration setTextColor:[UIColor whiteColor]];
+        [cell.lbTeacherName setTextColor:[UIColor whiteColor]];
+        [cell.lbAddionalInfo setTextColor:[UIColor whiteColor]];
+        
+        [cell.contentView setBackgroundColor:[UIColor darkGrayColor]];
+        [cell setBackgroundColor:[UIColor darkGrayColor]];
+        
+        //fill data
+        cell.lbSession.text = [NSString stringWithFormat:@"%@", sessionObj.session];
+        cell.lbDuration.text = sessionObj.duration;
+        cell.lbSubject.text = sessionObj.subject;
+        cell.lbTeacherName.text = sessionObj.teacherName;
+        cell.lbAddionalInfo.text = sessionObj.additionalInfo;
+    }
+    return cell;
+}
+
+#pragma mark table delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
 @end

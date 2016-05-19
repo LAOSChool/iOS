@@ -321,12 +321,12 @@
     if ([classesArr count] > 0) {
         NSDictionary *classDictionary = [classesArr objectAtIndex:0];
         if (classDictionary) {
-            classObject.classID = [classDictionary valueForKey:@"id"];
+            classObject.classID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"id"]];
             classObject.className = [classDictionary valueForKey:@"title"];
-            classObject.teacherID = [classDictionary valueForKey:@"head_teacher_id"];
+            classObject.teacherID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"head_teacher_id"]];
             classObject.teacherName = [classDictionary valueForKey:@"headTeacherName"];
             classObject.classLocation = [classDictionary valueForKey:@"location"];
-            classObject.currentTerm = [classDictionary valueForKey:@"term"];
+            classObject.currentTerm = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"term"]];
             classObject.currentYear = [classDictionary valueForKey:@"years"];
             classObject.pupilArray = nil;
         }

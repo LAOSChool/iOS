@@ -389,7 +389,7 @@ static const NSInteger TagOffset = 1000;
 //	[button setBackgroundImage:image forState:UIControlStateNormal];
 //	[button setBackgroundImage:image forState:UIControlStateHighlighted];
     
-    [button setBackgroundColor:GREEN_COLOR];
+    [button setBackgroundColor:BLUE_COLOR];
     
 	
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -404,7 +404,7 @@ static const NSInteger TagOffset = 1000;
 //	[button setBackgroundImage:image forState:UIControlStateNormal];
 //	[button setBackgroundImage:image forState:UIControlStateHighlighted];
     
-    [button setBackgroundColor:[UIColor lightGrayColor]];
+    [button setBackgroundColor:[UIColor darkGrayColor]];
 
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //	[button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];

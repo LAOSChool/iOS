@@ -10,6 +10,7 @@
 
 @interface StdTimeTableDayViewController : UIViewController
 {
+    IBOutlet UITableView *timeTableView;
     
 }
 

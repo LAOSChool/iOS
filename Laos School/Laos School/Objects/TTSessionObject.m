@@ -22,11 +22,15 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.weekDay = @"";
+        self.weekDayID = 0;
         self.subject = @"";
         self.session = @"";
-        self.fromHour = @"";
-        self.toHour = @"";
+        self.order = 1;
+        self.additionalInfo = @"";
+        self.duration = @"";
         self.teacherName = @"";
+        self.sessionType = SessionType_Morning;
 
     }
     return self;

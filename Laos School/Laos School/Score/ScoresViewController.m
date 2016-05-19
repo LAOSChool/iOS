@@ -113,25 +113,27 @@
 - (void)showScoreDetail:(NSNotification *)notification {
     ScoreObject *scoreObj = (ScoreObject *)notification.object;
     
-    if (scoreDetailView == nil) {
-        scoreDetailView = [[ScoreDetailViewController alloc] initWithNibName:@"ScoreDetailViewController" bundle:nil];
+    if (scoreObj && scoreObj.score.length > 0) {
+        if (scoreDetailView == nil) {
+            scoreDetailView = [[ScoreDetailViewController alloc] initWithNibName:@"ScoreDetailViewController" bundle:nil];
+        }
+        
+        scoreDetailView.scoreObj = scoreObj;
+        scoreDetailView.view.alpha = 0;
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        CGRect rect = appDelegate.window.frame;
+        [scoreDetailView.view setFrame:rect];
+        
+        [appDelegate.window addSubview:scoreDetailView.view];
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            scoreDetailView.view.alpha = 1;
+        }];
+        
+        [scoreDetailView loadInformation];
     }
-    
-    scoreDetailView.scoreObj = scoreObj;
-    scoreDetailView.view.alpha = 0;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    CGRect rect = appDelegate.window.frame;
-    [scoreDetailView.view setFrame:rect];
-    
-    [appDelegate.window addSubview:scoreDetailView.view];
-    
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        scoreDetailView.view.alpha = 1;
-    }];
-    
-    [scoreDetailView loadInformation];
 }
 
 

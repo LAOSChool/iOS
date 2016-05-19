@@ -11,7 +11,11 @@
 @interface StudentTimeTableViewController : UIViewController
 {
 
+    IBOutlet UIView *viewHeader;
     IBOutlet UIView *viewContainer;
+    IBOutlet UILabel *lbClass;
+    IBOutlet UILabel *lbTeacherName;
+    IBOutlet UILabel *lbTerm;
     
 }
 @end
