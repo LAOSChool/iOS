@@ -765,7 +765,7 @@
             }
             
             if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"MM-dd HH:mm"];
+                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"yyyy-MM-dd HH:mm"];
             }
             
             if ([messageDict valueForKey:@"frm_user_photo"] != (id)[NSNull null]) {

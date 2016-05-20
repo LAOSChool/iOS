@@ -8,6 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePermissionViewController">
             <connections>
                 <outlet property="lbDate" destination="Ntk-7G-9wv" id="m8O-6g-lJW"/>
+                <outlet property="lbFrom" destination="rW5-0L-3wn" id="bq0-ll-td3"/>
+                <outlet property="lbTo" destination="8kc-su-JyA" id="mF5-IB-Qu6"/>
+                <outlet property="lbToDate" destination="Qhd-wH-gvI" id="Ih4-fp-Ngy"/>
                 <outlet property="txtReason" destination="zAJ-lB-ta3" id="nkY-Qc-VXb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,10 +25,10 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ntk-7G-9wv">
-                            <rect key="frame" x="8" y="10" width="271" height="21"/>
+                            <rect key="frame" x="66" y="10" width="221" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OZy-At-Hvu">
@@ -37,6 +40,13 @@
                                 <action selector="btnChooseDateClick:" destination="-1" eventType="touchUpInside" id="gcs-ZC-wMT"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rW5-0L-3wn">
+                            <rect key="frame" x="8" y="9" width="57" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
@@ -44,8 +54,42 @@
                         <outletCollection property="gestureRecognizers" destination="jBJ-wD-73L" appends="YES" id="ZB8-gu-u1j"/>
                     </connections>
                 </view>
+                <view contentMode="scaleToFill" id="LJ3-EU-ItD">
+                    <rect key="frame" x="0.0" y="43" width="320" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qhd-wH-gvI">
+                            <rect key="frame" x="66" y="10" width="222" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kHE-oD-ZDG">
+                            <rect key="frame" x="289" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="ic_arrow_down.png"/>
+                            <connections>
+                                <action selector="btnChooseToDateClick:" destination="-1" eventType="touchUpInside" id="ZTg-Vq-Eeh"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8kc-su-JyA">
+                            <rect key="frame" x="8" y="9" width="57" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="qE6-pL-rwd" appends="YES" id="tSp-yU-LyK"/>
+                    </connections>
+                </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" id="zAJ-lB-ta3">
-                    <rect key="frame" x="8" y="48" width="304" height="200"/>
+                    <rect key="frame" x="8" y="91" width="304" height="200"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,7 +101,7 @@
                     </connections>
                 </textView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="MUK-tp-jtp" appends="YES" id="wck-sN-xm3"/>
@@ -83,6 +127,12 @@
                 <outlet property="delegate" destination="-1" id="nN8-fV-pMk"/>
             </connections>
         </swipeGestureRecognizer>
+        <tapGestureRecognizer id="qE6-pL-rwd">
+            <connections>
+                <action selector="btnChooseToDateClick:" destination="-1" id="kLb-FR-XFE"/>
+                <outlet property="delegate" destination="-1" id="x27-hG-qcf"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_arrow_down.png" width="30" height="30"/>

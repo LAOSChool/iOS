@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:_messageObject.subject];
+    [self setTitle:_messageObject.fromUsername];
     
     /*
      IBOutlet UIImageView *imgAvatar;

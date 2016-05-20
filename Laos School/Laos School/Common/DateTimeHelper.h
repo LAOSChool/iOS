@@ -32,6 +32,7 @@
 - (NSString *)getDayOfWeek:(NSDate *)date;
 - (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek;
 - (NSString *)convertMonthFromInt:(NSInteger)month;
+- (NSInteger)convertWeekdayToIndexFromDate:(NSDate *)date;
 @end
 
 #endif

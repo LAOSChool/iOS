@@ -292,6 +292,30 @@
         }
     }
     
+    /*if ([[scoresStore allKeys] count] > 0) {
+     NSArray *keyArr = [scoresStore allKeys];
+     NSMutableArray *segmentArr = [[NSMutableArray alloc] init];
+     float length = SEGMENT_LENGTH * [keyArr count];
+     
+     for (NSString *key in keyArr) {
+     NSString *segmentName = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Term"), key];
+     [segmentArr addObject:segmentName];
+     }
+     
+     segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentArr];
+     segmentedControl.frame = CGRectMake(0, 0, length, 30);
+     
+     for (int i = 0; i < [keyArr count]; i++) {
+     [segmentedControl setWidth:SEGMENT_LENGTH forSegmentAtIndex:i];
+     }
+     
+     [segmentedControl setSelectedSegmentIndex:0];
+     
+     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+     
+     self.navigationItem.titleView = segmentedControl;
+     }*/
+    
     [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
     [self groupDataBySubject];
     [scoresTableView reloadData];

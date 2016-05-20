@@ -17,14 +17,21 @@
 #import "ShareData.h"
 #import "SVProgressHUD.h"
 
+#define SELECT_FROM_DATE 1
+#define SELECT_TO_DATE 2
+
 @interface CreatePermissionViewController ()
 {
     TimerViewController *dateTimePicker;
     
     IBOutlet UILabel *lbDate;
     IBOutlet UITextView *txtReason;
+    IBOutlet UILabel *lbFrom;
     
+    IBOutlet UILabel *lbToDate;
+    IBOutlet UILabel *lbTo;
     RequestToServer *requestToServer;
+    NSInteger selectedItem;
 }
 @end
 
@@ -36,6 +43,7 @@
     [self setTitle:LocalizedString(@"Absence request")];
     
     [self.navigationController setNavigationColor];
+    selectedItem = 0;
     
     UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     
@@ -46,6 +54,8 @@
     self.navigationItem.rightBarButtonItems = @[btnSend];
     
     lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd EEEE"];
+    
+    lbToDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd EEEE"];
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -85,12 +95,16 @@
     
     [requestDict setValue:userObj.shoolID forKey:@"school_id"];
     [requestDict setValue:classObj.classID forKey:@"class_id"];
-    [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"] forKey:@"att_dt"];
+//    [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"] forKey:@"from_dt"];
+//    [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbToDate.text withFormat:@"yyyy-MM-dd"] forKey:@"to_dt"];
     [requestDict setValue:userObj.userID forKey:@"student_id"];
     [requestDict setValue:[NSNumber numberWithInteger:1] forKey:@"state"];
     [requestDict setValue:reason forKey:@"notice"];
     
-    [requestToServer createAbsenceRequest:requestDict];
+    NSString *fromDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"];
+    NSString *toDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbToDate.text withFormat:@"yyyy-MM-dd"];
+    
+    [requestToServer createAbsenceRequest:requestDict fromDate:fromDate toDate:toDate];
 }
 
 //return NO if not valid
@@ -132,14 +146,30 @@
 
 - (IBAction)btnChooseDateClick:(id)sender {
     [txtReason resignFirstResponder];
+    selectedItem = SELECT_FROM_DATE;
+    [self showDateTimePicker];
+}
+- (IBAction)btnChooseToDateClick:(id)sender {
+    [txtReason resignFirstResponder];
+    selectedItem = SELECT_TO_DATE;
     [self showDateTimePicker];
 }
 
 - (void)showDateTimePicker {
-    dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
+    
+    if (dateTimePicker == nil) {
+        dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
+    }
+    
     dateTimePicker.view.alpha = 0;
     dateTimePicker.delegate = (id)self;
-    dateTimePicker.dateTime = lbDate.text;
+    
+    if (selectedItem == SELECT_FROM_DATE) {
+        dateTimePicker.dateTime = lbDate.text;
+        
+    } else {
+        dateTimePicker.dateTime = lbToDate.text;
+    }
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;
@@ -152,8 +182,20 @@
     }];
 }
 
-- (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value {
-    lbDate.text = value;
+- (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value {    
+    if (selectedItem == SELECT_FROM_DATE) {
+        lbDate.text = value;
+        
+        NSDate *fromDate = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbDate.text];
+        NSDate *toDate = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbToDate.text];
+        
+        if ([toDate earlierDate:fromDate]) {
+            lbToDate.text = lbDate.text;
+        }
+        
+    } else {
+        lbToDate.text = value;
+    }
 }
 
 #pragma mark alert

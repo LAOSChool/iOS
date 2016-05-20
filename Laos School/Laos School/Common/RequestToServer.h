@@ -10,6 +10,7 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
+//#define PRODUCTION_SERVER @"https://222.255.29.25:8443/laoschoolws"
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -81,7 +82,7 @@
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
-- (void)createAbsenceRequest:(NSDictionary *)requestDict ;
+- (void)createAbsenceRequest:(NSDictionary *)requestDict fromDate:(NSString*)fromDate toDate:(NSString *)toDate;
 
 //announcements
 - (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;

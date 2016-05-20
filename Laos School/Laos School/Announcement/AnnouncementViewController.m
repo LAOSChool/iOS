@@ -510,7 +510,11 @@
     cell.tag = announcementObjectObj.announcementID;
     cell.lbSubject.text = announcementObjectObj.subject;
     cell.lbBriefContent.text = announcementObjectObj.content;
-    cell.lbTime.text = announcementObjectObj.dateTime;
+    
+    if (announcementObjectObj.dateTime && announcementObjectObj.dateTime.length > 0) {
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:announcementObjectObj.dateTime withFormat:@"MM-dd HH:mm"];
+    }
+    
     cell.lbSenderName.text = announcementObjectObj.fromUsername;
     
     if (announcementObjectObj.importanceType == ImportanceHigh) {
@@ -698,7 +702,7 @@
             }
             
             if ([announcementDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-                announcementObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[announcementDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM HH:mm"];
+                announcementObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[announcementDict valueForKey:@"sent_dt" ] withFormat:@"yyyy-MM-dd HH:mm"];
             }
             
             if ([announcementDict valueForKey:@"notifyImages"] != (id)[NSNull null]) {

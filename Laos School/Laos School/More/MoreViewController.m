@@ -17,6 +17,9 @@
 #import "LoginViewController.h"
 #import "StudentTimeTableViewController.h"
 #import "AppDelegate.h"
+#import "UserObject.h"
+#import "ClassObject.h"
+#import "ShareData.h"
 
 #import "LocalizeHelper.h"
 #import "Common.h"
@@ -45,7 +48,18 @@
     imgAvatar.layer.cornerRadius = imgAvatar.frame.size.width/2;
     imgAvatar.clipsToBounds = YES;
     
-    imgAvatar.image = [[Common sharedCommon] imageFromText:@"HN" withColor:[UIColor whiteColor]];
+    [viewHeaderContainer setBackgroundColor:GREEN_COLOR];
+    
+    [imgAvatar setBackgroundColor:BLUE_COLOR];
+//    imgAvatar.image = [[Common sharedCommon] imageFromText:@"HN" withColor:[UIColor whiteColor]];
+    
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+    
+    lbSchoolName.text = userObj.schoolName;
+    lbStudentName.text = [NSString stringWithFormat:@"%@ - %@", userObj.username, classObj.className];
+    lbYearAndTerm.text = [NSString stringWithFormat:@"%@ Term %@", classObj.currentYear, classObj.currentTerm];
+    
 }
 
 - (void)didReceiveMemoryWarning {

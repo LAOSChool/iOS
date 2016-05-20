@@ -15,6 +15,7 @@
 #import "UserObject.h"
 #import "ClassObject.h"
 #import "CommonDefine.h"
+#import "DateTimeHelper.h"
 
 #import "MHTabBarController.h"
 #import "SVProgressHUD.h"
@@ -60,7 +61,6 @@
     lbClass.text = classObj.className;
     lbTeacherName.text = classObj.teacherName;
     lbTerm.text = [NSString stringWithFormat:@"%@ %@ %@", classObj.currentYear, LocalizedString(@"Term") , classObj.currentTerm];
-    
     
     [self loadData];
     
@@ -154,10 +154,15 @@
                 
                 NSArray *splitedArr = [val componentsSeparatedByString:@"@"];
                 
-                if ([splitedArr count] == 4) {
+                if ([splitedArr count] == 1) {
                     sessionObj.session = [splitedArr objectAtIndex:0];
+                }
+                
+                if ([splitedArr count] == 2) {
                     sessionObj.duration = [splitedArr objectAtIndex:1];
-                    
+                }
+                
+                if ([splitedArr count] == 3) {
                     if ([[splitedArr objectAtIndex:2] isEqualToString:@"1"]) {
                         sessionObj.sessionType = SessionType_Morning;
                         
@@ -167,7 +172,9 @@
                     } else if ([[splitedArr objectAtIndex:2] isEqualToString:@"3"]) {
                         sessionObj.sessionType = SessionType_Evening;
                     }
-                    
+                }
+                
+                if ([splitedArr count] == 4) {
                     sessionObj.order = [[splitedArr objectAtIndex:3] integerValue];
                 }
             }
@@ -183,12 +190,7 @@
             NSArray *keyArr = [sessionsGroupByDay allKeys];
             keyArr = [self sortSessionByWeekDay:keyArr];
             
-            if (tabViewController == nil) {
-                tabViewController = [[MHTabBarController alloc] init];
-                
-            } else {
-                [tabViewController.view removeFromSuperview];
-            }
+            tabViewController = [[MHTabBarController alloc] init];
             
             tabViewController.delegate = (id)self;
             
@@ -217,10 +219,18 @@
                 UIViewAutoresizingFlexibleTopMargin;
                 
                 [viewContainer addSubview:tabViewController.view];
+                
+                NSInteger dayIndex = [[DateTimeHelper sharedDateTimeHelper] convertWeekdayToIndexFromDate:[NSDate date]];
+                
+                if (dayIndex <= [viewControllers  count]) {
+                    [tabViewController setSelectedIndex:dayIndex - 1 animated:YES];
+                }
             }
 
         } else {
-            [tabViewController.view removeFromSuperview];
+            if (tabViewController) {
+                [tabViewController.view removeFromSuperview];
+            }
         }
         
     }

@@ -44,16 +44,16 @@
 }
 */
 
-- (NSArray *)sortSessionBySession:(NSArray *)arr {
-    NSSortDescriptor *session = [NSSortDescriptor sortDescriptorWithKey:@"session" ascending:YES];
+- (NSArray *)sortSessionByOrder:(NSArray *)arr {
+    NSSortDescriptor *order = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
 
-    NSArray *resultArr = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:session, nil]];
+    NSArray *resultArr = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:order, nil]];
     
     return resultArr;
 }
 
 - (void)setSessionsArray:(NSArray *)sessionsArray {
-    _sessionsArray = [self sortSessionBySession:sessionsArray];
+    _sessionsArray = [self sortSessionByOrder:sessionsArray];
 
     if (sessionGroupByType ==  nil) {
         sessionGroupByType = [[NSMutableDictionary alloc] init];

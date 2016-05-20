@@ -99,9 +99,10 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)createAbsenceRequest:(NSDictionary *)requestDict {
+- (void)createAbsenceRequest:(NSDictionary *)requestDict fromDate:(NSString*)fromDate toDate:(NSString *)toDate {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_REQ_ATTENDANCE];
-
+    requestString = [NSString stringWithFormat:@"%@?from_dt=%@&to_dt=%@", requestString, fromDate, toDate];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

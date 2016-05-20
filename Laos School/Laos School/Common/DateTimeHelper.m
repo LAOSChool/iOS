@@ -146,6 +146,11 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
         date = [dateFormatter dateFromString:dateStr];
     }
@@ -259,6 +264,34 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
             res = [dateFormatter stringFromDate:date];
         }
     }
+    return res;
+}
+
+- (NSInteger)convertWeekdayToIndexFromDate:(NSDate *)date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSLocale *frLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:frLocale];
+
+    NSString *day = [dateFormatter stringFromDate:date];
+    NSInteger res = 1;
+    
+    if ([[day lowercaseString] isEqualToString:@"monday"]) {
+        res = 1;
+    } else if ([[day lowercaseString] isEqualToString:@"tuesday"]) {
+        res = 2;
+    } else if ([[day lowercaseString] isEqualToString:@"wednesday"]) {
+        res = 3;
+    } else if ([[day lowercaseString] isEqualToString:@"thursday"]) {
+        res = 4;
+    } else if ([[day lowercaseString] isEqualToString:@"friday"]) {
+        res = 5;
+    } else if ([[day lowercaseString] isEqualToString:@"saturday"]) {
+        res = 6;
+    } else if ([[day lowercaseString] isEqualToString:@"sunday"]) {
+        res = 7;
+    }
+    
     return res;
 }
 
