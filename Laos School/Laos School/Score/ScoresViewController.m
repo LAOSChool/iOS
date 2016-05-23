@@ -16,6 +16,9 @@
 #import "RequestToServer.h"
 #import "ScoreObject.h"
 #import "CommonDefine.h"
+#import "ShareData.h"
+#import "UserObject.h"
+#import "ClassObject.h"
 
 #import "SVProgressHUD.h"
 
@@ -107,7 +110,11 @@
 
 - (void)loadData {
     [SVProgressHUD show];
-    [requestToServer getMyScoreList];
+    
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+    
+    [requestToServer getMyScoreListInClass:classObj.classID];
 }
 
 - (void)showScoreDetail:(NSNotification *)notification {
@@ -337,7 +344,9 @@
                 return NSOrderedDescending;
             
         }];
-        
+    }
+    
+    if ([keyArr count] > segmentID) {
         [scoresArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:segmentID]]];
     }
 }

@@ -58,6 +58,10 @@
     [txtUsername setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
     [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
     
+    [txtUsername setPlaceholder:LocalizedString(@"Username")];
+    [txtUsername setPlaceholder:LocalizedString(@"Password")];
+    
+    
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
@@ -288,8 +292,8 @@
     UserObject *userObject = [[UserObject alloc] init];
     
     userObject.userID = [jsonObj objectForKey:@"id"];
-    userObject.username = [jsonObj objectForKey:@"fullname"];
-    userObject.displayName = @"";
+    userObject.username = [jsonObj objectForKey:@"sso_id"];
+    userObject.displayName = [jsonObj objectForKey:@"fullname"];
     userObject.nickName = [jsonObj objectForKey:@"nickname"];
     userObject.avatarPath = [jsonObj objectForKey:@"photo"];
     userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
@@ -477,4 +481,20 @@
         btnForgot.enabled = NO;
     }
 }
+
+- (IBAction)txtUsernameChange:(id)sender {
+    
+}
+
+- (IBAction)txtPassChange:(id)sender {
+//    if (txtUsername.text.length != 0 &&
+//        txtPassword.text.length != 0) {
+//        
+//        btnLogin.enabled = YES;
+//        
+//    } else {
+//        btnLogin.enabled = NO;
+//    }
+}
+
 @end

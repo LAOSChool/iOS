@@ -290,16 +290,21 @@
      if (actionSheet.tag == 1) {  //photo source
         if (buttonIndex == 0) {
             NSLog(@"Camera");
-            if ([UIImagePickerController isSourceTypeAvailable:
-                 UIImagePickerControllerSourceTypeCamera] == NO) {
+            if ([photoArray count] < IMAGE_LIMIT_NUMBER) {
+                if ([UIImagePickerController isSourceTypeAvailable:
+                     UIImagePickerControllerSourceTypeCamera] == NO) {
+                    
+                    return;
+                }
                 
-                return;
+                UIImagePickerController* controller = [[UIImagePickerController alloc] init];
+                controller.delegate = (id)self;
+                [controller setSourceType:UIImagePickerControllerSourceTypeCamera];
+                [self presentViewController:controller animated:YES completion:nil];
+                
+            } else {
+                [self showAlertOverLimitation];
             }
-            
-            UIImagePickerController* controller = [[UIImagePickerController alloc] init];
-            controller.delegate = (id)self;
-            [controller setSourceType:UIImagePickerControllerSourceTypeCamera];
-            [self presentViewController:controller animated:YES completion:nil];
             
         } else if (buttonIndex == 1) {
             NSLog(@"Library");
@@ -420,19 +425,9 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         [self addImageToList:image];
         
     } else {
-        UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:LocalizedString(@"Attention")
-                                            message:[NSString stringWithFormat:LocalizedString(@"You have reached to the limitation. Only allow %ld photos."), (long)IMAGE_LIMIT_NUMBER]
-                                     preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *action =
-        [UIAlertAction actionWithTitle:LocalizedString(@"OK")
-                                 style:UIAlertActionStyleDefault
-                               handler:nil];
-        
-        [alert addAction:action];
-        
-        [picker presentViewController:alert animated:YES completion:nil];
+        [picker dismissViewControllerAnimated:YES completion:^(void) {
+            [self showAlertOverLimitation];
+        }];
     }
 }
 
@@ -810,6 +805,22 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     alert.tag = 5;
     
     [alert show];
+}
+
+- (void)showAlertOverLimitation {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:LocalizedString(@"Attention")
+                                        message:[NSString stringWithFormat:LocalizedString(@"You have reached to the limitation. Only allow %ld photos."), (long)IMAGE_LIMIT_NUMBER]
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action =
+    [UIAlertAction actionWithTitle:LocalizedString(@"OK")
+                             style:UIAlertActionStyleDefault
+                           handler:nil];
+    
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

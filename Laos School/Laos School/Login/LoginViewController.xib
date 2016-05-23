@@ -35,6 +35,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                             <connections>
+                                <action selector="txtUsernameChange:" destination="-1" eventType="editingChanged" id="hPN-xg-AoO"/>
                                 <outlet property="delegate" destination="-1" id="nr4-41-LiC"/>
                             </connections>
                         </textField>
@@ -44,6 +45,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" secureTextEntry="YES"/>
                             <connections>
+                                <action selector="txtPassChange:" destination="-1" eventType="editingChanged" id="qL5-Bp-21o"/>
                                 <outlet property="delegate" destination="-1" id="Hgd-hX-p9J"/>
                             </connections>
                         </textField>

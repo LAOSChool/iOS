@@ -64,9 +64,10 @@ static RequestToServer* sharedRequestToServer = nil;
 
 
 #pragma mark score
-- (void)getMyScoreList {
+- (void)getMyScoreListInClass:(NSString *)classID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCORE_LIST];
-
+    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@", requestString, classID];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -214,6 +215,33 @@ static RequestToServer* sharedRequestToServer = nil;
 
 
 #pragma mark login and password
+- (void)requestToChangePassword:(NSString *)username oldPass:(NSString *)oldPass byNewPass:(NSString *)newPass {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CHANGE_PASS];
+
+    requestString = [NSString stringWithFormat:@"%@?username=%@&old_pass=%@&new_pass=%@", requestString, username, oldPass, newPass];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+//    NSDictionary *parameters = @{ @"username": username,
+//                                  @"old_pass": oldPass,
+//                                  @"new_pass": newPass };
+//    
+//    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+//    [request setHTTPBody:postData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_RESET_FORGOT_PASS];
     requestString = [NSString stringWithFormat:@"%@?sso_id=%@&phone=%@", requestString, username, phonenumber];

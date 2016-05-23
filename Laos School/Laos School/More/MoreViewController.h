@@ -28,7 +28,7 @@ typedef enum {
 } SCHOOL_SECTION;
 
 typedef enum {
-    SettingsSectionSettings = 0,
+    SettingsSectionChangePassword = 0,
     SettingsSectionLogout,
     SettingsSectionMax
 } SETTINGS_SECTION;

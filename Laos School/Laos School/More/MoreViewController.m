@@ -20,6 +20,8 @@
 #import "UserObject.h"
 #import "ClassObject.h"
 #import "ShareData.h"
+#import "ChangePasswordViewController.h"
+
 
 #import "LocalizeHelper.h"
 #import "Common.h"
@@ -177,9 +179,9 @@
         case MoreGroupSettings:
         {
             switch (indexPath.row) {
-                case SettingsSectionSettings:
+                case SettingsSectionChangePassword:
                 {
-                    cell.textLabel.text = LocalizedString(@"Settings");
+                    cell.textLabel.text = LocalizedString(@"Change password");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;
@@ -278,11 +280,18 @@
         case MoreGroupSettings:
         {
             switch (indexPath.row) {
-                case SettingsSectionSettings:
+                case SettingsSectionChangePassword:
                 {
-                    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
                     
-                    [self.navigationController pushViewController:settingsView animated:YES];
+                    ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                    
+                    if (IS_IPAD) {
+                        UINavigationController *navChangePassView = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        
+                        [self.splitViewController showDetailViewController:navChangePassView sender:self];
+                    } else {
+                        [self.navigationController pushViewController:changePassView animated:YES];
+                    }
                 }
                     break;
                     

@@ -304,6 +304,11 @@
 		558FC5EC1CEECBD900CD0389 /* ic_edit_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5E91CEECBD900CD0389 /* ic_edit_gray.png */; };
 		558FC5ED1CEECBD900CD0389 /* ic_edit_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5EA1CEECBD900CD0389 /* ic_edit_gray@2x.png */; };
 		558FC5EE1CEECBD900CD0389 /* ic_edit_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5EB1CEECBD900CD0389 /* ic_edit_gray@3x.png */; };
+		5591574F1CF2A8E1000F5D04 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5591574D1CF2A8E1000F5D04 /* ChangePasswordViewController.m */; };
+		559157501CF2A8E1000F5D04 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5591574E1CF2A8E1000F5D04 /* ChangePasswordViewController.xib */; };
+		559157541CF2ACA7000F5D04 /* green_btn_165_30.png in Resources */ = {isa = PBXBuildFile; fileRef = 559157511CF2ACA7000F5D04 /* green_btn_165_30.png */; };
+		559157551CF2ACA7000F5D04 /* green_btn_165_30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559157521CF2ACA7000F5D04 /* green_btn_165_30@2x.png */; };
+		559157561CF2ACA7000F5D04 /* green_btn_165_30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559157531CF2ACA7000F5D04 /* green_btn_165_30@3x.png */; };
 		559509091C99002A00D06158 /* ic_expand.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509061C99002A00D06158 /* ic_expand.png */; };
 		5595090A1C99002A00D06158 /* ic_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509071C99002A00D06158 /* ic_expand@2x.png */; };
 		5595090B1C99002A00D06158 /* ic_expand@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559509081C99002A00D06158 /* ic_expand@3x.png */; };
@@ -916,6 +921,12 @@
 		558FC5E91CEECBD900CD0389 /* ic_edit_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_gray.png; sourceTree = "<group>"; };
 		558FC5EA1CEECBD900CD0389 /* ic_edit_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_gray@2x.png"; sourceTree = "<group>"; };
 		558FC5EB1CEECBD900CD0389 /* ic_edit_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_gray@3x.png"; sourceTree = "<group>"; };
+		5591574C1CF2A8E1000F5D04 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		5591574D1CF2A8E1000F5D04 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		5591574E1CF2A8E1000F5D04 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		559157511CF2ACA7000F5D04 /* green_btn_165_30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_btn_165_30.png; sourceTree = "<group>"; };
+		559157521CF2ACA7000F5D04 /* green_btn_165_30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_btn_165_30@2x.png"; sourceTree = "<group>"; };
+		559157531CF2ACA7000F5D04 /* green_btn_165_30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_btn_165_30@3x.png"; sourceTree = "<group>"; };
 		559509061C99002A00D06158 /* ic_expand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_expand.png; sourceTree = "<group>"; };
 		559509071C99002A00D06158 /* ic_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_expand@2x.png"; sourceTree = "<group>"; };
 		559509081C99002A00D06158 /* ic_expand@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_expand@3x.png"; sourceTree = "<group>"; };
@@ -1534,6 +1545,9 @@
 		550FD2A11C7AFABD009D7159 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				559157511CF2ACA7000F5D04 /* green_btn_165_30.png */,
+				559157521CF2ACA7000F5D04 /* green_btn_165_30@2x.png */,
+				559157531CF2ACA7000F5D04 /* green_btn_165_30@3x.png */,
 				554769C41C917FA700269EBB /* btn_165_30.png */,
 				554769C51C917FA700269EBB /* btn_165_30@2x.png */,
 				554769C61C917FA700269EBB /* btn_165_30@3x.png */,
@@ -2363,6 +2377,9 @@
 				5587824F1C9010FD00365369 /* SettingsViewController.h */,
 				558782501C9010FE00365369 /* SettingsViewController.m */,
 				558782511C9010FE00365369 /* SettingsViewController.xib */,
+				5591574C1CF2A8E1000F5D04 /* ChangePasswordViewController.h */,
+				5591574D1CF2A8E1000F5D04 /* ChangePasswordViewController.m */,
+				5591574E1CF2A8E1000F5D04 /* ChangePasswordViewController.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2536,6 +2553,7 @@
 				55797CBC1C86D08A00A0098D /* ic_announcement.png in Resources */,
 				557D055F1CA1288000860832 /* ScoresViewController.xib in Resources */,
 				55510D891CD9AD8500638646 /* LICENSE in Resources */,
+				559157501CF2A8E1000F5D04 /* ChangePasswordViewController.xib in Resources */,
 				554769C11C917C9300269EBB /* ic_holder.png in Resources */,
 				55320C9D1CEDA8AB00E45492 /* ic_user_white@2x.png in Resources */,
 				5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */,
@@ -2586,6 +2604,7 @@
 				552094561C89383D004670B3 /* timetable.htm in Resources */,
 				550A821D1C9AA6AF001F652B /* ic_radio_uncheck.png in Resources */,
 				550A82201C9AA6AF001F652B /* ic_radio_check.png in Resources */,
+				559157561CF2ACA7000F5D04 /* green_btn_165_30@3x.png in Resources */,
 				5538A98E1CBCF3E500659C8A /* JSQMessagesToolbarContentView.xib in Resources */,
 				55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */,
 				5520944D1C8932CF004670B3 /* ic_class@2x.png in Resources */,
@@ -2600,6 +2619,7 @@
 				55B108EA1C802CA200EB695C /* ic_alert@2x.png in Resources */,
 				552400F91C883AAA00F7D057 /* StuAttendanceTableViewCell.xib in Resources */,
 				557D78D51C97FEA5008096A0 /* ic_checkall@2x.png in Resources */,
+				559157541CF2ACA7000F5D04 /* green_btn_165_30.png in Resources */,
 				5587823A1C8FD0FB00365369 /* SchoolProfileViewController.xib in Resources */,
 				557D78D31C97FEA5008096A0 /* ic_checkall@3x.png in Resources */,
 				55797C941C86958000A0098D /* StudentAttendanceViewController.xib in Resources */,
@@ -2650,6 +2670,7 @@
 				554769C01C917C9300269EBB /* ic_arrow_up@3x.png in Resources */,
 				557D78D81C97FEA5008096A0 /* ic_uncheck@3x.png in Resources */,
 				55FC722F1C7C599D00B0B8D0 /* LICENSE in Resources */,
+				559157551CF2ACA7000F5D04 /* green_btn_165_30@2x.png in Resources */,
 				559509241C996B0400D06158 /* ReasonViewController.xib in Resources */,
 				558D6DD81CA245CF00EE34BD /* ic_score.png in Resources */,
 				55B108ED1C802CA200EB695C /* ic_help@2x.png in Resources */,
@@ -2900,6 +2921,7 @@
 				5538A97D1CBCF3E500659C8A /* JSQMessagesBubbleImage.m in Sources */,
 				55510DB91CD9AE0D00638646 /* AFSecurityPolicy.m in Sources */,
 				55FC71D31C7C3C8100B0B8D0 /* Reachability.m in Sources */,
+				5591574F1CF2A8E1000F5D04 /* ChangePasswordViewController.m in Sources */,
 				55510DB71CD9AE0D00638646 /* AFHTTPSessionManager.m in Sources */,
 				55510D081CD9A97F00638646 /* FSImageScrollView.m in Sources */,
 				55FC723C1C7C599D00B0B8D0 /* GKBar.m in Sources */,
