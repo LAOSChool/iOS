@@ -161,7 +161,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *studentScoreCellIdentifier = @"StudentScoreCellIdentifier";
+    static NSString *studentScoreCellIdentifier = @"StudentScoreTableViewCell";
     
     StudentScoreTableViewCell *cell = [scoresTableView dequeueReusableCellWithIdentifier:studentScoreCellIdentifier];
     if (cell == nil) {

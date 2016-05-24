@@ -11,5 +11,16 @@
 @interface SchoolProfileViewController : UIViewController
 {
     
+    IBOutlet UIView *viewHeaderContainer;
+    IBOutlet UILabel *lbClass;
+    IBOutlet UILabel *lbTermOne;
+    IBOutlet UILabel *lbTermTwo;
+    IBOutlet UILabel *lbAllYear;
+    IBOutlet UIButton *btnMoreInfo;
+    IBOutlet UITableView *scoreTableView;
+    
+    IBOutlet UILabel *lbSchoolYear;
+    IBOutlet UIButton *btnShow;
+    
 }
 @end

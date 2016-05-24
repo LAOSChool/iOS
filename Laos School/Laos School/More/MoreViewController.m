@@ -135,7 +135,7 @@
             switch (indexPath.row) {
                 case ProfileSectionProfile:
                 {
-                    cell.textLabel.text = LocalizedString(@"Personal profile");
+                    cell.textLabel.text = LocalizedString(@"School records");
                     cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
                 }
                     break;

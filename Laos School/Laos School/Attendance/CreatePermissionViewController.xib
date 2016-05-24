@@ -25,7 +25,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ntk-7G-9wv">
-                            <rect key="frame" x="66" y="10" width="221" height="21"/>
+                            <rect key="frame" x="66" y="9" width="221" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,7 +59,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qhd-wH-gvI">
-                            <rect key="frame" x="66" y="10" width="222" height="21"/>
+                            <rect key="frame" x="66" y="9" width="222" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,7 +107,7 @@
                 <outletCollection property="gestureRecognizers" destination="MUK-tp-jtp" appends="YES" id="wck-sN-xm3"/>
                 <outletCollection property="gestureRecognizers" destination="pCc-PJ-LSO" appends="YES" id="8SB-Ka-G5v"/>
             </connections>
-            <point key="canvasLocation" x="130" y="250"/>
+            <point key="canvasLocation" x="-14" y="246"/>
         </view>
         <tapGestureRecognizer id="jBJ-wD-73L">
             <connections>

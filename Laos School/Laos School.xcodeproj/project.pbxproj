@@ -222,6 +222,7 @@
 		555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */; };
 		555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */; };
 		556214331CCF0ADB00754AFD /* CTAssetsPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 556214321CCF0ADB00754AFD /* CTAssetsPickerController.bundle */; };
+		556481311CF4186600DDD09C /* SchoolRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5564812F1CF4186600DDD09C /* SchoolRecordObject.m */; };
 		556C6E751C92AEB90077F4BE /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 556C6E731C92AEB90077F4BE /* UserObject.m */; };
 		5575ED481CA4EA4E00EFC02C /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED411CA4EA4E00EFC02C /* CreatePostViewController.m */; };
 		5575ED491CA4EA4E00EFC02C /* CreatePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5575ED421CA4EA4E00EFC02C /* CreatePostViewController.xib */; };
@@ -816,6 +817,8 @@
 		555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@2x.png"; sourceTree = "<group>"; };
 		555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@3x.png"; sourceTree = "<group>"; };
 		556214321CCF0ADB00754AFD /* CTAssetsPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CTAssetsPickerController.bundle; sourceTree = "<group>"; };
+		5564812F1CF4186600DDD09C /* SchoolRecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolRecordObject.m; sourceTree = "<group>"; };
+		556481301CF4186600DDD09C /* SchoolRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolRecordObject.h; sourceTree = "<group>"; };
 		556C6E731C92AEB90077F4BE /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		556C6E741C92AEB90077F4BE /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		5575ED401CA4EA4E00EFC02C /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
@@ -2361,6 +2364,8 @@
 		55FC72571C7C625A00B0B8D0 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				556481301CF4186600DDD09C /* SchoolRecordObject.h */,
+				5564812F1CF4186600DDD09C /* SchoolRecordObject.m */,
 				55BA86F81C8D7710000221D7 /* PersonalInfoViewController.h */,
 				55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */,
 				55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */,
@@ -2845,6 +2850,7 @@
 				55FC72421C7C599D00B0B8D0 /* MGSwipeButton.m in Sources */,
 				55510DCF1CD9AE3100638646 /* UAProgressView.m in Sources */,
 				558B78FC1CB268D1003F437E /* RequestToServer.m in Sources */,
+				556481311CF4186600DDD09C /* SchoolRecordObject.m in Sources */,
 				5538A9881CBCF3E500659C8A /* JSQMessagesInputToolbar.m in Sources */,
 				55FC72401C7C599D00B0B8D0 /* MainTabBarViewController.m in Sources */,
 				5538A98C1CBCF3E500659C8A /* JSQMessagesMediaPlaceholderView.m in Sources */,
