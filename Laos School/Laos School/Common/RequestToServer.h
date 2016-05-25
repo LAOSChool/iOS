@@ -41,8 +41,8 @@
 #define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
 #define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
 
-
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
+#define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 
@@ -80,6 +80,7 @@
 
 //score
 - (void)getMyScoreListInClass:(NSString *)classID;
+- (void)getMySchoolRecordInClass:(NSString *)classID;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

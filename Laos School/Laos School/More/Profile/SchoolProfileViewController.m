@@ -16,6 +16,27 @@
 
 @interface SchoolProfileViewController ()
 {
+    //overal data
+    NSString *className;
+    NSString *averageTermOne;
+    NSString *averageTermSecond;
+    NSString *overalYear;
+    NSString *comment;
+    NSString *additionalInfo;
+    NSInteger rank;
+    NSString *grade;
+    
+    NSMutableArray *averageMonthArr;
+    NSString *average4Months;
+    NSString *averageExams;
+    NSMutableArray *gradeMonthArr;
+    NSMutableArray *rankMonthArr;
+    
+    //subject data
+    NSMutableArray *scoresArray;
+    NSMutableDictionary *scoresStore;
+    NSMutableDictionary *groupBySubject;
+    
     LevelPickerViewController *termPicker;
     
     RequestToServer *requestToServer;
@@ -46,6 +67,7 @@
         requestToServer.delegate = (id)self;
     }
 
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,7 +117,7 @@
 }
 
 - (void)loadData {
-    
+    [requestToServer getMySchoolRecordInClass:@"1"];
 }
 
 #pragma mark data source
@@ -133,4 +155,38 @@
     
 }
 
+
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    
+
+    
+}
+
+- (void)failToConnectToServer {
+//    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+//    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+//    [SVProgressHUD dismiss];
+//    [refreshControl endRefreshing];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
 @end
