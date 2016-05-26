@@ -186,6 +186,13 @@
                 }
                     break;
                     
+                case SettingsSectionChangeLanguage:
+                {
+                    cell.textLabel.text = LocalizedString(@"Change language");
+                    cell.imageView.image = [UIImage imageNamed:@"ic_user_gray.png"];
+                }
+                    break;
+                    
                 case SettingsSectionLogout:
                 {
                     cell.textLabel.text = LocalizedString(@"Logout");
@@ -281,6 +288,21 @@
         {
             switch (indexPath.row) {
                 case SettingsSectionChangePassword:
+                {
+                    
+                    ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                    
+                    if (IS_IPAD) {
+                        UINavigationController *navChangePassView = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        
+                        [self.splitViewController showDetailViewController:navChangePassView sender:self];
+                    } else {
+                        [self.navigationController pushViewController:changePassView animated:YES];
+                    }
+                }
+                    break;
+                    
+                case SettingsSectionChangeLanguage:
                 {
                     
                     ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];

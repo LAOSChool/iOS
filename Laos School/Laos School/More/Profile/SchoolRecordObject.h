@@ -20,22 +20,48 @@
     
 }
 /*
- diem trung binh term 1, term 2, year
- Xep hang, Xep loai.
- Bam info se hien thi trung binh tháng, trung binh 4 thang, trung binh exam, trung binh hoc ky
+ {
+ "ave_m1" = 0;
+ "ave_m2" = 0;
+ "ave_term1" = 0;
+ "ave_term2" = 0;
+ "ave_year" = 0;
+ "class_id" = 1;
+ id = 4;
+ m10 = 0;
+ m11 = 0;
+ m12 = 0;
+ m2 = 0;
+ m3 = 0;
+ m4 = 0;
+ m5 = 0;
+ m9 = 0;
+ notice = "<null>";
+ retest = 0;
+ "school_id" = 1;
+ "school_year" = 1;
+ "student_id" = 10;
+ "student_profile_id" = 1;
+ "subject_grp_id" = "<null>";
+ "subject_grp_name" = "<null>";
+ "subject_id" = 4;
+ "subject_name" = English;
+ "teacher_id" = 0;
+ "test_term1" = 0;
+ "test_term2" = 0;
+ },
  */
-@property (nonatomic, strong) NSString *className;
-@property (nonatomic, strong) NSString *averageTermOne;
-@property (nonatomic, strong) NSString *averageTermSecond;
-@property (nonatomic, strong) NSString *overallYear;
-@property (nonatomic, strong) NSString *comment;
-@property (nonatomic, strong) NSString *additionalInfo;
-@property (nonatomic, assign) NSInteger rank;
-@property (nonatomic, strong) NSString *grade;
+//@property (nonatomic, strong) NSString *subject;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
+//@property (nonatomic, strong) NSString *scoreM1;
 
-@property (nonatomic, strong) NSMutableArray *averageMonthArr;
-@property (nonatomic, strong) NSString *average4Months;
-@property (nonatomic, strong) NSString *averageExams;
 
 
 

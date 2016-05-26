@@ -9,6 +9,10 @@
 #import "SchoolInfoViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
+#import "TagManagerHelper.h"
+#import "Common.h"
+
+#define SCHOOL_INFO_LINK @"http://www.lazzybee.com/testvocab?menu=0"
 
 @interface SchoolInfoViewController ()
 
@@ -19,8 +23,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iSchoolInfo"];
     [self.navigationController setNavigationColor];
     [self setTitle:LocalizedString(@"School info")];
+    
+    if ([[Common sharedCommon] networkIsActive]) {
+        NSString *urlAddress = SCHOOL_INFO_LINK;
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        
+        [webView loadRequest:requestObj];
+        
+    } else {
+        [self loadLocalHtml];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,5 +54,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    return YES;
+}
 
+-(void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
+    [self loadLocalHtml];
+}
+
+- (void)loadLocalHtml {
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info" ofType:@"htm"];
+    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+    
+    [webView loadHTMLString:htmlString baseURL:nil];
+}
 @end

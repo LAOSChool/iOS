@@ -101,7 +101,9 @@
 */
 
 - (IBAction)segmentAction:(id)sender {
-    [self loadData];
+    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
+    [self groupDataBySubject];
+    [scoresTableView reloadData];
 }
 
 - (void)reloadScoreData {

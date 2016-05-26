@@ -88,6 +88,9 @@
 		55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */; };
 		55320CA31CEDAA1A00E45492 /* ic_clock_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */; };
 		55320CA41CEDAA1A00E45492 /* ic_clock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */; };
+		5538828A1CF702CF00E12EFC /* school_info.htm in Resources */ = {isa = PBXBuildFile; fileRef = 553882891CF702CF00E12EFC /* school_info.htm */; };
+		5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */; };
+		5538828F1CF706DF00E12EFC /* ChangeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538828C1CF706DF00E12EFC /* ChangeLanguageViewController.m */; };
 		5538A8F31CBCA56900659C8A /* ic_phone_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538A8F01CBCA56900659C8A /* ic_phone_gray.png */; };
 		5538A8F41CBCA56900659C8A /* ic_phone_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538A8F11CBCA56900659C8A /* ic_phone_gray@2x.png */; };
 		5538A8F51CBCA56900659C8A /* ic_phone_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538A8F21CBCA56900659C8A /* ic_phone_gray@3x.png */; };
@@ -569,6 +572,10 @@
 		55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clock_white.png; sourceTree = "<group>"; };
 		55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@2x.png"; sourceTree = "<group>"; };
 		55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@3x.png"; sourceTree = "<group>"; };
+		553882891CF702CF00E12EFC /* school_info.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = school_info.htm; sourceTree = "<group>"; };
+		5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeLanguageViewController.xib; sourceTree = "<group>"; };
+		5538828C1CF706DF00E12EFC /* ChangeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeLanguageViewController.m; sourceTree = "<group>"; };
+		5538828D1CF706DF00E12EFC /* ChangeLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeLanguageViewController.h; sourceTree = "<group>"; };
 		5538A8F01CBCA56900659C8A /* ic_phone_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_phone_gray.png; sourceTree = "<group>"; };
 		5538A8F11CBCA56900659C8A /* ic_phone_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_phone_gray@2x.png"; sourceTree = "<group>"; };
 		5538A8F21CBCA56900659C8A /* ic_phone_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_phone_gray@3x.png"; sourceTree = "<group>"; };
@@ -1383,6 +1390,7 @@
 		550FD29D1C7AFABD009D7159 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				553882891CF702CF00E12EFC /* school_info.htm */,
 				552094551C89383D004670B3 /* timetable.htm */,
 				550FD29E1C7AFABD009D7159 /* images */,
 				550FD2A21C7AFABD009D7159 /* sounds */,
@@ -2379,6 +2387,9 @@
 		55FC72581C7C625A00B0B8D0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5538828D1CF706DF00E12EFC /* ChangeLanguageViewController.h */,
+				5538828C1CF706DF00E12EFC /* ChangeLanguageViewController.m */,
+				5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */,
 				5587824F1C9010FD00365369 /* SettingsViewController.h */,
 				558782501C9010FE00365369 /* SettingsViewController.m */,
 				558782511C9010FE00365369 /* SettingsViewController.xib */,
@@ -2575,6 +2586,7 @@
 				55797CCB1C86D08A00A0098D /* ic_send@3x.png in Resources */,
 				557D78D61C97FEA5008096A0 /* ic_uncheck.png in Resources */,
 				5538A8F51CBCA56900659C8A /* ic_phone_gray@3x.png in Resources */,
+				5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */,
 				554769BE1C917C9300269EBB /* ic_arrow_up.png in Resources */,
 				55510DE61CD9EA0E00638646 /* ic_right_arrow.png in Resources */,
 				55797CC91C86D08A00A0098D /* ic_more@2x.png in Resources */,
@@ -2725,6 +2737,7 @@
 				5595091A1C99574200D06158 /* ic_off.png in Resources */,
 				55CF10CD1C8573F000DC1AB9 /* ic_user_gray.png in Resources */,
 				5531DBEB1CE2EB8000FBD6A4 /* InformationViewController.xib in Resources */,
+				5538828A1CF702CF00E12EFC /* school_info.htm in Resources */,
 				55AD977F1CEAF4DE004A7BDD /* ScoreDetailViewController.xib in Resources */,
 				554769BC1C917C9300269EBB /* ic_arrow_down@2x.png in Resources */,
 				55CF10D91C857E2D00DC1AB9 /* ic_flag_white.png in Resources */,
@@ -2917,6 +2930,7 @@
 				55FC72431C7C599D00B0B8D0 /* MGSwipeTableCell.m in Sources */,
 				558782521C9010FE00365369 /* SettingsViewController.m in Sources */,
 				55FC72471C7C599D00B0B8D0 /* SVProgressHUD.m in Sources */,
+				5538828F1CF706DF00E12EFC /* ChangeLanguageViewController.m in Sources */,
 				55FC72301C7C599D00B0B8D0 /* README.md in Sources */,
 				550A75DE1CCE153A0050240B /* CTAssetCollectionViewCell.m in Sources */,
 				55510DDF1CD9CF2500638646 /* JTSImageViewController.m in Sources */,
