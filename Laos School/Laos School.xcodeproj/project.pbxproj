@@ -227,6 +227,8 @@
 		556214331CCF0ADB00754AFD /* CTAssetsPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 556214321CCF0ADB00754AFD /* CTAssetsPickerController.bundle */; };
 		556481311CF4186600DDD09C /* SchoolRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5564812F1CF4186600DDD09C /* SchoolRecordObject.m */; };
 		556C6E751C92AEB90077F4BE /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 556C6E731C92AEB90077F4BE /* UserObject.m */; };
+		5571A1571CF82FA5008CCE58 /* SchoolRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571A1551CF82FA5008CCE58 /* SchoolRecordTableViewCell.m */; };
+		5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5571A1561CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib */; };
 		5575ED481CA4EA4E00EFC02C /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED411CA4EA4E00EFC02C /* CreatePostViewController.m */; };
 		5575ED491CA4EA4E00EFC02C /* CreatePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5575ED421CA4EA4E00EFC02C /* CreatePostViewController.xib */; };
 		5575ED4A1CA4EA4E00EFC02C /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED441CA4EA4E00EFC02C /* CustomImageView.m */; };
@@ -828,6 +830,9 @@
 		556481301CF4186600DDD09C /* SchoolRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolRecordObject.h; sourceTree = "<group>"; };
 		556C6E731C92AEB90077F4BE /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		556C6E741C92AEB90077F4BE /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
+		5571A1541CF82FA5008CCE58 /* SchoolRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolRecordTableViewCell.h; sourceTree = "<group>"; };
+		5571A1551CF82FA5008CCE58 /* SchoolRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolRecordTableViewCell.m; sourceTree = "<group>"; };
+		5571A1561CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SchoolRecordTableViewCell.xib; sourceTree = "<group>"; };
 		5575ED401CA4EA4E00EFC02C /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
 		5575ED411CA4EA4E00EFC02C /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
 		5575ED421CA4EA4E00EFC02C /* CreatePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePostViewController.xib; sourceTree = "<group>"; };
@@ -2380,6 +2385,9 @@
 				558782361C8FD0FB00365369 /* SchoolProfileViewController.h */,
 				558782371C8FD0FB00365369 /* SchoolProfileViewController.m */,
 				558782381C8FD0FB00365369 /* SchoolProfileViewController.xib */,
+				5571A1541CF82FA5008CCE58 /* SchoolRecordTableViewCell.h */,
+				5571A1551CF82FA5008CCE58 /* SchoolRecordTableViewCell.m */,
+				5571A1561CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2537,6 +2545,7 @@
 				5520945D1C89852D004670B3 /* ic_school@2x.png in Resources */,
 				55A579661CEC794B000597D2 /* StdSessionTableViewCell.xib in Resources */,
 				554769C91C917FA700269EBB /* btn_165_30@3x.png in Resources */,
+				5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */,
 				55CF10DA1C857E2D00DC1AB9 /* ic_flag_white@2x.png in Resources */,
 				55797CC31C86D08A00A0098D /* ic_camera@2x.png in Resources */,
 				558FC5E71CEEC83900CD0389 /* ic_school_white@2x.png in Resources */,
@@ -2836,6 +2845,7 @@
 				5538A9691CBCF3E500659C8A /* UIImage+JSQMessages.m in Sources */,
 				55510DCE1CD9AE3100638646 /* README.md in Sources */,
 				55510DB81CD9AE0D00638646 /* AFNetworkReachabilityManager.m in Sources */,
+				5571A1571CF82FA5008CCE58 /* SchoolRecordTableViewCell.m in Sources */,
 				554769B01C916BE600269EBB /* Messages+CoreDataProperties.m in Sources */,
 				55510DE11CD9CF2500638646 /* UIApplication+JTSImageViewController.m in Sources */,
 				55CF10C21C85571400DC1AB9 /* MessageDetailViewController.m in Sources */,

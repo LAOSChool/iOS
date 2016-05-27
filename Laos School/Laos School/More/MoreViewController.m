@@ -11,6 +11,7 @@
 #import "PersonalInfoViewController.h"
 #import "SchoolProfileViewController.h"
 #import "SettingsViewController.h"
+#import "ChangeLanguageViewController.h"
 #import "SchoolInfoViewController.h"
 #import "TeacherListViewController.h"
 #import "ScoresViewController.h"
@@ -305,14 +306,14 @@
                 case SettingsSectionChangeLanguage:
                 {
                     
-                    ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                    ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
                     
                     if (IS_IPAD) {
-                        UINavigationController *navChangePassView = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        UINavigationController *navChangeLanguageView = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
                         
-                        [self.splitViewController showDetailViewController:navChangePassView sender:self];
+                        [self.splitViewController showDetailViewController:navChangeLanguageView sender:self];
                     } else {
-                        [self.navigationController pushViewController:changePassView animated:YES];
+                        [self.navigationController pushViewController:changeLanguageView animated:YES];
                     }
                 }
                     break;

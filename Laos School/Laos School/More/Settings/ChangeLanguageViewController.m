@@ -7,6 +7,7 @@
 //
 
 #import "ChangeLanguageViewController.h"
+#import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 
 @interface ChangeLanguageViewController ()
@@ -19,6 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:LocalizedString(@"Change language")];
+    
+    [self.navigationController setNavigationColor];
 }
 
 - (void)didReceiveMemoryWarning {

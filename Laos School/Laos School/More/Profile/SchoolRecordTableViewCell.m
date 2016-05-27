@@ -1,19 +1,19 @@
 //
-//  StudentScoreTableViewCell.m
+//  SchoolRecordTableViewCell.m
 //  Laos School
 //
 //  Created by HuKhong on 5/12/16.
 //  Copyright © 2016 com.born2go.laosschool. All rights reserved.
 //
 
-#import "StudentScoreTableViewCell.h"
+#import "SchoolRecordTableViewCell.h"
 #import "ScoreCell.h"
 #import "ScoreObject.h"
 
 #define CELL_OFFSET 5
 #define CELL_SIZE 40
 
-@implementation StudentScoreTableViewCell
+@implementation SchoolRecordTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

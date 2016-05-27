@@ -7,6 +7,7 @@
 //
 
 #import "SchoolProfileViewController.h"
+#import "SchoolRecordTableViewCell.h"
 #import "LevelPickerViewController.h"
 #import "LocalizeHelper.h"
 #import "UINavigationController+CustomNavigation.h"
@@ -14,6 +15,8 @@
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
 #import "TagManagerHelper.h"
+
+#import "SVProgressHUD.h"
 
 @interface SchoolProfileViewController ()
 {
