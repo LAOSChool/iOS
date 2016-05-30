@@ -26,6 +26,11 @@
 @interface ComposeViewController ()
 {
     RequestToServer *requestToServer;
+    
+    BOOL isSMSChecked;
+    
+    UIImage *imgCheck;
+    UIImage *imgUncheck;
 }
 @end
 
@@ -53,6 +58,20 @@
     
     if ([[ShareData sharedShareData] userObj].userRole == UserRole_Student) {
         lbTeacherReceiverList.text = [[ShareData sharedShareData] userObj].classObj.teacherName;
+    }
+    
+    if (_isTeacherForm) {
+        if (_messageObject.importanceType == ImportanceHigh) {
+            [btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
+            
+        } else {
+            [btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
+        }
+        
+        imgCheck = [UIImage imageNamed:@"ic_check_gray.png"];
+        imgUncheck = [UIImage imageNamed:@"ic_uncheck_gray.png"];
+        isSMSChecked = YES;
+        [btnCheck setImage:imgCheck forState:UIControlStateNormal];
     }
     
     UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
@@ -135,6 +154,18 @@
     }
 }
 
+- (IBAction)btnCheckClick:(id)sender {
+    if (_isTeacherForm) {
+        isSMSChecked = !isSMSChecked;
+        if (isSMSChecked) {
+            [btnCheck setImage:imgCheck forState:UIControlStateNormal];
+            
+        } else {
+            [btnCheck setImage:imgUncheck forState:UIControlStateNormal];
+        }
+    }
+}
+
 //return NO if not valid
 - (BOOL)validateInputs {
     BOOL res = YES;
@@ -147,14 +178,25 @@
         res = NO;
     }
     
+    if (_isTeacherForm) {
+        if ([_receiverArray count] == 0) {
+            res = NO;
+        }
+    }
+    
     return res;
 }
 
 - (void)sendNewMessage {
-    if ([_receiverArray count] == 0 && [[ShareData sharedShareData] userObj].userRole == UserRole_Student) {
-        [_receiverArray addObject:[[ShareData sharedShareData] userObj].classObj.teacherID];
+    if (_isTeacherForm) {
+        [self sendNewMessageByTeacher];
+        
+    } else {
+        [self sendNewMessageByStudent];
     }
-    
+}
+
+- (void)sendNewMessageByStudent {
     NSMutableDictionary *messageDict = [[NSMutableDictionary alloc] init];
     //create message json
     /*
@@ -192,6 +234,32 @@
     if (txtSubject.text && txtSubject.text.length > 0) {
         [messageDict setValue:txtSubject.text forKey:@"title"];
     } else {
+        [messageDict setValue:LocalizedString(@"[No subject]") forKey:@"title"];
+    }
+    
+    [messageDict setValue:txtContent.text forKey:@"content"];
+    
+    [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
+    
+    [requestToServer createMessageWithObject:messageDict];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)sendNewMessageByTeacher {
+    NSMutableDictionary *messageDict = [[NSMutableDictionary alloc] init];
+    
+    [messageDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
+    
+    if (txtSubject.text && txtSubject.text.length > 0) {
+        [messageDict setValue:txtSubject.text forKey:@"title"];
+    } else {
         [messageDict setValue:@"[No subject]" forKey:@"title"];
     }
     
@@ -203,6 +271,20 @@
     } else {
         [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
     }
+    
+    if (isSMSChecked) {
+        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"channel"];
+    } else {
+        [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"channel"];
+    }
+    
+    NSString *ccList = @"";
+    
+    for (UserObject *recipient in _receiverArray) {
+        ccList = [ccList stringByAppendingFormat:@"%@,", recipient.userID];
+    }
+    
+    [messageDict setObject:ccList forKey:@"cc_list"];
     
     [requestToServer createMessageWithObject:messageDict];
     
@@ -291,6 +373,7 @@
 //        }
         
         receiverString = [receiverString stringByAppendingString:@"\n"];
+        receiverString = [receiverString stringByAppendingString:@"\n"];
     }
     
     lbTeacherReceiverList.text = receiverString;
@@ -302,22 +385,22 @@
     NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
     if (statusCode == HttpOK) {
-        MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:[jsonObj objectForKey:@"messageObject"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
+//        MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:[jsonObj objectForKey:@"messageObject"]];
+//        
+//        if (messageObj) {
         
-        if (messageObj) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
-            
-            dispatch_async([CoreDataUtil getDispatch], ^(){
-                
-                [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
-                //
-                //        dispatch_async(dispatch_get_main_queue(), ^(){
-                //
-                //        });
-            });
-        } else {
-            [self sendMessageFailed];
-        }
+//            dispatch_async([CoreDataUtil getDispatch], ^(){
+//                
+//                [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
+//                //
+//                //        dispatch_async(dispatch_get_main_queue(), ^(){
+//                //
+//                //        });
+//            });
+//        } else {
+//            [self sendMessageFailed];
+//        }
     } else {
         [self sendMessageFailed];
         
@@ -359,7 +442,16 @@
 }
 
 - (void)showAlertInvalidInputs {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter content before sending!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    NSString *content = @"";
+    
+    if (_isTeacherForm) {
+        content = LocalizedString(@"Please enter recipient and content before sending!");
+        
+    } else {
+        content = LocalizedString(@"Please enter content before sending!");
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 4;
     
     [alert show];

@@ -34,11 +34,6 @@
 #import "SVProgressHUD.h"
 #import "CommonAlert.h"
 
-#define USER_ROLE_STUDENT @"STUDENT"
-#define USER_ROLE_PRESIDENT @"PRESIDENT"
-#define USER_ROLE_HEAD_TEACHER @"TEACHER"
-#define USER_ROLE_SUB_TEACHER @"TEACHER"
-
 @interface LoginViewController ()
 {
     RequestToServer *requestToServer;
@@ -291,34 +286,58 @@
      */
     UserObject *userObject = [[UserObject alloc] init];
     
-    userObject.userID = [jsonObj objectForKey:@"id"];
-    userObject.username = [jsonObj objectForKey:@"sso_id"];
-    userObject.displayName = [jsonObj objectForKey:@"fullname"];
-    userObject.nickName = [jsonObj objectForKey:@"nickname"];
-    userObject.avatarPath = [jsonObj objectForKey:@"photo"];
-    userObject.phoneNumber = [jsonObj objectForKey:@"phone"];
-    
-    NSString *role = [jsonObj objectForKey:@"roles"];
-    if (role != (id)[NSNull null] && role && role.length > 0) {
-        
-        if ([role isEqualToString:USER_ROLE_STUDENT]) {
-            userObject.userRole = UserRole_Student;
-            userObject.permission = Permission_Normal | Permission_SendMessage;
-            
-        } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
-            userObject.userRole = UserRole_Student;
-            userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
-            
-        } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
-            userObject.userRole = UserRole_Teacher;
-            userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
-            
-        }
-        
+    if ([jsonObj valueForKey:@"id"] != (id)[NSNull null]) {
+        userObject.userID = [NSString stringWithFormat:@"%@", [jsonObj valueForKey:@"id"]];
     }
     
-    userObject.shoolID = [jsonObj objectForKey:@"school_id"];
-    userObject.schoolName = @"Bach khoa Ha Noi";
+    if ([jsonObj valueForKey:@"sso_id"] != (id)[NSNull null]) {
+        userObject.username = [jsonObj valueForKey:@"sso_id"];
+    }
+    
+    if ([jsonObj valueForKey:@"fullname"] != (id)[NSNull null]) {
+        userObject.displayName = [jsonObj valueForKey:@"fullname"];
+    }
+    
+    if ([jsonObj valueForKey:@"nickname"] != (id)[NSNull null]) {
+        userObject.nickName = [jsonObj valueForKey:@"nickname"];
+    }
+    
+    if ([jsonObj valueForKey:@"photo"] != (id)[NSNull null]) {
+        userObject.avatarPath = [jsonObj valueForKey:@"photo"];
+    }
+    
+    if ([jsonObj valueForKey:@"phone"] != (id)[NSNull null]) {
+        userObject.phoneNumber = [jsonObj valueForKey:@"phone"];
+    }
+    
+    if ([jsonObj valueForKey:@"roles"] != (id)[NSNull null]) {
+        NSString *role = [jsonObj objectForKey:@"roles"];
+        if (role != (id)[NSNull null] && role && role.length > 0) {
+            
+            if ([role isEqualToString:USER_ROLE_STUDENT]) {
+                userObject.userRole = UserRole_Student;
+                userObject.permission = Permission_Normal | Permission_SendMessage;
+                
+            } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
+                userObject.userRole = UserRole_Student;
+                userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
+                
+            } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
+                userObject.userRole = UserRole_Teacher;
+                userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
+                
+            }
+            
+        }
+    }
+    
+    if ([jsonObj valueForKey:@"school_id"] != (id)[NSNull null]) {
+        userObject.shoolID = [jsonObj objectForKey:@"school_id"];
+    }
+    
+    if ([jsonObj valueForKey:@"schoolName"] != (id)[NSNull null]) {
+        userObject.schoolName = [jsonObj objectForKey:@"schoolName"];
+    }
     
     ClassObject *classObject = [[ClassObject alloc] init];
     NSArray *classesArr = [jsonObj objectForKey:@"classes"];
@@ -362,6 +381,8 @@
     UISplitViewController *splitViewController = nil;
     if (IS_IPAD) {
         MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+        messageDetailViewController.isIncomeMessage = YES;
+        
         UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
         
         splitViewController = [[UISplitViewController alloc] init];

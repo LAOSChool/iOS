@@ -269,6 +269,15 @@
 		55797CCD1C86D08A00A0098D /* ic_timetable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55797CBA1C86D08A00A0098D /* ic_timetable@2x.png */; };
 		55797CCE1C86D08A00A0098D /* ic_timetable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55797CBB1C86D08A00A0098D /* ic_timetable@3x.png */; };
 		55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797CD21C86D7D500A0098D /* UINavigationController+CustomNavigation.m */; };
+		557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C752A1CFBDB07005C5FAA /* ic_add_gray.png */; };
+		557C752E1CFBDB07005C5FAA /* ic_add_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C752B1CFBDB07005C5FAA /* ic_add_gray@2x.png */; };
+		557C752F1CFBDB07005C5FAA /* ic_add_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C752C1CFBDB07005C5FAA /* ic_add_gray@3x.png */; };
+		557C75361CFBF65E005C5FAA /* ic_uncheck_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75301CFBF65E005C5FAA /* ic_uncheck_gray.png */; };
+		557C75371CFBF65E005C5FAA /* ic_uncheck_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75311CFBF65E005C5FAA /* ic_uncheck_gray@2x.png */; };
+		557C75381CFBF65E005C5FAA /* ic_uncheck_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75321CFBF65E005C5FAA /* ic_uncheck_gray@3x.png */; };
+		557C75391CFBF65E005C5FAA /* ic_check_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75331CFBF65E005C5FAA /* ic_check_gray.png */; };
+		557C753A1CFBF65E005C5FAA /* ic_check_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75341CFBF65E005C5FAA /* ic_check_gray@2x.png */; };
+		557C753B1CFBF65E005C5FAA /* ic_check_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557C75351CFBF65E005C5FAA /* ic_check_gray@3x.png */; };
 		557D055E1CA1288000860832 /* ScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557D055B1CA1288000860832 /* ScoresViewController.m */; };
 		557D055F1CA1288000860832 /* ScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D055C1CA1288000860832 /* ScoresViewController.xib */; };
 		557D78C61C97BDE5008096A0 /* StudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557D78C41C97BDE5008096A0 /* StudentsListViewController.m */; };
@@ -885,6 +894,15 @@
 		55797CBB1C86D08A00A0098D /* ic_timetable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_timetable@3x.png"; sourceTree = "<group>"; };
 		55797CD11C86D7D500A0098D /* UINavigationController+CustomNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+CustomNavigation.h"; path = "Laos School/Custom/UINavigationController+CustomNavigation.h"; sourceTree = SOURCE_ROOT; };
 		55797CD21C86D7D500A0098D /* UINavigationController+CustomNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+CustomNavigation.m"; path = "Laos School/Custom/UINavigationController+CustomNavigation.m"; sourceTree = SOURCE_ROOT; };
+		557C752A1CFBDB07005C5FAA /* ic_add_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add_gray.png; sourceTree = "<group>"; };
+		557C752B1CFBDB07005C5FAA /* ic_add_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_gray@2x.png"; sourceTree = "<group>"; };
+		557C752C1CFBDB07005C5FAA /* ic_add_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_gray@3x.png"; sourceTree = "<group>"; };
+		557C75301CFBF65E005C5FAA /* ic_uncheck_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_uncheck_gray.png; sourceTree = "<group>"; };
+		557C75311CFBF65E005C5FAA /* ic_uncheck_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_uncheck_gray@2x.png"; sourceTree = "<group>"; };
+		557C75321CFBF65E005C5FAA /* ic_uncheck_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_uncheck_gray@3x.png"; sourceTree = "<group>"; };
+		557C75331CFBF65E005C5FAA /* ic_check_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_check_gray.png; sourceTree = "<group>"; };
+		557C75341CFBF65E005C5FAA /* ic_check_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_check_gray@2x.png"; sourceTree = "<group>"; };
+		557C75351CFBF65E005C5FAA /* ic_check_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_check_gray@3x.png"; sourceTree = "<group>"; };
 		557D055B1CA1288000860832 /* ScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoresViewController.m; sourceTree = "<group>"; };
 		557D055C1CA1288000860832 /* ScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoresViewController.xib; sourceTree = "<group>"; };
 		557D055D1CA1288000860832 /* ScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoresViewController.h; sourceTree = "<group>"; };
@@ -1418,6 +1436,15 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				557C75301CFBF65E005C5FAA /* ic_uncheck_gray.png */,
+				557C75311CFBF65E005C5FAA /* ic_uncheck_gray@2x.png */,
+				557C75321CFBF65E005C5FAA /* ic_uncheck_gray@3x.png */,
+				557C75331CFBF65E005C5FAA /* ic_check_gray.png */,
+				557C75341CFBF65E005C5FAA /* ic_check_gray@2x.png */,
+				557C75351CFBF65E005C5FAA /* ic_check_gray@3x.png */,
+				557C752A1CFBDB07005C5FAA /* ic_add_gray.png */,
+				557C752B1CFBDB07005C5FAA /* ic_add_gray@2x.png */,
+				557C752C1CFBDB07005C5FAA /* ic_add_gray@3x.png */,
 				558FC5E91CEECBD900CD0389 /* ic_edit_gray.png */,
 				558FC5EA1CEECBD900CD0389 /* ic_edit_gray@2x.png */,
 				558FC5EB1CEECBD900CD0389 /* ic_edit_gray@3x.png */,
@@ -2548,6 +2575,7 @@
 				5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */,
 				55CF10DA1C857E2D00DC1AB9 /* ic_flag_white@2x.png in Resources */,
 				55797CC31C86D08A00A0098D /* ic_camera@2x.png in Resources */,
+				557C752F1CFBDB07005C5FAA /* ic_add_gray@3x.png in Resources */,
 				558FC5E71CEEC83900CD0389 /* ic_school_white@2x.png in Resources */,
 				55CF10D61C857E2D00DC1AB9 /* ic_flag_gray.png in Resources */,
 				5531DBE21CE2D07B00FBD6A4 /* ic_up_arrow@2x.png in Resources */,
@@ -2581,6 +2609,7 @@
 				559157501CF2A8E1000F5D04 /* ChangePasswordViewController.xib in Resources */,
 				554769C11C917C9300269EBB /* ic_holder.png in Resources */,
 				55320C9D1CEDA8AB00E45492 /* ic_user_white@2x.png in Resources */,
+				557C753A1CFBF65E005C5FAA /* ic_check_gray@2x.png in Resources */,
 				5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */,
 				5531DBE31CE2D07B00FBD6A4 /* ic_down_arrow.png in Resources */,
 				558FC5EC1CEECBD900CD0389 /* ic_edit_gray.png in Resources */,
@@ -2643,6 +2672,7 @@
 				55B108E91C802CA200EB695C /* ic_alert_white@3x.png in Resources */,
 				554769C81C917FA700269EBB /* btn_165_30@2x.png in Resources */,
 				55B108EA1C802CA200EB695C /* ic_alert@2x.png in Resources */,
+				557C753B1CFBF65E005C5FAA /* ic_check_gray@3x.png in Resources */,
 				552400F91C883AAA00F7D057 /* StuAttendanceTableViewCell.xib in Resources */,
 				557D78D51C97FEA5008096A0 /* ic_checkall@2x.png in Resources */,
 				559157541CF2ACA7000F5D04 /* green_btn_165_30.png in Resources */,
@@ -2657,6 +2687,8 @@
 				558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */,
 				55FC724B1C7C5E3E00B0B8D0 /* Localizable.strings in Resources */,
 				5538A9921CBCF3E500659C8A /* LICENSE in Resources */,
+				557C75361CFBF65E005C5FAA /* ic_uncheck_gray.png in Resources */,
+				557C75371CFBF65E005C5FAA /* ic_uncheck_gray@2x.png in Resources */,
 				55CF10C31C85571400DC1AB9 /* MessageDetailViewController.xib in Resources */,
 				55797CBE1C86D08A00A0098D /* ic_announcement@3x.png in Resources */,
 				55797CC01C86D08A00A0098D /* ic_attendance@2x.png in Resources */,
@@ -2674,6 +2706,7 @@
 				5538A8F41CBCA56900659C8A /* ic_phone_gray@2x.png in Resources */,
 				55B108F31C802CA200EB695C /* ic_speaker@2x.png in Resources */,
 				55797CC61C86D08A00A0098D /* ic_message@2x.png in Resources */,
+				557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */,
 				557D78CC1C97C8FB008096A0 /* StudentsListTableViewCell.xib in Resources */,
 				5595090B1C99002A00D06158 /* ic_expand@3x.png in Resources */,
 				557D78D41C97FEA5008096A0 /* ic_checkall.png in Resources */,
@@ -2697,6 +2730,7 @@
 				557D78D81C97FEA5008096A0 /* ic_uncheck@3x.png in Resources */,
 				55FC722F1C7C599D00B0B8D0 /* LICENSE in Resources */,
 				559157551CF2ACA7000F5D04 /* green_btn_165_30@2x.png in Resources */,
+				557C75391CFBF65E005C5FAA /* ic_check_gray.png in Resources */,
 				559509241C996B0400D06158 /* ReasonViewController.xib in Resources */,
 				558D6DD81CA245CF00EE34BD /* ic_score.png in Resources */,
 				55B108ED1C802CA200EB695C /* ic_help@2x.png in Resources */,
@@ -2714,6 +2748,7 @@
 				552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */,
 				555130811CE48EBD0001B2F0 /* ScoreCell.xib in Resources */,
 				558782341C8FCB3800365369 /* ic_phone_black@2x.png in Resources */,
+				557C752E1CFBDB07005C5FAA /* ic_add_gray@2x.png in Resources */,
 				55797CBD1C86D08A00A0098D /* ic_announcement@2x.png in Resources */,
 				55FC722E1C7C599D00B0B8D0 /* FontAwesome.ttf in Resources */,
 				55CF10BE1C8543AC00DC1AB9 /* MessageTableViewCell.xib in Resources */,
@@ -2746,6 +2781,7 @@
 				5595091A1C99574200D06158 /* ic_off.png in Resources */,
 				55CF10CD1C8573F000DC1AB9 /* ic_user_gray.png in Resources */,
 				5531DBEB1CE2EB8000FBD6A4 /* InformationViewController.xib in Resources */,
+				557C75381CFBF65E005C5FAA /* ic_uncheck_gray@3x.png in Resources */,
 				5538828A1CF702CF00E12EFC /* school_info.htm in Resources */,
 				55AD977F1CEAF4DE004A7BDD /* ScoreDetailViewController.xib in Resources */,
 				554769BC1C917C9300269EBB /* ic_arrow_down@2x.png in Resources */,

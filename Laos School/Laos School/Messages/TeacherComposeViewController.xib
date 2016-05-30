@@ -8,11 +8,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeViewController">
             <connections>
                 <outlet property="btnAdd" destination="GmS-au-5OC" id="AL0-pK-2xD"/>
+                <outlet property="btnCheck" destination="vDv-AM-QIX" id="ziD-vY-6Tc"/>
                 <outlet property="btnImportanceFlag" destination="dfi-Lo-4wI" id="bxb-p8-QfR"/>
+                <outlet property="lbSMS" destination="vML-ib-jCd" id="ndH-2t-Psm"/>
                 <outlet property="lbTeacherReceiverList" destination="Dsi-sT-9wy" id="1YO-Fz-AcY"/>
                 <outlet property="lbTo" destination="zba-EH-o5J" id="52r-NQ-Bnm"/>
                 <outlet property="txtContent" destination="AAs-mo-nLS" id="O1b-Og-5Dx"/>
-                <outlet property="txtSubject" destination="j8E-GT-k3N" id="jOK-uL-6eT"/>
                 <outlet property="view" destination="iN0-l3-epB" id="BIB-J4-Sqc"/>
             </connections>
         </placeholder>
@@ -24,50 +25,54 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zba-EH-o5J">
                     <rect key="frame" x="8" y="10" width="35" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vML-ib-jCd">
+                    <rect key="frame" x="8" y="68" width="45" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dsi-sT-9wy">
-                    <rect key="frame" x="43" y="6" width="240" height="48"/>
+                    <rect key="frame" x="43" y="6" width="240" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GmS-au-5OC">
-                    <rect key="frame" x="286" y="6" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_add.png"/>
-                    <connections>
-                        <action selector="btnAddClick:" destination="-1" eventType="touchUpInside" id="rsZ-9G-VG1"/>
-                    </connections>
-                </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" id="AAs-mo-nLS">
-                    <rect key="frame" x="8" y="102" width="304" height="453"/>
+                    <rect key="frame" x="8" y="100" width="304" height="460"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                 </textView>
                 <view contentMode="scaleToFill" id="bP2-wf-EBn">
-                    <rect key="frame" x="8" y="58" width="304" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="j8E-GT-k3N">
-                    <rect key="frame" x="8" y="67" width="270" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
-                </textField>
-                <view contentMode="scaleToFill" id="kN7-si-Ibw">
                     <rect key="frame" x="8" y="98" width="304" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GmS-au-5OC">
+                    <rect key="frame" x="280" y="1" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ic_add_gray.png"/>
+                    <connections>
+                        <action selector="btnAddClick:" destination="-1" eventType="touchUpInside" id="rsZ-9G-VG1"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vDv-AM-QIX">
+                    <rect key="frame" x="52" y="58" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ic_uncheck_gray.png"/>
+                    <connections>
+                        <action selector="btnCheckClick:" destination="-1" eventType="touchUpInside" id="t9m-NP-zvE"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dfi-Lo-4wI">
-                    <rect key="frame" x="289" y="69" width="25" height="25"/>
+                    <rect key="frame" x="287" y="65" width="25" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" red="0.80727193809999997" green="0.16627344490000001" blue="0.17472284129999999" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" image="ic_flag_white.png"/>
@@ -77,11 +82,24 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="108" y="78"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="lYk-qJ-MVh" appends="YES" id="fgI-vg-86Z"/>
+                <outletCollection property="gestureRecognizers" destination="PRD-MH-PoQ" appends="YES" id="p2e-y1-Dtz"/>
+            </connections>
+            <point key="canvasLocation" x="18" y="52"/>
         </view>
+        <swipeGestureRecognizer direction="down" id="lYk-qJ-MVh">
+            <connections>
+                <action selector="swipeGestureHandle:" destination="-1" id="65R-ag-GYu"/>
+                <outlet property="delegate" destination="-1" id="IKA-oD-jPT"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="right" id="PRD-MH-PoQ"/>
     </objects>
     <resources>
-        <image name="ic_add.png" width="30" height="30"/>
+        <image name="ic_add_gray.png" width="30" height="30"/>
         <image name="ic_flag_white.png" width="30" height="30"/>
+        <image name="ic_uncheck_gray.png" width="30" height="30"/>
     </resources>
 </document>

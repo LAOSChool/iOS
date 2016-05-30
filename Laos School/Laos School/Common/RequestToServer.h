@@ -31,7 +31,7 @@
 #define API_NAME_MESSAGELIST @"/api/messages"
 #define API_NAME_CREATEMESSAGE @"/api/messages/create"
 #define API_NAME_UPDATEMESSAGE @"/api/messages/update"
-
+#define API_NAME_STUDENT_LIST @"/api/users"
 
 #define API_NAME_ANNOUNCEMENT_LIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
@@ -94,6 +94,7 @@
 - (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID;
 
 //messages
+- (void)getStudentList:(NSString *)classID;
 - (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag;
 - (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag;
 - (void)createMessageWithObject:(NSDictionary *)messageDict;

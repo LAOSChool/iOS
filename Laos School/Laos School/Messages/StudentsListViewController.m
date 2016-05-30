@@ -12,11 +12,18 @@
 #import "StudentsListTableViewCell.h"
 #import "UserObject.h"
 #import "ClassObject.h"
+#import "RequestToServer.h"
+#import "ShareData.h"
+
+#import "SVProgressHUD.h"
 
 @interface StudentsListViewController ()
 {
     UIBarButtonItem *btnCheck;
     NSMutableArray *searchResults;
+    
+    RequestToServer *requestToServer;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -40,6 +47,15 @@
     
     self.navigationItem.leftBarButtonItems = @[btnClose];
     
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadStudentData) forControlEvents:UIControlEventValueChanged];
+    [studentsTableView addSubview:refreshControl];
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
+    
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
     }
@@ -53,94 +69,13 @@
         studentsArray = [[NSMutableArray alloc] init];
         
         //load students list
+        [self loadData];
         
     } else {
         [self activateButtons:YES];
     }
     
-    //for test
-#if 1
-    UserObject *userObject = [[UserObject alloc] init];
-    
-    userObject.userID = @"1";
-    userObject.username = @"Nguyen Tien Nam";
-    userObject.displayName = @"Nguyen Nam";
-    userObject.nickName = @"Yukan";
-    userObject.avatarPath = @"";
-    userObject.phoneNumber = @"0938912885";
-    userObject.userRole = UserRole_Student;
-    userObject.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject.shoolID = @"2";
-    userObject.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject = [[ClassObject alloc] init];
-    classObject.classID = @"1";
-    classObject.className = @"Dien tu vien thong";
-    classObject.pupilArray = nil;
-    
-    userObject.classObj = classObject;
-    userObject.classArray = nil;
-    
-    userObject.selected = NO;
-    [studentsArray addObject:userObject];
-    
-    //student 2
-    UserObject *userObject2 = [[UserObject alloc] init];
-    
-    userObject2.userID = @"2";
-    userObject2.username = @"Nguyen Tien Nam";
-    userObject2.displayName = @"Nguyen Nam";
-    userObject2.nickName = @"Yukan";
-    userObject2.avatarPath = @"";
-    userObject2.phoneNumber = @"0938912885";
-    userObject2.userRole = UserRole_Student;
-    userObject2.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject2.shoolID = @"2";
-    userObject2.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject2 = [[ClassObject alloc] init];
-    classObject2.classID = @"1";
-    classObject2.className = @"Dien tu vien thong";
-    classObject2.pupilArray = nil;
-    
-    userObject2.classObj = classObject2;
-    userObject2.classArray = nil;
-    
-    userObject2.selected = NO;
-    [studentsArray addObject:userObject2];
-    
-    //student 3
-    UserObject *userObject3 = [[UserObject alloc] init];
-    
-    userObject3.userID = @"3";
-    userObject3.username = @"Nguyen Tien Nam";
-    userObject3.displayName = @"Nguyen Nam";
-    userObject3.nickName = @"Yukan";
-    userObject3.avatarPath = @"";
-    userObject3.phoneNumber = @"0938912885";
-    userObject3.userRole = UserRole_Student;
-    userObject3.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject3.shoolID = @"2";
-    userObject3.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject3 = [[ClassObject alloc] init];
-    classObject3.classID = @"1";
-    classObject3.className = @"Dien tu vien thong";
-    classObject3.pupilArray = nil;
-    
-    userObject3.classObj = classObject3;
-    userObject3.classArray = nil;
-    
-    userObject3.selected = NO;
-    [studentsArray addObject:userObject3];
-    
-    [self activateButtons:YES];
-    
     [self checkSelectedAll];
-#endif
     
     [self updateHeaderInfo];
 }
@@ -159,6 +94,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)reloadStudentData {
+    [self loadData];
+}
+
+- (void)loadData {
+    [SVProgressHUD show];
+    
+    [requestToServer getStudentList:[[ShareData sharedShareData] userObj].classObj.classID];
+}
 
 - (void)checkSelectedAll {
     BOOL isEqual = NO;
@@ -273,7 +218,7 @@
         userObject = [studentsArray objectAtIndex:indexPath.row];
     }
     
-    cell.lbFullname.text = userObject.username;
+    cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
     
     //cancel loading previous image for cell
@@ -388,5 +333,115 @@
 
 - (void)updateHeaderInfo {
     lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
+}
+
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    [studentsArray removeAllObjects];
+    
+    NSArray *students = [jsonObj objectForKey:@"list"];    
+    
+    if (students != (id)[NSNull null]) {
+        
+        for (NSDictionary *studentDict in students) {
+            UserObject *userObject = [[UserObject alloc] init];
+            
+            if ([studentDict valueForKey:@"id"] != (id)[NSNull null]) {
+                userObject.userID = [NSString stringWithFormat:@"%@", [studentDict valueForKey:@"id"]];
+            }
+            
+            if ([studentDict valueForKey:@"sso_id"] != (id)[NSNull null]) {
+                userObject.username = [studentDict valueForKey:@"sso_id"];
+            }
+            
+            if ([studentDict valueForKey:@"fullname"] != (id)[NSNull null]) {
+                userObject.displayName = [studentDict valueForKey:@"fullname"];
+            }
+            
+            if ([studentDict valueForKey:@"nickname"] != (id)[NSNull null]) {
+                userObject.nickName = [studentDict valueForKey:@"nickname"];
+            }
+            
+            if ([studentDict valueForKey:@"photo"] != (id)[NSNull null]) {
+                userObject.avatarPath = [studentDict valueForKey:@"photo"];
+            }
+            
+            if ([studentDict valueForKey:@"phone"] != (id)[NSNull null]) {
+                userObject.phoneNumber = [studentDict valueForKey:@"phone"];
+            }
+            
+            if ([studentDict valueForKey:@"roles"] != (id)[NSNull null]) {
+                NSString *role = [jsonObj objectForKey:@"roles"];
+                if (role != (id)[NSNull null] && role && role.length > 0) {
+                    
+                    if ([role isEqualToString:USER_ROLE_STUDENT]) {
+                        userObject.userRole = UserRole_Student;
+                        userObject.permission = Permission_Normal | Permission_SendMessage;
+                        
+                    } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
+                        userObject.userRole = UserRole_Student;
+                        userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
+                        
+                    } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
+                        userObject.userRole = UserRole_Teacher;
+                        userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
+                        
+                    }
+                    
+                }
+            }
+            
+            if ([studentDict valueForKey:@"school_id"] != (id)[NSNull null]) {
+                userObject.shoolID = [jsonObj objectForKey:@"school_id"];
+            }
+            
+            if ([studentDict valueForKey:@"schoolName"] != (id)[NSNull null]) {
+                userObject.schoolName = [jsonObj objectForKey:@"schoolName"];
+            }
+
+            [studentsArray addObject:userObject];
+        }
+    }
+    
+    if ([studentsArray count] > 0) {
+        [self activateButtons:YES];
+        
+    } else {
+        [self activateButtons:NO];
+    }
+    
+    [self checkSelectedAll];
+    [self updateHeaderInfo];
+    
+    [studentsTableView reloadData];
+}
+
+- (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
 }
 @end

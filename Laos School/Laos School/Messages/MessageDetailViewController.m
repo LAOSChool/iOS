@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:_messageObject.fromUsername];
     
     /*
      IBOutlet UIImageView *imgAvatar;
@@ -53,8 +52,17 @@
         lbDateTime.text = _messageObject.dateTime;
     }
     
-    if (_messageObject.fromUsername != (id)[NSNull null]) {
-        lbFromUsername.text = _messageObject.fromUsername;
+    if (_isIncomeMessage == YES) {
+        if (_messageObject.fromUsername != (id)[NSNull null]) {
+            lbFromUsername.text = _messageObject.fromUsername;
+            [self setTitle:_messageObject.fromUsername];
+        }
+    } else {
+        
+        if (_messageObject.toUsername != (id)[NSNull null]) {
+            lbFromUsername.text = _messageObject.toUsername;
+            [self setTitle:_messageObject.toUsername];
+        }
     }
     
     if (requestToServer == nil) {

@@ -401,9 +401,11 @@
     
     if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"ComposeViewController" bundle:nil];
+        composeViewController.isTeacherForm = NO;
         
     } else {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+        composeViewController.isTeacherForm = YES;
     }
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
@@ -599,6 +601,12 @@
     
     MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
     messageDetailViewController.messageObject = messageObj;
+    if (segmentedControl.selectedSegmentIndex == 2) {
+        messageDetailViewController.isIncomeMessage = NO;
+        
+    } else {
+        messageDetailViewController.isIncomeMessage = YES;
+    }
     
     [self.navigationController pushViewController:messageDetailViewController animated:YES];
     

@@ -22,4 +22,5 @@
 }
 
 @property (nonatomic, strong) MessageObject *messageObject;
+@property (nonatomic, assign) BOOL isIncomeMessage;
 @end

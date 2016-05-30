@@ -18,8 +18,14 @@
     IBOutlet UITextView *txtContent;
     IBOutlet UITextField *txtSubject;
     IBOutlet UIButton *btnImportanceFlag;
+    
+    IBOutlet UILabel *lbSMS;
+    IBOutlet UIButton *btnCheck;
+    
 }
 
 @property (nonatomic, strong) NSMutableArray *receiverArray;
 @property (nonatomic, strong) MessageObject *messageObject;
+
+@property (nonatomic, assign) BOOL isTeacherForm;
 @end

@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="lbTeacherReceiverList" destination="ROp-CZ-gVg" id="nM7-6g-yzm"/>
                 <outlet property="lbTo" destination="jEb-a9-ih9" id="0uL-Sz-ZNV"/>
-                <outlet property="searchDisplayController" destination="aJ5-yr-fH4" id="lWC-N8-HBs"/>
                 <outlet property="txtContent" destination="hSf-LR-nfr" id="DuQ-jB-QfM"/>
                 <outlet property="txtSubject" destination="CrK-Ck-Dd6" id="K4c-El-whv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -47,7 +46,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jEb-a9-ih9">
                     <rect key="frame" x="8" y="12" width="35" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -64,16 +63,8 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="25G-vt-O3W" appends="YES" id="Vr2-AG-Bhc"/>
             </connections>
-            <point key="canvasLocation" x="108" y="10"/>
+            <point key="canvasLocation" x="161" y="2"/>
         </view>
-        <searchDisplayController id="aJ5-yr-fH4">
-            <connections>
-                <outlet property="delegate" destination="-1" id="sma-XQ-E1R"/>
-                <outlet property="searchContentsController" destination="-1" id="o4Z-J3-INu"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="VaL-EO-aac"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="P0m-y5-V9C"/>
-            </connections>
-        </searchDisplayController>
         <swipeGestureRecognizer direction="down" id="25G-vt-O3W">
             <connections>
                 <action selector="swipeGestureHandle:" destination="-1" id="27Y-dZ-RVy"/>
