@@ -100,7 +100,7 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-#pragma mark announcement
+#pragma mark attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_ATTENDANCE_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_user_id=%@&filter_class_id=%@", requestString, userID, classID];
@@ -139,6 +139,25 @@ static RequestToServer* sharedRequestToServer = nil;
     
     [request setHTTPBody:[myString
                           dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)getStudentListWithAndAttendanceInfo:(NSString *)classID inDate:(NSString*)date {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_TEACHER_CHECK_ATTENDANCE];
+
+    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@&filter_date=%@", requestString, classID, date];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     

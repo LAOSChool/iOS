@@ -53,9 +53,9 @@
     
     self.navigationItem.rightBarButtonItems = @[btnSend];
     
-    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd EEEE"];
+    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:ATTENDANCE_DATE_FORMATE];
     
-    lbToDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd EEEE"];
+    lbToDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:ATTENDANCE_DATE_FORMATE];
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -161,15 +161,39 @@
         dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
     }
     
-    dateTimePicker.view.alpha = 0;
-    dateTimePicker.delegate = (id)self;
-    
     if (selectedItem == SELECT_FROM_DATE) {
-        dateTimePicker.dateTime = lbDate.text;
+        //dateTimePicker.dateTime = lbDate.text;
+        
+        if (lbDate.text.length > 0) {
+            dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbDate.text];
+            
+        } else {
+            dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:ATTENDANCE_DATE_FORMATE];
+        }
+        
+        dateTimePicker.minimumDate = [NSDate date];
+        dateTimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextMonthWithFormat:ATTENDANCE_DATE_FORMATE];
         
     } else {
-        dateTimePicker.dateTime = lbToDate.text;
+        //dateTimePicker.dateTime = lbToDate.text;
+        
+        if (lbToDate.text.length > 0) {
+            dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbToDate.text];
+            
+        } else {
+            dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:ATTENDANCE_DATE_FORMATE];
+        }
+        
+        if (lbDate.text.length > 0) {
+            dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbDate.text];
+            
+        } else {
+            dateTimePicker.minimumDate = [NSDate date];
+        }
+        dateTimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextMonthWithFormat:ATTENDANCE_DATE_FORMATE];
     }
+    dateTimePicker.view.alpha = 0;
+    dateTimePicker.delegate = (id)self;
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;

@@ -8,8 +8,7 @@
 
 #import "TimerViewController.h"
 #import "Common.h"
-
-#define DATE_FORMATE @"yyyy-MM-dd EEEE"
+#import "CommonDefine.h"
 
 @interface TimerViewController ()
 
@@ -26,15 +25,9 @@
     [datetimePicker setLocale:currentLocale];
     [datetimePicker setTimeZone:[NSTimeZone localTimeZone]];
     
-    if (_dateTime && _dateTime.length > 0) {
-        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:_dateTime];
-        
-    } else {
-        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:DATE_FORMATE];
-    }
-    
-    datetimePicker.minimumDate = [NSDate date];
-    datetimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextMonthWithFormat:DATE_FORMATE];
+    datetimePicker.date        = _date;
+    datetimePicker.minimumDate = _minimumDate;
+    datetimePicker.maximumDate = _maximumDate;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,15 +45,19 @@
 }
 */
 
-- (void)setDateTime:(NSString *)dateTime {
-    _dateTime = dateTime;
-    
-    if (_dateTime && _dateTime.length > 0) {
-        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:_dateTime];
-        
-    } else {
-        datetimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:DATE_FORMATE];
-    }
+- (void)setDate:(NSDate *)date {
+    _date = date;
+    datetimePicker.date = date;
+}
+
+- (void)setMinimumDate:(NSDate *)minimumDate {
+    _minimumDate = minimumDate;
+    datetimePicker.minimumDate = minimumDate;
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate {
+    _maximumDate = maximumDate;
+    datetimePicker.maximumDate = maximumDate;
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
@@ -72,10 +69,6 @@
 }
 
 - (IBAction)btnDoneClick:(id)sender {
-//    NSString *remindTime = [[Common sharedCommon] dateStringFromDate:datetimePicker.date withFormat:@"HH:mm"];
-//    [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
@@ -83,7 +76,7 @@
         [self.view removeFromSuperview];
     }];
     
-    [self.delegate btnDoneClick:self withValueReturned:[[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:datetimePicker.date withFormat:DATE_FORMATE]];
+    [self.delegate btnDoneClick:self withValueReturned:[[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:datetimePicker.date withFormat:ATTENDANCE_DATE_FORMATE]];
 }
 
 @end

@@ -22,14 +22,18 @@
 - (NSString *)dateStringFromString:(NSString *)dateStr withFormat:(NSString *)formatString;
 - (NSDate *)currentDateWithFormat:(NSString *)formatString;
 - (NSDate *)nextMonthWithFormat:(NSString *)formatString;
+- (NSDate *)previousWeekWithFormat:(NSString *)formatString;
+
 - (NSString *)timeStringFromDate:(NSDate *)date;
 - (NSString *)stringDateFromString:(NSString *)dateStr withFormat:(NSString *)formatString;
 - (NSDate *)dateFromString:(NSString *)dateStr;
+
 - (NSTimeInterval)getCurrentDatetimeInMinisec;
 - (NSTimeInterval)getBeginOfDayInMinisec;
 - (NSTimeInterval)getCurrentDatetimeInSec;
 - (NSTimeInterval)getBeginOfDayInSec;
 - (NSString *)getDayOfWeek:(NSDate *)date;
+
 - (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek;
 - (NSString *)convertMonthFromInt:(NSInteger)month;
 - (NSInteger)convertWeekdayToIndexFromDate:(NSDate *)date;

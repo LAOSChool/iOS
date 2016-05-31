@@ -35,7 +35,7 @@
                             <rect key="frame" x="289" y="7" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="ic_arrow_down.png"/>
+                            <state key="normal" image="ic_calendar_gray.png"/>
                             <connections>
                                 <action selector="btnChooseDateClick:" destination="-1" eventType="touchUpInside" id="gcs-ZC-wMT"/>
                             </connections>
@@ -69,7 +69,7 @@
                             <rect key="frame" x="289" y="7" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="ic_arrow_down.png"/>
+                            <state key="normal" image="ic_calendar_gray.png"/>
                             <connections>
                                 <action selector="btnChooseToDateClick:" destination="-1" eventType="touchUpInside" id="ZTg-Vq-Eeh"/>
                             </connections>
@@ -135,6 +135,6 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="ic_arrow_down.png" width="30" height="30"/>
+        <image name="ic_calendar_gray.png" width="30" height="30"/>
     </resources>
 </document>

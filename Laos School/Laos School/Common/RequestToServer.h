@@ -40,6 +40,8 @@
 
 #define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
 #define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
+//192.168.0.202:9443/laoschoolws/api/attendances/rollup?filter_class_id=1&filter_date=2016-05-20
+#define API_NAME_TEACHER_CHECK_ATTENDANCE @"/api/attendances/rollup"
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
 #define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
@@ -85,6 +87,7 @@
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
 - (void)createAbsenceRequest:(NSDictionary *)requestDict fromDate:(NSString*)fromDate toDate:(NSString *)toDate;
+- (void)getStudentListWithAndAttendanceInfo:(NSString *)classID inDate:(NSString*)date;
 
 //announcements
 - (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;

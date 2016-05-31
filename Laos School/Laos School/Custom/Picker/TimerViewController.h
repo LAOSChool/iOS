@@ -15,6 +15,12 @@
 
 @end
 
+typedef enum {
+    TimerType_CreateAttendance = 0,
+    TimerType_CheckAttendance,
+    TimerType_Max,
+} TIMER_TYPE;
+
 @interface TimerViewController : UIViewController
 {
     IBOutlet UIView *viewContainer;
@@ -24,4 +30,9 @@
 
 @property(nonatomic, readwrite) id <TimerPickerViewDelegate> delegate;
 @property(nonatomic, strong) NSString *dateTime;
+
+@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSDate *minimumDate;
+@property (nonatomic, strong) NSDate *maximumDate;
+
 @end

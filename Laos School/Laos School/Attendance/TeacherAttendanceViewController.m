@@ -13,23 +13,36 @@
 #import "LevelPickerViewController.h"
 #import "TimerViewController.h"
 #import "ReasonViewController.h"
+#import "CheckAttendanceObject.h"
 #import "AppDelegate.h"
 
+#import "DateTimeHelper.h"
 #import "CommonDefine.h"
 #import "UserObject.h"
+#import "ShareData.h"
+#import "RequestToServer.h"
 
 #import "MGSwipeButton.h"
+#import "SVProgressHUD.h"
+
+#define API_ATTENDANCE_DATE_FORMATE @"yyyy-MM-dd"
 
 @interface TeacherAttendanceViewController ()
 {
     BOOL isShowingViewInfo;
-    NSMutableArray *studentsArray;
+    NSMutableArray *checkAttendanceArray;
     NSMutableArray *searchResults;
-    NSMutableArray *checkedArray;
+    
+    NSMutableArray *studentsArray;
+    NSMutableArray *sessionsArray;
+    NSMutableArray *rollupArray;
     
     LevelPickerViewController *dataPicker;
     TimerViewController *dateTimePicker;
     ReasonViewController *reasonView;
+    
+    RequestToServer *requestToServer;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -48,108 +61,40 @@
     
     isShowingViewInfo = YES;
     
+    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:ATTENDANCE_DATE_FORMATE];
+    
     if (studentsArray == nil) {
         studentsArray = [[NSMutableArray alloc] init];
     }
     
-    if (checkedArray == nil) {
-        checkedArray = [[NSMutableArray alloc] init];
+    if (sessionsArray == nil) {
+        sessionsArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (rollupArray == nil) {
+        rollupArray = [[NSMutableArray alloc] init];
     }
     
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
     }
     
-    //for test
-#if 1
-    UserObject *userObject = [[UserObject alloc] init];
-    
-    userObject.userID = @"1";
-    userObject.username = @"Nguyen Tien Nam";
-    userObject.displayName = @"Nguyen Nam";
-    userObject.nickName = @"Yukan";
-    userObject.avatarPath = @"";
-    userObject.phoneNumber = @"0938912885";
-    userObject.userRole = UserRole_Student;
-    userObject.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject.shoolID = @"2";
-    userObject.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject = [[ClassObject alloc] init];
-    classObject.classID = @"1";
-    classObject.className = @"Dien tu vien thong";
-    classObject.pupilArray = nil;
-    
-    userObject.classObj = classObject;
-    userObject.classArray = nil;
-    
-    userObject.selected = NO;
-    [studentsArray addObject:userObject];
-    
-    //student 2
-    UserObject *userObject2 = [[UserObject alloc] init];
-    
-    userObject2.userID = @"2";
-    userObject2.username = @"Nguyen Tien Nam";
-    userObject2.displayName = @"Nguyen Nam";
-    userObject2.nickName = @"Yukan";
-    userObject2.avatarPath = @"";
-    userObject2.phoneNumber = @"0938912885";
-    userObject2.userRole = UserRole_Student;
-    userObject2.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject2.shoolID = @"2";
-    userObject2.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject2 = [[ClassObject alloc] init];
-    classObject2.classID = @"1";
-    classObject2.className = @"Dien tu vien thong";
-    classObject2.pupilArray = nil;
-    
-    userObject2.classObj = classObject2;
-    userObject2.classArray = nil;
-    
-    userObject2.selected = NO;
-    [studentsArray addObject:userObject2];
-    
-    //student 3
-    UserObject *userObject3 = [[UserObject alloc] init];
-    
-    userObject3.userID = @"3";
-    userObject3.username = @"Nguyen Tien Nam";
-    userObject3.displayName = @"Nguyen Nam";
-    userObject3.nickName = @"Yukan";
-    userObject3.avatarPath = @"";
-    userObject3.phoneNumber = @"0938912885";
-    userObject3.userRole = UserRole_Student;
-    userObject3.permission = Permission_Normal | Permission_SendMessage;
-    
-    userObject3.shoolID = @"2";
-    userObject3.schoolName = @"Bach khoa Ha Noi";
-    
-    ClassObject *classObject3 = [[ClassObject alloc] init];
-    classObject3.classID = @"1";
-    classObject3.className = @"Dien tu vien thong";
-    classObject3.pupilArray = nil;
-    
-    userObject3.classObj = classObject3;
-    userObject3.classArray = nil;
-    
-    userObject3.selected = NO;
-    [studentsArray addObject:userObject3];
-    
-    
-    [checkedArray addObjectsFromArray:studentsArray];
-    
-    [searchResults removeAllObjects]; // First clear the filtered array.
-    
-    if (searchBar.text.length == 0) {
-        self->searchResults = [studentsArray mutableCopy];
-        
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
     }
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadStudentsData) forControlEvents:UIControlEventValueChanged];
+    [studentTableView addSubview:refreshControl];
+    
+    [viewTerm setBackgroundColor:GREEN_COLOR];
+    [viewInfo setBackgroundColor:[UIColor whiteColor]];
+    [viewDate setBackgroundColor:GREEN_COLOR];
+    [viewSession setBackgroundColor:GREEN_COLOR];
+    
+    [self loadData];
 
-#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,6 +111,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)reloadStudentsData {
+    [self loadData];
+}
+
+- (void)loadData {
+    [SVProgressHUD show];
+
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+    
+    NSString *dateStr = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:API_ATTENDANCE_DATE_FORMATE];
+    
+    [requestToServer getStudentListWithAndAttendanceInfo:classObj.classID inDate:dateStr];
+}
 
 - (IBAction)actionButtonClick:(id)sender {
     [self dismissPicker];
@@ -243,23 +203,6 @@
     
     //load the image
     cell.imgAvatar.imageURL = [NSURL URLWithString:userObject.avatarPath];
-    
-    //find this user in selected array
-    BOOL found = NO;
-    
-    for (UserObject *selectedUser in checkedArray) {
-        if ([selectedUser.userID isEqualToString:userObject.userID]) {
-            found = YES;
-            break;
-        }
-    }
-    
-    if (found) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
     
     return cell;
 }
@@ -364,25 +307,25 @@
             expansionSettings.fillOnTrigger = NO;
             expansionSettings.threshold = 1.1;
             
-            MGSwipeButton *btnInform = nil;
+       /*     MGSwipeButton *btnInform = nil;
             
             btnInform = [MGSwipeButton buttonWithTitle:LocalizedString(@"Inform") icon:[UIImage imageNamed:@"ic_alert_white"] backgroundColor:ALERT_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                 return NO;
-            }];
+            }];*/
             
             MGSwipeButton *btnOff = nil;
             
-            btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Absent") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
+            btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Off") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                 return NO;
             }];
             
-            MGSwipeButton *btnLate = nil;
+      /*      MGSwipeButton *btnLate = nil;
             
             btnLate = [MGSwipeButton buttonWithTitle:LocalizedString(@"Late") icon:[UIImage imageNamed:@"ic_late"] backgroundColor:LATE_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                 return NO;
-            }];
+            }];*/
             
-            return @[btnLate, btnOff, btnInform];
+            return @[btnOff];
         }
     
     return nil;
@@ -412,13 +355,13 @@
 
 
 #pragma mark show pick
-- (IBAction)btnChooseClassClick:(id)sender {
-    [self showDataPicker:Picker_Classes];
-}
-
-- (IBAction)btnChooseSubjectClick:(id)sender {
-    [self showDataPicker:Picker_Subject];
-}
+//- (IBAction)btnChooseClassClick:(id)sender {
+//    [self showDataPicker:Picker_Classes];
+//}
+//
+//- (IBAction)btnChooseSubjectClick:(id)sender {
+//    [self showDataPicker:Picker_Subject];
+//}
 
 
 - (IBAction)btnChooseDateClick:(id)sender {
@@ -455,7 +398,19 @@
 
 - (void)showDateTimePicker {
     dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
+    
+    if (lbDate.text.length > 0) {
+        dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbDate.text];
+        
+    } else {
+        dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:ATTENDANCE_DATE_FORMATE];
+    }
+    
+    dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] previousWeekWithFormat:ATTENDANCE_DATE_FORMATE];
+    dateTimePicker.maximumDate = dateTimePicker.date;
+    
     dateTimePicker.view.alpha = 0;
+    dateTimePicker.delegate = (id)self;
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;
@@ -509,4 +464,53 @@
     }];
 
 }
+
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [studentsArray removeAllObjects];
+    [checkAttendanceArray removeAllObjects];
+    [sessionsArray removeAllObjects];
+    [rollupArray removeAllObjects];
+    
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    
+    NSDictionary *messageObject = [jsonObj objectForKey:@"messageObject"];
+    
+    if (messageObject != (id)[NSNull null]) {
+        NSArray *students = [jsonObj objectForKey:@"students"];
+        NSArray *timetables = [jsonObj objectForKey:@"timetables"];
+        NSArray *attendances = [jsonObj objectForKey:@"attendances"];
+        
+    }
+    
+}
+
+- (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
+
 @end

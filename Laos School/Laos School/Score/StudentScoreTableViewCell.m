@@ -10,7 +10,7 @@
 #import "ScoreCell.h"
 #import "ScoreObject.h"
 
-#define CELL_OFFSET 5
+#define CELL_OFFSET 4
 #define CELL_SIZE 40
 
 @implementation StudentScoreTableViewCell
@@ -30,6 +30,12 @@
     NSInteger count = 0;
     NSInteger row = 0;
     NSInteger col = 0;
+    
+    //remove all old subviews
+    for (UIView *view in viewScorePanel.subviews) {
+        [view removeFromSuperview];
+    }
+    
     for (ScoreObject *scoreObj in scoresArray) {
         count ++;
         CGRect rect;
@@ -41,6 +47,8 @@
         
         col ++;
         
+        NSInteger test = ((CELL_SIZE + CELL_OFFSET) * (col + 1));
+        test = viewScorePanel.frame.size.width;
         if (((CELL_SIZE + CELL_OFFSET) * (col + 1)) > viewScorePanel.frame.size.width) {
             col = 0;
             row ++;

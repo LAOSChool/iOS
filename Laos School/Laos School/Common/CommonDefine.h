@@ -30,7 +30,7 @@
 #define NORMAL_IMPORTANCE_COLOR [UIColor lightGrayColor]
 #define HIGH_IMPORTANCE_COLOR GREEN_COLOR
 
-#define ALERT_COLOR [UIColor colorWithRed:169/255.f green:31/255.f blue:24/255.f alpha:1]
+#define ALERT_COLOR BLUE_COLOR
 #define OFF_COLOR [UIColor lightGrayColor]
 #define LATE_COLOR [UIColor colorWithRed:255/255.f green:172/255.f blue:41/255.f alpha:1]
 
@@ -41,6 +41,8 @@
 //user default keys
 #define KEY_AUTH_KEY @"authenkey"
 #define KEY_USERNAME @"usernamekey"
+
+#define ATTENDANCE_DATE_FORMATE @"yyyy-MM-dd EEEE"
 
 @interface CommonDefine : NSObject
 

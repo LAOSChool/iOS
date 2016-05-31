@@ -338,6 +338,13 @@
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
+		559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B01CFD378F001C39E9 /* ic_calendar_gray.png */; };
+		559BB1B41CFD378F001C39E9 /* ic_calendar_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B11CFD378F001C39E9 /* ic_calendar_gray@2x.png */; };
+		559BB1B51CFD378F001C39E9 /* ic_calendar_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B21CFD378F001C39E9 /* ic_calendar_gray@3x.png */; };
+		559BB1B91CFD43C2001C39E9 /* ic_calendar_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B61CFD43C2001C39E9 /* ic_calendar_white.png */; };
+		559BB1BA1CFD43C2001C39E9 /* ic_calendar_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B71CFD43C2001C39E9 /* ic_calendar_white@2x.png */; };
+		559BB1BB1CFD43C2001C39E9 /* ic_calendar_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B81CFD43C2001C39E9 /* ic_calendar_white@3x.png */; };
+		559BB1BE1CFD78AE001C39E9 /* CheckAttendanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BB1BC1CFD78AE001C39E9 /* CheckAttendanceObject.m */; };
 		55A454E51CE1D3820035FC50 /* AttendanceCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A454E41CE1D3820035FC50 /* AttendanceCellData.m */; };
 		55A579571CEC62F2000597D2 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A579541CEC62F2000597D2 /* MHTabBarController.m */; };
 		55A579581CEC62F2000597D2 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A579551CEC62F2000597D2 /* MHTabBarIndicator.png */; };
@@ -977,6 +984,14 @@
 		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		559BB1B01CFD378F001C39E9 /* ic_calendar_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_calendar_gray.png; sourceTree = "<group>"; };
+		559BB1B11CFD378F001C39E9 /* ic_calendar_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_gray@2x.png"; sourceTree = "<group>"; };
+		559BB1B21CFD378F001C39E9 /* ic_calendar_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_gray@3x.png"; sourceTree = "<group>"; };
+		559BB1B61CFD43C2001C39E9 /* ic_calendar_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_calendar_white.png; sourceTree = "<group>"; };
+		559BB1B71CFD43C2001C39E9 /* ic_calendar_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_white@2x.png"; sourceTree = "<group>"; };
+		559BB1B81CFD43C2001C39E9 /* ic_calendar_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_white@3x.png"; sourceTree = "<group>"; };
+		559BB1BC1CFD78AE001C39E9 /* CheckAttendanceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckAttendanceObject.m; sourceTree = "<group>"; };
+		559BB1BD1CFD78AE001C39E9 /* CheckAttendanceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckAttendanceObject.h; sourceTree = "<group>"; };
 		55A454E31CE1D3820035FC50 /* AttendanceCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceCellData.h; sourceTree = "<group>"; };
 		55A454E41CE1D3820035FC50 /* AttendanceCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceCellData.m; sourceTree = "<group>"; };
 		55A579531CEC62F2000597D2 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
@@ -1436,6 +1451,12 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				559BB1B61CFD43C2001C39E9 /* ic_calendar_white.png */,
+				559BB1B71CFD43C2001C39E9 /* ic_calendar_white@2x.png */,
+				559BB1B81CFD43C2001C39E9 /* ic_calendar_white@3x.png */,
+				559BB1B01CFD378F001C39E9 /* ic_calendar_gray.png */,
+				559BB1B11CFD378F001C39E9 /* ic_calendar_gray@2x.png */,
+				559BB1B21CFD378F001C39E9 /* ic_calendar_gray@3x.png */,
 				557C75301CFBF65E005C5FAA /* ic_uncheck_gray.png */,
 				557C75311CFBF65E005C5FAA /* ic_uncheck_gray@2x.png */,
 				557C75321CFBF65E005C5FAA /* ic_uncheck_gray@3x.png */,
@@ -2307,6 +2328,8 @@
 		55FC72521C7C620C00B0B8D0 /* Attendance */ = {
 			isa = PBXGroup;
 			children = (
+				559BB1BD1CFD78AE001C39E9 /* CheckAttendanceObject.h */,
+				559BB1BC1CFD78AE001C39E9 /* CheckAttendanceObject.m */,
 				559509221C996B0400D06158 /* ReasonViewController.h */,
 				559509201C996B0400D06158 /* ReasonViewController.m */,
 				559509211C996B0400D06158 /* ReasonViewController.xib */,
@@ -2625,6 +2648,7 @@
 				557D78D61C97FEA5008096A0 /* ic_uncheck.png in Resources */,
 				5538A8F51CBCA56900659C8A /* ic_phone_gray@3x.png in Resources */,
 				5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */,
+				559BB1B51CFD378F001C39E9 /* ic_calendar_gray@3x.png in Resources */,
 				554769BE1C917C9300269EBB /* ic_arrow_up.png in Resources */,
 				55510DE61CD9EA0E00638646 /* ic_right_arrow.png in Resources */,
 				55797CC91C86D08A00A0098D /* ic_more@2x.png in Resources */,
@@ -2668,6 +2692,7 @@
 				5595091B1C99574200D06158 /* ic_off@2x.png in Resources */,
 				55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */,
 				55CF10D81C857E2D00DC1AB9 /* ic_flag_gray@3x.png in Resources */,
+				559BB1BA1CFD43C2001C39E9 /* ic_calendar_white@2x.png in Resources */,
 				558782491C9010A600365369 /* SchoolInfoViewController.xib in Resources */,
 				55B108E91C802CA200EB695C /* ic_alert_white@3x.png in Resources */,
 				554769C81C917FA700269EBB /* btn_165_30@2x.png in Resources */,
@@ -2704,6 +2729,7 @@
 				55797CCD1C86D08A00A0098D /* ic_timetable@2x.png in Resources */,
 				5520944E1C8932CF004670B3 /* ic_class@3x.png in Resources */,
 				5538A8F41CBCA56900659C8A /* ic_phone_gray@2x.png in Resources */,
+				559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */,
 				55B108F31C802CA200EB695C /* ic_speaker@2x.png in Resources */,
 				55797CC61C86D08A00A0098D /* ic_message@2x.png in Resources */,
 				557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */,
@@ -2740,6 +2766,7 @@
 				55B108F91C802F1F00EB695C /* HelpViewController.xib in Resources */,
 				55CF10CA1C8573F000DC1AB9 /* ic_send.png in Resources */,
 				55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */,
+				559BB1B91CFD43C2001C39E9 /* ic_calendar_white.png in Resources */,
 				558D6DD91CA245CF00EE34BD /* ic_score@2x.png in Resources */,
 				55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */,
 				5595090A1C99002A00D06158 /* ic_expand@2x.png in Resources */,
@@ -2752,6 +2779,7 @@
 				55797CBD1C86D08A00A0098D /* ic_announcement@2x.png in Resources */,
 				55FC722E1C7C599D00B0B8D0 /* FontAwesome.ttf in Resources */,
 				55CF10BE1C8543AC00DC1AB9 /* MessageTableViewCell.xib in Resources */,
+				559BB1BB1CFD43C2001C39E9 /* ic_calendar_white@3x.png in Resources */,
 				550A75F51CCE153A0050240B /* LICENSE in Resources */,
 				55797CCA1C86D08A00A0098D /* ic_more@3x.png in Resources */,
 				5520945C1C89852D004670B3 /* ic_school.png in Resources */,
@@ -2767,6 +2795,7 @@
 				55FC72331C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55797CCE1C86D08A00A0098D /* ic_timetable@3x.png in Resources */,
 				5551307C1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib in Resources */,
+				559BB1B41CFD378F001C39E9 /* ic_calendar_gray@2x.png in Resources */,
 				55B108F21C802CA200EB695C /* ic_speaker.png in Resources */,
 				558D6DDE1CA27B0500EE34BD /* ic_add@2x.png in Resources */,
 				554769C71C917FA700269EBB /* btn_165_30.png in Resources */,
@@ -2916,6 +2945,7 @@
 				5538A98F1CBCF3E500659C8A /* JSQMessagesTypingIndicatorFooterView.m in Sources */,
 				5538A96B1CBCF3E500659C8A /* JSQMessagesKeyboardController.m in Sources */,
 				5538A9871CBCF3E500659C8A /* JSQMessagesComposerTextView.m in Sources */,
+				559BB1BE1CFD78AE001C39E9 /* CheckAttendanceObject.m in Sources */,
 				55797CD31C86D7D500A0098D /* UINavigationController+CustomNavigation.m in Sources */,
 				5551307B1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.m in Sources */,
 				55B108F81C802F1F00EB695C /* HelpViewController.m in Sources */,
