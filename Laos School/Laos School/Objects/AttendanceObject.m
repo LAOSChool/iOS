@@ -27,8 +27,9 @@
         self.hasRequest = YES;
         self.reason = @"";
         self.session = @"";
+        self.sessionID = @"";
         self.subject = @"";
-        self.detailSession = [[NSMutableArray alloc] init];;
+        self.detailSession = [[NSMutableArray alloc] init];
     }
     return self;
 }

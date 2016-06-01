@@ -145,6 +145,9 @@
 		5538A9931CBCF3E500659C8A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5538A9621CBCF3E500659C8A /* README.md */; };
 		5538A9991CBCF6C300659C8A /* ConversationModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538A9961CBCF6C300659C8A /* ConversationModelData.m */; };
 		5538A99A1CBCF6C300659C8A /* MessagesConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538A9981CBCF6C300659C8A /* MessagesConversationViewController.m */; };
+		5538B13C1CFEEC40009544D5 /* ic_cancel_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538B1391CFEEC40009544D5 /* ic_cancel_white.png */; };
+		5538B13D1CFEEC40009544D5 /* ic_cancel_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538B13A1CFEEC40009544D5 /* ic_cancel_white@2x.png */; };
+		5538B13E1CFEEC40009544D5 /* ic_cancel_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5538B13B1CFEEC40009544D5 /* ic_cancel_white@3x.png */; };
 		5547698F1C9151EC00269EBB /* LaosSchool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5547698D1C9151EC00269EBB /* LaosSchool.xcdatamodeld */; };
 		554769931C9165DD00269EBB /* CoreDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 554769921C9165DD00269EBB /* CoreDataUtil.m */; };
 		554769B01C916BE600269EBB /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 554769AD1C916BE600269EBB /* Messages+CoreDataProperties.m */; };
@@ -698,6 +701,9 @@
 		5538A9961CBCF6C300659C8A /* ConversationModelData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationModelData.m; sourceTree = "<group>"; };
 		5538A9971CBCF6C300659C8A /* MessagesConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesConversationViewController.h; sourceTree = "<group>"; };
 		5538A9981CBCF6C300659C8A /* MessagesConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesConversationViewController.m; sourceTree = "<group>"; };
+		5538B1391CFEEC40009544D5 /* ic_cancel_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_cancel_white.png; sourceTree = "<group>"; };
+		5538B13A1CFEEC40009544D5 /* ic_cancel_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cancel_white@2x.png"; sourceTree = "<group>"; };
+		5538B13B1CFEEC40009544D5 /* ic_cancel_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cancel_white@3x.png"; sourceTree = "<group>"; };
 		5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool.xcdatamodel; sourceTree = "<group>"; };
 		554769911C9165DD00269EBB /* CoreDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataUtil.h; sourceTree = "<group>"; };
 		554769921C9165DD00269EBB /* CoreDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataUtil.m; sourceTree = "<group>"; };
@@ -1451,6 +1457,9 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				5538B1391CFEEC40009544D5 /* ic_cancel_white.png */,
+				5538B13A1CFEEC40009544D5 /* ic_cancel_white@2x.png */,
+				5538B13B1CFEEC40009544D5 /* ic_cancel_white@3x.png */,
 				559BB1B61CFD43C2001C39E9 /* ic_calendar_white.png */,
 				559BB1B71CFD43C2001C39E9 /* ic_calendar_white@2x.png */,
 				559BB1B81CFD43C2001C39E9 /* ic_calendar_white@3x.png */,
@@ -2621,6 +2630,7 @@
 				5595091C1C99574200D06158 /* ic_off@3x.png in Resources */,
 				555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */,
 				558782331C8FCB3800365369 /* ic_phone_black.png in Resources */,
+				5538B13C1CFEEC40009544D5 /* ic_cancel_white.png in Resources */,
 				555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */,
 				55797C9E1C8695BE00A0098D /* MoreViewController.xib in Resources */,
 				554769C21C917C9300269EBB /* ic_holder@2x.png in Resources */,
@@ -2643,6 +2653,7 @@
 				5552501C1C7EE0680027A4ED /* Readme.txt in Resources */,
 				558782351C8FCB3800365369 /* ic_phone_black@3x.png in Resources */,
 				558FC5EE1CEECBD900CD0389 /* ic_edit_gray@3x.png in Resources */,
+				5538B13D1CFEEC40009544D5 /* ic_cancel_white@2x.png in Resources */,
 				55FC72411C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55797CCB1C86D08A00A0098D /* ic_send@3x.png in Resources */,
 				557D78D61C97FEA5008096A0 /* ic_uncheck.png in Resources */,
@@ -2669,6 +2680,7 @@
 				558FC5E81CEEC83900CD0389 /* ic_school_white@3x.png in Resources */,
 				5520945E1C89852D004670B3 /* ic_school@3x.png in Resources */,
 				55320C9B1CEDA8AB00E45492 /* ic_class_white@3x.png in Resources */,
+				5538B13E1CFEEC40009544D5 /* ic_cancel_white@3x.png in Resources */,
 				5531DBE11CE2D07B00FBD6A4 /* ic_up_arrow.png in Resources */,
 				55797CC71C86D08A00A0098D /* ic_message@3x.png in Resources */,
 				55510DE71CD9EA0E00638646 /* ic_right_arrow@2x.png in Resources */,

@@ -22,12 +22,16 @@
 
 @property (nonatomic, strong) UserObject *userObject;
 @property (nonatomic, assign) BOOL hasRequest;  //fullday
-@property (nonatomic, assign) BOOL state;
+@property (nonatomic, assign) NSInteger state;
 
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *session;
 @property (nonatomic, strong) NSString *subject;
+
+@property (nonatomic, assign) BOOL checkedFlag;
+
+- (NSString *)userNameForSearch;
 
 @end
 

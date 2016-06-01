@@ -373,7 +373,7 @@
             }
             
             if ([studentDict valueForKey:@"roles"] != (id)[NSNull null]) {
-                NSString *role = [jsonObj objectForKey:@"roles"];
+                NSString *role = [studentDict objectForKey:@"roles"];
                 if (role != (id)[NSNull null] && role && role.length > 0) {
                     
                     if ([role isEqualToString:USER_ROLE_STUDENT]) {
@@ -394,11 +394,11 @@
             }
             
             if ([studentDict valueForKey:@"school_id"] != (id)[NSNull null]) {
-                userObject.shoolID = [jsonObj objectForKey:@"school_id"];
+                userObject.shoolID = [studentDict objectForKey:@"school_id"];
             }
             
             if ([studentDict valueForKey:@"schoolName"] != (id)[NSNull null]) {
-                userObject.schoolName = [jsonObj objectForKey:@"schoolName"];
+                userObject.schoolName = [studentDict objectForKey:@"schoolName"];
             }
 
             [studentsArray addObject:userObject];

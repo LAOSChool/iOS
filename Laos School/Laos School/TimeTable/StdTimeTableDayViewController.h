@@ -7,6 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSessionObject.h"
+
+@protocol TimeTableDayViewDelegate <NSObject>
+
+@optional // Delegate protocols
+
+- (void)btnDoneClick:(id)sender withObjectReturned:(TTSessionObject *)returnedObj;
+
+@end
+
+typedef enum {
+    TimeTableFull = 0,
+    TimeTableOneDay,
+    TimeTableMax
+} TIME_TABLE_TYPE;
 
 @interface StdTimeTableDayViewController : UIViewController
 {
@@ -14,5 +29,10 @@
     
 }
 
+@property(nonatomic, readwrite) id <TimeTableDayViewDelegate> delegate;
+
 @property (nonatomic, strong) NSArray *sessionsArray;
+@property (nonatomic, strong) TTSessionObject *selectedSession;
+
+@property (nonatomic, assign) TIME_TABLE_TYPE timeTableType;
 @end

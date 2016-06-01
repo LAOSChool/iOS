@@ -200,6 +200,7 @@
                 StdTimeTableDayViewController *weekDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
                 weekDayViewController.title = key;
                 weekDayViewController.sessionsArray = [sessionsGroupByDay objectForKey:key];
+                weekDayViewController.timeTableType = TimeTableFull;
                 
                 [viewControllers addObject:weekDayViewController];
                 

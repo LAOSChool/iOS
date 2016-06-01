@@ -31,6 +31,7 @@ typedef enum {
 @property (nonatomic, assign) BOOL hasRequest;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *session;
+@property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSMutableArray *detailSession;
 

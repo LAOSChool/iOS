@@ -7,6 +7,7 @@
 //
 
 #import "TeacherAttendanceViewController.h"
+#import "StdTimeTableDayViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "StudentsListTableViewCell.h"
@@ -14,11 +15,13 @@
 #import "TimerViewController.h"
 #import "ReasonViewController.h"
 #import "CheckAttendanceObject.h"
+#import "AttendanceObject.h"
 #import "AppDelegate.h"
 
 #import "DateTimeHelper.h"
 #import "CommonDefine.h"
 #import "UserObject.h"
+#import "TTSessionObject.h"
 #import "ShareData.h"
 #import "RequestToServer.h"
 
@@ -36,6 +39,8 @@
     NSMutableArray *studentsArray;
     NSMutableArray *sessionsArray;
     NSMutableArray *rollupArray;
+    
+    TTSessionObject *currentSession;
     
     LevelPickerViewController *dataPicker;
     TimerViewController *dateTimePicker;
@@ -60,8 +65,17 @@
     self.navigationItem.rightBarButtonItems = @[btnAction];
     
     isShowingViewInfo = YES;
+    currentSession = nil;
     
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+    
+    lbClass.text = classObj.className;
     lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:ATTENDANCE_DATE_FORMATE];
+    
+    if (checkAttendanceArray == nil) {
+        checkAttendanceArray = [[NSMutableArray alloc] init];
+    }
     
     if (studentsArray == nil) {
         studentsArray = [[NSMutableArray alloc] init];
@@ -92,6 +106,9 @@
     [viewInfo setBackgroundColor:[UIColor whiteColor]];
     [viewDate setBackgroundColor:GREEN_COLOR];
     [viewSession setBackgroundColor:GREEN_COLOR];
+    
+    lbSession.text = LocalizedString(@"Select a session");
+    [lbSession setTextColor:[UIColor lightGrayColor]];
     
     [self loadData];
 
@@ -191,11 +208,11 @@
     
     cell.delegate = (id)self;
     
-    UserObject *userObject = nil;
-
-    userObject = [searchResults objectAtIndex:indexPath.row];
+    CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
     
-    cell.lbFullname.text = userObject.username;
+    UserObject *userObject = checkAttObj.userObject;
+   
+    cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
     
     //cancel loading previous image for cell
@@ -204,14 +221,49 @@
     //load the image
     cell.imgAvatar.imageURL = [NSURL URLWithString:userObject.avatarPath];
     
+    if (checkAttObj.checkedFlag) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    if (checkAttObj.state == 1) {
+        [cell.contentView setBackgroundColor:[UIColor darkGrayColor]];
+        [cell setBackgroundColor:[UIColor darkGrayColor]];
+        
+        cell.lbFullname.textColor = [UIColor whiteColor];
+        cell.lbAdditionalInfo.textColor = [UIColor whiteColor];
+        
+        if (checkAttObj.hasRequest == 1) {
+            cell.lbNoreason.hidden = YES;
+        } else {
+            cell.lbNoreason.hidden = NO;
+            cell.lbNoreason.text = LocalizedString(@"No reason");
+        }
+        
+    } else {
+        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+        [cell setBackgroundColor:[UIColor whiteColor]];
+        
+        cell.lbFullname.textColor = [UIColor darkGrayColor];
+        cell.lbAdditionalInfo.textColor = [UIColor darkGrayColor];
+    }
+    
     return cell;
 }
+
 
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
+    
+    checkAttObj.checkedFlag = YES;
+    
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -227,14 +279,14 @@
     [self->searchResults removeAllObjects]; // First clear the filtered array.
     
     if (searchText.length == 0) {
-        self->searchResults = [studentsArray mutableCopy];
+        self->searchResults = [checkAttendanceArray mutableCopy];
         
     } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchText];
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"userNameForSearch CONTAINS[cd] %@", searchText];
         //        NSArray *keys = [dataDic allKeys];
         //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
         //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [studentsArray filteredArrayUsingPredicate:filterPredicate];
+        NSArray *filterKeys = [checkAttendanceArray filteredArrayUsingPredicate:filterPredicate];
         self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
     }
     
@@ -297,7 +349,7 @@
 //    return YES;
 //}
 
--(NSArray*) swipeTableCell:(StudentsListTableViewCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
+- (NSArray*)swipeTableCell:(StudentsListTableViewCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
              swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings
 {
 
@@ -313,42 +365,53 @@
                 return NO;
             }];*/
             
-            MGSwipeButton *btnOff = nil;
+            NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
+            CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
             
-            btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Off") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
-                return NO;
-            }];
+            if (checkAttObj.state == 1) {
+                MGSwipeButton *btnCancel = nil;
+                
+                btnCancel = [MGSwipeButton buttonWithTitle:LocalizedString(@"Cancel") icon:[UIImage imageNamed:@"ic_cancel_white.png"] backgroundColor:ALERT_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
+                    return NO;
+                }];
+                
+                return @[btnCancel];
+                
+            } else {
+                MGSwipeButton *btnOff = nil;
+                
+                btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Off") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
+                    return NO;
+                }];
+                
+                return @[btnOff];
+            }
             
       /*      MGSwipeButton *btnLate = nil;
             
             btnLate = [MGSwipeButton buttonWithTitle:LocalizedString(@"Late") icon:[UIImage imageNamed:@"ic_late"] backgroundColor:LATE_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                 return NO;
             }];*/
-            
-            return @[btnOff];
         }
     
     return nil;
 }
 
--(BOOL) swipeTableCell:(StudentsListTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
+- (BOOL)swipeTableCell:(StudentsListTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
     NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
-    UserObject *userObj = [searchResults objectAtIndex:indexPath.row];
+    CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
 
     if (direction == MGSwipeDirectionRightToLeft && index == 0) {
-        NSLog(@"btnInform");
+        if (checkAttObj.state == 1) {   //cancel
+            
+            
+        } else {
+            
+            [self displayReasonView];
+        }
         
-        
-    } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {
-        NSLog(@"btnOff");
-
-    } else if (direction == MGSwipeDirectionRightToLeft && index == 2) {
-        NSLog(@"btnLate");
-
     }
-    
-    [self displayReasonView];
 
     return NO;  //Don't autohide
 }
@@ -370,13 +433,35 @@
 
 
 - (IBAction)btnChooseSectionClick:(id)sender {
-    [self showDataPicker:Picker_Section];
+    
+    StdTimeTableDayViewController *timeDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
+    timeDayViewController.title = LocalizedString(@"Select session");
+    timeDayViewController.sessionsArray = sessionsArray;
+    timeDayViewController.timeTableType = TimeTableOneDay;
+    timeDayViewController.selectedSession = currentSession;
+    
+    timeDayViewController.delegate = (id)self;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:timeDayViewController];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 
 - (IBAction)btnShowListClick:(id)sender {
     isShowingViewInfo = NO;
     [self showHideInfoView:isShowingViewInfo];
+}
+
+- (void)btnDoneClick:(id)sender withObjectReturned:(TTSessionObject *)returnedObj {
+    currentSession = returnedObj;
+    
+    [lbSession setTextColor:[UIColor whiteColor]];
+    
+    lbSession.text = [NSString stringWithFormat:@"%@ - %@", currentSession.session, currentSession.subject];
+    
+    [self prepareDataForChecking];
+    [studentTableView reloadData];
 }
 
 #pragma mark data picker
@@ -478,12 +563,273 @@
     NSDictionary *messageObject = [jsonObj objectForKey:@"messageObject"];
     
     if (messageObject != (id)[NSNull null]) {
-        NSArray *students = [jsonObj objectForKey:@"students"];
-        NSArray *timetables = [jsonObj objectForKey:@"timetables"];
-        NSArray *attendances = [jsonObj objectForKey:@"attendances"];
+        NSArray *students = [messageObject objectForKey:@"students"];
+        NSArray *timetables = [messageObject objectForKey:@"timetables"];
+        NSArray *attendances = [messageObject objectForKey:@"attendances"];
         
+        [self addStudentsListFromDictionaryArray:students];
+        [self addTimeTableFromDictionaryArray:timetables];
+        [self addAttendancesFromDictionaryArray:attendances];
+        
+        [self prepareDataForChecking];
     }
     
+    [studentTableView reloadData];
+    
+}
+
+- (void)addStudentsListFromDictionaryArray:(NSArray *)students {
+    if (students != (id)[NSNull null]) {
+        
+        for (NSDictionary *studentDict in students) {
+            UserObject *userObject = [[UserObject alloc] init];
+            
+            if ([studentDict valueForKey:@"id"] != (id)[NSNull null]) {
+                userObject.userID = [NSString stringWithFormat:@"%@", [studentDict valueForKey:@"id"]];
+            }
+            
+            if ([studentDict valueForKey:@"sso_id"] != (id)[NSNull null]) {
+                userObject.username = [studentDict valueForKey:@"sso_id"];
+            }
+            
+            if ([studentDict valueForKey:@"fullname"] != (id)[NSNull null]) {
+                userObject.displayName = [studentDict valueForKey:@"fullname"];
+            }
+            
+            if ([studentDict valueForKey:@"nickname"] != (id)[NSNull null]) {
+                userObject.nickName = [studentDict valueForKey:@"nickname"];
+            }
+            
+            if ([studentDict valueForKey:@"photo"] != (id)[NSNull null]) {
+                userObject.avatarPath = [studentDict valueForKey:@"photo"];
+            }
+            
+            if ([studentDict valueForKey:@"phone"] != (id)[NSNull null]) {
+                userObject.phoneNumber = [studentDict valueForKey:@"phone"];
+            }
+            
+            if ([studentDict valueForKey:@"roles"] != (id)[NSNull null]) {
+                NSString *role = [studentDict objectForKey:@"roles"];
+                if (role != (id)[NSNull null] && role && role.length > 0) {
+                    
+                    if ([role isEqualToString:USER_ROLE_STUDENT]) {
+                        userObject.userRole = UserRole_Student;
+                        userObject.permission = Permission_Normal | Permission_SendMessage;
+                        
+                    } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
+                        userObject.userRole = UserRole_Student;
+                        userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
+                        
+                    } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
+                        userObject.userRole = UserRole_Teacher;
+                        userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
+                        
+                    }
+                    
+                }
+            }
+            
+            if ([studentDict valueForKey:@"school_id"] != (id)[NSNull null]) {
+                userObject.shoolID = [studentDict objectForKey:@"school_id"];
+            }
+            
+            if ([studentDict valueForKey:@"schoolName"] != (id)[NSNull null]) {
+                userObject.schoolName = [studentDict objectForKey:@"schoolName"];
+            }
+            
+            [studentsArray addObject:userObject];
+        }
+    }
+}
+
+- (void)addTimeTableFromDictionaryArray:(NSArray *)timetables {
+    if (timetables != (id)[NSNull null]) {
+        
+        for (NSDictionary *sessionDict in timetables) {
+            /*
+             {
+             "class_id" = 1;
+             description = "Test timetable";
+             id = 4;
+             "school_id" = 1;
+             session = "Ra choi giua gio@20 phut";
+             "session_id" = 4;
+             subject = English;
+             "subject_id" = 4;
+             "teacher_id" = 9;
+             "teacher_name" = "Teacher 4 - Class 4";
+             term = "Term 1";
+             "term_id" = 1;
+             weekday = "Thu 2";
+             "weekday_id" = 1;
+             }
+             
+             @property (nonatomic, strong) NSString *weekDay;
+             @property (nonatomic, strong) NSString *subject;
+             @property (nonatomic, strong) NSString *session;
+             @property (nonatomic, assign) SESSION_TYPE sessionType;
+             @property (nonatomic, strong) NSString *duration;
+             @property (nonatomic, strong) NSString *teacherName;
+             */
+            TTSessionObject *sessionObj = [[TTSessionObject alloc] init];
+            
+            if ([sessionDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                sessionObj.subject = [sessionDict valueForKey:@"subject"];
+            }
+            
+            if ([sessionDict valueForKey:@"description"] != (id)[NSNull null]) {
+                sessionObj.additionalInfo = [sessionDict valueForKey:@"description"];
+            }
+            
+            if ([sessionDict valueForKey:@"teacher_name"] != (id)[NSNull null]) {
+                sessionObj.teacherName = [sessionDict valueForKey:@"teacher_name"];
+            }
+            
+            if ([sessionDict valueForKey:@"weekday_id"] != (id)[NSNull null]) {
+                sessionObj.weekDayID = [[sessionDict valueForKey:@"weekday_id"] integerValue];
+            }
+            
+            if ([sessionDict valueForKey:@"weekday"] != (id)[NSNull null]) {
+                sessionObj.weekDay = [sessionDict valueForKey:@"weekday"];
+            }
+            
+            if ([sessionDict valueForKey:@"session"] != (id)[NSNull null]) {
+                if ([sessionDict valueForKey:@"session_id"] != (id)[NSNull null]) {
+                    sessionObj.sessionID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"session_id"]];
+                }
+                
+                NSString *val = [sessionDict valueForKey:@"session"];
+                
+                NSArray *splitedArr = [val componentsSeparatedByString:@"@"];
+                
+                if ([splitedArr count] == 1) {
+                    sessionObj.session = [splitedArr objectAtIndex:0];
+                }
+                
+                if ([splitedArr count] == 2) {
+                    sessionObj.duration = [splitedArr objectAtIndex:1];
+                }
+                
+                if ([splitedArr count] == 3) {
+                    if ([[splitedArr objectAtIndex:2] isEqualToString:@"1"]) {
+                        sessionObj.sessionType = SessionType_Morning;
+                        
+                    } else if ([[splitedArr objectAtIndex:2] isEqualToString:@"2"]) {
+                        sessionObj.sessionType = SessionType_Afternoon;
+                        
+                    } else if ([[splitedArr objectAtIndex:2] isEqualToString:@"3"]) {
+                        sessionObj.sessionType = SessionType_Evening;
+                    }
+                }
+                
+                if ([splitedArr count] == 4) {
+                    sessionObj.order = [[splitedArr objectAtIndex:3] integerValue];
+                }
+            }
+            
+            [sessionsArray addObject:sessionObj];
+        }
+    }
+}
+
+- (void)addAttendancesFromDictionaryArray:(NSArray *)attendances {
+    if (attendances != (id)[NSNull null]) {
+        
+        for (NSDictionary *attendanceDict in attendances) {
+            
+            AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
+            
+            if ([attendanceDict valueForKey:@"student_id"] != (id)[NSNull null]) {
+                attendanceObj.userID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"student_id"]];
+            }
+            
+            if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
+                attendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
+            }
+            
+            if ([attendanceDict valueForKey:@"is_requested"] != (id)[NSNull null]) {
+                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"is_requested"] boolValue];
+            }
+            
+            if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
+                attendanceObj.reason = [attendanceDict valueForKey:@"notice"];
+            }
+            
+            if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
+                attendanceObj.session = [attendanceDict valueForKey:@"session"];
+            }
+            
+            if ([attendanceDict valueForKey:@"session_id"] != (id)[NSNull null]) {
+                attendanceObj.sessionID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"session_id"]];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                attendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
+            [rollupArray addObject:attendanceObj];
+        }
+    }
+}
+
+- (void)prepareDataForChecking {
+    [checkAttendanceArray removeAllObjects];
+    [searchResults removeAllObjects];
+    
+    NSInteger countOff = 0;
+    
+    if (currentSession) {
+        for (UserObject *userObj in studentsArray) {
+            CheckAttendanceObject *checkAtt = [[CheckAttendanceObject alloc] init];
+            
+            checkAtt.userObject = userObj;
+            
+            for (AttendanceObject *attObj in rollupArray) {
+
+                if ([attObj.userID isEqualToString:userObj.userID]) {
+                    //if session is # nil, have to check
+                    if (attObj.session.length > 0) {
+                        if ([currentSession.sessionID isEqualToString:attObj.sessionID]) {
+                        
+                            checkAtt.hasRequest = attObj.hasRequest;
+                            checkAtt.state      = 1;
+                            checkAtt.reason     = attObj.reason;
+                            checkAtt.sessionID  = attObj.sessionID;
+                            checkAtt.session    = attObj.session;
+                            checkAtt.subject    = attObj.subject;
+                            
+                            checkAtt.checkedFlag = NO;
+                            
+                            countOff ++;
+                        }
+                    //if no session, it means fullday
+                    } else {
+                        checkAtt.hasRequest = attObj.hasRequest;
+                        checkAtt.state      = 1;
+                        checkAtt.reason     = attObj.reason;
+                        checkAtt.sessionID  = attObj.sessionID;
+                        checkAtt.session    = attObj.session;
+                        checkAtt.subject    = attObj.subject;
+                        
+                        checkAtt.checkedFlag = NO;
+                        
+                        countOff ++;
+                    }
+                    
+                    break;
+                }
+            }
+            
+            [checkAttendanceArray addObject:checkAtt];
+        }
+        
+        [searchResults addObjectsFromArray:checkAttendanceArray];
+        
+        UserObject *userObj = [[ShareData sharedShareData] userObj];
+        ClassObject *classObj = userObj.classObj;
+        
+        lbClass.text = [NSString stringWithFormat:@"%@ - Total: %lu | Off: %ld", classObj.className, (unsigned long)[checkAttendanceArray count], (long)countOff];
+    }
 }
 
 - (void)failToConnectToServer {

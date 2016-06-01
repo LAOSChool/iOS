@@ -10,14 +10,30 @@
 #import "CheckAttendanceObject.h"
 
 /*
-
+ @property (nonatomic, strong) UserObject *userObject;
+ @property (nonatomic, assign) BOOL hasRequest;  //fullday
+ @property (nonatomic, assign) BOOL state;
+ 
+ @property (nonatomic, strong) NSString *reason;
+ @property (nonatomic, strong) NSString *sessionID;
+ @property (nonatomic, strong) NSString *session;
+ @property (nonatomic, strong) NSString *subject;
+ 
+ @property (nonatomic, assign) BOOL checkedFlag;
  */
 @implementation CheckAttendanceObject
 
 - (id)init {
     self = [super init];
     if (self) {
-
+        self.userObject = nil;
+        self.hasRequest = NO;
+        self.state      = 0;
+        self.reason = @"";
+        self.session = @"";
+        self.sessionID = @"";
+        self.subject = @"";
+        self.checkedFlag = NO;
     }
     return self;
 }
@@ -37,5 +53,9 @@
     }
     
     return self;
+}
+
+- (NSString *)userNameForSearch {
+    return self.userObject.username;
 }
 @end

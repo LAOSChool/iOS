@@ -7,8 +7,8 @@
 //
 
 #import "StdTimeTableDayViewController.h"
+#import "UINavigationController+CustomNavigation.h"
 #import "StdSessionTableViewCell.h"
-#import "TTSessionObject.h"
 #import "LocalizeHelper.h"
 #import "CommonDefine.h"
 
@@ -27,6 +27,23 @@
     if (sessionGroupByType ==  nil) {
         sessionGroupByType = [[NSMutableDictionary alloc] init];
     }
+    
+    if (_timeTableType == TimeTableOneDay) {
+        [self.navigationController setNavigationColor];
+        
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+        
+        self.navigationItem.leftBarButtonItems = @[btnCancel];
+        
+        UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:self action:@selector(btnDoneClick)];
+        
+        self.navigationItem.rightBarButtonItems = @[btnDone];
+        
+        [timeTableView setAllowsSelection:YES];
+        
+    } else {
+        [timeTableView setAllowsSelection:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +60,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)cancelButtonClick {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)btnDoneClick {
+    [self.delegate btnDoneClick:self withObjectReturned:_selectedSession];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (NSArray *)sortSessionByOrder:(NSArray *)arr {
     NSSortDescriptor *order = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
@@ -160,6 +187,13 @@
     NSArray *arr = [sessionGroupByType objectForKey:key];
     TTSessionObject *sessionObj = [arr objectAtIndex:indexPath.row];
     
+    if (_selectedSession && [_selectedSession isEqual:sessionObj]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     if (![sessionObj.subject isEqualToString:@""]) {
         //set color
         [cell.lbSession setTextColor:[UIColor darkGrayColor]];
@@ -203,6 +237,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *key = [allKeys objectAtIndex:indexPath.section];
+    NSArray *arr = [sessionGroupByType objectForKey:key];
+    _selectedSession = [arr objectAtIndex:indexPath.row];
+    
+    [tableView reloadData];
     
 }
 @end
