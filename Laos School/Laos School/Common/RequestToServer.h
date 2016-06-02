@@ -10,7 +10,7 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
-//#define PRODUCTION_SERVER @"https://222.255.29.25:8443/laoschoolws"
+
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -40,8 +40,9 @@
 
 #define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
 #define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
-//192.168.0.202:9443/laoschoolws/api/attendances/rollup?filter_class_id=1&filter_date=2016-05-20
-#define API_NAME_TEACHER_CHECK_ATTENDANCE @"/api/attendances/rollup"
+#define API_NAME_TEACHER_CREATE_ATTENDANCE @"/api/attendances/create"
+#define API_NAME_TEACHER_CANCEL_ATTENDANCE @"/api/attendances/delete"
+#define API_NAME_TEACHER_CHECK_ATTENDANCE_LIST @"/api/attendances/rollup"
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
 #define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
@@ -88,6 +89,8 @@
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
 - (void)createAbsenceRequest:(NSDictionary *)requestDict fromDate:(NSString*)fromDate toDate:(NSString *)toDate;
 - (void)getStudentListWithAndAttendanceInfo:(NSString *)classID inDate:(NSString*)date;
+- (void)createAttendanceChecking:(NSDictionary *)attendanceDict;
+- (void)deleteAttendanceItem:(NSString *)attID;
 
 //announcements
 - (void)updateAnnouncementRead:(NSInteger)announcementID withFlag:(BOOL)flag;

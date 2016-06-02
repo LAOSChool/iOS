@@ -466,12 +466,16 @@
             
             AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
             
+            if ([attendanceDict valueForKey:@"id"] != (id)[NSNull null]) {
+                attendanceObj.attendanceID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"id"]];
+            }
+            
             if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
                 attendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
             }
             
-            if ([attendanceDict valueForKey:@"is_requested"] != (id)[NSNull null]) {
-                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"is_requested"] boolValue];
+            if ([attendanceDict valueForKey:@"excused"] != (id)[NSNull null]) {
+                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"excused"] boolValue];
             }
             
             if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
@@ -482,8 +486,16 @@
                 attendanceObj.session = [attendanceDict valueForKey:@"session"];
             }
             
+            if ([attendanceDict valueForKey:@"session_id"] != (id)[NSNull null]) {
+                attendanceObj.sessionID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"session_id"]];
+            }
+            
             if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
                 attendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                attendanceObj.subjectID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"subject_id"]];
             }
             
             //add every time that has the same day to detail session

@@ -25,6 +25,7 @@ typedef enum {
     
 }
 
+@property (nonatomic, strong) NSString *attendanceID;
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, assign) ABSENCE_TYPE absenceType;
@@ -33,6 +34,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *session;
 @property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *subjectID;
 @property (nonatomic, strong) NSMutableArray *detailSession;
 
 @end

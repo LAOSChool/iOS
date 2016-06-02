@@ -133,6 +133,10 @@
                 sessionObj.subject = [sessionDict valueForKey:@"subject"];
             }
             
+            if ([sessionDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                sessionObj.subjectID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"subject_id"]];
+            }
+            
             if ([sessionDict valueForKey:@"description"] != (id)[NSNull null]) {
                 sessionObj.additionalInfo = [sessionDict valueForKey:@"description"];
             }
@@ -150,6 +154,10 @@
             }
             
             if ([sessionDict valueForKey:@"session"] != (id)[NSNull null]) {
+                if ([sessionDict valueForKey:@"session_id"] != (id)[NSNull null]) {
+                    sessionObj.sessionID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"session_id"]];
+                }
+                
                 NSString *val = [sessionDict valueForKey:@"session"];
                 
                 NSArray *splitedArr = [val componentsSeparatedByString:@"@"];

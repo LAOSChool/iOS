@@ -68,6 +68,7 @@
     }
     
     cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
     
     NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
     

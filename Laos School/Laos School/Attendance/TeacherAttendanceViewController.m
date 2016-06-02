@@ -24,6 +24,8 @@
 #import "TTSessionObject.h"
 #import "ShareData.h"
 #import "RequestToServer.h"
+#import "Common.h"
+#import "CommonAlert.h"
 
 #import "MGSwipeButton.h"
 #import "SVProgressHUD.h"
@@ -48,6 +50,8 @@
     
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
+    
+    CheckAttendanceObject *willDeleteCheckAttObj;
 }
 @end
 
@@ -111,6 +115,12 @@
     [lbSession setTextColor:[UIColor lightGrayColor]];
     
     [self loadData];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkAttendanceSuccessful:)
+                                                 name:@"CheckAttendanceSuccessful"
+                                               object:nil];
 
 }
 
@@ -134,14 +144,19 @@
 }
 
 - (void)loadData {
-    [SVProgressHUD show];
-
-    UserObject *userObj = [[ShareData sharedShareData] userObj];
-    ClassObject *classObj = userObj.classObj;
-    
-    NSString *dateStr = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:API_ATTENDANCE_DATE_FORMATE];
-    
-    [requestToServer getStudentListWithAndAttendanceInfo:classObj.classID inDate:dateStr];
+    if ([[Common sharedCommon]networkIsActive]) {
+        [SVProgressHUD show];
+        
+        UserObject *userObj = [[ShareData sharedShareData] userObj];
+        ClassObject *classObj = userObj.classObj;
+        
+        NSString *dateStr = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:API_ATTENDANCE_DATE_FORMATE];
+        
+        [requestToServer getStudentListWithAndAttendanceInfo:classObj.classID inDate:dateStr];
+        
+    } else {
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    }
 }
 
 - (IBAction)actionButtonClick:(id)sender {
@@ -261,7 +276,7 @@
     
     CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
     
-    checkAttObj.checkedFlag = YES;
+    checkAttObj.checkedFlag = !checkAttObj.checkedFlag;
     
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -404,16 +419,20 @@
 
     if (direction == MGSwipeDirectionRightToLeft && index == 0) {
         if (checkAttObj.state == 1) {   //cancel
+            willDeleteCheckAttObj = checkAttObj;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:LocalizedString(@"Cancel this attendance checking result.") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+            alert.tag = 2;
             
+            [alert show];
             
         } else {
             
-            [self displayReasonView];
+            [self displayReasonView:checkAttObj];
         }
         
     }
 
-    return NO;  //Don't autohide
+    return YES;  //autohide
 }
 
 
@@ -466,7 +485,10 @@
 
 #pragma mark data picker
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
-    dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    if (dataPicker == nil) {
+        dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    }
+    
     dataPicker.pickerType = pickerType;
     dataPicker.view.alpha = 0;
     
@@ -482,7 +504,10 @@
 }
 
 - (void)showDateTimePicker {
-    dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
+    
+    if (dateTimePicker == nil) {
+        dateTimePicker = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
+    }
     
     if (lbDate.text.length > 0) {
         dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] dateFromString:lbDate.text];
@@ -530,12 +555,15 @@
     
 }
 
-- (void)displayReasonView {
+- (void)displayReasonView:(CheckAttendanceObject *)checkAttObj {
     if (reasonView == nil) {
         reasonView = [[ReasonViewController alloc] initWithNibName:@"ReasonViewController" bundle:nil];
     }
     
     reasonView.view.alpha = 0;
+    reasonView.checkAttendanceObj = checkAttObj;
+    reasonView.dateTime = lbDate.text;
+    reasonView.currentSession = currentSession;
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -552,29 +580,36 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    [studentsArray removeAllObjects];
-    [checkAttendanceArray removeAllObjects];
-    [sessionsArray removeAllObjects];
-    [rollupArray removeAllObjects];
+    NSString *url = [jsonObj objectForKey:@"url"];
     
-    [SVProgressHUD dismiss];
-    [refreshControl endRefreshing];
-    
-    NSDictionary *messageObject = [jsonObj objectForKey:@"messageObject"];
-    
-    if (messageObject != (id)[NSNull null]) {
-        NSArray *students = [messageObject objectForKey:@"students"];
-        NSArray *timetables = [messageObject objectForKey:@"timetables"];
-        NSArray *attendances = [messageObject objectForKey:@"attendances"];
+    if ([url rangeOfString:API_NAME_TEACHER_CHECK_ATTENDANCE_LIST].location != NSNotFound) {
+        [studentsArray removeAllObjects];
+        [checkAttendanceArray removeAllObjects];
+        [sessionsArray removeAllObjects];
+        [rollupArray removeAllObjects];
         
-        [self addStudentsListFromDictionaryArray:students];
-        [self addTimeTableFromDictionaryArray:timetables];
-        [self addAttendancesFromDictionaryArray:attendances];
+        [SVProgressHUD dismiss];
+        [refreshControl endRefreshing];
         
-        [self prepareDataForChecking];
+        NSDictionary *messageObject = [jsonObj objectForKey:@"messageObject"];
+        
+        if (messageObject != (id)[NSNull null]) {
+            NSArray *students = [messageObject objectForKey:@"students"];
+            NSArray *timetables = [messageObject objectForKey:@"timetables"];
+            NSArray *attendances = [messageObject objectForKey:@"attendances"];
+            
+            [self addStudentsListFromDictionaryArray:students];
+            [self addTimeTableFromDictionaryArray:timetables];
+            [self addAttendancesFromDictionaryArray:attendances];
+            
+            [self prepareDataForChecking];
+        }
+        
+        [studentTableView reloadData];
+        
+    } else if ([url rangeOfString:API_NAME_TEACHER_CANCEL_ATTENDANCE].location != NSNotFound) {
+        
     }
-    
-    [studentTableView reloadData];
     
 }
 
@@ -637,6 +672,24 @@
                 userObject.schoolName = [studentDict objectForKey:@"schoolName"];
             }
             
+            ClassObject *classObject = [[ClassObject alloc] init];
+            NSArray *classesArr = [studentDict objectForKey:@"classes"];
+            if ([classesArr count] > 0) {
+                NSDictionary *classDictionary = [classesArr objectAtIndex:0];
+                if (classDictionary) {
+                    classObject.classID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"id"]];
+                    classObject.className = [classDictionary valueForKey:@"title"];
+                    classObject.teacherID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"head_teacher_id"]];
+                    classObject.teacherName = [classDictionary valueForKey:@"headTeacherName"];
+                    classObject.classLocation = [classDictionary valueForKey:@"location"];
+                    classObject.currentTerm = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"term"]];
+                    classObject.currentYear = [classDictionary valueForKey:@"years"];
+                    classObject.pupilArray = nil;
+                }
+            }
+            
+            userObject.classObj = classObject;
+            
             [studentsArray addObject:userObject];
         }
     }
@@ -646,35 +699,15 @@
     if (timetables != (id)[NSNull null]) {
         
         for (NSDictionary *sessionDict in timetables) {
-            /*
-             {
-             "class_id" = 1;
-             description = "Test timetable";
-             id = 4;
-             "school_id" = 1;
-             session = "Ra choi giua gio@20 phut";
-             "session_id" = 4;
-             subject = English;
-             "subject_id" = 4;
-             "teacher_id" = 9;
-             "teacher_name" = "Teacher 4 - Class 4";
-             term = "Term 1";
-             "term_id" = 1;
-             weekday = "Thu 2";
-             "weekday_id" = 1;
-             }
-             
-             @property (nonatomic, strong) NSString *weekDay;
-             @property (nonatomic, strong) NSString *subject;
-             @property (nonatomic, strong) NSString *session;
-             @property (nonatomic, assign) SESSION_TYPE sessionType;
-             @property (nonatomic, strong) NSString *duration;
-             @property (nonatomic, strong) NSString *teacherName;
-             */
+
             TTSessionObject *sessionObj = [[TTSessionObject alloc] init];
             
             if ([sessionDict valueForKey:@"subject"] != (id)[NSNull null]) {
                 sessionObj.subject = [sessionDict valueForKey:@"subject"];
+            }
+            
+            if ([sessionDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                sessionObj.subjectID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"subject_id"]];
             }
             
             if ([sessionDict valueForKey:@"description"] != (id)[NSNull null]) {
@@ -739,6 +772,10 @@
             
             AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
             
+            if ([attendanceDict valueForKey:@"id"] != (id)[NSNull null]) {
+                attendanceObj.attendanceID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"id"]];
+            }
+            
             if ([attendanceDict valueForKey:@"student_id"] != (id)[NSNull null]) {
                 attendanceObj.userID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"student_id"]];
             }
@@ -747,8 +784,8 @@
                 attendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
             }
             
-            if ([attendanceDict valueForKey:@"is_requested"] != (id)[NSNull null]) {
-                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"is_requested"] boolValue];
+            if ([attendanceDict valueForKey:@"excused"] != (id)[NSNull null]) {
+                attendanceObj.hasRequest = [[attendanceDict valueForKey:@"excused"] boolValue];
             }
             
             if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
@@ -765,6 +802,10 @@
             
             if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
                 attendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                attendanceObj.subjectID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"subject_id"]];
             }
             
             [rollupArray addObject:attendanceObj];
@@ -790,13 +831,15 @@
                     //if session is # nil, have to check
                     if (attObj.session.length > 0) {
                         if ([currentSession.sessionID isEqualToString:attObj.sessionID]) {
-                        
+                            
+                            checkAtt.attendanceID = attObj.attendanceID;
                             checkAtt.hasRequest = attObj.hasRequest;
                             checkAtt.state      = 1;
                             checkAtt.reason     = attObj.reason;
                             checkAtt.sessionID  = attObj.sessionID;
                             checkAtt.session    = attObj.session;
                             checkAtt.subject    = attObj.subject;
+                            checkAtt.dateTime   = attObj.dateTime;
                             
                             checkAtt.checkedFlag = NO;
                             
@@ -804,12 +847,14 @@
                         }
                     //if no session, it means fullday
                     } else {
+                        checkAtt.attendanceID = attObj.attendanceID;
                         checkAtt.hasRequest = attObj.hasRequest;
                         checkAtt.state      = 1;
                         checkAtt.reason     = attObj.reason;
                         checkAtt.sessionID  = attObj.sessionID;
                         checkAtt.session    = attObj.session;
                         checkAtt.subject    = attObj.subject;
+                        checkAtt.dateTime   = attObj.dateTime;
                         
                         checkAtt.checkedFlag = NO;
                         
@@ -859,4 +904,57 @@
     [alert show];
 }
 
+- (void)checkAttendanceSuccessful:(NSNotification *)notification {
+    CheckAttendanceObject *updatedObj = (CheckAttendanceObject *)notification.object;
+    
+    for (int i = 0; i < [checkAttendanceArray count]; i++) {
+        CheckAttendanceObject *checkAttObj = [checkAttendanceArray objectAtIndex:i];
+        if ([checkAttObj.userObject.userID isEqualToString:updatedObj.userObject.userID]) {
+            
+            checkAttObj.attendanceID = updatedObj.attendanceID;
+            checkAttObj.hasRequest = updatedObj.hasRequest;
+            checkAttObj.state      = 1;
+            checkAttObj.reason     = updatedObj.reason;
+            checkAttObj.sessionID  = updatedObj.sessionID;
+            checkAttObj.session    = updatedObj.session;
+            checkAttObj.subject    = updatedObj.subject;
+            checkAttObj.dateTime   = updatedObj.dateTime;
+            
+            checkAttObj = [checkAttendanceArray objectAtIndex:i];
+            NSIndexPath *ind = [NSIndexPath indexPathForItem:i inSection:0];
+            
+            [studentTableView beginUpdates];
+            [studentTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:ind] withRowAnimation:UITableViewRowAnimationNone];
+            [studentTableView endUpdates];
+            
+            break;
+        }
+    }
+}
+
+#pragma mark alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 2) {    //cancel checking result
+        if (buttonIndex != 0) {
+            if ([[Common sharedCommon]networkIsActive]) {
+                [requestToServer deleteAttendanceItem:willDeleteCheckAttObj.attendanceID];
+                
+                willDeleteCheckAttObj.attendanceID = @"";
+                willDeleteCheckAttObj.hasRequest = 0;
+                willDeleteCheckAttObj.state      = 0;
+                willDeleteCheckAttObj.reason     = @"";
+                willDeleteCheckAttObj.sessionID  = @"";
+                willDeleteCheckAttObj.session    = @"";
+                willDeleteCheckAttObj.subject    = @"";
+                willDeleteCheckAttObj.dateTime   = @"";
+                
+                [studentTableView reloadData];
+                
+            } else {
+                [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+            }
+        }
+    }
+}
 @end

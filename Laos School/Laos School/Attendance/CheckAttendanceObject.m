@@ -27,12 +27,15 @@
     self = [super init];
     if (self) {
         self.userObject = nil;
+        self.attendanceID = @"";
         self.hasRequest = NO;
         self.state      = 0;
+        self.dateTime   = @"";
         self.reason = @"";
         self.session = @"";
         self.sessionID = @"";
         self.subject = @"";
+        self.subjectID = @"";
         self.checkedFlag = NO;
     }
     return self;

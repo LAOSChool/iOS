@@ -166,6 +166,8 @@
 		554769C91C917FA700269EBB /* btn_165_30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 554769C61C917FA700269EBB /* btn_165_30@3x.png */; };
 		554769CE1C91805600269EBB /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 554769CC1C91805600269EBB /* LevelPickerViewController.m */; };
 		554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 554769CD1C91805600269EBB /* LevelPickerViewController.xib */; };
+		5548F0C21CFFD72100E58378 /* OtherReasonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548F0C01CFFD72100E58378 /* OtherReasonTableViewCell.m */; };
+		5548F0C31CFFD72100E58378 /* OtherReasonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5548F0C11CFFD72100E58378 /* OtherReasonTableViewCell.xib */; };
 		55510D051CD9A97F00638646 /* FSBasicImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 55510BC41CD9A97F00638646 /* FSBasicImage.m */; };
 		55510D061CD9A97F00638646 /* FSBasicImageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 55510BC61CD9A97F00638646 /* FSBasicImageSource.m */; };
 		55510D071CD9A97F00638646 /* FSImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 55510BC91CD9A97F00638646 /* FSImageLoader.m */; };
@@ -726,6 +728,9 @@
 		554769CB1C91805600269EBB /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
 		554769CC1C91805600269EBB /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
 		554769CD1C91805600269EBB /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
+		5548F0BF1CFFD72100E58378 /* OtherReasonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherReasonTableViewCell.h; sourceTree = "<group>"; };
+		5548F0C01CFFD72100E58378 /* OtherReasonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherReasonTableViewCell.m; sourceTree = "<group>"; };
+		5548F0C11CFFD72100E58378 /* OtherReasonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherReasonTableViewCell.xib; sourceTree = "<group>"; };
 		55510BC31CD9A97F00638646 /* FSBasicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBasicImage.h; sourceTree = "<group>"; };
 		55510BC41CD9A97F00638646 /* FSBasicImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBasicImage.m; sourceTree = "<group>"; };
 		55510BC51CD9A97F00638646 /* FSBasicImageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBasicImageSource.h; sourceTree = "<group>"; };
@@ -2342,6 +2347,9 @@
 				559509221C996B0400D06158 /* ReasonViewController.h */,
 				559509201C996B0400D06158 /* ReasonViewController.m */,
 				559509211C996B0400D06158 /* ReasonViewController.xib */,
+				5548F0BF1CFFD72100E58378 /* OtherReasonTableViewCell.h */,
+				5548F0C01CFFD72100E58378 /* OtherReasonTableViewCell.m */,
+				5548F0C11CFFD72100E58378 /* OtherReasonTableViewCell.xib */,
 				55797C901C86958000A0098D /* StudentAttendanceViewController.h */,
 				55797C911C86958000A0098D /* StudentAttendanceViewController.m */,
 				55797C921C86958000A0098D /* StudentAttendanceViewController.xib */,
@@ -2735,6 +2743,7 @@
 				554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */,
 				55797CA81C86961400A0098D /* TeacherTimeTableViewController.xib in Resources */,
 				55DC79851CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib in Resources */,
+				5548F0C31CFFD72100E58378 /* OtherReasonTableViewCell.xib in Resources */,
 				5538A9861CBCF3E500659C8A /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				55797C991C86959500A0098D /* TeacherAttendanceViewController.xib in Resources */,
 				5538A9841CBCF3E500659C8A /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
@@ -2930,6 +2939,7 @@
 				55797C9D1C8695BE00A0098D /* MoreViewController.m in Sources */,
 				5538A9711CBCF3E500659C8A /* JSQMessagesTimestampFormatter.m in Sources */,
 				550A75F91CCE153A0050240B /* README.md in Sources */,
+				5548F0C21CFFD72100E58378 /* OtherReasonTableViewCell.m in Sources */,
 				550A75E61CCE153A0050240B /* CTAssetsGridView.m in Sources */,
 				55510DBA1CD9AE0D00638646 /* AFURLConnectionOperation.m in Sources */,
 				55FC71CF1C7C3C8100B0B8D0 /* Common.m in Sources */,

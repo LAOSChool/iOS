@@ -21,12 +21,14 @@
 }
 
 @property (nonatomic, strong) UserObject *userObject;
+@property (nonatomic, strong) NSString *attendanceID;
 @property (nonatomic, assign) BOOL hasRequest;  //fullday
 @property (nonatomic, assign) NSInteger state;
-
+@property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *sessionID;
 @property (nonatomic, strong) NSString *session;
+@property (nonatomic, strong) NSString *subjectID;
 @property (nonatomic, strong) NSString *subject;
 
 @property (nonatomic, assign) BOOL checkedFlag;

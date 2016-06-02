@@ -21,6 +21,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.attendanceID = @"";
         self.userID = @"";
         self.dateTime = @"";
         self.absenceType = Absence_None;
@@ -29,6 +30,7 @@
         self.session = @"";
         self.sessionID = @"";
         self.subject = @"";
+        self.subjectID = @"";
         self.detailSession = [[NSMutableArray alloc] init];
     }
     return self;

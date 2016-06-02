@@ -25,7 +25,9 @@
         self.weekDay = @"";
         self.weekDayID = 0;
         self.subject = @"";
+        self.subjectID = @"";
         self.session = @"";
+        self.sessionID = @"";
         self.order = 1;
         self.additionalInfo = @"";
         self.duration = @"";
