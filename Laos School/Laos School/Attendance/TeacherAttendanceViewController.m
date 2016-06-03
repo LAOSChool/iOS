@@ -8,7 +8,9 @@
 
 #import "TeacherAttendanceViewController.h"
 #import "StdTimeTableDayViewController.h"
+#import "ComposeViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "InformationViewController.h"
 #import "LocalizeHelper.h"
 #import "StudentsListTableViewCell.h"
 #import "LevelPickerViewController.h"
@@ -51,7 +53,9 @@
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
     
-    CheckAttendanceObject *willDeleteCheckAttObj;
+    NSIndexPath *willDeleteIndexPath;
+    
+    InformationViewController *infoView;
 }
 @end
 
@@ -64,9 +68,10 @@
     
     [self setTitle:LocalizedString(@"Attendance")];
     
-    UIBarButtonItem *btnAction = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonClick:)];
+    UIBarButtonItem *btnAction = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(actionButtonClick:)];
     
     self.navigationItem.rightBarButtonItems = @[btnAction];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     isShowingViewInfo = YES;
     currentSession = nil;
@@ -160,7 +165,9 @@
 }
 
 - (IBAction)actionButtonClick:(id)sender {
+    [searchBar resignFirstResponder];
     [self dismissPicker];
+    /*
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"xxx"), LocalizedString(@"yyy"), nil];
     
     actionSheet.tag = 1;
@@ -170,6 +177,29 @@
     } else {
         [actionSheet showInView:self.view];
     }
+     */
+    ComposeViewController *composeViewController = nil;
+    
+    composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+        composeViewController.isTeacherForm = YES;
+    
+    //set recipient
+    NSMutableArray *recipents = [[NSMutableArray alloc] init];
+    for (CheckAttendanceObject *student in checkAttendanceArray) {
+        if (student.state == 0) {
+            [recipents addObject:student.userObject];
+        }
+    }
+    composeViewController.receiverArray = recipents;
+    
+    //set content
+    NSString *content = @"";
+    content = [NSString stringWithFormat:@"%@\n%@\n", lbDate.text, lbSession.text];
+    composeViewController.content = content;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark data source
@@ -281,6 +311,52 @@
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)longpressGestureHandle:(id)sender {
+    StudentsListTableViewCell *cell = (StudentsListTableViewCell *)sender;
+    
+    NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
+    CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
+    
+    if (checkAttObj.state == 1) {
+        AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
+        
+        attendanceObj.userID     = checkAttObj.userObject.userID;
+        attendanceObj.attendanceID = checkAttObj.attendanceID;
+        attendanceObj.hasRequest = checkAttObj.hasRequest;
+        attendanceObj.reason     = checkAttObj.reason;
+        attendanceObj.sessionID  = checkAttObj.sessionID;
+        attendanceObj.session    = checkAttObj.session;
+        attendanceObj.subject    = checkAttObj.subject;
+        attendanceObj.dateTime   = checkAttObj.dateTime;
+        
+        if (infoView == nil) {
+            infoView = [[InformationViewController alloc] initWithNibName:@"InformationViewController" bundle:nil];
+        }
+        
+        infoView.attObj = attendanceObj;
+        infoView.view.alpha = 0;
+        
+        if (attendanceObj.sessionID.length > 0) {
+            infoView.isDetail = YES;
+        } else {
+            infoView.isDetail = NO;
+        }
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        CGRect rect = appDelegate.window.frame;
+        [infoView.view setFrame:rect];
+        
+        [appDelegate.window addSubview:infoView.view];
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            infoView.view.alpha = 1;
+        }];
+        
+        [infoView loadInformation];
+    }
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
 }
@@ -367,6 +443,7 @@
 - (NSArray*)swipeTableCell:(StudentsListTableViewCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
              swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings
 {
+        [searchBar resignFirstResponder];
 
         swipeSettings.transition = MGSwipeTransitionStatic;
         
@@ -414,12 +491,14 @@
 
 - (BOOL)swipeTableCell:(StudentsListTableViewCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
+    [searchBar resignFirstResponder];
+    
     NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
     CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
 
     if (direction == MGSwipeDirectionRightToLeft && index == 0) {
         if (checkAttObj.state == 1) {   //cancel
-            willDeleteCheckAttObj = checkAttObj;
+            willDeleteIndexPath = indexPath;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:LocalizedString(@"Cancel this attendance checking result.") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
             alert.tag = 2;
             
@@ -447,11 +526,13 @@
 
 
 - (IBAction)btnChooseDateClick:(id)sender {
+    [searchBar resignFirstResponder];
     [self showDateTimePicker];
 }
 
 
 - (IBAction)btnChooseSectionClick:(id)sender {
+    [searchBar resignFirstResponder];
     
     StdTimeTableDayViewController *timeDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
     timeDayViewController.title = LocalizedString(@"Select session");
@@ -475,12 +556,25 @@
 - (void)btnDoneClick:(id)sender withObjectReturned:(TTSessionObject *)returnedObj {
     currentSession = returnedObj;
     
-    [lbSession setTextColor:[UIColor whiteColor]];
-    
-    lbSession.text = [NSString stringWithFormat:@"%@ - %@", currentSession.session, currentSession.subject];
-    
-    [self prepareDataForChecking];
-    [studentTableView reloadData];
+    if (currentSession) {
+        [lbSession setTextColor:[UIColor whiteColor]];
+        
+        NSString *session = @"";
+        NSString *subject  = @"";
+        
+        if (currentSession.session != (id)[NSNull null]) {
+            session = currentSession.session;
+        }
+        
+        if (currentSession.subject != (id)[NSNull null]) {
+            subject = currentSession.subject;
+        }
+        
+        lbSession.text = [NSString stringWithFormat:@"%@ - %@", session, subject];
+        
+        [self prepareDataForChecking];
+        [studentTableView reloadData];
+    }
 }
 
 #pragma mark data picker
@@ -829,7 +923,7 @@
 
                 if ([attObj.userID isEqualToString:userObj.userID]) {
                     //if session is # nil, have to check
-                    if (attObj.session.length > 0) {
+                    if (attObj.sessionID.length > 0) {
                         if ([currentSession.sessionID isEqualToString:attObj.sessionID]) {
                             
                             checkAtt.attendanceID = attObj.attendanceID;
@@ -844,6 +938,8 @@
                             checkAtt.checkedFlag = NO;
                             
                             countOff ++;
+                            
+                            break;
                         }
                     //if no session, it means fullday
                     } else {
@@ -859,9 +955,9 @@
                         checkAtt.checkedFlag = NO;
                         
                         countOff ++;
+                        
+                        break;
                     }
-                    
-                    break;
                 }
             }
             
@@ -874,6 +970,12 @@
         ClassObject *classObj = userObj.classObj;
         
         lbClass.text = [NSString stringWithFormat:@"%@ - Total: %lu | Off: %ld", classObj.className, (unsigned long)[checkAttendanceArray count], (long)countOff];
+        
+        if ([checkAttendanceArray count] > 0) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        } else {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
     }
 }
 
@@ -906,10 +1008,11 @@
 
 - (void)checkAttendanceSuccessful:(NSNotification *)notification {
     CheckAttendanceObject *updatedObj = (CheckAttendanceObject *)notification.object;
-    
+/*
+    //update checkAttendance block
     for (int i = 0; i < [checkAttendanceArray count]; i++) {
         CheckAttendanceObject *checkAttObj = [checkAttendanceArray objectAtIndex:i];
-        if ([checkAttObj.userObject.userID isEqualToString:updatedObj.userObject.userID]) {
+        if ([checkAttObj.attendanceID isEqualToString:updatedObj.attendanceID]) {
             
             checkAttObj.attendanceID = updatedObj.attendanceID;
             checkAttObj.hasRequest = updatedObj.hasRequest;
@@ -920,7 +1023,6 @@
             checkAttObj.subject    = updatedObj.subject;
             checkAttObj.dateTime   = updatedObj.dateTime;
             
-            checkAttObj = [checkAttendanceArray objectAtIndex:i];
             NSIndexPath *ind = [NSIndexPath indexPathForItem:i inSection:0];
             
             [studentTableView beginUpdates];
@@ -930,6 +1032,37 @@
             break;
         }
     }
+*/
+    //add to attendance block
+    //in case, only switch session without reload data
+    AttendanceObject *attendanceObj = [[AttendanceObject alloc] init];
+
+    attendanceObj.userID     = updatedObj.userObject.userID;
+    attendanceObj.attendanceID = updatedObj.attendanceID;
+    attendanceObj.hasRequest = updatedObj.hasRequest;
+    attendanceObj.reason     = updatedObj.reason;
+    attendanceObj.sessionID  = updatedObj.sessionID;
+    attendanceObj.session    = updatedObj.session;
+    attendanceObj.subject    = updatedObj.subject;
+    attendanceObj.dateTime   = updatedObj.dateTime;
+    
+    [rollupArray addObject:attendanceObj];
+    
+    [self prepareDataForChecking];
+    
+    for (int i = 0; i < [checkAttendanceArray count]; i++) {
+        CheckAttendanceObject *checkAttObj = [checkAttendanceArray objectAtIndex:i];
+        if ([checkAttObj.attendanceID isEqualToString:updatedObj.attendanceID]) {           
+            NSIndexPath *ind = [NSIndexPath indexPathForItem:i inSection:0];
+            
+            [studentTableView beginUpdates];
+            [studentTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:ind] withRowAnimation:UITableViewRowAnimationNone];
+            [studentTableView endUpdates];
+            
+            break;
+        }
+    }
+    
 }
 
 #pragma mark alert delegate
@@ -938,18 +1071,27 @@
     if (alertView.tag == 2) {    //cancel checking result
         if (buttonIndex != 0) {
             if ([[Common sharedCommon]networkIsActive]) {
-                [requestToServer deleteAttendanceItem:willDeleteCheckAttObj.attendanceID];
+                CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:willDeleteIndexPath.row];
                 
-                willDeleteCheckAttObj.attendanceID = @"";
-                willDeleteCheckAttObj.hasRequest = 0;
-                willDeleteCheckAttObj.state      = 0;
-                willDeleteCheckAttObj.reason     = @"";
-                willDeleteCheckAttObj.sessionID  = @"";
-                willDeleteCheckAttObj.session    = @"";
-                willDeleteCheckAttObj.subject    = @"";
-                willDeleteCheckAttObj.dateTime   = @"";
+                [requestToServer deleteAttendanceItem:checkAttObj.attendanceID];
                 
-                [studentTableView reloadData];
+                //update attendance block
+                for (int i = 0; i < [rollupArray count]; i++) {
+                    AttendanceObject *attendanceObj = [rollupArray objectAtIndex:i];
+                    
+                    if ([attendanceObj.attendanceID isEqualToString:checkAttObj.attendanceID]) {
+                        
+                        [rollupArray removeObject:attendanceObj];
+                        
+                        break;
+                    }
+                }
+                
+                [self prepareDataForChecking];
+                
+                [studentTableView beginUpdates];
+                [studentTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:willDeleteIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [studentTableView endUpdates];
                 
             } else {
                 [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];

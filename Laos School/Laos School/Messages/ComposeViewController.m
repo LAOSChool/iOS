@@ -45,6 +45,12 @@
     
     if (_receiverArray == nil) {
         _receiverArray = [[NSMutableArray alloc] init];
+    } else {
+        [self selectReceiverCompletedHandle];
+    }
+    
+    if (_content && _content.length > 0) {
+        txtContent.text = _content;
     }
     
     if (_messageObject == nil) {
@@ -364,13 +370,6 @@
         for (UserObject *userObj in _receiverArray) {
             receiverString = [receiverString stringByAppendingFormat:@"%@, ", userObj.nickName];
         }
-        
-//        if ([_receiverArray count] == 1) {
-//            receiverString = [receiverString stringByAppendingFormat:@"...(%lu)\n", (unsigned long)[_receiverArray count]];
-//            
-//        } else {
-//            receiverString = [receiverString stringByAppendingFormat:@"...(%lu)\n", (unsigned long)[_receiverArray count]];
-//        }
         
         receiverString = [receiverString stringByAppendingString:@"\n"];
         receiverString = [receiverString stringByAppendingString:@"\n"];

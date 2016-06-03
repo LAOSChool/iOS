@@ -40,6 +40,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <gestureRecognizers/>
+                <connections>
+                    <outletCollection property="gestureRecognizers" destination="t0Y-Bv-3vT" appends="YES" id="T9u-wk-dat"/>
+                </connections>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgAvatar" destination="0bc-b4-3b9" id="U45-iy-9nA"/>
@@ -49,6 +53,12 @@
             </connections>
             <point key="canvasLocation" x="90" y="114"/>
         </tableViewCell>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="t0Y-Bv-3vT">
+            <connections>
+                <action selector="longPressGestureHandle:" destination="KGk-i7-Jjw" id="SJ7-L7-4W9"/>
+                <outlet property="delegate" destination="-1" id="nFF-pT-kA0"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_user_gray.png" width="30" height="30"/>

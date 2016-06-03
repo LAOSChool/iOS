@@ -25,6 +25,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *receiverArray;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) MessageObject *messageObject;
 
 @property (nonatomic, assign) BOOL isTeacherForm;

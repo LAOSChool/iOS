@@ -39,6 +39,13 @@
         
         self.navigationItem.rightBarButtonItems = @[btnDone];
         
+        if ([_sessionsArray count] > 0 && _selectedSession != nil) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            
+        } else {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+        
         [timeTableView setAllowsSelection:YES];
         
     } else {
@@ -101,6 +108,13 @@
         [timeTableView reloadData];
     }
     
+    if ([_sessionsArray count] > 0 && _selectedSession != nil) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+
 }
 
 - (NSArray *)sortKey:(NSArray *)arr {
@@ -187,7 +201,7 @@
     NSArray *arr = [sessionGroupByType objectForKey:key];
     TTSessionObject *sessionObj = [arr objectAtIndex:indexPath.row];
     
-    if (_selectedSession && [_selectedSession isEqual:sessionObj]) {
+    if (_selectedSession && [_selectedSession.sessionID isEqual:sessionObj.sessionID]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
     } else {
@@ -241,6 +255,8 @@
     NSString *key = [allKeys objectAtIndex:indexPath.section];
     NSArray *arr = [sessionGroupByType objectForKey:key];
     _selectedSession = [arr objectAtIndex:indexPath.row];
+    
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     
     [tableView reloadData];
     

@@ -24,7 +24,7 @@
         self.attendanceID = @"";
         self.userID = @"";
         self.dateTime = @"";
-        self.absenceType = Absence_None;
+        self.absenceType = Absence_Off;
         self.hasRequest = YES;
         self.reason = @"";
         self.session = @"";

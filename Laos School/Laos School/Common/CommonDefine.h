@@ -42,7 +42,7 @@
 #define KEY_AUTH_KEY @"authenkey"
 #define KEY_USERNAME @"usernamekey"
 
-#define ATTENDANCE_DATE_FORMATE @"yyyy-MM-dd EEEE"
+#define ATTENDANCE_DATE_FORMATE @"EEEE, yyyy-MM-dd"
 
 @interface CommonDefine : NSObject
 

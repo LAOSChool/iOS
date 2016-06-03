@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger, MGSwipeState) {
 @protocol MGSwipeTableCellDelegate <NSObject>
 
 @optional
+- (void)longpressGestureHandle:(id)sender;
 /**
  * Delegate method to enable/disable swipe gestures
  * @return YES if swipe is allowed

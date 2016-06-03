@@ -225,6 +225,11 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"EEEE, yyyy-MM-dd";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyy/MM/dd";
         date = [dateFormatter dateFromString:dateStr];
     }
