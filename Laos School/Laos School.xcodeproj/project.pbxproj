@@ -234,6 +234,9 @@
 		556C6E751C92AEB90077F4BE /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 556C6E731C92AEB90077F4BE /* UserObject.m */; };
 		5571A1571CF82FA5008CCE58 /* SchoolRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571A1551CF82FA5008CCE58 /* SchoolRecordTableViewCell.m */; };
 		5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5571A1561CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib */; };
+		5575505A1D057F8200DA0573 /* ic_content_paste.png in Resources */ = {isa = PBXBuildFile; fileRef = 557550571D057F8200DA0573 /* ic_content_paste.png */; };
+		5575505B1D057F8200DA0573 /* ic_content_paste@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557550581D057F8200DA0573 /* ic_content_paste@2x.png */; };
+		5575505C1D057F8200DA0573 /* ic_content_paste@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557550591D057F8200DA0573 /* ic_content_paste@3x.png */; };
 		5575ED481CA4EA4E00EFC02C /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED411CA4EA4E00EFC02C /* CreatePostViewController.m */; };
 		5575ED491CA4EA4E00EFC02C /* CreatePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5575ED421CA4EA4E00EFC02C /* CreatePostViewController.xib */; };
 		5575ED4A1CA4EA4E00EFC02C /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED441CA4EA4E00EFC02C /* CustomImageView.m */; };
@@ -860,6 +863,9 @@
 		5571A1541CF82FA5008CCE58 /* SchoolRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolRecordTableViewCell.h; sourceTree = "<group>"; };
 		5571A1551CF82FA5008CCE58 /* SchoolRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolRecordTableViewCell.m; sourceTree = "<group>"; };
 		5571A1561CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SchoolRecordTableViewCell.xib; sourceTree = "<group>"; };
+		557550571D057F8200DA0573 /* ic_content_paste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_content_paste.png; sourceTree = "<group>"; };
+		557550581D057F8200DA0573 /* ic_content_paste@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste@2x.png"; sourceTree = "<group>"; };
+		557550591D057F8200DA0573 /* ic_content_paste@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste@3x.png"; sourceTree = "<group>"; };
 		5575ED401CA4EA4E00EFC02C /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
 		5575ED411CA4EA4E00EFC02C /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
 		5575ED421CA4EA4E00EFC02C /* CreatePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePostViewController.xib; sourceTree = "<group>"; };
@@ -1462,6 +1468,9 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				557550571D057F8200DA0573 /* ic_content_paste.png */,
+				557550581D057F8200DA0573 /* ic_content_paste@2x.png */,
+				557550591D057F8200DA0573 /* ic_content_paste@3x.png */,
 				5538B1391CFEEC40009544D5 /* ic_cancel_white.png */,
 				5538B13A1CFEEC40009544D5 /* ic_cancel_white@2x.png */,
 				5538B13B1CFEEC40009544D5 /* ic_cancel_white@3x.png */,
@@ -2629,6 +2638,7 @@
 				5520944C1C8932CF004670B3 /* ic_class.png in Resources */,
 				558D6DDF1CA27B0500EE34BD /* ic_add.png in Resources */,
 				555C89BC1C9A4FCD006180F6 /* ic_clear.png in Resources */,
+				5575505B1D057F8200DA0573 /* ic_content_paste@2x.png in Resources */,
 				5575ED4B1CA4EA4E00EFC02C /* CustomImageView.xib in Resources */,
 				558D6DD71CA245CF00EE34BD /* ic_key@3x.png in Resources */,
 				552094501C8932CF004670B3 /* ic_clock@2x.png in Resources */,
@@ -2697,6 +2707,7 @@
 				55797CC81C86D08A00A0098D /* ic_more.png in Resources */,
 				55510DCD1CD9AE3100638646 /* LICENSE in Resources */,
 				5552501F1C7EE0680027A4ED /* Readme.txt in Resources */,
+				5575505C1D057F8200DA0573 /* ic_content_paste@3x.png in Resources */,
 				55797CA31C86960100A0098D /* StudentTimeTableViewController.xib in Resources */,
 				550A821F1C9AA6AF001F652B /* ic_radio_uncheck@3x.png in Resources */,
 				55D657611C96C34800A0E4F3 /* TeacherComposeViewController.xib in Resources */,
@@ -2789,6 +2800,7 @@
 				55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */,
 				559BB1B91CFD43C2001C39E9 /* ic_calendar_white.png in Resources */,
 				558D6DD91CA245CF00EE34BD /* ic_score@2x.png in Resources */,
+				5575505A1D057F8200DA0573 /* ic_content_paste.png in Resources */,
 				55D6575F1C96A3F000A0E4F3 /* LoginViewController_iPad.xib in Resources */,
 				5595090A1C99002A00D06158 /* ic_expand@2x.png in Resources */,
 				55797CC11C86D08A00A0098D /* ic_attendance@3x.png in Resources */,

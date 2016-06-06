@@ -402,10 +402,12 @@
     if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"ComposeViewController" bundle:nil];
         composeViewController.isTeacherForm = NO;
+        composeViewController.isShowBtnSampleMessage = NO;
         
     } else {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
         composeViewController.isTeacherForm = YES;
+        composeViewController.isShowBtnSampleMessage = NO;
     }
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
@@ -519,7 +521,7 @@
     }
     
     if (messageObj.content) {
-        cell.lbBriefContent.text = messageObj.content;
+        cell.lbBriefContent.text = [NSString stringWithFormat:@"%@\n", messageObj.content];
     }
     
     //for test

@@ -98,5 +98,6 @@
         txtContent.text = LocalizedString(@"No reason");
         txtContent.textColor = [UIColor redColor];
     }
+    [txtContent setFont:[UIFont systemFontOfSize:15]];
 }
 @end

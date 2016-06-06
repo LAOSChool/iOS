@@ -33,6 +33,9 @@
      IBOutlet UILabel *lbSubject;
      IBOutlet UITextView *txtContent;
      */
+    
+    [lbFromUsername setTextColor:BLUE_COLOR];
+    
     if (_messageObject.importanceType == ImportanceHigh) {
         [btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
         
@@ -47,6 +50,7 @@
     if (_messageObject.content != (id)[NSNull null]) {
         txtContent.text = _messageObject.content;
     }
+    [txtContent setFont:[UIFont systemFontOfSize:15]];
     
     if (_messageObject.dateTime != (id)[NSNull null]) {
         lbDateTime.text = _messageObject.dateTime;

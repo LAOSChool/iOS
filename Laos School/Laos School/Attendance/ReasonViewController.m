@@ -24,6 +24,10 @@
     NSIndexPath *selectedIndex;
     
     RequestToServer *requestToServer;
+    
+    BOOL isFulldayChecked;
+    UIImage *imgCheck;
+    UIImage *imgUncheck;
 }
 @end
 
@@ -33,6 +37,11 @@
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iReasonViewController"];
     // Do any additional setup after loading the view from its nib.
+    
+    lbTitle.text = LocalizedString(@"Reason");
+    lbFullday.text = LocalizedString(@"Full day");
+    
+    [lbFullday setTextColor:BLUE_COLOR];
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -46,6 +55,11 @@
     }
     
     selectedIndex = nil;
+    
+    imgCheck = [UIImage imageNamed:@"ic_check_gray.png"];
+    imgUncheck = [UIImage imageNamed:@"ic_uncheck_gray.png"];
+    isFulldayChecked = NO;
+    [btnFullday setImage:imgUncheck forState:UIControlStateNormal];
     
     [reasonList addObject:LocalizedString(@"No reason")];
     [reasonList addObject:LocalizedString(@"Lý do 1")];
@@ -89,9 +103,14 @@
 #pragma mark - keyboard movements
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //remove old checkmark
+    OtherReasonTableViewCell *cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[reasonList count] - 1 inSection:0];
     selectedIndex = indexPath;
-    [reasonTableView reloadData];
+    cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect rect = containerView.frame;
@@ -127,6 +146,17 @@
 
 - (void)loadInformation {
 
+}
+
+
+- (IBAction)checkFulldayClick:(id)sender {
+    isFulldayChecked = !isFulldayChecked;
+    if (isFulldayChecked) {
+        [btnFullday setImage:imgCheck forState:UIControlStateNormal];
+        
+    } else {
+        [btnFullday setImage:imgUncheck forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)btnSendClick:(id)sender {
@@ -179,10 +209,12 @@
         [requestDict setValue:userObj.userID forKey:@"student_id"];
         [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:_dateTime withFormat:@"yyyy-MM-dd"] forKey:@"att_dt"];
         
-        [requestDict setValue:_currentSession.subjectID forKey:@"subject_id"];
-        [requestDict setValue:_currentSession.subject forKey:@"subject"];
-        [requestDict setValue:_currentSession.sessionID forKey:@"session_id"];
-        [requestDict setValue:_currentSession.session forKey:@"session"];
+        if (isFulldayChecked == NO) {
+            [requestDict setValue:_currentSession.subjectID forKey:@"subject_id"];
+            [requestDict setValue:_currentSession.subject forKey:@"subject"];
+            [requestDict setValue:_currentSession.sessionID forKey:@"session_id"];
+            [requestDict setValue:_currentSession.session forKey:@"session"];
+        }
         
         [requestDict setValue:[NSNumber numberWithInteger:1] forKey:@"state"];
         [requestDict setValue:[NSNumber numberWithInteger:hasRequesed] forKey:@"excused"];
@@ -224,7 +256,7 @@
         
         cell.txtOther.placeholder = LocalizedString(@"Other");
         
-        if ([indexPath isEqual:selectedIndex]) {
+        if (selectedIndex && [indexPath isEqual:selectedIndex]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -250,7 +282,7 @@
         
         cell.textLabel.text = [reasonList objectAtIndex:indexPath.row];
         
-        if ([indexPath isEqual:selectedIndex]) {
+        if (selectedIndex && [indexPath isEqual:selectedIndex]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -265,10 +297,23 @@
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    //remove old checkmark
+    OtherReasonTableViewCell *cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     selectedIndex = indexPath;
     
-    [tableView reloadData];
+    //checkmark new
+    cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    //dismiss other reason
+    if (indexPath.row != [reasonList count] - 1) {
+        NSIndexPath *indexPathOther = [NSIndexPath indexPathForItem:[reasonList count] - 1 inSection:0];
+        OtherReasonTableViewCell *cellOther = [reasonTableView cellForRowAtIndexPath:indexPathOther];
+        [cellOther.txtOther resignFirstResponder];
+    }
 }
 
 #pragma mark RequestToServer delegate

@@ -302,6 +302,10 @@
         userObject.nickName = [jsonObj valueForKey:@"nickname"];
     }
     
+    if ([jsonObj valueForKey:@"gender"] != (id)[NSNull null]) {
+        userObject.gender = [jsonObj valueForKey:@"gender"];
+    }
+    
     if ([jsonObj valueForKey:@"photo"] != (id)[NSNull null]) {
         userObject.avatarPath = [jsonObj valueForKey:@"photo"];
     }

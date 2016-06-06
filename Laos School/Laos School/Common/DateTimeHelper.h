@@ -23,6 +23,7 @@
 - (NSDate *)currentDateWithFormat:(NSString *)formatString;
 - (NSDate *)nextMonthWithFormat:(NSString *)formatString;
 - (NSDate *)previousWeekWithFormat:(NSString *)formatString;
+- (NSDate *)nextWeekWithFormat:(NSString *)formatString;
 
 - (NSString *)timeStringFromDate:(NSDate *)date;
 - (NSString *)stringDateFromString:(NSString *)dateStr withFormat:(NSString *)formatString;

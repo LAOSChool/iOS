@@ -62,6 +62,8 @@
     
     [self.navigationController setNavigationColor];
     
+    [lbReceiverList setTextColor:BLUE_COLOR];
+    
     photoArray = [[NSMutableArray alloc] init];
     imageViewArray = [[NSMutableArray alloc] init];
     
@@ -92,11 +94,14 @@
         lbReceiverList.text = _announcementObject.fromUsername;
         lbDateTime.text = _announcementObject.dateTime;
         
+        [textViewPost setFont:[UIFont systemFontOfSize:15]];
+        
     } else {
         [self setTitle:LocalizedString(@"New Anouncement")];
         lbTo.text = LocalizedString(@"To:");
         lbReceiverList.text = [[[ShareData sharedShareData] userObj] classObj].className;
         lbDateTime.text = @"";
+        [textViewPost setFont:[UIFont systemFontOfSize:15]];
         
         UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
         

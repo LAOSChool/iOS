@@ -174,7 +174,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 64.0;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -220,6 +220,7 @@
     
     cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
+    cell.lbGender.text = userObject.gender;
     
     //cancel loading previous image for cell
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
@@ -362,6 +363,10 @@
             
             if ([studentDict valueForKey:@"nickname"] != (id)[NSNull null]) {
                 userObject.nickName = [studentDict valueForKey:@"nickname"];
+            }
+            
+            if ([studentDict valueForKey:@"gender"] != (id)[NSNull null]) {
+                userObject.gender = [studentDict valueForKey:@"gender"];
             }
             
             if ([studentDict valueForKey:@"photo"] != (id)[NSNull null]) {

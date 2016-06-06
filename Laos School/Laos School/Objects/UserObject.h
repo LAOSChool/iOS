@@ -44,6 +44,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *nickName;
+@property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) NSString *avatarPath;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, assign) USER_ROLE userRole;

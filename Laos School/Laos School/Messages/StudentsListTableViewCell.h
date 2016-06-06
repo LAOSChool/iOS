@@ -21,5 +21,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbFullname;
 @property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;
 @property (strong, nonatomic) IBOutlet UILabel *lbNoreason;
+@property (strong, nonatomic) IBOutlet UILabel *lbGender;
 
 @end

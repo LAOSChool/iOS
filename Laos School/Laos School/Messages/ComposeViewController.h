@@ -22,6 +22,11 @@
     IBOutlet UILabel *lbSMS;
     IBOutlet UIButton *btnCheck;
     
+    
+    IBOutlet UIView *viewSampleMessage;
+    
+    IBOutlet UITableView *tableViewSampleMessage;
+    IBOutlet UIButton *btnSampleMessage;
 }
 
 @property (nonatomic, strong) NSMutableArray *receiverArray;
@@ -29,4 +34,5 @@
 @property (nonatomic, strong) MessageObject *messageObject;
 
 @property (nonatomic, assign) BOOL isTeacherForm;
+@property (nonatomic, assign) BOOL isShowBtnSampleMessage;
 @end

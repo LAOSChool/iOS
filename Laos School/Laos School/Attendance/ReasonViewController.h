@@ -16,6 +16,10 @@
 
     IBOutlet UITableView *reasonTableView;
     IBOutlet UIView *containerView;
+    IBOutlet UILabel *lbTitle;
+    IBOutlet UIButton *btnSend;
+    IBOutlet UILabel *lbFullday;
+    IBOutlet UIButton *btnFullday;
 }
 
 - (void)loadInformation;

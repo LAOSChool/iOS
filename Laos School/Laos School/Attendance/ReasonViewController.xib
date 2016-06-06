@@ -7,7 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReasonViewController">
             <connections>
+                <outlet property="btnFullday" destination="FXt-ki-41p" id="iIg-ZS-hIe"/>
+                <outlet property="btnSend" destination="ZNR-vK-iqD" id="DBy-ks-SeD"/>
                 <outlet property="containerView" destination="bgS-QE-ljp" id="muc-9d-voN"/>
+                <outlet property="lbFullday" destination="F2U-AT-ouZ" id="ekB-3A-cNj"/>
+                <outlet property="lbTitle" destination="XVS-af-OZd" id="tfH-A8-xTy"/>
                 <outlet property="navigationView" destination="eSw-de-DGV" id="PIa-Lg-h1m"/>
                 <outlet property="reasonTableView" destination="d6z-Lh-564" id="akR-ii-hzv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -54,16 +58,6 @@
                             </subviews>
                             <color key="backgroundColor" red="1" green="0.65826735830000005" blue="0.032824978810000002" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZNR-vK-iqD">
-                            <rect key="frame" x="61" y="265" width="170" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Send" backgroundImage="btn_165_30.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnSendClick:" destination="-1" eventType="touchUpInside" id="5b0-RW-a7f"/>
-                            </connections>
-                        </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="d6z-Lh-564">
                             <rect key="frame" x="0.0" y="44" width="292" height="213"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,12 +67,37 @@
                                 <outlet property="delegate" destination="-1" id="44J-TZ-b0r"/>
                             </connections>
                         </tableView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FXt-ki-41p">
+                            <rect key="frame" x="8" y="265" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <state key="normal" image="ic_uncheck_gray.png"/>
+                            <connections>
+                                <action selector="checkFulldayClick:" destination="-1" eventType="touchUpInside" id="dAB-oe-9cl"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F2U-AT-ouZ">
+                            <rect key="frame" x="40" y="270" width="129" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZNR-vK-iqD">
+                            <rect key="frame" x="184" y="265" width="100" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <state key="normal" title="Send" backgroundImage="btn_165_30.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnSendClick:" destination="-1" eventType="touchUpInside" id="5b0-RW-a7f"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="279" y="254"/>
+            <point key="canvasLocation" x="259" y="162"/>
         </view>
         <tapGestureRecognizer id="8Kd-vP-ACU">
             <connections>
@@ -88,7 +107,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="btn_165_30.png" width="162" height="30"/>
+        <image name="btn_165_30.png" width="134" height="30"/>
         <image name="ic_clear.png" width="30" height="30"/>
+        <image name="ic_uncheck_gray.png" width="30" height="30"/>
     </resources>
 </document>

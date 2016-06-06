@@ -31,6 +31,8 @@
     
     UIImage *imgCheck;
     UIImage *imgUncheck;
+    
+    NSMutableArray *reasonList;
 }
 @end
 
@@ -42,6 +44,9 @@
     [self setTitle:LocalizedString(@"New Message")];
     
     [self.navigationController setNavigationColor];
+    
+    [lbTeacherReceiverList setTextColor:BLUE_COLOR];
+    [txtContent setFont:[UIFont systemFontOfSize:15]];
     
     if (_receiverArray == nil) {
         _receiverArray = [[NSMutableArray alloc] init];
@@ -78,6 +83,38 @@
         imgUncheck = [UIImage imageNamed:@"ic_uncheck_gray.png"];
         isSMSChecked = YES;
         [btnCheck setImage:imgCheck forState:UIControlStateNormal];
+        
+        //setting for sample message view
+        if (_isShowBtnSampleMessage) {
+            if (reasonList == nil) {
+                reasonList = [[NSMutableArray alloc] init];
+            }
+            [reasonList addObject:LocalizedString(@"Lý do 1")];
+            [reasonList addObject:LocalizedString(@"Lý do 2")];
+            [reasonList addObject:LocalizedString(@"Lý do 3")];
+            [reasonList addObject:LocalizedString(@"Lý do 4")];
+            [reasonList addObject:LocalizedString(@"Lý do 5")];
+            
+            btnSampleMessage.hidden = NO;
+            btnSampleMessage.layer.masksToBounds = NO;
+            btnSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
+            btnSampleMessage.layer.shadowRadius = 5;
+            btnSampleMessage.layer.shadowOpacity = 0.5;
+
+            viewSampleMessage.layer.masksToBounds = NO;
+            viewSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
+            viewSampleMessage.layer.shadowRadius = 5;
+            viewSampleMessage.layer.shadowOpacity = 0.5;
+            
+            viewSampleMessage.layer.borderColor = GREEN_COLOR.CGColor;
+            viewSampleMessage.layer.borderWidth = 3.0f;
+            
+        } else {
+            btnSampleMessage.hidden = NO;
+        }
+        
+        viewSampleMessage.hidden = YES;
+        
     }
     
     UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
@@ -127,6 +164,13 @@
         CGRect rect = txtContent.frame;
         rect.size.height = self.view.frame.size.height - (rect.origin.y +                                                                                                                      keyboardSize.height);
         txtContent.frame = rect;
+    }];
+    
+    //do not call btnSampleMessageClick
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        viewSampleMessage.alpha = 0;
+    } completion:^(BOOL finished) {
+        viewSampleMessage.hidden = YES;
     }];
 }
 
@@ -454,5 +498,73 @@
     alert.tag = 4;
     
     [alert show];
+}
+
+
+#pragma mark sample reason view
+- (IBAction)btnShowSampleClick:(id)sender {
+    [txtContent resignFirstResponder];
+    
+    if (viewSampleMessage.hidden == YES) {
+        viewSampleMessage.alpha = 0;
+        viewSampleMessage.hidden = NO;
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            viewSampleMessage.alpha = 1;
+        }];
+        
+    } else {
+        viewSampleMessage.alpha = 1;
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            viewSampleMessage.alpha = 0;
+        } completion:^(BOOL finished) {
+            viewSampleMessage.hidden = YES;
+        }];
+    }
+}
+
+#pragma mark data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    // If you're serving data from an array, return the length of the array:
+    return [reasonList count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *reasonSampleCellId = @"reasonSampleCellId";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reasonSampleCellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reasonSampleCellId];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.textLabel.text = [reasonList objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+#pragma mark table delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *sample = [reasonList objectAtIndex:indexPath.row];
+    
+    txtContent.text = [txtContent.text stringByAppendingFormat:@"\n%@", sample];
+    
+    [self btnShowSampleClick:nil];
 }
 @end

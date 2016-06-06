@@ -24,7 +24,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pkr-MK-hjI">
                         <rect key="frame" x="8" y="24" width="304" height="18"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -34,7 +34,7 @@
                 <outlet property="lbReason" destination="pkr-MK-hjI" id="seS-ds-R89"/>
                 <outlet property="lbSession" destination="uD0-Dp-9YI" id="EDy-Vn-aB9"/>
             </connections>
-            <point key="canvasLocation" x="223" y="186"/>
+            <point key="canvasLocation" x="346" y="233"/>
         </tableViewCell>
     </objects>
 </document>

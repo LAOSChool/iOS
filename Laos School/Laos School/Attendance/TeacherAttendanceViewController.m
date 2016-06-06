@@ -182,6 +182,7 @@
     
     composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
         composeViewController.isTeacherForm = YES;
+    composeViewController.isShowBtnSampleMessage = YES;
     
     //set recipient
     NSMutableArray *recipents = [[NSMutableArray alloc] init];
@@ -216,7 +217,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 64.0;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -259,6 +260,7 @@
    
     cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
+    cell.lbGender.text = userObject.gender;
     
     //cancel loading previous image for cell
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
@@ -308,7 +310,13 @@
     
     checkAttObj.checkedFlag = !checkAttObj.checkedFlag;
     
-    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    StudentsListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (checkAttObj.checkedFlag) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 - (void)longpressGestureHandle:(id)sender {
@@ -611,7 +619,7 @@
     }
     
     dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] previousWeekWithFormat:ATTENDANCE_DATE_FORMATE];
-    dateTimePicker.maximumDate = dateTimePicker.date;
+    dateTimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextWeekWithFormat:ATTENDANCE_DATE_FORMATE];
     
     dateTimePicker.view.alpha = 0;
     dateTimePicker.delegate = (id)self;
@@ -646,7 +654,9 @@
 }
 
 - (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value {
+    lbDate.text = value;
     
+    [self loadData];
 }
 
 - (void)displayReasonView:(CheckAttendanceObject *)checkAttObj {
@@ -727,6 +737,10 @@
             
             if ([studentDict valueForKey:@"nickname"] != (id)[NSNull null]) {
                 userObject.nickName = [studentDict valueForKey:@"nickname"];
+            }
+            
+            if ([studentDict valueForKey:@"gender"] != (id)[NSNull null]) {
+                userObject.gender = [studentDict valueForKey:@"gender"];
             }
             
             if ([studentDict valueForKey:@"photo"] != (id)[NSNull null]) {

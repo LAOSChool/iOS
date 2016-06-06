@@ -114,6 +114,15 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     return resDate;
 }
 
+- (NSDate *)nextWeekWithFormat:(NSString *)formatString {
+    NSTimeInterval nextTimeInterval = [self getCurrentDatetimeInSec] + 24*3600*7;
+    NSDate *nextDate = [NSDate dateWithTimeIntervalSince1970:nextTimeInterval];
+    
+    NSDate *resDate = [self dateFromString:[self dateStringFromDate:nextDate withFormat:formatString]];
+    
+    return resDate;
+}
+
 - (NSString *)timeStringFromDate:(NSDate *)date {
     NSString *dateString = nil;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];

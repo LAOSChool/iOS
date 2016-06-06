@@ -10,11 +10,14 @@
                 <outlet property="btnAdd" destination="GmS-au-5OC" id="AL0-pK-2xD"/>
                 <outlet property="btnCheck" destination="vDv-AM-QIX" id="ziD-vY-6Tc"/>
                 <outlet property="btnImportanceFlag" destination="dfi-Lo-4wI" id="bxb-p8-QfR"/>
+                <outlet property="btnSampleMessage" destination="HrI-Xn-GZJ" id="XqA-ef-1dz"/>
                 <outlet property="lbSMS" destination="vML-ib-jCd" id="ndH-2t-Psm"/>
                 <outlet property="lbTeacherReceiverList" destination="Dsi-sT-9wy" id="1YO-Fz-AcY"/>
                 <outlet property="lbTo" destination="zba-EH-o5J" id="52r-NQ-Bnm"/>
+                <outlet property="tableViewSampleMessage" destination="zf6-fF-6bw" id="MDo-id-U9H"/>
                 <outlet property="txtContent" destination="AAs-mo-nLS" id="O1b-Og-5Dx"/>
                 <outlet property="view" destination="iN0-l3-epB" id="BIB-J4-Sqc"/>
+                <outlet property="viewSampleMessage" destination="rfS-Sm-A2F" id="rcP-dm-K5Z"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -47,8 +50,8 @@
                     <rect key="frame" x="8" y="100" width="304" height="460"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                 </textView>
                 <view contentMode="scaleToFill" id="bP2-wf-EBn">
                     <rect key="frame" x="8" y="98" width="304" height="1"/>
@@ -80,6 +83,30 @@
                         <action selector="btnPriorityFlagClick:" destination="-1" eventType="touchUpInside" id="lJX-UL-XA6"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HrI-Xn-GZJ">
+                    <rect key="frame" x="285" y="107" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ic_content_paste.png"/>
+                    <connections>
+                        <action selector="btnShowSampleClick:" destination="-1" eventType="touchUpInside" id="nbE-Wr-5qI"/>
+                    </connections>
+                </button>
+                <view hidden="YES" contentMode="scaleToFill" id="rfS-Sm-A2F">
+                    <rect key="frame" x="71" y="136" width="240" height="160"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zf6-fF-6bw">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="160"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="MxR-lR-XuI"/>
+                                <outlet property="delegate" destination="-1" id="e0H-N6-Ydr"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
@@ -99,6 +126,7 @@
     </objects>
     <resources>
         <image name="ic_add_gray.png" width="30" height="30"/>
+        <image name="ic_content_paste.png" width="30" height="30"/>
         <image name="ic_flag_white.png" width="30" height="30"/>
         <image name="ic_uncheck_gray.png" width="30" height="30"/>
     </resources>
