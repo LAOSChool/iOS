@@ -8,6 +8,7 @@
 
 #import "LevelPickerViewController.h"
 #import "Common.h"
+#import "SubjectObject.h"
 #import "LocalizeHelper.h"
 
 #define MAX_LEVEL 6
@@ -70,22 +71,17 @@
 }
 
 - (IBAction)btnDoneClick:(id)sender {
-//    if (_pickerType == LevelPicker) {
-//        NSString *level = [NSString stringWithFormat:@"%d", [levelPicker selectedRowInComponent:0] + 1];
-//        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
-//
-//    } else if (_pickerType == WaitingTimePicker) {
-//        NSString *time = [NSString stringWithFormat:@"%ld", (long)[levelPicker selectedRowInComponent:0]];
-//        [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
-//    }
-    
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
     }];
     
-    [self.delegate btnDoneClick:self withValueReturned:@""];
+    if (_dataArray) {
+        NSInteger selectedRow = [levelPicker selectedRowInComponent:0];
+        SubjectObject *subObj = [_dataArray objectAtIndex:selectedRow];
+        [self.delegate btnDoneClick:self withObjectReturned:subObj];
+    }
 }
 
 #pragma mark picker datasource
@@ -94,24 +90,24 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-//    if (_pickerType == LevelPicker) {
-//        return MAX_LEVEL;
-//        
-//    } else if (_pickerType == WaitingTimePicker) {
-//        return MAX_TIME;
-//    }
+    if (_pickerType == Picker_Subject) {
+        if (_dataArray) {
+            return [_dataArray count];
+        }
+        
+        return 0;
+    }
     
     return 0;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-//    if (_pickerType == LevelPicker) {
-//        return [NSString stringWithFormat:@"%d", row + 1];
-//        
-//    } else if (_pickerType == WaitingTimePicker) {
-//        return [NSString stringWithFormat:@"%ld", (long)row];
-//    }
+    if (_pickerType == Picker_Subject) {
+        SubjectObject *subObj = [_dataArray objectAtIndex:row];
+        
+        return subObj.subjectName;
+    }
     
     return @"";
 }
@@ -119,16 +115,9 @@
 #pragma mark picker delegate
 - (void)pickerView:(UIPickerView *)pV didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-/*    NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
-    
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.view removeFromSuperview];
-    }];
- */
+//    if (_dataArray) {
+//        SubjectObject *subObj = [_dataArray objectAtIndex:row];
+//        [self.delegate btnDoneClick:self withValueReturned:subObj.subjectID];
+//    }
 }
 @end

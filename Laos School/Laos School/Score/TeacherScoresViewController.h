@@ -12,11 +12,16 @@
 {
     IBOutlet UIView *viewTerm;
     IBOutlet UIView *viewInfo;
+    IBOutlet UIView *viewSubject;
     IBOutlet UIView *viewTableView;
     IBOutlet UIButton *btnExpand;
     
     IBOutlet UITableView *studentTableView;
     IBOutlet UISearchBar *searchBar;
+    
+    IBOutlet UILabel *lbClass;
+    IBOutlet UILabel *lbSubject;
+    
 }
 
 

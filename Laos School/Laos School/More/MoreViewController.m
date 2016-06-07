@@ -18,8 +18,6 @@
 #import "LoginViewController.h"
 #import "StudentTimeTableViewController.h"
 #import "AppDelegate.h"
-#import "UserObject.h"
-#import "ClassObject.h"
 #import "ShareData.h"
 #import "ChangePasswordViewController.h"
 

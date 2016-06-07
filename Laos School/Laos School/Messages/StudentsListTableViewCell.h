@@ -17,6 +17,7 @@
 
 
 @property (strong, nonatomic) IBOutlet AsyncImageView *imgAvatar;
+@property (strong, nonatomic) IBOutlet AsyncImageView *imgGender;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbFullname;
 @property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;

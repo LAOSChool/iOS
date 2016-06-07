@@ -12,7 +12,7 @@
 
 @optional // Delegate protocols
 
-- (void)btnDoneClick:(id)sender withValueReturned:(NSString *)value;
+- (void)btnDoneClick:(id)sender withObjectReturned:(id)returnedObj;
 
 @end
 
@@ -32,6 +32,7 @@ typedef enum {
 }
 
 @property (nonatomic, assign) PICKER_TYPE pickerType;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @property(nonatomic, readwrite) id <DataPickerViewDelegate> delegate;
 @end

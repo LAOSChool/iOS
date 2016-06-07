@@ -10,6 +10,7 @@
 #define LazzyBee_ShareData_h
 #import <Foundation/Foundation.h>
 #import "UserObject.h"
+#import "ClassObject.h"
 
 @interface ShareData : NSObject
 

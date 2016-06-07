@@ -10,7 +10,6 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
-#define PRODUCTION_SERVER @"https://222.255.29.25:8443/laoschoolws"
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -37,7 +36,6 @@
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
 #define API_NAME_UPDATE_ANNOUNCEMENT @"/api/notifies/update"
 
-
 #define API_NAME_STU_ATTENDANCE_LIST @"/api/attendances/myprofile"
 #define API_NAME_STU_REQ_ATTENDANCE @"/api/attendances/request"
 #define API_NAME_TEACHER_CREATE_ATTENDANCE @"/api/attendances/create"
@@ -48,6 +46,7 @@
 #define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
+#define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
 
 
 #define HttpOK 200
@@ -79,11 +78,13 @@
 
 //Time table
 - (void)getMyTimeTable:(NSString *)classID;
+- (void)getSubjectsListByClassID:(NSString *)classID;
 
 
 //score
 - (void)getMyScoreListInClass:(NSString *)classID;
 - (void)getMySchoolRecordInClass:(NSString *)classID;
+- (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

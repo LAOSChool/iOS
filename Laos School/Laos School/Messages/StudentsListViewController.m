@@ -220,7 +220,13 @@
     
     cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
-    cell.lbGender.text = userObject.gender;
+    
+    if ([userObject.gender isEqualToString:@"male"]) {
+        cell.imgGender.image = [UIImage imageNamed:@"ic_male.png"];
+        
+    } else if ([userObject.gender isEqualToString:@"female"]) {
+        cell.imgGender.image = [UIImage imageNamed:@"ic_female.png"];
+    }
     
     //cancel loading previous image for cell
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];

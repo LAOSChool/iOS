@@ -10,18 +10,27 @@
 #import "LevelPickerViewController.h"
 #import "TeacherScoresTableViewCell.h"
 #import "UserScore.h"
-#import "ScoreObject.h"
-
+#import "SubjectObject.h"
+#import "ShareData.h"
+#import "CommonDefine.h"
+#import "Common.h"
+#import "RequestToServer.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
+#import "CommonAlert.h"
+
+#import "SVProgressHUD.h"
 
 @interface TeacherScoresViewController ()
 {
     BOOL isShowingViewInfo;
-    NSMutableArray *studentsArray;
+    NSMutableArray *subjectsArray;
     NSMutableArray *searchResults;
     
     LevelPickerViewController *dataPicker;
+    
+    RequestToServer *requestToServer;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -37,61 +46,36 @@
     
     isShowingViewInfo = YES;
     
-    if (studentsArray == nil) {
-        studentsArray = [[NSMutableArray alloc] init];
+    if (subjectsArray == nil) {
+        subjectsArray = [[NSMutableArray alloc] init];
     }
     
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
     }
-#if 0
-    //for test
-    UserScore *userScore = [[UserScore alloc] init];
-    userScore.userID = @"1";
-    userScore.username = @"Nguyen Thi Nga";
-    userScore.averageScore = @"9";
     
-    ScoreObject *scoreObj1 = [[ScoreObject alloc] init];
-    scoreObj1.scoreID = @"1";
-    scoreObj1.scoreType = @"He so 1";
-    scoreObj1.score = @"9";
-    scoreObj1.weight = 1;
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
     
-    [userScore.scoreArray addObject:scoreObj1];
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadStudentsData) forControlEvents:UIControlEventValueChanged];
+    [studentTableView addSubview:refreshControl];
     
-    //score 2
-    ScoreObject *scoreObj2 = [[ScoreObject alloc] init];
-    scoreObj2.scoreID = @"2";
-    scoreObj2.scoreType = @"He so 1";
-    scoreObj2.score = @"10";
-    scoreObj1.weight = 1;
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    ClassObject *classObj = userObj.classObj;
+
+    lbClass.text = [NSString stringWithFormat:@"%@ | %@ Term %@", classObj.className, classObj.currentYear, classObj.currentTerm];
     
-    [userScore.scoreArray addObject:scoreObj2];
+    [viewTerm setBackgroundColor:GREEN_COLOR];
+    [viewInfo setBackgroundColor:[UIColor whiteColor]];
+    [viewSubject setBackgroundColor:GREEN_COLOR];
     
-    //score 3
-    ScoreObject *scoreObj3 = [[ScoreObject alloc] init];
-    scoreObj3.scoreID = @"3";
-    scoreObj3.scoreType = @"He so 2";
-    scoreObj3.score = @"9";
-    scoreObj3.weight = 2;
+    lbSubject.text = LocalizedString(@"Select a subject");
+    [lbSubject setTextColor:[UIColor lightGrayColor]];
     
-    [userScore.scoreArray addObject:scoreObj3];
-    
-    //score 4
-    ScoreObject *scoreObj4 = [[ScoreObject alloc] init];
-    scoreObj4.scoreID = @"4";
-    scoreObj4.scoreType = @"Final exam";
-    scoreObj4.score = @"9";
-    scoreObj4.weight = 3;
-    
-    [userScore.scoreArray addObject:scoreObj4];
-    
-    [studentsArray addObject:userScore];
-    
-    [searchResults addObjectsFromArray:studentsArray];
-#endif
-    
-    
+    [self loadSubjectList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,7 +93,40 @@
 }
 */
 
-#pragma mark show pick
+- (void)reloadStudentsData {
+
+}
+
+- (void)loadSubjectList {
+    if ([[Common sharedCommon]networkIsActive]) {
+        [SVProgressHUD show];
+        
+        UserObject *userObj = [[ShareData sharedShareData] userObj];
+        ClassObject *classObj = userObj.classObj;
+        
+        [requestToServer getSubjectsListByClassID:classObj.classID];
+        
+    } else {
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    }
+}
+
+- (void)loadScoresListBySubjectID:(NSString *)subjectID {
+    if ([[Common sharedCommon]networkIsActive]) {
+    //    [SVProgressHUD show];
+
+        UserObject *userObj = [[ShareData sharedShareData] userObj];
+        ClassObject *classObj = userObj.classObj;
+        
+   //     [requestToServer getScoresListByClassID:classObj.classID andSubjectID:subjectID];
+        
+    } else {
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    }
+}
+
+
+#pragma mark button click
 - (IBAction)btnChooseClassClick:(id)sender {
     [self showDataPicker:Picker_Classes];
 }
@@ -123,8 +140,6 @@
     [self showHideInfoView:isShowingViewInfo];
 }
 
-
-#pragma mark button click
 - (IBAction)btnExpandClick:(id)sender {
     isShowingViewInfo = !isShowingViewInfo;
     [self showHideInfoView:isShowingViewInfo];
@@ -167,7 +182,10 @@
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
     dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
     dataPicker.pickerType = pickerType;
+    dataPicker.dataArray = subjectsArray;
     dataPicker.view.alpha = 0;
+    
+    dataPicker.delegate = (id)self;
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;
@@ -178,6 +196,14 @@
     [UIView animateWithDuration:0.3 animations:^(void) {
         dataPicker.view.alpha = 1;
     }];
+}
+
+- (void)btnDoneClick:(id)sender withObjectReturned:(id)returnedObj {
+    [lbSubject setTextColor:[UIColor whiteColor]];
+    SubjectObject *subjectObj = (SubjectObject *)returnedObj;
+    lbSubject.text = subjectObj.subjectName;
+    
+    [self loadScoresListBySubjectID:subjectObj.subjectID];
 }
 
 #pragma mark data source
@@ -309,7 +335,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self->searchResults removeAllObjects]; // First clear the filtered array.
-    
+   /*
     if (searchText.length == 0) {
         self->searchResults = [studentsArray mutableCopy];
         
@@ -322,6 +348,64 @@
         self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
     }
     
-    [studentTableView reloadData];
+    [studentTableView reloadData];*/
+}
+
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    
+    NSString *url = [jsonObj objectForKey:@"url"];
+    
+    if ([url rangeOfString:API_NAME_TEACHER_GET_SUBJECTS_LIST].location != NSNotFound) {
+        NSArray *subjects = [jsonObj objectForKey:@"messageObject"];
+        
+        if (subjects != (id)[NSNull null]) {
+            for (NSDictionary *subjectDict in subjects) {
+                SubjectObject *subjectObj = [[SubjectObject alloc] init];
+                
+                if ([subjectDict valueForKey:@"id"] != (id)[NSNull null]) {
+                    subjectObj.subjectID = [NSString stringWithFormat:@"%@", [subjectDict valueForKey:@"id"]];
+                }
+                
+                if ([subjectDict valueForKey:@"sval"] != (id)[NSNull null]) {
+                    subjectObj.subjectName = [subjectDict valueForKey:@"sval"];
+                }
+                
+                [subjectsArray addObject:subjectObj];
+            }
+        }
+    } else {
+        
+    }
+}
+
+- (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+}
+
+- (void)loginWithWrongUserPassword {
+    
+}
+
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+    [refreshControl endRefreshing];
+    [self showAlertAccountLoginByOtherDevice];
+}
+
+- (void)showAlertAccountLoginByOtherDevice {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
 }
 @end

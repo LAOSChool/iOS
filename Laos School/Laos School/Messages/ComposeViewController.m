@@ -106,16 +106,21 @@
             viewSampleMessage.layer.shadowRadius = 5;
             viewSampleMessage.layer.shadowOpacity = 0.5;
             
-            viewSampleMessage.layer.borderColor = GREEN_COLOR.CGColor;
+            viewSampleMessage.layer.borderColor = [UIColor darkGrayColor].CGColor;
             viewSampleMessage.layer.borderWidth = 3.0f;
+
             
         } else {
-            btnSampleMessage.hidden = NO;
+            btnSampleMessage.hidden = YES;
         }
         
         viewSampleMessage.hidden = YES;
         
+    } else {
+        btnSampleMessage.hidden = YES;
+        viewSampleMessage.hidden = YES;
     }
+    
     
     UIBarButtonItem *btnSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSendClick)];
     
