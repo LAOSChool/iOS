@@ -11,8 +11,10 @@
 #import "Common.h"
 #import "LocalizeHelper.h"
 
-// Our conversion definition
-#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+#define NORMAL_SCORE [UIColor lightGrayColor]
+#define AVERAGE_SCORE GREEN_COLOR
+#define EXAM_SCORE BLUE_COLOR
+#define FINAL_SCORE COMMON_COLOR
 
 @implementation ScoreCell
 
@@ -62,11 +64,31 @@
         lbScore.text = _scoreObj.score;
         
         if (_scoreObj.scoreType == ScoreType_Normal) {
-            viewMonth.backgroundColor = GREEN_COLOR;
+            viewMonth.backgroundColor = NORMAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Average) {
+            lbMonth.text = LocalizedString(@"Ave");
+            viewMonth.backgroundColor = AVERAGE_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Exam) {
+            lbMonth.text = LocalizedString(@"Exam");
+            viewMonth.backgroundColor = EXAM_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_Final) {
-            lbMonth.text = LocalizedString(@"Final");
-            viewMonth.backgroundColor = [UIColor redColor];
+            lbMonth.text = LocalizedString(@"Term Ave");
+            viewMonth.backgroundColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_YearFinal) {
+            lbMonth.text = LocalizedString(@"Year Ave");
+            viewMonth.backgroundColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_ExamAgain) {
+            lbMonth.text = LocalizedString(@"Exam Again");
+            viewMonth.backgroundColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Graduate) {
+            lbMonth.text = LocalizedString(@"Gra");
+            viewMonth.backgroundColor = FINAL_SCORE;
         }
     }
 }

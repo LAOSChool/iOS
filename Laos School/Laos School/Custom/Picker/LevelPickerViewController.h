@@ -33,6 +33,8 @@ typedef enum {
 
 @property (nonatomic, assign) PICKER_TYPE pickerType;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) id selectedItem;
 
 @property(nonatomic, readwrite) id <DataPickerViewDelegate> delegate;
+
 @end

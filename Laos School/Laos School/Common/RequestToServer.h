@@ -44,10 +44,10 @@
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
 #define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
+#define API_NAME_TEACHER_SCORE_LIST @"/api/exam_results/marks"
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 #define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
-
 
 #define HttpOK 200
 #define Accepted 201

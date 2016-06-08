@@ -266,7 +266,22 @@
                     scoreObj.scoreType = ScoreType_Normal;
                     
                 } else if (type == 2) {
+                    scoreObj.scoreType = ScoreType_Exam;
+                    
+                } else if (type == 3) {
+                    scoreObj.scoreType = ScoreType_Average;
+                    
+                } else if (type == 4) {
                     scoreObj.scoreType = ScoreType_Final;
+                    
+                } else if (type == 5) {
+                    scoreObj.scoreType = ScoreType_YearFinal;
+                    
+                } else if (type == 6) {
+                    scoreObj.scoreType = ScoreType_ExamAgain;
+                    
+                } else if (type == 7) {
+                    scoreObj.scoreType = ScoreType_Graduate;
                 }
             }
             
@@ -369,9 +384,8 @@
 
 - (NSArray *)sortScoresArrayByMonth:(NSArray *)scores {
     NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"month" ascending:YES];
-    NSSortDescriptor *sortYearDes = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
     NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
-    NSArray *resultArr = [scores sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortYearDes, sortMonthDes, nil]];
+    NSArray *resultArr = [scores sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];
     
     return resultArr;
 }

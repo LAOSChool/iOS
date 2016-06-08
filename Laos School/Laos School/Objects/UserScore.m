@@ -23,6 +23,7 @@
         self.userID = @"";
         self.username = @"";
         self.additionalInfo = @"";
+        self.avatarLink = @"";
         self.scoreArray = [[NSMutableArray alloc] init];
         self.averageScore = @"";
     }
@@ -35,6 +36,7 @@
     [encoder encodeObject:self.userID forKey:@"userID"];
     [encoder encodeObject:self.username forKey:@"username"];
     [encoder encodeObject:self.additionalInfo forKey:@"additionalInfo"];
+    [encoder encodeObject:self.avatarLink forKey:@"avatarLink"];
     [encoder encodeObject:self.scoreArray forKey:@"scoreArray"];
     [encoder encodeObject:self.averageScore forKey:@"averageScore"];
 }
@@ -45,6 +47,7 @@
         self.userID = [decoder decodeObjectForKey:@"userID"];
         self.username = [decoder decodeObjectForKey:@"username"];
         self.additionalInfo = [decoder decodeObjectForKey:@"additionalInfo"];
+        self.avatarLink = [decoder decodeObjectForKey:@"avatarLink"];
         self.scoreArray = [decoder decodeObjectForKey:@"scoreArray"];
         self.averageScore = [decoder decodeObjectForKey:@"averageScore"];
     }

@@ -14,10 +14,23 @@
 
 //#define QUEUE_UNKNOWN 0
 
+/*
+ A 1  Normal
+ 2 Thi Hoc Ky
+ 3  Trung Binh 4 thang
+ 4  Trung Binh Hoc ky
+ 5 Trung Binh Ca Nam
+ 6 Thi Lai Ca Nam
+ 7 Thi Tot Nghiep Cap
+ */
 typedef enum {
-    ScoreType_Normal = 0,
-    ScoreType_Exam,
-    ScoreType_Final,
+    ScoreType_Normal = 0,   //"exam_type" = 1;
+    ScoreType_Average,  //"exam_type" = 3;
+    ScoreType_Exam,     //"exam_type" = 2;
+    ScoreType_Final,    //"exam_type" = 4;
+    ScoreType_YearFinal,
+    ScoreType_ExamAgain,
+    ScoreType_Graduate,
     ScoreType_Max,
 } SCORE_TYPE;
 

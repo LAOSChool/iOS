@@ -174,7 +174,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64.0;
+    return 44.0;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -221,18 +221,21 @@
     cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
     
-    if ([userObject.gender isEqualToString:@"male"]) {
-        cell.imgGender.image = [UIImage imageNamed:@"ic_male.png"];
+    if (userObject.avatarPath && userObject.avatarPath.length > 0) {
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
         
-    } else if ([userObject.gender isEqualToString:@"female"]) {
-        cell.imgGender.image = [UIImage imageNamed:@"ic_female.png"];
+        //load the image
+        cell.imgAvatar.imageURL = [NSURL URLWithString:userObject.avatarPath];
+        
+    } else {
+        if ([userObject.gender isEqualToString:@"male"]) {
+            cell.imgAvatar.image = [UIImage imageNamed:@"ic_male.png"];
+            
+        } else if ([userObject.gender isEqualToString:@"female"]) {
+            cell.imgAvatar.image = [UIImage imageNamed:@"ic_female.png"];
+        }
     }
-    
-    //cancel loading previous image for cell
-    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
-    
-    //load the image
-    cell.imgAvatar.imageURL = [NSURL URLWithString:userObject.avatarPath];
     
     //find this user in selected array
     BOOL found = NO;

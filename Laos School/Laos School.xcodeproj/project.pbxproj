@@ -226,6 +226,8 @@
 		5552501C1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 555250171C7EE0680027A4ED /* Readme.txt */; };
 		5552501F1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5552501A1C7EE0680027A4ED /* Readme.txt */; };
 		555250221C7EEE2A0027A4ED /* MyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 555250211C7EEE2A0027A4ED /* MyLogger.m */; };
+		555446A41D07F54C00602E46 /* TeacherScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */; };
+		555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */; };
 		555C89BC1C9A4FCD006180F6 /* ic_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89B91C9A4FCD006180F6 /* ic_clear.png */; };
 		555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */; };
 		555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */; };
@@ -253,8 +255,6 @@
 		5575ED4B1CA4EA4E00EFC02C /* CustomImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5575ED451CA4EA4E00EFC02C /* CustomImageView.xib */; };
 		5575ED4C1CA4EA4E00EFC02C /* PhotoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED471CA4EA4E00EFC02C /* PhotoObject.m */; };
 		5575ED6C1CA51DC300EFC02C /* AnnouncementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */; };
-		5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */; };
-		5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */; };
 		55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */; };
 		55797C8F1C8693DA00A0098D /* AnnouncementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */; };
 		55797C931C86958000A0098D /* StudentAttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55797C911C86958000A0098D /* StudentAttendanceViewController.m */; };
@@ -862,6 +862,9 @@
 		5552501A1C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		555250201C7EEE2A0027A4ED /* MyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogger.h; sourceTree = "<group>"; };
 		555250211C7EEE2A0027A4ED /* MyLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogger.m; sourceTree = "<group>"; };
+		555446A11D07F54C00602E46 /* TeacherScoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoreTableViewCell.h; sourceTree = "<group>"; };
+		555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoreTableViewCell.m; sourceTree = "<group>"; };
+		555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoreTableViewCell.xib; sourceTree = "<group>"; };
 		555C89B91C9A4FCD006180F6 /* ic_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clear.png; sourceTree = "<group>"; };
 		555C89BA1C9A4FCD006180F6 /* ic_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@2x.png"; sourceTree = "<group>"; };
 		555C89BB1C9A4FCD006180F6 /* ic_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@3x.png"; sourceTree = "<group>"; };
@@ -897,9 +900,6 @@
 		5575ED471CA4EA4E00EFC02C /* PhotoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoObject.m; sourceTree = "<group>"; };
 		5575ED6A1CA51DC300EFC02C /* AnnouncementObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementObject.h; sourceTree = "<group>"; };
 		5575ED6B1CA51DC300EFC02C /* AnnouncementObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementObject.m; sourceTree = "<group>"; };
-		5578C1061CAD00A500C02841 /* TeacherScoresTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoresTableViewCell.h; sourceTree = "<group>"; };
-		5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoresTableViewCell.m; sourceTree = "<group>"; };
-		5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoresTableViewCell.xib; sourceTree = "<group>"; };
 		55797C8B1C8693DA00A0098D /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		55797C8C1C8693DA00A0098D /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		55797C8D1C8693DA00A0098D /* AnnouncementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementViewController.xib; sourceTree = "<group>"; };
@@ -2437,12 +2437,12 @@
 				55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */,
 				55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */,
 				55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */,
-				5578C1061CAD00A500C02841 /* TeacherScoresTableViewCell.h */,
-				5578C1071CAD00A500C02841 /* TeacherScoresTableViewCell.m */,
-				5578C1081CAD00A500C02841 /* TeacherScoresTableViewCell.xib */,
 				555130731CE4260C0001B2F0 /* StudentScoreTableViewCell.h */,
 				555130741CE4260C0001B2F0 /* StudentScoreTableViewCell.m */,
 				555130751CE4260C0001B2F0 /* StudentScoreTableViewCell.xib */,
+				555446A11D07F54C00602E46 /* TeacherScoreTableViewCell.h */,
+				555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */,
+				555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2697,7 +2697,6 @@
 				554769C11C917C9300269EBB /* ic_holder.png in Resources */,
 				55320C9D1CEDA8AB00E45492 /* ic_user_white@2x.png in Resources */,
 				557C753A1CFBF65E005C5FAA /* ic_check_gray@2x.png in Resources */,
-				5578C10A1CAD00A500C02841 /* TeacherScoresTableViewCell.xib in Resources */,
 				5531DBE31CE2D07B00FBD6A4 /* ic_down_arrow.png in Resources */,
 				558FC5EC1CEECBD900CD0389 /* ic_edit_gray.png in Resources */,
 				55B108E61C802CA200EB695C /* ic_alert.png in Resources */,
@@ -2774,6 +2773,7 @@
 				5587823A1C8FD0FB00365369 /* SchoolProfileViewController.xib in Resources */,
 				557D78D31C97FEA5008096A0 /* ic_checkall@3x.png in Resources */,
 				55797C941C86958000A0098D /* StudentAttendanceViewController.xib in Resources */,
+				555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */,
 				552094511C8932CF004670B3 /* ic_clock@3x.png in Resources */,
 				55FEDB9A1C841EC100DD0D24 /* ComposeViewController.xib in Resources */,
 				55B108D61C802A3B00EB695C /* ForgotPasswordViewController.xib in Resources */,
@@ -2934,7 +2934,6 @@
 				555130761CE4260C0001B2F0 /* StudentScoreTableViewCell.m in Sources */,
 				55510DC21CD9AE0D00638646 /* UIAlertView+AFNetworking.m in Sources */,
 				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
-				5578C1091CAD00A500C02841 /* TeacherScoresTableViewCell.m in Sources */,
 				55510DDD1CD9CF2500638646 /* JTSAnimatedGIFUtility.m in Sources */,
 				550A75EF1CCE153A0050240B /* CTAssetsPickerController.m in Sources */,
 				550A75F31CCE153A0050240B /* CTAssetThumbnailStacks.m in Sources */,
@@ -3045,6 +3044,7 @@
 				5538A9791CBCF3E500659C8A /* JSQLocationMediaItem.m in Sources */,
 				550A75E01CCE153A0050240B /* CTAssetItemViewController.m in Sources */,
 				55510D071CD9A97F00638646 /* FSImageLoader.m in Sources */,
+				555446A41D07F54C00602E46 /* TeacherScoreTableViewCell.m in Sources */,
 				55FC723F1C7C599D00B0B8D0 /* UIColor+GraphKit.m in Sources */,
 				55510D0C1CD9A97F00638646 /* FSImageViewerViewController.m in Sources */,
 				550FD2851C7AF60C009D7159 /* main.m in Sources */,

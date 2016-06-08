@@ -25,26 +25,14 @@
     // Do any additional setup after loading the view from its nib.
     [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
     
-//    if (_pickerType == LevelPicker) {
-//        NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
-//        
-//        if (!level) {
-//            level = @"2";
-//            [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
-//        }
-//        
-//        [levelPicker selectRow:[level integerValue] - 1 inComponent:0 animated:YES];
-//        
-//    } else if (_pickerType == WaitingTimePicker) {
-//        NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
-//        
-//        if (!time) {
-//            time = @"3";
-//            [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
-//        }
-//        
-//        [levelPicker selectRow:[time integerValue] inComponent:0 animated:YES];
-//    }
+    if (_selectedItem) {
+        if (_pickerType == Picker_Subject) {
+            NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
+            
+            [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+            
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

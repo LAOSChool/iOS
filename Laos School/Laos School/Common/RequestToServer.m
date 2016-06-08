@@ -118,9 +118,9 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCHOOL_RECORD_LIST];
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_TEACHER_SCORE_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@&filter_subject_id=%@", requestString, classID, subjectID];
-    
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

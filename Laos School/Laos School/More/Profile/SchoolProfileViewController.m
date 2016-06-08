@@ -99,7 +99,10 @@
 }
 
 - (void)showLevelPicker {
-    termPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    if (termPicker == nil) {
+        termPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    }
+    
     termPicker.pickerType = Picker_Terms;
     termPicker.view.alpha = 0;
     
