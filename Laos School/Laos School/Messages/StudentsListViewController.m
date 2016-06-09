@@ -100,9 +100,14 @@
 }
 
 - (void)loadData {
-    [SVProgressHUD show];
     
-    [requestToServer getStudentList:[[ShareData sharedShareData] userObj].classObj.classID];
+    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(taskQ, ^{
+        [SVProgressHUD show];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [requestToServer getStudentList:[[ShareData sharedShareData] userObj].classObj.classID];
+        });
+    });
 }
 
 - (void)checkSelectedAll {

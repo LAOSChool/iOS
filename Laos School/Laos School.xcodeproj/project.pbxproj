@@ -356,6 +356,12 @@
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
+		559A07FC1D0912ED00B31125 /* AddScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A07FA1D0912ED00B31125 /* AddScoresViewController.m */; };
+		559A07FD1D0912ED00B31125 /* AddScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */; };
+		559A08011D091AD800B31125 /* ic_score_type.png in Resources */ = {isa = PBXBuildFile; fileRef = 559A07FE1D091AD800B31125 /* ic_score_type.png */; };
+		559A08021D091AD800B31125 /* ic_score_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559A07FF1D091AD800B31125 /* ic_score_type@2x.png */; };
+		559A08031D091AD800B31125 /* ic_score_type@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559A08001D091AD800B31125 /* ic_score_type@3x.png */; };
+		559A08061D095C7500B31125 /* ScoreTypeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A08051D095C7500B31125 /* ScoreTypeObject.m */; };
 		559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B01CFD378F001C39E9 /* ic_calendar_gray.png */; };
 		559BB1B41CFD378F001C39E9 /* ic_calendar_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B11CFD378F001C39E9 /* ic_calendar_gray@2x.png */; };
 		559BB1B51CFD378F001C39E9 /* ic_calendar_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559BB1B21CFD378F001C39E9 /* ic_calendar_gray@3x.png */; };
@@ -1022,6 +1028,14 @@
 		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		559A07F91D0912ED00B31125 /* AddScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddScoresViewController.h; sourceTree = "<group>"; };
+		559A07FA1D0912ED00B31125 /* AddScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddScoresViewController.m; sourceTree = "<group>"; };
+		559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddScoresViewController.xib; sourceTree = "<group>"; };
+		559A07FE1D091AD800B31125 /* ic_score_type.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_score_type.png; sourceTree = "<group>"; };
+		559A07FF1D091AD800B31125 /* ic_score_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_score_type@2x.png"; sourceTree = "<group>"; };
+		559A08001D091AD800B31125 /* ic_score_type@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_score_type@3x.png"; sourceTree = "<group>"; };
+		559A08041D095C7500B31125 /* ScoreTypeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreTypeObject.h; sourceTree = "<group>"; };
+		559A08051D095C7500B31125 /* ScoreTypeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreTypeObject.m; sourceTree = "<group>"; };
 		559BB1B01CFD378F001C39E9 /* ic_calendar_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_calendar_gray.png; sourceTree = "<group>"; };
 		559BB1B11CFD378F001C39E9 /* ic_calendar_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_gray@2x.png"; sourceTree = "<group>"; };
 		559BB1B21CFD378F001C39E9 /* ic_calendar_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_calendar_gray@3x.png"; sourceTree = "<group>"; };
@@ -1489,6 +1503,9 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				559A07FE1D091AD800B31125 /* ic_score_type.png */,
+				559A07FF1D091AD800B31125 /* ic_score_type@2x.png */,
+				559A08001D091AD800B31125 /* ic_score_type@3x.png */,
 				5567580E1D06B8AE0000321B /* ic_female.png */,
 				5567580F1D06B8AE0000321B /* ic_female@2x.png */,
 				556758101D06B8AE0000321B /* ic_female@3x.png */,
@@ -2443,6 +2460,9 @@
 				555446A11D07F54C00602E46 /* TeacherScoreTableViewCell.h */,
 				555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */,
 				555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */,
+				559A07F91D0912ED00B31125 /* AddScoresViewController.h */,
+				559A07FA1D0912ED00B31125 /* AddScoresViewController.m */,
+				559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2545,6 +2565,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				559A08041D095C7500B31125 /* ScoreTypeObject.h */,
+				559A08051D095C7500B31125 /* ScoreTypeObject.m */,
 				5567580B1D06A4000000321B /* SubjectObject.h */,
 				5567580C1D06A4000000321B /* SubjectObject.m */,
 				55A579601CEC67FC000597D2 /* TTSessionObject.h */,
@@ -2708,6 +2730,7 @@
 				556758181D06B8AE0000321B /* ic_male@2x.png in Resources */,
 				558782351C8FCB3800365369 /* ic_phone_black@3x.png in Resources */,
 				558FC5EE1CEECBD900CD0389 /* ic_edit_gray@3x.png in Resources */,
+				559A08031D091AD800B31125 /* ic_score_type@3x.png in Resources */,
 				5538B13D1CFEEC40009544D5 /* ic_cancel_white@2x.png in Resources */,
 				55FC72411C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55797CCB1C86D08A00A0098D /* ic_send@3x.png in Resources */,
@@ -2727,6 +2750,7 @@
 				550A82211C9AA6AF001F652B /* ic_radio_check@2x.png in Resources */,
 				55B108F11C802CA200EB695C /* ic_setting@3x.png in Resources */,
 				55510D0B1CD9A97F00638646 /* FSImageViewer.bundle in Resources */,
+				559A07FD1D0912ED00B31125 /* AddScoresViewController.xib in Resources */,
 				557D78C71C97BDE5008096A0 /* StudentsListViewController.xib in Resources */,
 				55CF10E21C85927B00DC1AB9 /* ic_edit.png in Resources */,
 				55B108EE1C802CA200EB695C /* ic_help@3x.png in Resources */,
@@ -2788,6 +2812,7 @@
 				55797CBE1C86D08A00A0098D /* ic_announcement@3x.png in Resources */,
 				55797CC01C86D08A00A0098D /* ic_attendance@2x.png in Resources */,
 				55797CC51C86D08A00A0098D /* ic_message.png in Resources */,
+				559A08021D091AD800B31125 /* ic_score_type@2x.png in Resources */,
 				550A821E1C9AA6AF001F652B /* ic_radio_uncheck@2x.png in Resources */,
 				55FC72441C7C599D00B0B8D0 /* LICENSE.txt in Resources */,
 				554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */,
@@ -2867,6 +2892,7 @@
 				55BA86FC1C8D7710000221D7 /* PersonalInfoViewController.xib in Resources */,
 				559509091C99002A00D06158 /* ic_expand.png in Resources */,
 				55FC72331C7C599D00B0B8D0 /* LICENSE in Resources */,
+				559A08011D091AD800B31125 /* ic_score_type.png in Resources */,
 				55797CCE1C86D08A00A0098D /* ic_timetable@3x.png in Resources */,
 				5551307C1CE44C640001B2F0 /* StuDetailAttendanceTableViewCell.xib in Resources */,
 				559BB1B41CFD378F001C39E9 /* ic_calendar_gray@2x.png in Resources */,
@@ -2935,6 +2961,7 @@
 				55510DC21CD9AE0D00638646 /* UIAlertView+AFNetworking.m in Sources */,
 				55DC79841CA8E8E700F7CF65 /* AnnouncementTableViewCell.m in Sources */,
 				55510DDD1CD9CF2500638646 /* JTSAnimatedGIFUtility.m in Sources */,
+				559A08061D095C7500B31125 /* ScoreTypeObject.m in Sources */,
 				550A75EF1CCE153A0050240B /* CTAssetsPickerController.m in Sources */,
 				550A75F31CCE153A0050240B /* CTAssetThumbnailStacks.m in Sources */,
 				55510DC31CD9AE0D00638646 /* UIButton+AFNetworking.m in Sources */,
@@ -3103,6 +3130,7 @@
 				5575ED481CA4EA4E00EFC02C /* CreatePostViewController.m in Sources */,
 				550A75E31CCE153A0050240B /* CTAssetSelectionButton.m in Sources */,
 				5538A98A1CBCF3E500659C8A /* JSQMessagesLoadEarlierHeaderView.m in Sources */,
+				559A07FC1D0912ED00B31125 /* AddScoresViewController.m in Sources */,
 				550A75DB1CCE153A0050240B /* UICollectionView+CTAssetsPickerController.m in Sources */,
 				55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */,
 				55B50D551CC89360002B3412 /* Announcements+CoreDataProperties.m in Sources */,

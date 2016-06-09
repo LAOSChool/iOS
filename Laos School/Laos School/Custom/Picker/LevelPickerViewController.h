@@ -20,6 +20,7 @@ typedef enum {
     Picker_Terms = 0,
     Picker_Classes,
     Picker_Subject,
+    Picker_ScoreType,
     Picker_Section,
     PickerTypeMax
 } PICKER_TYPE;

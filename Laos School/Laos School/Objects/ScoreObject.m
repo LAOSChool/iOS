@@ -31,6 +31,7 @@
         self.score = @"";
         self.subject = @"";
         self.dateTime = @"";
+        self.examID = @"";
         self.scoreType = ScoreType_Normal;
         self.month = 0;
         self.year = 0;
@@ -50,6 +51,7 @@
     [encoder encodeObject:self.score forKey:@"score"];
     [encoder encodeObject:self.subject forKey:@"subject"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
+    [encoder encodeObject:self.examID forKey:@"examID"];
     [encoder encodeInteger:self.scoreType forKey:@"scoreType"];
     [encoder encodeInteger:self.month forKey:@"month"];
     [encoder encodeInteger:self.year forKey:@"year"];
@@ -69,6 +71,7 @@
         self.score = [decoder decodeObjectForKey:@"score"];
         self.subject = [decoder decodeObjectForKey:@"subject"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
+        self.examID = [decoder decodeObjectForKey:@"examID"];
         self.scoreType = (SCORE_TYPE)[decoder decodeIntegerForKey:@"scoreType"];
         self.month = (SCORE_TYPE)[decoder decodeIntegerForKey:@"month"];
         self.year = (SCORE_TYPE)[decoder decodeIntegerForKey:@"year"];

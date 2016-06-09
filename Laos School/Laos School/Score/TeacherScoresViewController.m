@@ -8,6 +8,7 @@
 
 #import "TeacherScoresViewController.h"
 #import "LevelPickerViewController.h"
+#import "AddScoresViewController.h"
 #import "TeacherScoreTableViewCell.h"
 #import "UserScore.h"
 #import "ScoreObject.h"
@@ -47,6 +48,13 @@
     [self.navigationController setNavigationColor];
     
     [self setTitle:LocalizedString(@"Scores")];
+    
+    if (([ShareData sharedShareData].userObj.permission & Permission_AddScore) == Permission_AddScore) {
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewScore)];
+        
+        self.navigationItem.rightBarButtonItems = @[addButton];
+    }
     
     isShowingViewInfo = YES;
     selectedSubject = nil;
@@ -143,12 +151,18 @@
     }
 }
 
-
-#pragma mark button click
-- (IBAction)btnChooseClassClick:(id)sender {
-    [self showDataPicker:Picker_Classes];
+- (void)addNewScore {
+    AddScoresViewController *addScoresView = [[AddScoresViewController alloc] initWithNibName:@"AddScoresViewController" bundle:nil];
+    addScoresView.subjectsArray = subjectsArray;
+    addScoresView.selectedSubject = selectedSubject;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addScoresView];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
+
+#pragma mark button click
 - (IBAction)btnChooseSubjectClick:(id)sender {
     [self showDataPicker:Picker_Subject];
 }
@@ -198,6 +212,8 @@
 
 #pragma mark data picker
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
+    [searchBar resignFirstResponder];
+    
     if (dataPicker == nil) {
         dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
     }
@@ -221,12 +237,14 @@
 }
 
 - (void)btnDoneClick:(id)sender withObjectReturned:(id)returnedObj {
-    [lbSubject setTextColor:[UIColor whiteColor]];
-    SubjectObject *subjectObj = (SubjectObject *)returnedObj;
-    lbSubject.text = subjectObj.subjectName;
-    selectedSubject = subjectObj;
-    
-    [self loadScoresListBySubjectID:subjectObj.subjectID];
+    if (returnedObj) {
+        [lbSubject setTextColor:[UIColor whiteColor]];
+        SubjectObject *subjectObj = (SubjectObject *)returnedObj;
+        lbSubject.text = subjectObj.subjectName;
+        selectedSubject = subjectObj;
+        
+        [self loadScoresListBySubjectID:subjectObj.subjectID];
+    }
 }
 
 #pragma mark data source

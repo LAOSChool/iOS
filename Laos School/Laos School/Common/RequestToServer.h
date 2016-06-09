@@ -48,6 +48,7 @@
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 #define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
+#define API_NAME_TEACHER_GET_EXAM_TYPE_LIST @"/api/classes/exams"
 
 #define HttpOK 200
 #define Accepted 201
@@ -85,6 +86,7 @@
 - (void)getMyScoreListInClass:(NSString *)classID;
 - (void)getMySchoolRecordInClass:(NSString *)classID;
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
+- (void)getScoreTypeListInClass:(NSString *)classID;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

@@ -9,6 +9,7 @@
 #import "LevelPickerViewController.h"
 #import "Common.h"
 #import "SubjectObject.h"
+#import "ScoreTypeObject.h"
 #import "LocalizeHelper.h"
 
 #define MAX_LEVEL 6
@@ -26,10 +27,13 @@
     [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
     
     if (_selectedItem) {
-        if (_pickerType == Picker_Subject) {
-            NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
-            
-            [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+        if (_pickerType == Picker_Subject ||
+            _pickerType == Picker_ScoreType) {
+            if ([_dataArray count] > 0) {
+                NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
+                
+                [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+            }
             
         }
     }
@@ -50,6 +54,30 @@
 }
 */
 
+- (void)setSelectedItem:(id)selectedItem {
+    if (selectedItem) {
+        _selectedItem = selectedItem;
+        
+        if (_pickerType == Picker_Subject ||
+            _pickerType == Picker_ScoreType) {
+            if ([_dataArray count] > 0) {
+                NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
+                
+                [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+            }
+            
+        }
+    }
+}
+
+- (void)setDataArray:(NSArray *)dataArray {
+    if (dataArray) {
+        _dataArray = dataArray;
+        
+        [levelPicker reloadAllComponents];
+    }
+}
+
 - (IBAction)tapGestureHandle:(id)sender {
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
@@ -65,10 +93,18 @@
         [self.view removeFromSuperview];
     }];
     
-    if (_dataArray) {
+    if ([_dataArray count] > 0) {
         NSInteger selectedRow = [levelPicker selectedRowInComponent:0];
-        SubjectObject *subObj = [_dataArray objectAtIndex:selectedRow];
-        [self.delegate btnDoneClick:self withObjectReturned:subObj];
+        
+        if (_pickerType == Picker_Subject) {
+            SubjectObject *subObj = [_dataArray objectAtIndex:selectedRow];
+            [self.delegate btnDoneClick:self withObjectReturned:subObj];
+            
+        } else if (_pickerType == Picker_ScoreType) {
+            ScoreTypeObject *typeObj = [_dataArray objectAtIndex:selectedRow];
+            [self.delegate btnDoneClick:self withObjectReturned:typeObj];
+        }
+        
     }
 }
 
@@ -78,7 +114,8 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (_pickerType == Picker_Subject) {
+    if (_pickerType == Picker_Subject ||
+        _pickerType == Picker_ScoreType) {
         if (_dataArray) {
             return [_dataArray count];
         }
@@ -95,6 +132,11 @@
         SubjectObject *subObj = [_dataArray objectAtIndex:row];
         
         return subObj.subjectName;
+        
+    } else if (_pickerType == Picker_ScoreType) {
+        ScoreTypeObject *typeObj = [_dataArray objectAtIndex:row];
+        
+        return typeObj.scoreName;
     }
     
     return @"";
