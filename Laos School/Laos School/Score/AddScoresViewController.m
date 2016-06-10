@@ -9,6 +9,7 @@
 #import "AddScoresViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LevelPickerViewController.h"
+#import "AddScoreTableViewCell.h"
 #import "ScoreTypeObject.h"
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
@@ -23,8 +24,9 @@
 
 @interface AddScoresViewController ()
 {
-    NSMutableArray *scoresArray;
-    NSMutableDictionary *userScoreDict;
+    NSMutableArray *scoresArray;    //store usersocre corresponding to a specific type
+    NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
+    NSMutableDictionary *temporaryData;
     NSMutableArray *searchResults;
     NSMutableArray *scoreTypesArray;
     
@@ -46,7 +48,7 @@
     
     [self setTitle:LocalizedString(@"Add scores")];
     
-    UIBarButtonItem *btnSubmit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(btnSubmitClick)];
+    UIBarButtonItem *btnSubmit = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Submit") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(btnSubmitClick)];
     
     self.navigationItem.rightBarButtonItems = @[btnSubmit];
     
@@ -61,6 +63,10 @@
     
     if (userScoreDict == nil) {
         userScoreDict = [[NSMutableDictionary alloc] init];
+    }
+    
+    if (temporaryData == nil) {
+        temporaryData = [[NSMutableDictionary alloc] init];
     }
     
     if (scoreTypesArray == nil) {
@@ -78,9 +84,9 @@
     
     _selectedType = nil;
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(reloadScoresData) forControlEvents:UIControlEventValueChanged];
-    [studentTableView addSubview:refreshControl];
+//    refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self action:@selector(reloadScoresData) forControlEvents:UIControlEventValueChanged];
+//    [studentTableView addSubview:refreshControl];
     
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
@@ -95,6 +101,8 @@
     if (_selectedSubject) {
         lbSubject.text = _selectedSubject.subjectName;
         [lbSubject setTextColor:[UIColor whiteColor]];
+        
+        [self loadScoresListBySubjectID:_selectedSubject.subjectID];
         
     } else {
         lbSubject.text = LocalizedString(@"Select a subject");
@@ -122,26 +130,34 @@
 }
 */
 - (void)cancelButtonClick {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self confirmCancelAddScore];
 }
 
 - (void)btnSubmitClick {
-    if ([[Common sharedCommon]networkIsActive]) {
-//        if ([self validateInputs]) {
-//            
-//        } else {
-//           
-//        }
-        
-    } else {
-        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+    if ([self validateInputs]) {
+        [self confirmBeforeSubmitScore];
     }
 }
 
+- (BOOL)validateInputs {
+    BOOL res = YES;
+    
+    
+    
+    return res;
+}
+
 - (void)reloadScoresData {
-//    if (selectedType.length > 0) {
-//        [self loadScoresData];
-//    }
+    if (_selectedType == nil) {
+        [self loadScoresType];
+        
+    } else {
+        if (_selectedSubject) {
+            [self loadScoresListBySubjectID:_selectedSubject.subjectID];
+        } else {
+            [refreshControl endRefreshing];
+        }
+    }
 }
 
 - (void)loadScoresType {
@@ -223,7 +239,7 @@
             lbSubject.text = subjectObj.subjectName;
             _selectedSubject = subjectObj;
             
-            //        [self loadScoresListBySubjectID:subjectObj.subjectID];
+            [self loadScoresListBySubjectID:subjectObj.subjectID];
             
         } else if (dataPicker.pickerType == Picker_ScoreType) {
             [lbScoreType setTextColor:[UIColor whiteColor]];
@@ -231,7 +247,18 @@
             lbScoreType.text = typeObj.scoreName;
             _selectedType = typeObj;
             
-            //        [self loadScoresListBySubjectID:subjectObj.subjectID];
+            if ([userScoreDict count] > 0) {
+                [scoresArray removeAllObjects];
+                [searchResults removeAllObjects];
+                [temporaryData removeAllObjects];
+                
+                NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
+                [scoresArray addObjectsFromArray:arr];
+                [self copyScoreToTempDictionary];
+                [searchResults addObjectsFromArray:scoresArray];
+            
+                [studentTableView reloadData];
+            }
         }
     }
 }
@@ -255,7 +282,50 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return nil;
+    static NSString *addScoreCellIdentifier = @"AddScoreTableViewCell";
+    
+    AddScoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:addScoreCellIdentifier];
+    
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"AddScoreTableViewCell" owner:nil options:nil];
+        cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    cell.delegate = (id)self;
+    
+    UserScore *userScoreObject = [searchResults objectAtIndex:indexPath.row];
+    ScoreObject *scoreObj = nil;
+    
+    if ([userScoreObject.scoreArray count] > 0) {
+        scoreObj = [userScoreObject.scoreArray objectAtIndex:0];
+    }
+    
+    cell.userScore = userScoreObject;
+    cell.lbStudentName.text = userScoreObject.username;
+    cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
+    
+    NSString *tempScore = [temporaryData objectForKey:userScoreObject.userID];
+    cell.txtScore.text = tempScore;
+    
+    if (userScoreObject.avatarLink && userScoreObject.avatarLink.length > 0) {
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];
+        
+        //load the image
+        cell.imgAvatar.imageURL = [NSURL URLWithString:userScoreObject.avatarLink];
+        
+    }
+    
+    return cell;
+}
+
+- (void)inputScoreTo:(id)sender withValueReturned:(NSString *)value {
+    AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
+    
+    UserScore *userScoreObject = cell.userScore;
+    
+    [temporaryData setValue:value forKey:userScoreObject.userID];
 }
 
 #pragma mark table delegate
@@ -271,6 +341,22 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    
+    if (searchText.length == 0) {
+        self->searchResults = [scoresArray mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchText];
+        
+        NSArray *filterKeys = [scoresArray filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    
+    [studentTableView reloadData];
 }
 
 #pragma mark RequestToServer delegate
@@ -312,7 +398,7 @@
         }
         
         if ([scoreTypeDict valueForKey:@"ex_month"] != (id)[NSNull null]) {
-            scoreTypeObj.scoreMonth = [NSString stringWithFormat:@"%@", [scoreTypeDict valueForKey:@"ex_month"]];
+            scoreTypeObj.scoreMonth = [[scoreTypeDict valueForKey:@"ex_month"] integerValue];
         }
         
         if ([scoreTypeDict valueForKey:@"ex_type"] != (id)[NSNull null]) {
@@ -341,12 +427,24 @@
             }
         }
         
-        [scoreTypesArray addObject:scoreTypeObj];
+        if (scoreTypeObj.scoreType == ScoreType_Normal ||
+            scoreTypeObj.scoreType == ScoreType_Exam ||
+            scoreTypeObj.scoreType == ScoreType_Final ||
+            scoreTypeObj.scoreType == ScoreType_ExamAgain ||
+            scoreTypeObj.scoreType == ScoreType_Graduate) {
+            
+            [scoreTypesArray addObject:scoreTypeObj];
+        }
     }
+    
+    NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreMonth" ascending:YES];
+    NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+    [scoreTypesArray sortUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];
 }
 
 - (void)parseScoreList:(NSArray *)scores {
     [scoresArray removeAllObjects];
+    [temporaryData removeAllObjects];
     [userScoreDict removeAllObjects];
     [searchResults removeAllObjects];
     
@@ -359,7 +457,7 @@
         NSString *avatarLink = @"";
         
         if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
-            studentID = [scoreDict valueForKey:@"student_id"];
+            studentID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"student_id"]];
         }
         
         if ([scoreDict valueForKey:@"student_name"] != (id)[NSNull null]) {
@@ -388,6 +486,10 @@
         
         if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
             scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
+        }
+        
+        if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
+            scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
         }
         
         if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
@@ -440,30 +542,37 @@
             scoreObj.term = [scoreDict valueForKey:@"term"];
         }
         
-        UserScore *oldUserScoreObj = [userScoreDict objectForKey:studentID];
+        UserScore *newUserScoreObj = [[UserScore alloc] init];
         
-        if (oldUserScoreObj) {
-            [oldUserScoreObj.scoreArray addObject:scoreObj];
-            
-        } else {
-            UserScore *newUserScoreObj = [[UserScore alloc] init];
-            
-            newUserScoreObj.userID = studentID;
-            newUserScoreObj.username = studentName;
-            newUserScoreObj.additionalInfo = nickname;
-            newUserScoreObj.avatarLink = avatarLink;
-            
-            [newUserScoreObj.scoreArray addObject:scoreObj];
-            
-            [userScoreDict setObject:newUserScoreObj forKey:studentID];
-        }
+        newUserScoreObj.userID = studentID;
+        newUserScoreObj.username = studentName;
+        newUserScoreObj.additionalInfo = nickname;
+        newUserScoreObj.avatarLink = avatarLink;
+        
+        [newUserScoreObj.scoreArray addObject:scoreObj];
+        
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[userScoreDict objectForKey:scoreObj.examID]];
+        
+        [arr addObject:newUserScoreObj];
+        
+        [userScoreDict setObject:arr forKey:scoreObj.examID];
     }
     
-    [scoresArray addObjectsFromArray:[userScoreDict allValues]];
+    if (_selectedType) {
+        [scoresArray addObjectsFromArray:[userScoreDict objectForKey:_selectedType.typeID]];
+        [self copyScoreToTempDictionary];
+        [searchResults addObjectsFromArray:scoresArray];
+    }
     
-    [searchResults addObjectsFromArray:scoresArray];
-
     [studentTableView reloadData];
+}
+
+//call this function as change scoresArray
+- (void)copyScoreToTempDictionary {
+    for (UserScore *userScore in scoresArray) {
+        ScoreObject *score = [userScore.scoreArray objectAtIndex:0];
+        [temporaryData setValue:score.score forKey:userScore.userID];
+    }
 }
 
 - (void)failToConnectToServer {
@@ -486,10 +595,44 @@
     [self showAlertAccountLoginByOtherDevice];
 }
 
+#pragma mark alert
 - (void)showAlertAccountLoginByOtherDevice {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 1;
     
     [alert show];
+}
+
+- (void)confirmBeforeSubmitScore {
+    NSString *content = LocalizedString(@"Please double check information before you submit scores.");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)confirmCancelAddScore {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 2) {    //confirmBeforeSubmitScore
+        if (buttonIndex != 0) {
+            if ([[Common sharedCommon]networkIsActive]) {
+
+            } else {
+                [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
+            }
+        }
+        
+    } else if (alertView.tag == 3) {    //confirmCancelAddScore
+        if (buttonIndex != 0) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
 }
 @end

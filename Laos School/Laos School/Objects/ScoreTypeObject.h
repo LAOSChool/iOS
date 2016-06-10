@@ -40,7 +40,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *typeID;
 @property (nonatomic, strong) NSString *scoreName;
 @property (nonatomic, assign) SCORE_TYPE scoreType;
-@property (nonatomic, strong) NSString *scoreMonth;
+@property (nonatomic, assign) NSInteger scoreMonth;
 
 
 @end

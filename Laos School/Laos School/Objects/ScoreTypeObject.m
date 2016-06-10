@@ -23,7 +23,7 @@
         self.typeID = @"";
         self.scoreName = @"";
         self.scoreType = ScoreType_Normal;
-        self.scoreMonth = @"";
+        self.scoreMonth = 0;
     }
     return self;
 }

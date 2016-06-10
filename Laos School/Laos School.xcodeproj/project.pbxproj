@@ -331,6 +331,8 @@
 		558D6DDE1CA27B0500EE34BD /* ic_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DDB1CA27B0500EE34BD /* ic_add@2x.png */; };
 		558D6DDF1CA27B0500EE34BD /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DDC1CA27B0500EE34BD /* ic_add.png */; };
 		558D6DE01CA27B0500EE34BD /* ic_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DDD1CA27B0500EE34BD /* ic_add@3x.png */; };
+		558F95551D0A744D0086AD9E /* AddScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F95531D0A744D0086AD9E /* AddScoreTableViewCell.m */; };
+		558F95561D0A744D0086AD9E /* AddScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558F95541D0A744D0086AD9E /* AddScoreTableViewCell.xib */; };
 		558FC5E61CEEC83900CD0389 /* ic_school_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5E31CEEC83900CD0389 /* ic_school_white.png */; };
 		558FC5E71CEEC83900CD0389 /* ic_school_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5E41CEEC83900CD0389 /* ic_school_white@2x.png */; };
 		558FC5E81CEEC83900CD0389 /* ic_school_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558FC5E51CEEC83900CD0389 /* ic_school_white@3x.png */; };
@@ -999,6 +1001,9 @@
 		558D6DDB1CA27B0500EE34BD /* ic_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add@2x.png"; sourceTree = "<group>"; };
 		558D6DDC1CA27B0500EE34BD /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add.png; sourceTree = "<group>"; };
 		558D6DDD1CA27B0500EE34BD /* ic_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add@3x.png"; sourceTree = "<group>"; };
+		558F95521D0A744D0086AD9E /* AddScoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddScoreTableViewCell.h; sourceTree = "<group>"; };
+		558F95531D0A744D0086AD9E /* AddScoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddScoreTableViewCell.m; sourceTree = "<group>"; };
+		558F95541D0A744D0086AD9E /* AddScoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddScoreTableViewCell.xib; sourceTree = "<group>"; };
 		558FC5E31CEEC83900CD0389 /* ic_school_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_school_white.png; sourceTree = "<group>"; };
 		558FC5E41CEEC83900CD0389 /* ic_school_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_school_white@2x.png"; sourceTree = "<group>"; };
 		558FC5E51CEEC83900CD0389 /* ic_school_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_school_white@3x.png"; sourceTree = "<group>"; };
@@ -2463,6 +2468,9 @@
 				559A07F91D0912ED00B31125 /* AddScoresViewController.h */,
 				559A07FA1D0912ED00B31125 /* AddScoresViewController.m */,
 				559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */,
+				558F95521D0A744D0086AD9E /* AddScoreTableViewCell.h */,
+				558F95531D0A744D0086AD9E /* AddScoreTableViewCell.m */,
+				558F95541D0A744D0086AD9E /* AddScoreTableViewCell.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2827,6 +2835,7 @@
 				5538A8F41CBCA56900659C8A /* ic_phone_gray@2x.png in Resources */,
 				559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */,
 				55B108F31C802CA200EB695C /* ic_speaker@2x.png in Resources */,
+				558F95561D0A744D0086AD9E /* AddScoreTableViewCell.xib in Resources */,
 				55797CC61C86D08A00A0098D /* ic_message@2x.png in Resources */,
 				557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */,
 				557D78CC1C97C8FB008096A0 /* StudentsListTableViewCell.xib in Resources */,
@@ -3096,6 +3105,7 @@
 				55D6575D1C96933100A0E4F3 /* ShareData.m in Sources */,
 				550A75F01CCE153A0050240B /* CTAssetsPickerNoAssetsView.m in Sources */,
 				550A75F11CCE153A0050240B /* CTAssetsViewControllerTransition.m in Sources */,
+				558F95551D0A744D0086AD9E /* AddScoreTableViewCell.m in Sources */,
 				55B50D5C1CC8AC2A002B3412 /* Photos.m in Sources */,
 				55FC71DA1C7C3F8900B0B8D0 /* DateTimeHelper.m in Sources */,
 				554769931C9165DD00269EBB /* CoreDataUtil.m in Sources */,
