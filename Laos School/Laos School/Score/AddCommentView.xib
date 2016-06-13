@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddCommentView">
+            <connections>
+                <outlet property="btnSave" destination="zMx-qF-ry5" id="vBU-bv-WFg"/>
+                <outlet property="imgAvatar" destination="ANK-f0-kS0" id="Wbe-jb-bez"/>
+                <outlet property="lbAdditionalInfo" destination="OeW-HJ-DSZ" id="R5X-7u-SHf"/>
+                <outlet property="lbStudentName" destination="G3K-zm-mam" id="b7v-xI-Bgg"/>
+                <outlet property="txtComment" destination="BYV-nj-Vng" id="PNs-og-hqg"/>
+                <outlet property="view" destination="img-Ve-RfE" id="Jdx-uS-Ve9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="img-Ve-RfE">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="330"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" id="BYV-nj-Vng">
+                    <rect key="frame" x="8" y="47" width="284" height="247"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="W9R-19-hWC"/>
+                    </connections>
+                </textView>
+                <view contentMode="scaleToFill" id="rH8-jP-Ssv">
+                    <rect key="frame" x="0.0" y="47" width="300" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="8ev-jH-ucH">
+                    <rect key="frame" x="0.0" y="297" width="300" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8ee-gt-PDG">
+                    <rect key="frame" x="270" y="0.0" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.75808869950000002" green="0.0" blue="0.17734529260000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="ic_clear.png"/>
+                    <connections>
+                        <action selector="btnCloseClick:" destination="-1" eventType="touchUpInside" id="3Pr-Qc-vNy"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zMx-qF-ry5">
+                    <rect key="frame" x="241" y="299" width="60" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="btnSaveClick:" destination="-1" eventType="touchUpInside" id="fGQ-A8-xsG"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_gray.png" id="ANK-f0-kS0" customClass="AsyncImageView">
+                    <rect key="frame" x="8" y="8" width="25" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G3K-zm-mam">
+                    <rect key="frame" x="41" y="2" width="221" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OeW-HJ-DSZ">
+                    <rect key="frame" x="41" y="21" width="221" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="umS-lq-2OX" appends="YES" id="nfT-v2-oP6"/>
+            </connections>
+            <point key="canvasLocation" x="73" y="128"/>
+        </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="blb-wP-dtj">
+            <connections>
+                <action selector="panGestureHandle:" destination="-1" id="cUv-9W-iRI"/>
+                <outlet property="delegate" destination="-1" id="DhI-qZ-zmh"/>
+            </connections>
+        </panGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="umS-lq-2OX">
+            <connections>
+                <action selector="panGestureHandle:" destination="-1" id="Win-uy-5vZ"/>
+                <outlet property="delegate" destination="-1" id="G4K-T4-8j0"/>
+            </connections>
+        </panGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="ic_clear.png" width="30" height="30"/>
+        <image name="ic_user_gray.png" width="30" height="30"/>
+    </resources>
+</document>

@@ -7,6 +7,7 @@
 //
 
 #import "AddScoreTableViewCell.h"
+#import "ScoreObject.h"
 
 @implementation AddScoreTableViewCell
 
@@ -23,11 +24,30 @@
 
 - (IBAction)txtScoreChanged:(id)sender {
     UITextField *textField = (UITextField *)sender;
-    [self.delegate inputScoreTo:self withValueReturned:textField.text];
+//    [self.delegate inputScoreTo:self withValueReturned:textField.text];
+    ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
+    scoreObj.score = textField.text;
+    
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.txtScore resignFirstResponder];
+    
+    return YES;
+}
+
+- (IBAction)textFieldDidBegin:(id)sender {
+    [self.delegate textFieldDidBegin:self];
+    
+}
+
+
+- (IBAction)btnCommentClick:(id)sender {
+    [self.delegate btnCommentClick:self];
 }
 @end

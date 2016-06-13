@@ -358,6 +358,11 @@
 		559509241C996B0400D06158 /* ReasonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559509211C996B0400D06158 /* ReasonViewController.xib */; };
 		55966CF11CAA68A600D5DBEC /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55966CEF1CAA68A600D5DBEC /* TimerViewController.m */; };
 		55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55966CF01CAA68A600D5DBEC /* TimerViewController.xib */; };
+		559714741D0EA43200508D95 /* ic_comment_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 559714711D0EA43200508D95 /* ic_comment_gray.png */; };
+		559714751D0EA43200508D95 /* ic_comment_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559714721D0EA43200508D95 /* ic_comment_gray@2x.png */; };
+		559714761D0EA43200508D95 /* ic_comment_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559714731D0EA43200508D95 /* ic_comment_gray@3x.png */; };
+		5597147A1D0EA86800508D95 /* AddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559714771D0EA86800508D95 /* AddCommentView.m */; };
+		5597147B1D0EA86800508D95 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559714791D0EA86800508D95 /* AddCommentView.xib */; };
 		559A07FC1D0912ED00B31125 /* AddScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A07FA1D0912ED00B31125 /* AddScoresViewController.m */; };
 		559A07FD1D0912ED00B31125 /* AddScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */; };
 		559A08011D091AD800B31125 /* ic_score_type.png in Resources */ = {isa = PBXBuildFile; fileRef = 559A07FE1D091AD800B31125 /* ic_score_type.png */; };
@@ -1033,6 +1038,12 @@
 		55966CEE1CAA68A600D5DBEC /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55966CEF1CAA68A600D5DBEC /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55966CF01CAA68A600D5DBEC /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		559714711D0EA43200508D95 /* ic_comment_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_comment_gray.png; sourceTree = "<group>"; };
+		559714721D0EA43200508D95 /* ic_comment_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_comment_gray@2x.png"; sourceTree = "<group>"; };
+		559714731D0EA43200508D95 /* ic_comment_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_comment_gray@3x.png"; sourceTree = "<group>"; };
+		559714771D0EA86800508D95 /* AddCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentView.m; sourceTree = "<group>"; };
+		559714781D0EA86800508D95 /* AddCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommentView.h; sourceTree = "<group>"; };
+		559714791D0EA86800508D95 /* AddCommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCommentView.xib; sourceTree = "<group>"; };
 		559A07F91D0912ED00B31125 /* AddScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddScoresViewController.h; sourceTree = "<group>"; };
 		559A07FA1D0912ED00B31125 /* AddScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddScoresViewController.m; sourceTree = "<group>"; };
 		559A07FB1D0912ED00B31125 /* AddScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddScoresViewController.xib; sourceTree = "<group>"; };
@@ -1508,6 +1519,9 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				559714711D0EA43200508D95 /* ic_comment_gray.png */,
+				559714721D0EA43200508D95 /* ic_comment_gray@2x.png */,
+				559714731D0EA43200508D95 /* ic_comment_gray@3x.png */,
 				559A07FE1D091AD800B31125 /* ic_score_type.png */,
 				559A07FF1D091AD800B31125 /* ic_score_type@2x.png */,
 				559A08001D091AD800B31125 /* ic_score_type@3x.png */,
@@ -2447,6 +2461,9 @@
 		55FC72541C7C620C00B0B8D0 /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				559714781D0EA86800508D95 /* AddCommentView.h */,
+				559714771D0EA86800508D95 /* AddCommentView.m */,
+				559714791D0EA86800508D95 /* AddCommentView.xib */,
 				55AD977E1CEAF4DE004A7BDD /* ScoreDetailViewController.h */,
 				55AD977D1CEAF4DE004A7BDD /* ScoreDetailViewController.m */,
 				55AD977C1CEAF4DE004A7BDD /* ScoreDetailViewController.xib */,
@@ -2695,6 +2712,7 @@
 				55FC72351C7C599D00B0B8D0 /* LICENSE in Resources */,
 				55B108F01C802CA200EB695C /* ic_setting@2x.png in Resources */,
 				556758161D06B8AE0000321B /* ic_female@3x.png in Resources */,
+				559714751D0EA43200508D95 /* ic_comment_gray@2x.png in Resources */,
 				55510DE81CD9EA0E00638646 /* ic_right_arrow@3x.png in Resources */,
 				55320CA31CEDAA1A00E45492 /* ic_clock_white@2x.png in Resources */,
 				555130771CE4260C0001B2F0 /* StudentScoreTableViewCell.xib in Resources */,
@@ -2738,6 +2756,7 @@
 				556758181D06B8AE0000321B /* ic_male@2x.png in Resources */,
 				558782351C8FCB3800365369 /* ic_phone_black@3x.png in Resources */,
 				558FC5EE1CEECBD900CD0389 /* ic_edit_gray@3x.png in Resources */,
+				5597147B1D0EA86800508D95 /* AddCommentView.xib in Resources */,
 				559A08031D091AD800B31125 /* ic_score_type@3x.png in Resources */,
 				5538B13D1CFEEC40009544D5 /* ic_cancel_white@2x.png in Resources */,
 				55FC72411C7C599D00B0B8D0 /* LICENSE in Resources */,
@@ -2808,6 +2827,7 @@
 				555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */,
 				552094511C8932CF004670B3 /* ic_clock@3x.png in Resources */,
 				55FEDB9A1C841EC100DD0D24 /* ComposeViewController.xib in Resources */,
+				559714741D0EA43200508D95 /* ic_comment_gray.png in Resources */,
 				55B108D61C802A3B00EB695C /* ForgotPasswordViewController.xib in Resources */,
 				55797CCC1C86D08A00A0098D /* ic_timetable.png in Resources */,
 				559509181C99574200D06158 /* ic_late@2x.png in Resources */,
@@ -2882,6 +2902,7 @@
 				552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */,
 				555130811CE48EBD0001B2F0 /* ScoreCell.xib in Resources */,
 				558782341C8FCB3800365369 /* ic_phone_black@2x.png in Resources */,
+				559714761D0EA43200508D95 /* ic_comment_gray@3x.png in Resources */,
 				557C752E1CFBDB07005C5FAA /* ic_add_gray@2x.png in Resources */,
 				55797CBD1C86D08A00A0098D /* ic_announcement@2x.png in Resources */,
 				55FC722E1C7C599D00B0B8D0 /* FontAwesome.ttf in Resources */,
@@ -3066,6 +3087,7 @@
 				550A75ED1CCE153A0050240B /* CTAssetsPageViewController.m in Sources */,
 				5547698F1C9151EC00269EBB /* LaosSchool.xcdatamodeld in Sources */,
 				5538A9681CBCF3E500659C8A /* UIDevice+JSQMessages.m in Sources */,
+				5597147A1D0EA86800508D95 /* AddCommentView.m in Sources */,
 				5538A98D1CBCF3E500659C8A /* JSQMessagesToolbarContentView.m in Sources */,
 				550A75D61CCE153A0050240B /* NSDateFormatter+CTAssetsPickerController.m in Sources */,
 				554769B11C916BE600269EBB /* Messages.m in Sources */,

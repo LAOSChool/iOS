@@ -10,6 +10,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LevelPickerViewController.h"
 #import "AddScoreTableViewCell.h"
+#import "AddCommentView.h"
 #import "ScoreTypeObject.h"
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
@@ -22,11 +23,15 @@
 
 #import "SVProgressHUD.h"
 
+#define NOTE_WIDTH 220
+#define NOTE_HEIGHT 180
+
 @interface AddScoresViewController ()
 {
     NSMutableArray *scoresArray;    //store usersocre corresponding to a specific type
     NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
-    NSMutableDictionary *temporaryData;
+    NSMutableDictionary *temporaryScores;
+    NSMutableDictionary *temporaryComments;
     NSMutableArray *searchResults;
     NSMutableArray *scoreTypesArray;
     
@@ -36,6 +41,8 @@
     
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
+    
+    AddCommentView *addCommentView;
 }
 @end
 
@@ -51,6 +58,7 @@
     UIBarButtonItem *btnSubmit = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Submit") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(btnSubmitClick)];
     
     self.navigationItem.rightBarButtonItems = @[btnSubmit];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     
@@ -65,8 +73,12 @@
         userScoreDict = [[NSMutableDictionary alloc] init];
     }
     
-    if (temporaryData == nil) {
-        temporaryData = [[NSMutableDictionary alloc] init];
+    if (temporaryScores == nil) {
+        temporaryScores = [[NSMutableDictionary alloc] init];
+    }
+    
+    if (temporaryComments == nil) {
+        temporaryComments = [[NSMutableDictionary alloc] init];
     }
     
     if (scoreTypesArray == nil) {
@@ -120,6 +132,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        if (addCommentView != nil && addCommentView.isShowing == YES) {
+            CGRect rect = addCommentView.frame;
+            
+            rect.origin.x = (size.width - NOTE_WIDTH)/2;
+            rect.origin.y = (size.height - NOTE_HEIGHT)/2 - 40;
+            
+            [addCommentView setFrame:rect];
+        }
+    }];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -139,12 +165,34 @@
     }
 }
 
+
 - (BOOL)validateInputs {
     BOOL res = YES;
-    
-    
+    NSInteger count = 0;
+    for (UserScore *userScore in scoresArray) {
+        NSString *score  = [temporaryScores objectForKey:userScore.userID];
+        
+        if (score == nil || score.length == 0) {
+            res = NO;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
+            
+            [studentTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            
+            AddScoreTableViewCell *cell = [studentTableView cellForRowAtIndexPath:indexPath];
+            [cell.txtScore becomeFirstResponder];
+            
+            [self incompleteFillingScore];
+            break;
+        }
+        
+        count++;
+    }
     
     return res;
+}
+
+- (void)submitScoresToServer {
+    
 }
 
 - (void)reloadScoresData {
@@ -250,7 +298,8 @@
             if ([userScoreDict count] > 0) {
                 [scoresArray removeAllObjects];
                 [searchResults removeAllObjects];
-                [temporaryData removeAllObjects];
+                [temporaryScores removeAllObjects];
+                [temporaryComments removeAllObjects];
                 
                 NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
                 [scoresArray addObjectsFromArray:arr];
@@ -305,8 +354,8 @@
     cell.lbStudentName.text = userScoreObject.username;
     cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
     
-    NSString *tempScore = [temporaryData objectForKey:userScoreObject.userID];
-    cell.txtScore.text = tempScore;
+    NSString *tempScore = [temporaryScores objectForKey:userScoreObject.userID];
+    cell.txtScore.text =  scoreObj.score;// tempScore;
     
     if (userScoreObject.avatarLink && userScoreObject.avatarLink.length > 0) {
         //cancel loading previous image for cell
@@ -325,13 +374,35 @@
     
     UserScore *userScoreObject = cell.userScore;
     
-    [temporaryData setValue:value forKey:userScoreObject.userID];
+    [temporaryScores setValue:value forKey:userScoreObject.userID];
+}
+
+- (void)textFieldDidBegin:(id)sender {
+    AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
+//    NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
+//    
+//    [studentTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    CGRect rect = cell.frame;
+    rect.origin.y = 0;
+    
+    [scrollView scrollRectToVisible:rect animated:YES];
+}
+
+- (void)btnCommentClick:(id)sender {
+    AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
+    [self displayCommentView:cell.userScore];
 }
 
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AddScoreTableViewCell *cell = nil;
+    for (int i = 0; i < [searchResults count]; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
+        
+        cell = [tableView cellForRowAtIndexPath:index];
+        [cell.txtScore resignFirstResponder];
+    }
     
 }
 
@@ -357,6 +428,14 @@
     }
     
     [studentTableView reloadData];
+    
+    CGSize size = scrollView.contentSize;
+    size.height = [searchResults count]*44 + 232; //232: keyboard height;
+    scrollView.contentSize = size;
+    
+    CGRect rect = studentTableView.frame;
+    rect.size.height = [searchResults count]*44;
+    studentTableView.frame = rect;
 }
 
 #pragma mark RequestToServer delegate
@@ -444,7 +523,8 @@
 
 - (void)parseScoreList:(NSArray *)scores {
     [scoresArray removeAllObjects];
-    [temporaryData removeAllObjects];
+    [temporaryScores removeAllObjects];
+    [temporaryComments removeAllObjects];
     [userScoreDict removeAllObjects];
     [searchResults removeAllObjects];
     
@@ -567,12 +647,28 @@
     [studentTableView reloadData];
 }
 
-//call this function as change scoresArray
+//call this function whenever changing scoresArray
 - (void)copyScoreToTempDictionary {
     for (UserScore *userScore in scoresArray) {
         ScoreObject *score = [userScore.scoreArray objectAtIndex:0];
-        [temporaryData setValue:score.score forKey:userScore.userID];
+        [temporaryScores setValue:score.score forKey:userScore.userID];
+        [temporaryComments setValue:score.comment forKey:userScore.userID];
     }
+    
+    if ([scoresArray count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+    
+    CGSize size = scrollView.contentSize;
+    size.height = [scoresArray count]*44 + 232; //232: keyboard height
+    scrollView.contentSize = size;
+    
+    CGRect rect = studentTableView.frame;
+    rect.size.height = [scoresArray count]*44;
+    studentTableView.frame = rect;
+    
 }
 
 - (void)failToConnectToServer {
@@ -595,6 +691,58 @@
     [self showAlertAccountLoginByOtherDevice];
 }
 
+#pragma add comment
+- (void)displayCommentView:(UserScore *)userScore {
+    CGRect rect;
+    CGRect webRect = self.view.frame;
+    rect.size.width = NOTE_WIDTH;
+    rect.size.height = NOTE_HEIGHT;
+    
+    rect.origin.x = (webRect.size.width - NOTE_WIDTH)/2;
+    
+    rect.origin.y = (webRect.size.height - NOTE_HEIGHT)/2 - 40; //40 :: to move the save button from the keyboard
+    
+    if (addCommentView == nil) {
+
+        addCommentView = [[AddCommentView alloc] initWithFrame:rect];
+        addCommentView.delegate = (id)self;
+        addCommentView.userScore = userScore;
+        [addCommentView setAlpha:0];
+        [self.view addSubview:addCommentView];
+        
+    } else {
+        addCommentView.userScore = userScore;
+        [addCommentView setFrame:rect];
+        [self.view addSubview:addCommentView];
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [addCommentView setAlpha:1];
+    }];
+}
+
+- (void)btnCloseClick {
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [addCommentView setAlpha:0];
+        
+    } completion:^(BOOL finished) {
+        [addCommentView removeFromSuperview];
+        [addCommentView setAlpha:1];
+    }];
+}
+
+- (void)btnSaveClick {
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [addCommentView setAlpha:0];
+        
+    } completion:^(BOOL finished) {
+        [addCommentView removeFromSuperview];
+        [addCommentView setAlpha:1];
+    }];
+}
+
 #pragma mark alert
 - (void)showAlertAccountLoginByOtherDevice {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"This account was being logged in by other device. Please re-login.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
@@ -611,25 +759,37 @@
     [alert show];
 }
 
+- (void)incompleteFillingScore {
+    NSString *content = LocalizedString(@"You do not complete filling scores. Submit now?");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Attention") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
 - (void)confirmCancelAddScore {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
-    alert.tag = 3;
+    alert.tag = 4;
     
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (alertView.tag == 2) {    //confirmBeforeSubmitScore
+    if (alertView.tag == 2 ||       //confirmBeforeSubmitScore
+        alertView.tag == 3) {       //incompleteFillingScore
+        
         if (buttonIndex != 0) {
+            
             if ([[Common sharedCommon]networkIsActive]) {
-
+                [self submitScoresToServer];
+                
             } else {
                 [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
             }
         }
         
-    } else if (alertView.tag == 3) {    //confirmCancelAddScore
+    } else if (alertView.tag == 4) {    //confirmCancelAddScore
         if (buttonIndex != 0) {
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }

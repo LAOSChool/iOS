@@ -17,6 +17,7 @@
     IBOutlet UIView *viewSubject;
     IBOutlet UIView *viewScoreType;
     
+    IBOutlet UIScrollView *scrollView;
     IBOutlet UITableView *studentTableView;
     IBOutlet UISearchBar *searchBar;
     

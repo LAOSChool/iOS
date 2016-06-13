@@ -16,7 +16,8 @@
 @optional // Delegate protocols
 
 - (void)inputScoreTo:(id)sender withValueReturned:(NSString *)value;
-
+- (void)textFieldDidBegin:(id)sender;
+- (void)btnCommentClick:(id)sender;
 @end
 
 @interface AddScoreTableViewCell : UITableViewCell

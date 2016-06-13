@@ -97,6 +97,11 @@
     [lbSubject setTextColor:[UIColor lightGrayColor]];
     
     [self loadSubjectList];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showScoreEdit:)
+                                                 name:@"TapOnScoreCell"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
