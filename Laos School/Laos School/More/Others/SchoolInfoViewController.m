@@ -12,7 +12,7 @@
 #import "TagManagerHelper.h"
 #import "Common.h"
 
-#define SCHOOL_INFO_LINK @"http://www.lazzybee.com/testvocab?menu=0"
+#define SCHOOL_INFO_LINK @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 
 @interface SchoolInfoViewController ()
 

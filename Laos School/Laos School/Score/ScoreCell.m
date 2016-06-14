@@ -8,6 +8,7 @@
 
 #import "ScoreCell.h"
 #import "CommonDefine.h"
+#import "UserScore.h"
 #import "Common.h"
 #import "LocalizeHelper.h"
 
@@ -93,8 +94,22 @@
     }
 }
 
-
 - (IBAction)tapGestureHandle:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:_scoreObj];
+    if (_userID && _userID.length > 0) {
+        UserScore *newUserScoreObj = [[UserScore alloc] init];
+        
+        newUserScoreObj.userID = _userID;
+        newUserScoreObj.username = _username;
+        newUserScoreObj.additionalInfo = _additionalInfo;
+        newUserScoreObj.avatarLink = _avatarLink;
+        
+        [newUserScoreObj.scoreArray addObject:_scoreObj];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:newUserScoreObj];
+    } else {
+        if (_scoreObj) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:_scoreObj];
+        }
+    }
 }
 @end

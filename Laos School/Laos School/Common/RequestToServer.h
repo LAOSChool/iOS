@@ -45,6 +45,7 @@
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
 #define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
 #define API_NAME_TEACHER_SCORE_LIST @"/api/exam_results/marks"
+#define API_NAME_TEACHER_ADD_SCORE @"/api/exam_results/input"
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 #define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
@@ -87,6 +88,7 @@
 - (void)getMySchoolRecordInClass:(NSString *)classID;
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
 - (void)getScoreTypeListInClass:(NSString *)classID;
+- (void)submitScoreWithObject:(NSDictionary *)scoreDict;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

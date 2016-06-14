@@ -23,15 +23,14 @@
 
 #import "SVProgressHUD.h"
 
-#define NOTE_WIDTH 220
-#define NOTE_HEIGHT 180
+#define NOTE_WIDTH 230
+#define NOTE_HEIGHT 200
 
 @interface AddScoresViewController ()
 {
     NSMutableArray *scoresArray;    //store usersocre corresponding to a specific type
     NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
-    NSMutableDictionary *temporaryScores;
-    NSMutableDictionary *temporaryComments;
+
     NSMutableArray *searchResults;
     NSMutableArray *scoreTypesArray;
     
@@ -71,14 +70,6 @@
     
     if (userScoreDict == nil) {
         userScoreDict = [[NSMutableDictionary alloc] init];
-    }
-    
-    if (temporaryScores == nil) {
-        temporaryScores = [[NSMutableDictionary alloc] init];
-    }
-    
-    if (temporaryComments == nil) {
-        temporaryComments = [[NSMutableDictionary alloc] init];
     }
     
     if (scoreTypesArray == nil) {
@@ -156,7 +147,9 @@
 }
 */
 - (void)cancelButtonClick {
-    [self confirmCancelAddScore];
+    if (_selectedType) {
+        [self confirmCancelAddScore];
+    }
 }
 
 - (void)btnSubmitClick {
@@ -170,7 +163,8 @@
     BOOL res = YES;
     NSInteger count = 0;
     for (UserScore *userScore in scoresArray) {
-        NSString *score  = [temporaryScores objectForKey:userScore.userID];
+        ScoreObject *scoreObj = [userScore.scoreArray objectAtIndex:0];
+        NSString *score  = scoreObj.score;
         
         if (score == nil || score.length == 0) {
             res = NO;
@@ -298,12 +292,10 @@
             if ([userScoreDict count] > 0) {
                 [scoresArray removeAllObjects];
                 [searchResults removeAllObjects];
-                [temporaryScores removeAllObjects];
-                [temporaryComments removeAllObjects];
                 
                 NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
                 [scoresArray addObjectsFromArray:arr];
-                [self copyScoreToTempDictionary];
+                [self resizeTableView];
                 [searchResults addObjectsFromArray:scoresArray];
             
                 [studentTableView reloadData];
@@ -353,9 +345,8 @@
     cell.userScore = userScoreObject;
     cell.lbStudentName.text = userScoreObject.username;
     cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
-    
-    NSString *tempScore = [temporaryScores objectForKey:userScoreObject.userID];
-    cell.txtScore.text =  scoreObj.score;// tempScore;
+
+    cell.txtScore.text =  scoreObj.score;
     
     if (userScoreObject.avatarLink && userScoreObject.avatarLink.length > 0) {
         //cancel loading previous image for cell
@@ -370,11 +361,7 @@
 }
 
 - (void)inputScoreTo:(id)sender withValueReturned:(NSString *)value {
-    AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
-    
-    UserScore *userScoreObject = cell.userScore;
-    
-    [temporaryScores setValue:value forKey:userScoreObject.userID];
+
 }
 
 - (void)textFieldDidBegin:(id)sender {
@@ -392,6 +379,15 @@
 - (void)btnCommentClick:(id)sender {
     AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
     [self displayCommentView:cell.userScore];
+    
+    //dismiss keyboard
+    AddScoreTableViewCell *c = nil;
+    for (int i = 0; i < [searchResults count]; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
+        
+        c = [studentTableView cellForRowAtIndexPath:index];
+        [c.txtScore resignFirstResponder];
+    }
 }
 
 #pragma mark table delegate
@@ -404,6 +400,8 @@
         [cell.txtScore resignFirstResponder];
     }
     
+    
+    [searchBar resignFirstResponder];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -415,6 +413,7 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self btnCloseClick];
     [self->searchResults removeAllObjects]; // First clear the filtered array.
     
     if (searchText.length == 0) {
@@ -508,7 +507,6 @@
         
         if (scoreTypeObj.scoreType == ScoreType_Normal ||
             scoreTypeObj.scoreType == ScoreType_Exam ||
-            scoreTypeObj.scoreType == ScoreType_Final ||
             scoreTypeObj.scoreType == ScoreType_ExamAgain ||
             scoreTypeObj.scoreType == ScoreType_Graduate) {
             
@@ -523,8 +521,6 @@
 
 - (void)parseScoreList:(NSArray *)scores {
     [scoresArray removeAllObjects];
-    [temporaryScores removeAllObjects];
-    [temporaryComments removeAllObjects];
     [userScoreDict removeAllObjects];
     [searchResults removeAllObjects];
     
@@ -553,11 +549,15 @@
         }
         
         if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
-            scoreObj.scoreID = [scoreDict valueForKey:@"id"];
+            scoreObj.scoreID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"id"]];
         }
         
         if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
             scoreObj.score = [scoreDict valueForKey:@"sresult"];
+        }
+        
+        if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+            scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
         }
         
         if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
@@ -570,6 +570,10 @@
         
         if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
             scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
+        }
+        
+        if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
+            scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
         }
         
         if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
@@ -640,7 +644,7 @@
     
     if (_selectedType) {
         [scoresArray addObjectsFromArray:[userScoreDict objectForKey:_selectedType.typeID]];
-        [self copyScoreToTempDictionary];
+        [self resizeTableView];
         [searchResults addObjectsFromArray:scoresArray];
     }
     
@@ -648,12 +652,8 @@
 }
 
 //call this function whenever changing scoresArray
-- (void)copyScoreToTempDictionary {
-    for (UserScore *userScore in scoresArray) {
-        ScoreObject *score = [userScore.scoreArray objectAtIndex:0];
-        [temporaryScores setValue:score.score forKey:userScore.userID];
-        [temporaryComments setValue:score.comment forKey:userScore.userID];
-    }
+- (void)resizeTableView {
+    [self btnCloseClick];
     
     if ([scoresArray count] > 0) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -722,25 +722,27 @@
 }
 
 - (void)btnCloseClick {
-    
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        [addCommentView setAlpha:0];
-        
-    } completion:^(BOOL finished) {
-        [addCommentView removeFromSuperview];
-        [addCommentView setAlpha:1];
-    }];
+    if (addCommentView) {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            [addCommentView setAlpha:0];
+            
+        } completion:^(BOOL finished) {
+            [addCommentView removeFromSuperview];
+            [addCommentView setAlpha:1];
+        }];
+    }
 }
 
 - (void)btnSaveClick {
-    
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        [addCommentView setAlpha:0];
-        
-    } completion:^(BOOL finished) {
-        [addCommentView removeFromSuperview];
-        [addCommentView setAlpha:1];
-    }];
+    if (addCommentView) {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            [addCommentView setAlpha:0];
+            
+        } completion:^(BOOL finished) {
+            [addCommentView removeFromSuperview];
+            [addCommentView setAlpha:1];
+        }];
+    }
 }
 
 #pragma mark alert

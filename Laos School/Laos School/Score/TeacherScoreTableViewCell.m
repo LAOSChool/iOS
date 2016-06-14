@@ -25,8 +25,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setScoresArray:(NSArray *)scoresArray {
-    _scoresArray = scoresArray;
+- (void)setUserScoreObj:(UserScore *)userScoreObj {
+    _userScoreObj = userScoreObj;
+
     NSInteger count = 0;
     NSInteger row = 0;
     NSInteger col = 0;
@@ -36,7 +37,7 @@
         [view removeFromSuperview];
     }
     
-    for (ScoreObject *scoreObj in scoresArray) {
+    for (ScoreObject *scoreObj in _userScoreObj.scoreArray) {
         count ++;
         CGRect rect;
         rect.size.width = CELL_SIZE;
@@ -56,6 +57,10 @@
         
         ScoreCell *scoreCell = [[ScoreCell alloc] initWithFrame:rect];
         scoreCell.scoreObj = scoreObj;
+        scoreCell.userID = _userScoreObj.userID;
+        scoreCell.username = _userScoreObj.username;
+        scoreCell.additionalInfo = _userScoreObj.additionalInfo;
+        scoreCell.avatarLink = _userScoreObj.avatarLink;
         
         [viewScorePanel addSubview:scoreCell];
     }

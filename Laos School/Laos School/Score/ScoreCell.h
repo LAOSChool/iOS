@@ -28,6 +28,11 @@
 
 @property (strong, nonatomic) IBOutlet UIView *view;
 
+/*these properties are used for teacher account */
+@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *additionalInfo;
+@property (nonatomic, strong) NSString *avatarLink;
 
 @property (assign, nonatomic) ScoreObject *scoreObj;
 

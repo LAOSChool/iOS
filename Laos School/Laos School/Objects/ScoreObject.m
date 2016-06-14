@@ -29,9 +29,11 @@
     if (self) {
         self.scoreID = @"";
         self.score = @"";
+        self.subjectID = @"";
         self.subject = @"";
         self.dateTime = @"";
         self.examID = @"";
+        self.scoreName = @"";
         self.scoreType = ScoreType_Normal;
         self.month = 0;
         self.year = 0;
@@ -49,9 +51,11 @@
     
     [encoder encodeObject:self.scoreID forKey:@"scoreID"];
     [encoder encodeObject:self.score forKey:@"score"];
+    [encoder encodeObject:self.subjectID forKey:@"subjectID"];
     [encoder encodeObject:self.subject forKey:@"subject"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
     [encoder encodeObject:self.examID forKey:@"examID"];
+    [encoder encodeObject:self.scoreName forKey:@"scoreName"];
     [encoder encodeInteger:self.scoreType forKey:@"scoreType"];
     [encoder encodeInteger:self.month forKey:@"month"];
     [encoder encodeInteger:self.year forKey:@"year"];
@@ -69,9 +73,11 @@
     {
         self.scoreID = [decoder decodeObjectForKey:@"scoreID"];
         self.score = [decoder decodeObjectForKey:@"score"];
+        self.subjectID = [decoder decodeObjectForKey:@"subjectID"];
         self.subject = [decoder decodeObjectForKey:@"subject"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
         self.examID = [decoder decodeObjectForKey:@"examID"];
+        self.scoreName = [decoder decodeObjectForKey:@"scoreName"];
         self.scoreType = (SCORE_TYPE)[decoder decodeIntegerForKey:@"scoreType"];
         self.month = (SCORE_TYPE)[decoder decodeIntegerForKey:@"month"];
         self.year = (SCORE_TYPE)[decoder decodeIntegerForKey:@"year"];

@@ -7,9 +7,11 @@
 //
 
 #import "TeacherScoresViewController.h"
+#import "AppDelegate.h"
 #import "LevelPickerViewController.h"
 #import "AddScoresViewController.h"
 #import "TeacherScoreTableViewCell.h"
+#import "AddSingleScore.h"
 #import "UserScore.h"
 #import "ScoreObject.h"
 #import "SubjectObject.h"
@@ -28,10 +30,11 @@
     BOOL isShowingViewInfo;
     NSMutableArray *subjectsArray;
     NSMutableArray *userScroreArray;
-    NSMutableDictionary *userScoreDict;
+    NSMutableDictionary *userScoreDict;     //group scores by studentID
     NSMutableArray *searchResults;
     
     LevelPickerViewController *dataPicker;
+    AddSingleScore *addSingleScoreView;
     SubjectObject *selectedSubject;
     
     RequestToServer *requestToServer;
@@ -102,6 +105,11 @@
                                              selector:@selector(showScoreEdit:)
                                                  name:@"TapOnScoreCell"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadStudentsData)
+                                                 name:@"SubmitSingleScoreSuccessfully"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +172,45 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addScoresView];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)showScoreEdit:(NSNotification *)notification {
+    UserScore *userScoreObj = (UserScore *)notification.object;
+    
+    if (userScoreObj) {
+        ScoreObject *scoreObj = [userScoreObj.scoreArray objectAtIndex:0];
+        BOOL editFlag = YES;
+        
+        if (scoreObj.scoreType == ScoreType_Normal ||
+            scoreObj.scoreType == ScoreType_Exam ||
+            scoreObj.scoreType == ScoreType_ExamAgain ||
+            scoreObj.scoreType == ScoreType_Graduate) {
+            
+            editFlag = YES;
+            
+        } else {
+            editFlag = NO;
+        }
+        
+        if (addSingleScoreView == nil) {
+            addSingleScoreView = [[AddSingleScore alloc] initWithNibName:@"AddSingleScore" bundle:nil];
+        }
+        
+        addSingleScoreView.userScoreObj = userScoreObj;
+        addSingleScoreView.editFlag = editFlag;
+        addSingleScoreView.view.alpha = 0;
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        CGRect rect = appDelegate.window.frame;
+        [addSingleScoreView.view setFrame:rect];
+        
+        [appDelegate.window addSubview:addSingleScoreView.view];
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            addSingleScoreView.view.alpha = 1;
+        }];
+    }
 }
 
 
@@ -286,7 +333,7 @@
     
     cell.lbStudentName.text = userScoreObject.username;
     cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
-    cell.scoresArray = userScoreObject.scoreArray;
+    cell.userScoreObj = userScoreObject;
     
     if (userScoreObject.avatarLink && userScoreObject.avatarLink.length > 0) {
         //cancel loading previous image for cell
@@ -407,7 +454,7 @@
                 NSString *avatarLink = @"";
                 
                 if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
-                    studentID = [scoreDict valueForKey:@"student_id"];
+                    studentID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"student_id"]];
                 }
                 
                 if ([scoreDict valueForKey:@"student_name"] != (id)[NSNull null]) {
@@ -423,11 +470,15 @@
                 }
                 
                 if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
-                    scoreObj.scoreID = [scoreDict valueForKey:@"id"];
+                    scoreObj.scoreID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"id"]];
                 }
                 
                 if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
                     scoreObj.score = [scoreDict valueForKey:@"sresult"];
+                }
+                
+                if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                    scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
                 }
                 
                 if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
@@ -437,6 +488,15 @@
                 if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
                     scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
                 }
+                
+                if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
+                    scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
+                }
+                
+                if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
+                    scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
+                }
+                
                 
                 if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
                     NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];

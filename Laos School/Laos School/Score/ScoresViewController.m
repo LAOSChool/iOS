@@ -257,12 +257,24 @@
                 scoreObj.score = [scoreDict valueForKey:@"sresult"];
             }
             
+            if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
+            }
+            
             if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
                 scoreObj.subject = [scoreDict valueForKey:@"subject"];
             }
             
             if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
                 scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
+            }
+            
+            if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
+                scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
+            }
+            
+            if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
+                scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
             }
             
             if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {

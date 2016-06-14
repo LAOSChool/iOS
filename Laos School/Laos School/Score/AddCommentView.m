@@ -42,6 +42,7 @@
         self.view.layer.shadowOpacity = 0.5;
 
         btnSave.enabled = NO;
+        [txtComment becomeFirstResponder];
         
         _isShowing = YES;
     }
@@ -83,6 +84,7 @@
     }
     
     btnSave.enabled = NO;
+    [txtComment becomeFirstResponder];
 }
 
 - (IBAction)panGestureHandle:(id)sender {
@@ -103,14 +105,26 @@
     
     scoreObj.comment = txtComment.text;
     
-    [self.delegate btnSaveClick];
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [self setAlpha:0];
+        
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [self setAlpha:1];
+    }];
     
     _isShowing = NO;
 }
 
 
 - (IBAction)btnCloseClick:(id)sender {
-    [self.delegate btnCloseClick];
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [self setAlpha:0];
+        
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [self setAlpha:1];
+    }];
     
     _isShowing = NO;
 }

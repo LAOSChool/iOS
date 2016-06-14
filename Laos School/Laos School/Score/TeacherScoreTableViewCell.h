@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AsyncImageView.h"
+#import "UserScore.h"
 
 @interface TeacherScoreTableViewCell : UITableViewCell
 {
@@ -18,5 +19,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbStudentName;
 @property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;
 
-@property (nonatomic, strong) NSArray *scoresArray;
+@property (nonatomic, strong) UserScore *userScoreObj;
 @end
