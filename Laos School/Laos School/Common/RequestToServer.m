@@ -117,24 +117,6 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getMySchoolRecordInClass:(NSString *)classID {
-    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCHOOL_RECORD_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@", requestString, classID];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:30.0];
-    // Specify that it will be a GET request
-    [request setHTTPMethod:@"GET"];
-    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
-    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    [connection start];
-}
-
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_TEACHER_SCORE_LIST];
     requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@&filter_subject_id=%@", requestString, classID, subjectID];
@@ -167,6 +149,32 @@ static RequestToServer* sharedRequestToServer = nil;
     
     NSError * err;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:scoreDict options:0 error:&err];
+    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [request setValue:[NSString
+                       stringWithFormat:@"%lu", (unsigned long)[myString length]] forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[myString
+                          dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)submitMultipleScoresWithObject:(NSArray *)scoresArray {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_TEACHER_ADD_MULTIPLE_SCORE];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError * err;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:scoresArray options:0 error:&err];
     NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     [request setValue:[NSString
                        stringWithFormat:@"%lu", (unsigned long)[myString length]] forHTTPHeaderField:@"Content-length"];
@@ -568,6 +576,42 @@ static RequestToServer* sharedRequestToServer = nil;
 - (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
     requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)messageID];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+#pragma mark school record
+- (void)getStudentTermList {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_TERMS_LIST];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"GET"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
+- (void)getSchoolRecordForYear:(NSString *)termID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCHOOL_RECORDS];
+    requestString = [NSString stringWithFormat:@"%@?filter_year_id=%@", requestString, termID];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

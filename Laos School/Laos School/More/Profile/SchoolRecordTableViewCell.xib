@@ -37,7 +37,7 @@
                 <outlet property="lbSubject" destination="ejS-yu-05O" id="gQD-cT-Mlh"/>
                 <outlet property="viewScorePanel" destination="OaM-DV-nyi" id="fYm-0U-heK"/>
             </connections>
-            <point key="canvasLocation" x="157" y="194.5"/>
+            <point key="canvasLocation" x="35" y="212.5"/>
         </tableViewCell>
     </objects>
 </document>

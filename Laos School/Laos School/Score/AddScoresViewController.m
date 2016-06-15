@@ -28,7 +28,7 @@
 
 @interface AddScoresViewController ()
 {
-    NSMutableArray *scoresArray;    //store usersocre corresponding to a specific type
+    NSMutableArray *scoresArray;    //store usersocre corresponding to a specific score type
     NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
 
     NSMutableArray *searchResults;
@@ -59,7 +59,7 @@
     self.navigationItem.rightBarButtonItems = @[btnSubmit];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     
     self.navigationItem.leftBarButtonItems = @[btnCancel];
     
@@ -149,6 +149,8 @@
 - (void)cancelButtonClick {
     if (_selectedType) {
         [self confirmCancelAddScore];
+    } else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -186,6 +188,33 @@
 }
 
 - (void)submitScoresToServer {
+    [SVProgressHUD show];
+    
+    NSMutableArray *scoresArr = [[NSMutableArray alloc] init];
+    //create scores json
+
+    for (UserScore *userScore in scoresArray) {
+        if ([userScore.scoreArray count] > 0) {
+            NSMutableDictionary *scoreDict = [[NSMutableDictionary alloc] init];
+            ScoreObject *scoreObj = [userScore.scoreArray objectAtIndex:0];
+            
+            [scoreDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
+            [scoreDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
+            [scoreDict setValue:scoreObj.score forKey:@"sresult"];
+            [scoreDict setValue:userScore.userID forKey:@"student_id"];
+            [scoreDict setValue:scoreObj.subjectID forKey:@"subject_id"];
+            [scoreDict setValue:scoreObj.examID forKey:@"exam_id"];
+            [scoreDict setValue:scoreObj.termID forKey:@"term_id"];
+            [scoreDict setValue:scoreObj.comment forKey:@"notice"];
+            
+            [scoresArr addObject:scoreDict];
+        }
+    }
+    
+    if ([scoresArr count] > 0) {
+        [requestToServer submitMultipleScoresWithObject:scoresArr];
+    }
+    
     
 }
 
@@ -442,22 +471,35 @@
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     
-    NSString *url = [jsonObj objectForKey:@"url"];
+    NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
-    if ([url rangeOfString:API_NAME_TEACHER_GET_EXAM_TYPE_LIST].location != NSNotFound) {
-        NSArray *scoreTypeArr = [jsonObj objectForKey:@"messageObject"];
+    if (statusCode == HttpOK) {
+        NSString *url = [jsonObj objectForKey:@"url"];
         
-        if (scoreTypeArr != (id)[NSNull null]) {
-            [self parseScoreTypeList:scoreTypeArr];
+        if ([url rangeOfString:API_NAME_TEACHER_GET_EXAM_TYPE_LIST].location != NSNotFound) {
+            NSArray *scoreTypeArr = [jsonObj objectForKey:@"messageObject"];
+            
+            if (scoreTypeArr != (id)[NSNull null]) {
+                [self parseScoreTypeList:scoreTypeArr];
 
+            }
+            
+        } else if ([url rangeOfString:API_NAME_TEACHER_SCORE_LIST].location != NSNotFound) {
+            NSArray *scores = [jsonObj objectForKey:@"messageObject"];
+            
+            if (scores != (id)[NSNull null]) {
+                [self parseScoreList:scores];
+            }
+            
+        } else if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
+            [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Successfully")];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToRefreshScoreList" object:nil];
         }
         
-    } else if ([url rangeOfString:API_NAME_TEACHER_SCORE_LIST].location != NSNotFound) {
-        NSArray *scores = [jsonObj objectForKey:@"messageObject"];
-        
-        if (scores != (id)[NSNull null]) {
-            [self parseScoreList:scores];
-        }
+    } else {
+        [self failToGetInfo];
     }
 }
 
@@ -772,6 +814,13 @@
 - (void)confirmCancelAddScore {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 4;
+    
+    [alert show];
+}
+
+- (void)failToGetInfo {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 5;
     
     [alert show];
 }

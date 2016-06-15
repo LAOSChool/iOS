@@ -52,7 +52,6 @@
     [viewHeaderContainer setBackgroundColor:GREEN_COLOR];
     
     [imgAvatar setBackgroundColor:BLUE_COLOR];
-//    imgAvatar.image = [[Common sharedCommon] imageFromText:@"HN" withColor:[UIColor whiteColor]];
     
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
@@ -60,6 +59,22 @@
     lbSchoolName.text = userObj.schoolName;
     lbStudentName.text = [NSString stringWithFormat:@"%@ - %@", userObj.username, classObj.className];
     lbYearAndTerm.text = [NSString stringWithFormat:@"%@ Term %@", classObj.currentYear, classObj.currentTerm];
+    
+    if (userObj.avatarPath && userObj.avatarPath.length > 0) {
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
+        
+        //load the image
+        imgAvatar.imageURL = [NSURL URLWithString:userObj.avatarPath];
+        
+    } else {
+        if ([userObj.gender isEqualToString:@"male"]) {
+            imgAvatar.image = [UIImage imageNamed:@"ic_male.png"];
+            
+        } else if ([userObj.gender isEqualToString:@"female"]) {
+            imgAvatar.image = [UIImage imageNamed:@"ic_female.png"];
+        }
+    }
     
 }
 

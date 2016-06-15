@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoreViewController">
             <connections>
-                <outlet property="imgAvatar" destination="ZTH-Mm-RKT" id="WDD-Oe-8Pe"/>
+                <outlet property="imgAvatar" destination="ZTH-Mm-RKT" id="a3g-Qa-Tpo"/>
                 <outlet property="lbSchoolName" destination="JeW-YC-7xt" id="Vo5-kf-jIx"/>
                 <outlet property="lbStudentName" destination="jF2-67-QFQ" id="mE1-mW-LgW"/>
                 <outlet property="lbYearAndTerm" destination="SSK-6Y-eEU" id="HzI-d9-0SE"/>
@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_white.png" id="ZTH-Mm-RKT">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_white.png" id="ZTH-Mm-RKT" customClass="AsyncImageView">
                             <rect key="frame" x="8" y="10" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

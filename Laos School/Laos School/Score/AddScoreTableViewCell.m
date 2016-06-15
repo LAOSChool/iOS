@@ -31,8 +31,29 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([self isNumeric:string] == NO) {
+        return NO;
+    }
+    
+    if ([textField.text rangeOfString:@"."].location != NSNotFound &&
+        [string isEqualToString:@"."]) {
+        return NO;
+    }
+    
+    float score = [[textField.text stringByReplacingCharactersInRange:range withString:string] floatValue];
+    if (score < 0 || score > 10) {
+        return NO;
+    }
     
     return YES;
+}
+
+- (BOOL)isNumeric:(NSString*)inputString{
+    BOOL isValid = NO;
+    NSCharacterSet *alphaNumbersSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
+    NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:inputString];
+    isValid = [alphaNumbersSet isSupersetOfSet:stringSet];
+    return isValid;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

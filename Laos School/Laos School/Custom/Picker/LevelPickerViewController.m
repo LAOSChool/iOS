@@ -9,6 +9,7 @@
 #import "LevelPickerViewController.h"
 #import "Common.h"
 #import "SubjectObject.h"
+#import "TermObject.h"
 #import "ScoreTypeObject.h"
 #import "LocalizeHelper.h"
 
@@ -28,7 +29,8 @@
     
     if (_selectedItem) {
         if (_pickerType == Picker_Subject ||
-            _pickerType == Picker_ScoreType) {
+            _pickerType == Picker_ScoreType ||
+            _pickerType == Picker_Terms) {
             if ([_dataArray count] > 0) {
                 NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
                 
@@ -59,7 +61,8 @@
         _selectedItem = selectedItem;
         
         if (_pickerType == Picker_Subject ||
-            _pickerType == Picker_ScoreType) {
+            _pickerType == Picker_ScoreType ||
+            _pickerType == Picker_Terms) {
             if ([_dataArray count] > 0) {
                 NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
                 
@@ -103,6 +106,10 @@
         } else if (_pickerType == Picker_ScoreType) {
             ScoreTypeObject *typeObj = [_dataArray objectAtIndex:selectedRow];
             [self.delegate btnDoneClick:self withObjectReturned:typeObj];
+            
+        } else if (_pickerType == Picker_Terms) {
+            TermObject *termObj = [_dataArray objectAtIndex:selectedRow];
+            [self.delegate btnDoneClick:self withObjectReturned:termObj];
         }
         
     }
@@ -114,13 +121,9 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (_pickerType == Picker_Subject ||
-        _pickerType == Picker_ScoreType) {
-        if (_dataArray) {
-            return [_dataArray count];
-        }
-        
-        return 0;
+
+    if (_dataArray) {
+        return [_dataArray count];
     }
     
     return 0;
@@ -137,6 +140,11 @@
         ScoreTypeObject *typeObj = [_dataArray objectAtIndex:row];
         
         return typeObj.scoreName;
+        
+    } else if (_pickerType == Picker_Terms) {
+        TermObject *termObj = [_dataArray objectAtIndex:row];
+        
+        return termObj.termName;
     }
     
     return @"";

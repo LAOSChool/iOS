@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncImageView.h"
 
 typedef enum {
     MoreGroupProfile = 0,
@@ -39,7 +40,8 @@ typedef enum {
 {
     IBOutlet UIView *viewHeaderContainer;
     
-    IBOutlet UIImageView *imgAvatar;
+    IBOutlet AsyncImageView *imgAvatar;
+
     IBOutlet UILabel *lbStudentName;
     IBOutlet UILabel *lbSchoolName;
     IBOutlet UILabel *lbYearAndTerm;

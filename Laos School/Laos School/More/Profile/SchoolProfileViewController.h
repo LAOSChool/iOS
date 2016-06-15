@@ -11,7 +11,9 @@
 @interface SchoolProfileViewController : UIViewController
 {
     
+    IBOutlet UIView *viewTerm;
     IBOutlet UIView *viewHeaderContainer;
+    IBOutlet UIView *viewMainContainer;
     IBOutlet UILabel *lbClass;
     IBOutlet UILabel *lbTermOne;
     IBOutlet UILabel *lbTermTwo;
@@ -20,6 +22,17 @@
     IBOutlet UITableView *scoreTableView;
     
     IBOutlet UILabel *lbSchoolYear;
+    
+    IBOutlet UILabel *lbClassValue;
+    IBOutlet UILabel *lbAverage1Value;
+    IBOutlet UILabel *lbAverage2Value;
+    IBOutlet UILabel *lbAverageYearValue;
+
+    IBOutlet UILabel *lbAverage1;
+    IBOutlet UILabel *lbAverage2;
+    IBOutlet UILabel *lbAverageYear;
+    
+    
     IBOutlet UIButton *btnShow;
     
 }

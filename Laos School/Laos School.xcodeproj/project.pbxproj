@@ -88,6 +88,7 @@
 		55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */; };
 		55320CA31CEDAA1A00E45492 /* ic_clock_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */; };
 		55320CA41CEDAA1A00E45492 /* ic_clock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */; };
+		5534FF6E1D112E3E0014CC99 /* TermObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5534FF6C1D112E3E0014CC99 /* TermObject.m */; };
 		5538828A1CF702CF00E12EFC /* school_info.htm in Resources */ = {isa = PBXBuildFile; fileRef = 553882891CF702CF00E12EFC /* school_info.htm */; };
 		5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */; };
 		5538828F1CF706DF00E12EFC /* ChangeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538828C1CF706DF00E12EFC /* ChangeLanguageViewController.m */; };
@@ -629,6 +630,8 @@
 		55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clock_white.png; sourceTree = "<group>"; };
 		55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@2x.png"; sourceTree = "<group>"; };
 		55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@3x.png"; sourceTree = "<group>"; };
+		5534FF6C1D112E3E0014CC99 /* TermObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermObject.m; sourceTree = "<group>"; };
+		5534FF6D1D112E3E0014CC99 /* TermObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermObject.h; sourceTree = "<group>"; };
 		553882891CF702CF00E12EFC /* school_info.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = school_info.htm; sourceTree = "<group>"; };
 		5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeLanguageViewController.xib; sourceTree = "<group>"; };
 		5538828C1CF706DF00E12EFC /* ChangeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeLanguageViewController.m; sourceTree = "<group>"; };
@@ -2616,6 +2619,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5534FF6D1D112E3E0014CC99 /* TermObject.h */,
+				5534FF6C1D112E3E0014CC99 /* TermObject.m */,
 				559A08041D095C7500B31125 /* ScoreTypeObject.h */,
 				559A08051D095C7500B31125 /* ScoreTypeObject.m */,
 				5567580B1D06A4000000321B /* SubjectObject.h */,
@@ -3080,6 +3085,7 @@
 				55CF10C21C85571400DC1AB9 /* MessageDetailViewController.m in Sources */,
 				552400F31C881DA600F7D057 /* CreatePermissionViewController.m in Sources */,
 				55797C9D1C8695BE00A0098D /* MoreViewController.m in Sources */,
+				5534FF6E1D112E3E0014CC99 /* TermObject.m in Sources */,
 				5538A9711CBCF3E500659C8A /* JSQMessagesTimestampFormatter.m in Sources */,
 				550A75F91CCE153A0050240B /* README.md in Sources */,
 				5548F0C21CFFD72100E58378 /* OtherReasonTableViewCell.m in Sources */,

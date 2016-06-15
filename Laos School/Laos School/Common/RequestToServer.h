@@ -20,7 +20,7 @@
 #else
 #define SERVER_PATH @"https://192.168.0.202:9443/laoschoolws"
 #endif
-#endif
+#endif                                                                                                                                           
 
 #define API_NAME_LOGIN @"/login"
 #define API_NAME_MYPROFILE @"/api/users/myprofile"
@@ -43,13 +43,17 @@
 #define API_NAME_TEACHER_CHECK_ATTENDANCE_LIST @"/api/attendances/rollup"
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
-#define API_NAME_STU_SCHOOL_RECORD_LIST @"/api/final_results/myprofile"
 #define API_NAME_TEACHER_SCORE_LIST @"/api/exam_results/marks"
 #define API_NAME_TEACHER_ADD_SCORE @"/api/exam_results/input"
+#define API_NAME_TEACHER_ADD_MULTIPLE_SCORE @"/api/exam_results/input/batch"
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 #define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
 #define API_NAME_TEACHER_GET_EXAM_TYPE_LIST @"/api/classes/exams"
+
+#define API_NAME_STU_TERMS_LIST @"/api/school_years/myprofile"
+#define API_NAME_STU_SCHOOL_RECORDS @"/api/edu_profile/myprofile"
+
 
 #define HttpOK 200
 #define Accepted 201
@@ -89,6 +93,7 @@
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
 - (void)getScoreTypeListInClass:(NSString *)classID;
 - (void)submitScoreWithObject:(NSDictionary *)scoreDict;
+- (void)submitMultipleScoresWithObject:(NSArray *)scoresArray;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;
@@ -118,6 +123,10 @@
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
 - (void)requestToChangePassword:(NSString *)username oldPass:(NSString *)oldPass byNewPass:(NSString *)newPass;
+
+//school record
+- (void)getStudentTermList;
+- (void)getSchoolRecordForYear:(NSString *)termID;
 
 @property(nonatomic, readwrite) id <RequestToServerDelegate> delegate;
 @end

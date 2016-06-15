@@ -16,6 +16,8 @@
 #import "RequestToServer.h"
 #import "TagManagerHelper.h"
 
+#import "TermObject.h"
+
 #import "SVProgressHUD.h"
 
 @interface SchoolProfileViewController ()
@@ -41,6 +43,9 @@
     NSMutableDictionary *scoresStore;
     NSMutableDictionary *groupBySubject;
     
+    NSMutableArray *termsArray;
+    TermObject *selectedTerm;
+    
     LevelPickerViewController *termPicker;
     
     RequestToServer *requestToServer;
@@ -58,6 +63,12 @@
     [self.navigationController setNavigationColor];
     
     [viewHeaderContainer setBackgroundColor:GREEN_COLOR];
+    [viewTerm setBackgroundColor:GREEN_COLOR];
+    
+    lbClass.text = LocalizedString(@"Class:");
+    lbAverage1.text = LocalizedString(@"Average of tern I:");
+    lbAverage2.text = LocalizedString(@"Average of tern II:");
+    lbAverageYear.text = LocalizedString(@"Average of year:");
     
     [btnShow setBackgroundImage:[UIImage imageNamed:@"btn_165_30.png"] forState:UIControlStateNormal];
     
@@ -67,12 +78,19 @@
     
     btnMoreInfo.enabled = NO;   //enable after got the information
     
+    if (termsArray == nil) {
+        termsArray = [[NSMutableArray alloc] init];
+    }
+    
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
+    
+    lbSchoolYear.text = LocalizedString(@"Select a year");
+    [lbSchoolYear setTextColor:[UIColor lightGrayColor]];
 
-    [self loadData];
+    [self loadTermList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,7 +109,14 @@
 */
 
 - (void)reloadSchoolProfileData {
-    
+    if (termPicker && termPicker.view.alpha == 1) {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            termPicker.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [termPicker.view removeFromSuperview];
+        }];
+    }
+    [self loadTermList];
 }
 
 - (IBAction)showTermsListPicker:(id)sender {
@@ -104,7 +129,11 @@
     }
     
     termPicker.pickerType = Picker_Terms;
+    termPicker.dataArray = termsArray;
+    termPicker.selectedItem = selectedTerm;
     termPicker.view.alpha = 0;
+    
+    termPicker.delegate = (id)self;
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;
@@ -117,68 +146,66 @@
     }];
 }
 
-- (IBAction)btnShowClick:(id)sender {
+- (void)btnDoneClick:(id)sender withObjectReturned:(id)returnedObj {
+    if (returnedObj) {
+        [lbSchoolYear setTextColor:[UIColor whiteColor]];
+        TermObject *termObj = (TermObject *)returnedObj;
+        lbSchoolYear.text = termObj.termName;
+        selectedTerm = termObj;
+        
+        [self loadSchoolRecordForYear:termObj.termID];
+    }
 }
 
-
-- (IBAction)btnMoreClick:(id)sender {
+- (void)loadTermList {
+    [SVProgressHUD show];
+    [requestToServer getStudentTermList];
 }
 
-- (void)loadData {
-    [requestToServer getMySchoolRecordInClass:@"1"];
+- (void)loadSchoolRecordForYear:(NSString *)termID {
+    [SVProgressHUD show];
+    [requestToServer getSchoolRecordForYear:termID];
 }
-
-#pragma mark data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    // If you're serving data from an array, return the length of the array:
-        return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    static NSString *studentSessionTableCellIdentifier = @"StdSessionTableViewCell";
-//    
-//    StdSessionTableViewCell *cell = [timeTableView dequeueReusableCellWithIdentifier:studentSessionTableCellIdentifier];
-//    if (cell == nil) {
-//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StdSessionTableViewCell" owner:nil options:nil];
-//        cell = [nib objectAtIndex:0];
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//    }
-    return nil;
-}
-
-#pragma mark table delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-}
-
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
     
-
+    NSString *url = [jsonObj objectForKey:@"url"];
     
+    if ([url rangeOfString:API_NAME_STU_TERMS_LIST].location != NSNotFound) {
+        [termsArray removeAllObjects];
+        
+        NSArray *terms = [jsonObj objectForKey:@"messageObject"];
+        
+        if (terms != (id)[NSNull null]) {
+            for (NSDictionary *termDict in terms) {
+                TermObject *termObj = [[TermObject alloc] init];
+                
+                if ([termDict valueForKey:@"id"] != (id)[NSNull null]) {
+                    termObj.termID = [NSString stringWithFormat:@"%@", [termDict valueForKey:@"id"]];
+                }
+                
+                if ([termDict valueForKey:@"years"] != (id)[NSNull null]) {
+                    termObj.termName = [termDict valueForKey:@"years"];
+                }
+                
+                [termsArray addObject:termObj];
+            }
+        }
+        
+    } else if ([url rangeOfString:API_NAME_STU_SCHOOL_RECORDS].location != NSNotFound) {
+        
+    }
 }
 
 - (void)failToConnectToServer {
-//    [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [SVProgressHUD dismiss];
+
 }
 
 - (void)sendPostRequestFailedWithUnknownError {
-//    [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [SVProgressHUD dismiss];
 }
 
 - (void)loginWithWrongUserPassword {
@@ -186,8 +213,8 @@
 }
 
 - (void)accountLoginByOtherDevice {
-//    [SVProgressHUD dismiss];
-//    [refreshControl endRefreshing];
+    [SVProgressHUD dismiss];
+
     [self showAlertAccountLoginByOtherDevice];
 }
 
