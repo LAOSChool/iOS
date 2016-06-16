@@ -404,6 +404,8 @@
     
     if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
         ScoresViewController *scoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
+        scoreViewController.tableType = ScoreTable_Normal;
+        
         navScoreView = [[UINavigationController alloc] initWithRootViewController:scoreViewController];
         
     } else {

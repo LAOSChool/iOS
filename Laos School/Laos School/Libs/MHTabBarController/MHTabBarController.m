@@ -412,7 +412,7 @@ static const NSInteger TagOffset = 1000;
 
 - (CGFloat)tabBarHeight
 {
-	return 50.0f;
+	return 40.0f;
 }
 
 @end

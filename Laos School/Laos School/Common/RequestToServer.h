@@ -52,7 +52,7 @@
 #define API_NAME_TEACHER_GET_EXAM_TYPE_LIST @"/api/classes/exams"
 
 #define API_NAME_STU_TERMS_LIST @"/api/school_years/myprofile"
-#define API_NAME_STU_SCHOOL_RECORDS @"/api/edu_profile/myprofile"
+#define API_NAME_STU_SCHOOL_RECORDS @"/api/edu_profiles/myprofile"
 
 
 #define HttpOK 200

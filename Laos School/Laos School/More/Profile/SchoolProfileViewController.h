@@ -14,12 +14,12 @@
     IBOutlet UIView *viewTerm;
     IBOutlet UIView *viewHeaderContainer;
     IBOutlet UIView *viewMainContainer;
+    
     IBOutlet UILabel *lbClass;
     IBOutlet UILabel *lbTermOne;
     IBOutlet UILabel *lbTermTwo;
     IBOutlet UILabel *lbAllYear;
     IBOutlet UIButton *btnMoreInfo;
-    IBOutlet UITableView *scoreTableView;
     
     IBOutlet UILabel *lbSchoolYear;
     
@@ -31,9 +31,6 @@
     IBOutlet UILabel *lbAverage1;
     IBOutlet UILabel *lbAverage2;
     IBOutlet UILabel *lbAverageYear;
-    
-    
-    IBOutlet UIButton *btnShow;
-    
+        
 }
 @end

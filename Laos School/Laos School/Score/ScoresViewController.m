@@ -28,9 +28,8 @@
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
     
-    NSMutableArray *scoresArray;
-    NSMutableDictionary *scoresStore;
-    NSMutableDictionary *groupBySubject;
+    NSMutableArray *scoresArray;        //group scores by term
+    NSMutableDictionary *scoresStore;   //store all scores
     
     ScoreDetailViewController *scoreDetailView;
 }
@@ -44,17 +43,19 @@
     
     [self.navigationController setNavigationColor];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:
-                                            [NSArray arrayWithObjects:LocalizedString(@"Term I"), LocalizedString(@"Term II"),                                             nil]];
-    segmentedControl.frame = CGRectMake(0, 0, 140, 30);
-    [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
-    [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
-    
-    [segmentedControl setSelectedSegmentIndex:0];
-    
-    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    
-    self.navigationItem.titleView = segmentedControl;
+    if (_tableType == ScoreTable_Normal) {
+        segmentedControl = [[UISegmentedControl alloc] initWithItems:
+                            [NSArray arrayWithObjects:LocalizedString(@"Term I"), LocalizedString(@"Term II"),                                             nil]];
+        segmentedControl.frame = CGRectMake(0, 0, 140, 30);
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
+        [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
+        
+        [segmentedControl setSelectedSegmentIndex:0];
+        
+        [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+        
+        self.navigationItem.titleView = segmentedControl;
+    }
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -69,15 +70,17 @@
         scoresStore = [[NSMutableDictionary alloc] init];
     }
     
-    if (groupBySubject == nil) {
-        groupBySubject = [[NSMutableDictionary alloc] init];
+    if (_groupBySubject == nil) {
+        _groupBySubject = [[NSMutableDictionary alloc] init];
     }
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(reloadScoreData) forControlEvents:UIControlEventValueChanged];
-    [scoresTableView addSubview:refreshControl];
-    
-    [self loadData];
+    if (_tableType == ScoreTable_Normal) {
+        refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(reloadScoreData) forControlEvents:UIControlEventValueChanged];
+        [scoresTableView addSubview:refreshControl];
+        
+        [self loadData];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showScoreDetail:)
@@ -155,7 +158,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [[groupBySubject allKeys] count];
+    return [[_groupBySubject allKeys] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,11 +175,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    NSArray *keyArr = [groupBySubject allKeys];
+    NSArray *keyArr = [_groupBySubject allKeys];
     
     if (indexPath.row < [keyArr count]) {
         NSString *subject  = [keyArr objectAtIndex:indexPath.row];
-        NSArray *arr = [groupBySubject objectForKey:subject];
+        NSArray *arr = [_groupBySubject objectForKey:subject];
         
         cell.scoresArray = [self sortScoresArrayByMonth:arr];
         cell.lbSubject.text = subject;
@@ -199,7 +202,7 @@
 
     [scoresArray removeAllObjects];
     [scoresStore removeAllObjects];
-    [groupBySubject removeAllObjects];
+    [_groupBySubject removeAllObjects];
     
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
@@ -334,30 +337,6 @@
         }
     }
     
-    /*if ([[scoresStore allKeys] count] > 0) {
-     NSArray *keyArr = [scoresStore allKeys];
-     NSMutableArray *segmentArr = [[NSMutableArray alloc] init];
-     float length = SEGMENT_LENGTH * [keyArr count];
-     
-     for (NSString *key in keyArr) {
-     NSString *segmentName = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Term"), key];
-     [segmentArr addObject:segmentName];
-     }
-     
-     segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentArr];
-     segmentedControl.frame = CGRectMake(0, 0, length, 30);
-     
-     for (int i = 0; i < [keyArr count]; i++) {
-     [segmentedControl setWidth:SEGMENT_LENGTH forSegmentAtIndex:i];
-     }
-     
-     [segmentedControl setSelectedSegmentIndex:0];
-     
-     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-     
-     self.navigationItem.titleView = segmentedControl;
-     }*/
-    
     [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
     [self groupDataBySubject];
     [scoresTableView reloadData];
@@ -387,15 +366,15 @@
 }
 
 - (void)groupDataBySubject {
-    [groupBySubject removeAllObjects];
+    [_groupBySubject removeAllObjects];
     
     if ([scoresArray count] > 0) {
         for (ScoreObject *scoreObj in scoresArray) {
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[groupBySubject objectForKey:scoreObj.subject]];
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[_groupBySubject objectForKey:scoreObj.subject]];
             
             [arr addObject:scoreObj];
 
-            [groupBySubject setObject:arr forKey:scoreObj.subject];
+            [_groupBySubject setObject:arr forKey:scoreObj.subject];
         }
     }
 }
