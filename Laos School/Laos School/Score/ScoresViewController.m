@@ -28,8 +28,8 @@
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
     
-    NSMutableArray *scoresArray;        //group scores by term
     NSMutableDictionary *scoresStore;   //store all scores
+    NSMutableDictionary *groupBySubject;
     
     ScoreDetailViewController *scoreDetailView;
 }
@@ -62,16 +62,16 @@
         requestToServer.delegate = (id)self;
     }
     
-    if (scoresArray == nil) {
-        scoresArray = [[NSMutableArray alloc] init];
+    if (_scoresArray == nil) {
+        _scoresArray = [[NSMutableArray alloc] init];
     }
     
     if (scoresStore == nil) {
         scoresStore = [[NSMutableDictionary alloc] init];
     }
     
-    if (_groupBySubject == nil) {
-        _groupBySubject = [[NSMutableDictionary alloc] init];
+    if (groupBySubject == nil) {
+        groupBySubject = [[NSMutableDictionary alloc] init];
     }
     
     if (_tableType == ScoreTable_Normal) {
@@ -158,7 +158,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [[_groupBySubject allKeys] count];
+    return [[groupBySubject allKeys] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,11 +175,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    NSArray *keyArr = [_groupBySubject allKeys];
+    NSArray *keyArr = [groupBySubject allKeys];
     
     if (indexPath.row < [keyArr count]) {
         NSString *subject  = [keyArr objectAtIndex:indexPath.row];
-        NSArray *arr = [_groupBySubject objectForKey:subject];
+        NSArray *arr = [groupBySubject objectForKey:subject];
         
         cell.scoresArray = [self sortScoresArrayByMonth:arr];
         cell.lbSubject.text = subject;
@@ -200,9 +200,9 @@
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
 
-    [scoresArray removeAllObjects];
+    [_scoresArray removeAllObjects];
     [scoresStore removeAllObjects];
-    [_groupBySubject removeAllObjects];
+    [groupBySubject removeAllObjects];
     
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
@@ -344,7 +344,7 @@
 
 //group data by term
 - (void)prepareDataForSegment:(NSInteger)segmentID {
-    [scoresArray removeAllObjects];
+    [_scoresArray removeAllObjects];
     NSArray *keyArr = [scoresStore allKeys];
     
     if ([keyArr count] > 1) {
@@ -361,22 +361,41 @@
     }
     
     if ([keyArr count] > segmentID) {
-        [scoresArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:segmentID]]];
+        [_scoresArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:segmentID]]];
     }
 }
 
 - (void)groupDataBySubject {
-    [_groupBySubject removeAllObjects];
+    if (groupBySubject == nil) {
+        groupBySubject = [[NSMutableDictionary alloc] init];
+        
+    } else {
+        [groupBySubject removeAllObjects];
+    }
     
-    if ([scoresArray count] > 0) {
-        for (ScoreObject *scoreObj in scoresArray) {
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[_groupBySubject objectForKey:scoreObj.subject]];
+    if ([_scoresArray count] > 0) {
+        for (ScoreObject *scoreObj in _scoresArray) {
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[groupBySubject objectForKey:scoreObj.subject]];
             
             [arr addObject:scoreObj];
 
-            [_groupBySubject setObject:arr forKey:scoreObj.subject];
+            [groupBySubject setObject:arr forKey:scoreObj.subject];
         }
     }
+}
+
+- (void)setScoresArray:(NSMutableArray *)scoresArray {
+    if (_scoresArray == nil) {
+        _scoresArray = [[NSMutableArray alloc] init];
+    } else {
+        [_scoresArray removeAllObjects];
+    }
+    
+    [_scoresArray addObjectsFromArray:scoresArray];
+    
+    [self groupDataBySubject];
+    
+    [scoresTableView reloadData];
 }
 
 - (NSArray *)sortScoresArrayByMonth:(NSArray *)scores {

@@ -59,12 +59,45 @@
 - (void)setSelectedItem:(id)selectedItem {
     if (selectedItem) {
         _selectedItem = selectedItem;
-        
-        if (_pickerType == Picker_Subject ||
-            _pickerType == Picker_ScoreType ||
-            _pickerType == Picker_Terms) {
+        NSInteger selectedRow = 0;
+        if (_pickerType == Picker_Subject) {
+            SubjectObject *selected = (SubjectObject *)_selectedItem;
             if ([_dataArray count] > 0) {
-                NSInteger selectedRow = [_dataArray indexOfObject:_selectedItem];
+                for (SubjectObject *sub in _dataArray) {
+                    if ([sub.subjectID isEqualToString:selected.subjectID]) {
+                        break;
+                    }
+                    
+                    selectedRow++;
+                }
+                
+                [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+            }
+            
+        } else if (_pickerType == Picker_Terms) {
+            TermObject *selected = (TermObject *)_selectedItem;
+            if ([_dataArray count] > 0) {
+                for (TermObject *term in _dataArray) {
+                    if ([term.termID isEqualToString:selected.termID]) {
+                        break;
+                    }
+                    
+                    selectedRow++;
+                }
+                
+                [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
+            }
+            
+        } else if (_pickerType == Picker_ScoreType) {
+            ScoreTypeObject *selected = (ScoreTypeObject *)_selectedItem;
+            if ([_dataArray count] > 0) {
+                for (ScoreTypeObject *type in _dataArray) {
+                    if ([type.typeID isEqualToString:selected.typeID]) {
+                        break;
+                    }
+                    
+                    selectedRow++;
+                }
                 
                 [levelPicker selectRow:selectedRow inComponent:0 animated:YES];
             }

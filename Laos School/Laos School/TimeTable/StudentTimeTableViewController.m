@@ -198,10 +198,7 @@
             NSArray *keyArr = [sessionsGroupByDay allKeys];
             keyArr = [self sortSessionByWeekDay:keyArr];
             
-            if (tabViewController == nil) {
-                tabViewController = [[MHTabBarController alloc] init];
-            }
-            
+            tabViewController = [[MHTabBarController alloc] init];
             tabViewController.delegate = (id)self;
             
             NSMutableArray *viewControllers = [[NSMutableArray alloc] init];

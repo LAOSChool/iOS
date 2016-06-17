@@ -22,5 +22,5 @@ typedef enum {
 
 @property (nonatomic, assign) SCORE_TABLE_TYPE tableType;
 
-@property (nonatomic, strong) NSMutableDictionary *groupBySubject;
+@property (nonatomic, strong) NSMutableArray *scoresArray;
 @end

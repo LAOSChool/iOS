@@ -24,7 +24,10 @@
 #import "MHTabBarController.h"
 
 typedef enum {
-    TabType
+    TabType_TermFirst = 0,
+    TabType_TermSecond,
+    TabType_AllYear,
+    TabType_Other,
     TabType_Max
 } TAB_TYPE;
 
@@ -71,12 +74,12 @@ typedef enum {
     
     [self.navigationController setNavigationColor];
     
-    [viewHeaderContainer setBackgroundColor:GREEN_COLOR];
+    [viewHeaderContainer setBackgroundColor:[UIColor whiteColor]];
     [viewTerm setBackgroundColor:GREEN_COLOR];
     
     lbClass.text = LocalizedString(@"Class:");
-    lbAverage1.text = LocalizedString(@"Average of tern I:");
-    lbAverage2.text = LocalizedString(@"Average of tern II:");
+    lbAverage1.text = LocalizedString(@"Average of term I:");
+    lbAverage2.text = LocalizedString(@"Average of term II:");
     lbAverageYear.text = LocalizedString(@"Average of year:");
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadSchoolProfileData)];
@@ -104,6 +107,11 @@ typedef enum {
     
     lbSchoolYear.text = LocalizedString(@"Select a school year");
     [lbSchoolYear setTextColor:[UIColor lightGrayColor]];
+    
+    lbClassValue.text = @"...";
+    lbAverage1Value.text = @"0";
+    lbAverage2Value.text = @"0";
+    lbAverageYearValue.text = @"0";
 
     [self loadTermList];
 }
@@ -184,7 +192,6 @@ typedef enum {
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    [SVProgressHUD dismiss];
     
     NSString *url = [jsonObj objectForKey:@"url"];
     
@@ -194,6 +201,7 @@ typedef enum {
         NSArray *terms = [jsonObj objectForKey:@"messageObject"];
         
         if (terms != (id)[NSNull null]) {
+            BOOL found = NO;
             for (NSDictionary *termDict in terms) {
                 TermObject *termObj = [[TermObject alloc] init];
                 
@@ -206,6 +214,16 @@ typedef enum {
                 }
                 
                 [termsArray addObject:termObj];
+                
+                if ([termObj.termID isEqualToString:selectedTerm.termID] && found == NO) {
+                    found = YES;
+                }
+            }
+            
+            if (selectedTerm != nil && found == YES) {
+                [self loadSchoolRecordForYear:selectedTerm.termID];
+            } else {
+                [SVProgressHUD dismiss];
             }
         }
         
@@ -214,7 +232,14 @@ typedef enum {
         
         if (scoresDict != (id)[NSNull null]) {
             [self parseSchoolRecords:scoresDict];
+            
+        } else {
+            if (tabViewController) {
+                [tabViewController.view removeFromSuperview];
+            }
         }
+        
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -222,7 +247,10 @@ typedef enum {
     [scoresArray removeAllObjects];
     [scoresStore removeAllObjects];
     
-    NSArray *scores = [scoresDict objectForKey:@"messageObject"];
+    //common info
+    lbClassValue.text = [scoresDict objectForKey:@"cls_name"];
+    
+    NSArray *scores = [scoresDict objectForKey:@"exam_results"];
     
     if (scores != (id)[NSNull null]) {
         
@@ -337,30 +365,89 @@ typedef enum {
             [arr addObject:scoreObj];
             [scoresStore setObject:arr forKey:scoreObj.termID];
         }
+        
+        [self groupScoresByTermAndDisplay];
+        
+    } else {
+        if (tabViewController) {
+            [tabViewController.view removeFromSuperview];
+        }
     }
 }
 
-- (void)groupScoresByTermAndDisplay:(NSArray *)scores {
-    if (tabViewController == nil) {
-        tabViewController = [[MHTabBarController alloc] init];
+- (void)groupScoresByTermAndDisplay {
+    
+    //break scores into 3 arrays
+    NSMutableArray *totalArray = [[NSMutableArray alloc] init];
+    NSMutableArray *firstArray = [[NSMutableArray alloc] init];
+    NSMutableArray *secondArray = [[NSMutableArray alloc] init];
+    
+    NSArray *keyArr = [scoresStore allKeys];
+    
+    if ([keyArr count] > 1) {
+        [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            if ([obj1 intValue]==[obj2 intValue])
+                return NSOrderedSame;
+            
+            else if ([obj1 intValue]<[obj2 intValue])
+                return NSOrderedAscending;
+            else
+                return NSOrderedDescending;
+            
+        }];
     }
+    
+    if ([keyArr count] > TabType_TermFirst) {
+        [firstArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:TabType_TermFirst]]];
+    }
+    
+    if ([keyArr count] > TabType_TermSecond) {
+        [secondArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:TabType_TermSecond]]];
+    }
+    
+    //if a score is average type, copy it to totalArray
+    /*
+     ScoreType_Normal = 0,
+     ScoreType_Average,
+     ScoreType_Exam,
+     ScoreType_Final,
+     ScoreType_YearFinal,
+     ScoreType_ExamAgain,
+     ScoreType_Graduate,*/
+    for (ScoreObject *score in firstArray) {
+        if (score.scoreType == ScoreType_Final ||
+            score.scoreType == ScoreType_YearFinal) {
+            [totalArray addObject:score];
+        }
+    }
+    
+    for (ScoreObject *score in secondArray) {
+        if (score.scoreType == ScoreType_Final ||
+            score.scoreType == ScoreType_YearFinal) {
+            [totalArray addObject:score];
+        }
+    }
+    
+    tabViewController = [[MHTabBarController alloc] init];
     
     tabViewController.delegate = (id)self;
     
     ScoresViewController *allYearScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
-    allYearScoreViewController.title = @"Overall year";
+    allYearScoreViewController.title = @"Overall";
     allYearScoreViewController.tableType = ScoreTable_SchoolRecord;
+    allYearScoreViewController.scoresArray = totalArray;
     
     //term 1
     ScoresViewController *term1ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term1ScoreViewController.title = @"Term I";
     term1ScoreViewController.tableType = ScoreTable_SchoolRecord;
+    term1ScoreViewController.scoresArray = firstArray;
     
     //Term 2
     ScoresViewController *term2ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term2ScoreViewController.title = @"Term II";
     term2ScoreViewController.tableType = ScoreTable_SchoolRecord;
-    
+    term2ScoreViewController.scoresArray = secondArray;
     
     //add tab view
     tabViewController.viewControllers = @[allYearScoreViewController, term1ScoreViewController, term2ScoreViewController];
