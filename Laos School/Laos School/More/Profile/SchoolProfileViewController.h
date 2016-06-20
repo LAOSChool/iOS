@@ -14,6 +14,7 @@
     IBOutlet UIView *viewTerm;
     IBOutlet UIView *viewHeaderContainer;
     IBOutlet UIView *viewMainContainer;
+    IBOutlet UIView *viewAdditionalInfo;
     
     IBOutlet UILabel *lbClass;
     IBOutlet UILabel *lbTermOne;
@@ -31,6 +32,15 @@
     IBOutlet UILabel *lbAverage1;
     IBOutlet UILabel *lbAverage2;
     IBOutlet UILabel *lbAverageYear;
+    
+    IBOutlet UILabel *lbPassed;
+    IBOutlet UILabel *lbMorality;
+    IBOutlet UILabel *lbMoralityValue;
+    IBOutlet UILabel *lbAbsence;
+    IBOutlet UILabel *lbAbsenceValue;
+    IBOutlet UILabel *lbTeacherComment;
+    IBOutlet UITextView *txtComment;
+    
         
 }
 @end

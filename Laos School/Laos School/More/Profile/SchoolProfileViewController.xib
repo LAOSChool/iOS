@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SchoolProfileViewController">
             <connections>
+                <outlet property="lbAbsence" destination="3sY-Yg-Ep4" id="QZt-Fd-0U1"/>
+                <outlet property="lbAbsenceValue" destination="6y3-oQ-1ii" id="yfv-Ry-lmh"/>
                 <outlet property="lbAllYear" destination="TR2-Eh-ugm" id="jcv-Wb-rY0"/>
                 <outlet property="lbAverage1" destination="tJq-36-dEO" id="UEo-AZ-pEF"/>
                 <outlet property="lbAverage1Value" destination="czI-2M-GrP" id="D4B-ri-aJB"/>
@@ -16,10 +18,16 @@
                 <outlet property="lbAverageYearValue" destination="WQR-d7-sZP" id="qrr-kA-X1W"/>
                 <outlet property="lbClass" destination="X1e-16-jhE" id="eKV-13-kDs"/>
                 <outlet property="lbClassValue" destination="Sac-wo-LLa" id="Lom-NA-6bR"/>
+                <outlet property="lbMorality" destination="uZF-Mf-J7t" id="tr6-uI-2aJ"/>
+                <outlet property="lbMoralityValue" destination="rsm-4Q-dGx" id="zGm-NF-YAu"/>
+                <outlet property="lbPassed" destination="ibW-KQ-FJx" id="TrU-QU-DF6"/>
                 <outlet property="lbSchoolYear" destination="TE2-v3-fy2" id="THh-vA-r8W"/>
+                <outlet property="lbTeacherComment" destination="1qC-Oo-det" id="WWs-Ll-DdY"/>
                 <outlet property="lbTermOne" destination="tJq-36-dEO" id="dTq-SA-1wK"/>
                 <outlet property="lbTermTwo" destination="1Ka-xM-Wqd" id="V2H-IQ-3UK"/>
+                <outlet property="txtComment" destination="dbH-ZX-LyO" id="quu-ms-GCh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewAdditionalInfo" destination="I2g-ew-6PP" id="0OE-b0-rkX"/>
                 <outlet property="viewHeaderContainer" destination="7UO-N3-WUC" id="d7I-Cp-H9Q"/>
                 <outlet property="viewMainContainer" destination="kHf-x7-elb" id="FSD-ee-sNm"/>
                 <outlet property="viewTerm" destination="exW-q3-sQy" id="Two-vm-CpK"/>
@@ -52,6 +60,9 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="zqA-b1-nY4" appends="YES" id="UUg-3G-oNh"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="k6B-BS-SZR">
                     <rect key="frame" x="0.0" y="38" width="320" height="530"/>
@@ -111,7 +122,71 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WQR-d7-sZP">
-                                    <rect key="frame" x="156" y="63" width="156" height="21"/>
+                                    <rect key="frame" x="156" y="63" width="131" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j7Q-yJ-Gpl">
+                                    <rect key="frame" x="290" y="61" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="ic_info.png"/>
+                                    <connections>
+                                        <action selector="btnInforClick:" destination="-1" eventType="touchUpInside" id="NHV-VX-pKH"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="I2g-ew-6PP">
+                            <rect key="frame" x="0.0" y="92" width="320" height="438"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ibW-KQ-FJx">
+                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="1" green="0.3165371897" blue="0.32751099589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morality:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uZF-Mf-J7t">
+                                    <rect key="frame" x="8" y="31" width="80" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rsm-4Q-dGx">
+                                    <rect key="frame" x="87" y="31" width="225" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Absence:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3sY-Yg-Ep4">
+                                    <rect key="frame" x="8" y="54" width="80" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6y3-oQ-1ii">
+                                    <rect key="frame" x="87" y="54" width="225" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="dbH-ZX-LyO">
+                                    <rect key="frame" x="8" y="98" width="304" height="332"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teacher's comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1qC-Oo-det">
+                                    <rect key="frame" x="8" y="77" width="304" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,11 +218,13 @@
         </view>
         <tapGestureRecognizer id="zqA-b1-nY4">
             <connections>
+                <action selector="showTermsListPicker:" destination="-1" id="cGY-ll-5Vu"/>
                 <outlet property="delegate" destination="-1" id="kKz-Mc-W7S"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_clock_white.png" width="30" height="30"/>
+        <image name="ic_info.png" width="24" height="30"/>
     </resources>
 </document>

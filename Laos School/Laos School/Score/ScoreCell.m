@@ -61,34 +61,48 @@
     _scoreObj = scoreObj;
     
     if (_scoreObj) {
-        lbMonth.text = [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month];
+//        lbMonth.text = [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month];
+        lbMonth.text = _scoreObj.scoreDisplayName;
         lbScore.text = _scoreObj.score;
         
         if (_scoreObj.scoreType == ScoreType_Normal) {
             viewMonth.backgroundColor = NORMAL_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_Average) {
-            lbMonth.text = LocalizedString(@"Ave");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
+
             viewMonth.backgroundColor = AVERAGE_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_Exam) {
-            lbMonth.text = LocalizedString(@"Exam");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
             viewMonth.backgroundColor = EXAM_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_Final) {
-            lbMonth.text = LocalizedString(@"Term Ave");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
             viewMonth.backgroundColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_YearFinal) {
-            lbMonth.text = LocalizedString(@"Year Ave");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
             viewMonth.backgroundColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_ExamAgain) {
-            lbMonth.text = LocalizedString(@"Exam Again");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
             viewMonth.backgroundColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreType == ScoreType_Graduate) {
-            lbMonth.text = LocalizedString(@"Gra");
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                lbMonth.text = _scoreObj.scoreName;
+            }
             viewMonth.backgroundColor = FINAL_SCORE;
         }
     }

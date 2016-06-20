@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, strong) NSString *examID;
 @property (nonatomic, strong) NSString *scoreName;
+@property (nonatomic, strong) NSString *scoreDisplayName;
 @property (nonatomic, assign) SCORE_TYPE scoreType;
 @property (nonatomic, assign) NSInteger month;
 @property (nonatomic, assign) NSInteger year;

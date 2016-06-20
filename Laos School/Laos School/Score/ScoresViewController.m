@@ -280,6 +280,10 @@
                 scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
             }
             
+            if ([scoreDict valueForKey:@"ex_displayname"] != (id)[NSNull null]) {
+                scoreObj.scoreDisplayName = [scoreDict valueForKey:@"ex_displayname"];
+            }
+            
             if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
                 NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];
                 

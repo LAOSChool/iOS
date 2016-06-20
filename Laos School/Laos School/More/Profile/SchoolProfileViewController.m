@@ -49,6 +49,8 @@ typedef enum {
     NSMutableArray *gradeMonthArr;
     NSMutableArray *rankMonthArr;
     
+    BOOL isShowingInfo;
+    
     //subject data
     NSMutableArray *scoresArray;
     NSMutableDictionary *scoresStore;
@@ -74,13 +76,20 @@ typedef enum {
     
     [self.navigationController setNavigationColor];
     
+    isShowingInfo = NO;
+    
     [viewHeaderContainer setBackgroundColor:[UIColor whiteColor]];
     [viewTerm setBackgroundColor:GREEN_COLOR];
     
     lbClass.text = LocalizedString(@"Class:");
-    lbAverage1.text = LocalizedString(@"Average of term I:");
-    lbAverage2.text = LocalizedString(@"Average of term II:");
-    lbAverageYear.text = LocalizedString(@"Average of year:");
+    lbAverage1.text = LocalizedString(@"Term I:");
+    lbAverage2.text = LocalizedString(@"Term II:");
+    lbAverageYear.text = LocalizedString(@"Overall:");
+    
+    lbPassed.text = @"...";
+    lbMorality.text = LocalizedString(@"Morality:");
+    lbAbsence.text = LocalizedString(@"Absence:");
+    lbTeacherComment.text = LocalizedString(@"Teacher's comment:");
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadSchoolProfileData)];
     
@@ -190,6 +199,33 @@ typedef enum {
     [requestToServer getSchoolRecordForYear:termID];
 }
 
+- (IBAction)btnInforClick:(id)sender {
+    [self showHideInfoView];
+}
+
+- (void)showHideInfoView {
+    [UIView animateWithDuration:0.8 animations:^(void) {
+        if (isShowingInfo) {
+            isShowingInfo = NO;
+            
+            CGRect mainRect = viewMainContainer.frame;
+            CGRect infoRect = viewAdditionalInfo.frame;
+            
+            mainRect.origin.y = infoRect.origin.y;
+            [viewMainContainer setFrame:mainRect];
+            
+        } else {
+            isShowingInfo = YES;
+            
+            CGRect mainRect = viewMainContainer.frame;
+            CGRect infoRect = viewAdditionalInfo.frame;
+            
+            mainRect.origin.y = infoRect.origin.y + infoRect.size.height;
+            [viewMainContainer setFrame:mainRect];
+        }
+    }];
+}
+
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     
@@ -248,7 +284,30 @@ typedef enum {
     [scoresStore removeAllObjects];
     
     //common info
-    lbClassValue.text = [scoresDict objectForKey:@"cls_name"];
+    if ([scoresDict valueForKey:@"cls_name"] != (id)[NSNull null]) {
+        lbClassValue.text = [scoresDict objectForKey:@"cls_name"];
+    }
+    
+    if ([scoresDict valueForKey:@"passed"] != (id)[NSNull null]) {
+        BOOL passed = [[scoresDict objectForKey:@"passed"] boolValue];
+        
+        if (passed) {
+            lbPassed.text = LocalizedString(@"Passed");
+
+        } else {
+            lbPassed.text = LocalizedString(@"Not pass");
+        }
+    }
+    
+    if ([scoresDict valueForKey:@"day_absents"] != (id)[NSNull null]) {
+        lbAbsenceValue.text = [NSString stringWithFormat:@"%@", [scoresDict objectForKey:@"day_absents"]];
+    }
+    
+    if ([scoresDict valueForKey:@"notice"] != (id)[NSNull null]) {
+        txtComment.text = [scoresDict objectForKey:@"notice"];
+    } else {
+        txtComment.text = LocalizedString(@"No comment");
+    }
     
     NSArray *scores = [scoresDict objectForKey:@"exam_results"];
     
@@ -308,6 +367,10 @@ typedef enum {
             
             if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
                 scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
+            }
+            
+            if ([scoreDict valueForKey:@"ex_displayname"] != (id)[NSNull null]) {
+                scoreObj.scoreDisplayName = [scoreDict valueForKey:@"ex_displayname"];
             }
             
             if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
@@ -380,7 +443,10 @@ typedef enum {
     //break scores into 3 arrays
     NSMutableArray *totalArray = [[NSMutableArray alloc] init];
     NSMutableArray *firstArray = [[NSMutableArray alloc] init];
+    NSMutableArray *firstAverageArray = [[NSMutableArray alloc] init];
+    
     NSMutableArray *secondArray = [[NSMutableArray alloc] init];
+    NSMutableArray *secondAverageArray = [[NSMutableArray alloc] init];
     
     NSArray *keyArr = [scoresStore allKeys];
     
@@ -417,17 +483,52 @@ typedef enum {
     for (ScoreObject *score in firstArray) {
         if (score.scoreType == ScoreType_Final ||
             score.scoreType == ScoreType_YearFinal) {
+            
             [totalArray addObject:score];
+            [firstAverageArray addObject:score];
         }
     }
     
     for (ScoreObject *score in secondArray) {
         if (score.scoreType == ScoreType_Final ||
             score.scoreType == ScoreType_YearFinal) {
+            
             [totalArray addObject:score];
+            [secondAverageArray addObject:score];
         }
     }
     
+    //calculate average
+    float totalFirst = 0;
+    float totalSecond = 0;
+    float totalFinal = 0;
+    
+    for (ScoreObject *score in firstAverageArray) {
+        totalFirst = totalFirst + [score.score floatValue];
+        
+    }
+    
+    for (ScoreObject *score in secondAverageArray) {
+        totalSecond = totalSecond + [score.score floatValue];
+        
+    }
+    totalFinal = totalFirst + totalSecond;
+    
+    if ([firstAverageArray count] > 0) {
+        lbAverage1Value.text = [NSString stringWithFormat:@"%.1f", totalFirst/[firstAverageArray count]];
+    } else {
+        lbAverage1Value.text = @"0";
+    }
+    
+    if ([firstAverageArray count] > 0) {
+        lbAverage2Value.text = [NSString stringWithFormat:@"%.1f", totalSecond/[secondAverageArray count]];
+    } else {
+        lbAverage2Value.text = @"0";
+    }
+
+    lbAverageYearValue.text = [NSString stringWithFormat:@"%.1f", totalFinal/2];
+    
+    //display score as tabs
     tabViewController = [[MHTabBarController alloc] init];
     
     tabViewController.delegate = (id)self;
@@ -463,6 +564,14 @@ typedef enum {
     UIViewAutoresizingFlexibleTopMargin;
     
     [viewMainContainer addSubview:tabViewController.view];
+    
+    isShowingInfo = NO;
+    
+    CGRect mainRect = viewMainContainer.frame;
+    CGRect infoRect = viewAdditionalInfo.frame;
+    
+    mainRect.origin.y = infoRect.origin.y;
+    [viewMainContainer setFrame:mainRect];
 }
 
 - (void)failToConnectToServer {
