@@ -520,7 +520,7 @@ typedef enum {
         lbAverage1Value.text = @"0";
     }
     
-    if ([firstAverageArray count] > 0) {
+    if ([secondAverageArray count] > 0) {
         lbAverage2Value.text = [NSString stringWithFormat:@"%.1f", totalSecond/[secondAverageArray count]];
     } else {
         lbAverage2Value.text = @"0";

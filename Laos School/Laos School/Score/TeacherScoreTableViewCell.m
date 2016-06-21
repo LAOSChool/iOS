@@ -10,8 +10,9 @@
 #import "ScoreCell.h"
 #import "ScoreObject.h"
 
-#define CELL_OFFSET 4
-#define CELL_SIZE 40
+#define CELL_OFFSET 5
+#define CELL_SIZE_WIDTH 50
+#define CELL_SIZE_HEIGHT 50
 
 @implementation TeacherScoreTableViewCell
 
@@ -31,6 +32,7 @@
     NSInteger count = 0;
     NSInteger row = 0;
     NSInteger col = 0;
+    BOOL found = NO;
     
     //remove all old subviews
     for (UIView *view in viewScorePanel.subviews) {
@@ -40,19 +42,30 @@
     for (ScoreObject *scoreObj in _userScoreObj.scoreArray) {
         count ++;
         CGRect rect;
-        rect.size.width = CELL_SIZE;
-        rect.size.height = CELL_SIZE;
+        rect.size.width = CELL_SIZE_WIDTH;
+        rect.size.height = CELL_SIZE_HEIGHT;
         
-        rect.origin.x = (CELL_SIZE + CELL_OFFSET) * col;
-        rect.origin.y = CELL_OFFSET + (CELL_SIZE + CELL_OFFSET) * row;
-        
-        col ++;
-        
-        NSInteger test = ((CELL_SIZE + CELL_OFFSET) * (col + 1));
-        test = viewScorePanel.frame.size.width;
-        if (((CELL_SIZE + CELL_OFFSET) * (col + 1)) > viewScorePanel.frame.size.width) {
-            col = 0;
-            row ++;
+        if (found == NO && scoreObj.scoreType != ScoreType_Normal) {
+            if (col > 0) {
+                row++;
+                col = 0;
+            }
+            found = YES;
+            rect.origin.x = (CELL_SIZE_WIDTH + CELL_OFFSET) * col;
+            rect.origin.y = CELL_OFFSET + (CELL_SIZE_HEIGHT + CELL_OFFSET) * row;
+            
+            col ++;
+            
+        } else {
+            rect.origin.x = (CELL_SIZE_WIDTH + CELL_OFFSET) * col;
+            rect.origin.y = CELL_OFFSET + (CELL_SIZE_HEIGHT + CELL_OFFSET) * row;
+            
+            col ++;
+            
+            if (((CELL_SIZE_WIDTH + CELL_OFFSET) * (col + 1)) > viewScorePanel.frame.size.width) {
+                col = 0;
+                row ++;
+            }
         }
         
         ScoreCell *scoreCell = [[ScoreCell alloc] initWithFrame:rect];

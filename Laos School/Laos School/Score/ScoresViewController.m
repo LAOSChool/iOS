@@ -32,6 +32,8 @@
     NSMutableDictionary *groupBySubject;
     
     ScoreDetailViewController *scoreDetailView;
+    
+    BOOL isVisible;
 }
 @end
 
@@ -56,6 +58,8 @@
         
         self.navigationItem.titleView = segmentedControl;
     }
+    
+    isVisible = NO;
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -93,6 +97,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    isVisible = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    isVisible = NO;
+}
 /*
 #pragma mark - Navigation
 
@@ -125,26 +136,28 @@
 - (void)showScoreDetail:(NSNotification *)notification {
     ScoreObject *scoreObj = (ScoreObject *)notification.object;
     
-    if (scoreObj && scoreObj.score.length > 0) {
-        if (scoreDetailView == nil) {
-            scoreDetailView = [[ScoreDetailViewController alloc] initWithNibName:@"ScoreDetailViewController" bundle:nil];
+    if (isVisible) {
+        if (scoreObj && scoreObj.score.length > 0) {
+            if (scoreDetailView == nil) {
+                scoreDetailView = [[ScoreDetailViewController alloc] initWithNibName:@"ScoreDetailViewController" bundle:nil];
+            }
+            
+            scoreDetailView.scoreObj = scoreObj;
+            scoreDetailView.view.alpha = 0;
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            CGRect rect = appDelegate.window.frame;
+            [scoreDetailView.view setFrame:rect];
+            
+            [appDelegate.window addSubview:scoreDetailView.view];
+            
+            [UIView animateWithDuration:0.3 animations:^(void) {
+                scoreDetailView.view.alpha = 1;
+            }];
+            
+            [scoreDetailView loadInformation];
         }
-        
-        scoreDetailView.scoreObj = scoreObj;
-        scoreDetailView.view.alpha = 0;
-        
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        CGRect rect = appDelegate.window.frame;
-        [scoreDetailView.view setFrame:rect];
-        
-        [appDelegate.window addSubview:scoreDetailView.view];
-        
-        [UIView animateWithDuration:0.3 animations:^(void) {
-            scoreDetailView.view.alpha = 1;
-        }];
-        
-        [scoreDetailView loadInformation];
     }
 }
 
@@ -162,7 +175,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 94.0;
+    return 170.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

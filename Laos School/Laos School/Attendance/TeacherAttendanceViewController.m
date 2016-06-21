@@ -627,7 +627,8 @@
         dateTimePicker.date = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:ATTENDANCE_DATE_FORMATE];
     }
     
-    dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] previousWeekWithFormat:ATTENDANCE_DATE_FORMATE];
+//    dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] previousWeekWithFormat:ATTENDANCE_DATE_FORMATE];
+    dateTimePicker.minimumDate = [[DateTimeHelper sharedDateTimeHelper] currentDateWithFormat:ATTENDANCE_DATE_FORMATE];
     dateTimePicker.maximumDate = [[DateTimeHelper sharedDateTimeHelper] nextWeekWithFormat:ATTENDANCE_DATE_FORMATE];
     
     dateTimePicker.view.alpha = 0;

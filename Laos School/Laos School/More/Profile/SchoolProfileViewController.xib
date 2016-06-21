@@ -66,7 +66,7 @@
                 </view>
                 <view contentMode="scaleToFill" id="k6B-BS-SZR">
                     <rect key="frame" x="0.0" y="38" width="320" height="530"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="7UO-N3-WUC">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
