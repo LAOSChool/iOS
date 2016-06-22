@@ -10,6 +10,8 @@
 
 @interface TeacherScoresViewController : UIViewController
 {
+    
+    IBOutlet UIView *viewHeader;
     IBOutlet UIView *viewTerm;
     IBOutlet UIView *viewInfo;
     IBOutlet UIView *viewSubject;

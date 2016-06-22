@@ -42,6 +42,8 @@
     UIRefreshControl *refreshControl;
     
     AddCommentView *addCommentView;
+    
+    BOOL keyBoardFlag;
 }
 @end
 
@@ -116,7 +118,19 @@
     [lbScoreType setTextColor:[UIColor lightGrayColor]];
 
     [self loadScoresType];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
+
+- (void)keyboardDidShow:(NSNotification *)notification {
+    keyBoardFlag = YES;
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+    keyBoardFlag = NO;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -135,6 +149,11 @@
             [addCommentView setFrame:rect];
         }
     }];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return TRUE;
 }
 
 /*
@@ -324,8 +343,8 @@
                 
                 NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
                 [scoresArray addObjectsFromArray:arr];
-                [self resizeTableView];
                 [searchResults addObjectsFromArray:scoresArray];
+                [self resizeTableView];
             
                 [studentTableView reloadData];
             }
@@ -441,6 +460,10 @@
     
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self showHideHeaderView:NO];
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self btnCloseClick];
     [self->searchResults removeAllObjects]; // First clear the filtered array.
@@ -458,7 +481,11 @@
     [studentTableView reloadData];
     
     CGSize size = scrollView.contentSize;
-    size.height = [searchResults count]*44 + 232; //232: keyboard height;
+    if (keyBoardFlag) {
+        size.height = [searchResults count]*44 + 232; //232: keyboard height;
+    } else {
+        size.height = [searchResults count]*44;
+    }
     scrollView.contentSize = size;
     
     CGRect rect = studentTableView.frame;
@@ -708,7 +735,11 @@
     }
     
     CGSize size = scrollView.contentSize;
-    size.height = [scoresArray count]*44 + 232; //232: keyboard height
+    if (keyBoardFlag) {
+        size.height = [searchResults count]*44 + 232; //232: keyboard height;
+    } else {
+        size.height = [searchResults count]*44;
+    }
     scrollView.contentSize = size;
     
     CGRect rect = studentTableView.frame;
@@ -788,6 +819,69 @@
             [addCommentView removeFromSuperview];
             [addCommentView setAlpha:1];
         }];
+    }
+}
+
+- (void)showHideHeaderView:(BOOL)flag {
+    if (flag == YES) {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            CGRect headerRect = viewHeader.frame;
+            CGRect tableRect = viewTableView.frame;
+            
+            headerRect.origin.y = 0;
+            [viewHeader setFrame:headerRect];
+            
+            tableRect.origin.y = headerRect.size.height;
+            tableRect.size.height = self.view.frame.size.height - headerRect.size.height;
+            [viewTableView setFrame:tableRect];
+            
+        }];
+    } else {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            CGRect headerRect = viewHeader.frame;
+            CGRect tableRect = viewTableView.frame;
+            
+            headerRect.origin.y = 0 - headerRect.size.height;
+            [viewHeader setFrame:headerRect];
+            
+            tableRect.origin.y = 0;
+            tableRect.size.height = self.view.frame.size.height;
+            [viewTableView setFrame:tableRect];
+            
+        }];
+    }
+    
+    CGSize size = scrollView.contentSize;
+    if (keyBoardFlag) {
+        size.height = [searchResults count]*44 + 232; //232: keyboard height;
+    } else {
+        size.height = [searchResults count]*44;
+    }
+    scrollView.contentSize = size;
+    
+    CGRect rect = studentTableView.frame;
+    rect.size.height = [searchResults count]*44;
+    studentTableView.frame = rect;
+}
+
+- (IBAction)swipeUpHandle:(id)sender {
+    [self showHideHeaderView:NO];
+}
+
+- (IBAction)swipeDownHandle:(id)sender {
+    [self showHideHeaderView:YES];
+}
+
+
+- (IBAction)panGestureHandle:(id)sender {
+    UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
+    
+    CGPoint velocity = [recognizer velocityInView:self.view];
+    
+    if (velocity.y > VERLOCITY) {
+        [self showHideHeaderView:YES];
+    } else if (velocity.y < - VERLOCITY) {
+        [self showHideHeaderView:NO];
     }
 }
 

@@ -37,15 +37,17 @@
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
-    
-    btnCheck = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_checkall"] style:UIBarButtonItemStylePlain target:self action:@selector(checkButtonClick)];
-
-    self.navigationItem.rightBarButtonItems = @[btnDone, btnCheck];
-    
-    UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
-    
-    self.navigationItem.leftBarButtonItems = @[btnClose];
+    if (_studentListType == StudentList_Message) {
+        UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
+        
+        btnCheck = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_checkall"] style:UIBarButtonItemStylePlain target:self action:@selector(checkButtonClick)];
+        
+        self.navigationItem.rightBarButtonItems = @[btnDone, btnCheck];
+        
+        UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
+        
+        self.navigationItem.leftBarButtonItems = @[btnClose];
+    }
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(reloadStudentData) forControlEvents:UIControlEventValueChanged];
@@ -75,9 +77,11 @@
         [self activateButtons:YES];
     }
     
-    [self checkSelectedAll];
-    
-    [self updateHeaderInfo];
+    if (_studentListType == StudentList_Message) {
+        [self checkSelectedAll];
+        
+        [self updateHeaderInfo];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -242,21 +246,26 @@
         }
     }
     
-    //find this user in selected array
-    BOOL found = NO;
-    
-    for (UserObject *selectedUser in _selectedArray) {
-        if ([selectedUser.userID isEqualToString:userObject.userID]) {
-            found = YES;
-            break;
+    if (_studentListType == StudentList_Message) {
+        //find this user in selected array
+        BOOL found = NO;
+        
+        for (UserObject *selectedUser in _selectedArray) {
+            if ([selectedUser.userID isEqualToString:userObject.userID]) {
+                found = YES;
+                break;
+            }
         }
-    }
-    
-    if (found) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        if (found) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;
@@ -276,26 +285,31 @@
         userObject = [studentsArray objectAtIndex:indexPath.row];
     }
     
-    BOOL found = NO;
-    for (UserObject *selectedUser in _selectedArray) {
-        if ([selectedUser.userID isEqualToString:userObject.userID]) {
-            found = YES;
-            [_selectedArray removeObject:selectedUser];
-            break;
+    if (_studentListType == StudentList_Message) {
+        BOOL found = NO;
+        for (UserObject *selectedUser in _selectedArray) {
+            if ([selectedUser.userID isEqualToString:userObject.userID]) {
+                found = YES;
+                [_selectedArray removeObject:selectedUser];
+                break;
+            }
         }
+        
+        if (found == NO) {
+            [_selectedArray addObject:userObject];
+        }
+        
+        [tableView beginUpdates];
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [tableView endUpdates];
+        
+        [self checkSelectedAll];
+        
+        [self updateHeaderInfo];
+        
+    } else {
+        
     }
-    
-    if (found == NO) {
-        [_selectedArray addObject:userObject];
-    }
-    
-    [tableView beginUpdates];
-    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [tableView endUpdates];
-    
-    [self checkSelectedAll];
-    
-    [self updateHeaderInfo];
     
 }
 

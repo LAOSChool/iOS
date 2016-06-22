@@ -11,6 +11,7 @@
 
 @interface AddScoresViewController : UIViewController
 {
+    IBOutlet UIView *viewHeader;
     IBOutlet UIView *viewClass;
     IBOutlet UIView *viewInfo;
     IBOutlet UIView *viewTableView;

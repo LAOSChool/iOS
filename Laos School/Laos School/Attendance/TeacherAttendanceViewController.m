@@ -134,6 +134,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return TRUE;
+}
+
 /*
 #pragma mark - Navigation
 
@@ -382,6 +387,9 @@
     
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self showHideHeaderView:NO];
+}
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self->searchResults removeAllObjects]; // First clear the filtered array.
@@ -399,45 +407,6 @@
     }
     
     [studentTableView reloadData];
-}
-
-#pragma mark button click
-- (IBAction)btnExpandClick:(id)sender {
-    isShowingViewInfo = !isShowingViewInfo;
-    [self showHideInfoView:isShowingViewInfo];
-    
-    
-}
-
-- (void)showHideInfoView:(BOOL)showHideFlag {
-    
-    [UIView animateWithDuration:0.3 animations:^(void) {
-        CGRect rectViewTerm = viewTerm.frame;
-        CGRect rectViewInfo = viewInfo.frame;
-        CGRect rectViewTableView = viewTableView.frame;
-        
-        if (showHideFlag) {
-            rectViewInfo.origin.y = rectViewTerm.size.height + 2;
-            
-            [viewInfo setFrame:rectViewInfo];
-            
-            rectViewTableView.origin.y = rectViewInfo.origin.y + rectViewInfo.size.height;
-            rectViewTableView.size.height = self.view.frame.size.height - rectViewTableView.origin.y;
-            
-            [viewTableView setFrame:rectViewTableView];
-            
-        } else {
-            rectViewInfo.origin.y = rectViewTerm.size.height - rectViewInfo.size.height;
-            
-            [viewInfo setFrame:rectViewInfo];
-            
-            rectViewTableView.origin.y = rectViewTerm.origin.y + rectViewTerm.size.height;
-            rectViewTableView.size.height = self.view.frame.size.height - rectViewTableView.origin.y;
-            
-            [viewTableView setFrame:rectViewTableView];
-            
-        }
-    }];
 }
 
 #pragma mark actions sheet handle
@@ -564,11 +533,6 @@
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
-
-- (IBAction)btnShowListClick:(id)sender {
-    isShowingViewInfo = NO;
-    [self showHideInfoView:isShowingViewInfo];
-}
 
 - (void)btnDoneClick:(id)sender withObjectReturned:(TTSessionObject *)returnedObj {
     currentSession = returnedObj;
@@ -1121,6 +1085,49 @@
                 [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
             }
         }
+    }
+}
+
+#pragma mark show hide header
+- (void)showHideHeaderView:(BOOL)flag {
+    if (flag == YES) {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            CGRect headerRect = viewHeader.frame;
+            CGRect tableRect = viewTableView.frame;
+            
+            headerRect.origin.y = 0;
+            [viewHeader setFrame:headerRect];
+            
+            tableRect.origin.y = headerRect.size.height;
+            tableRect.size.height = self.view.frame.size.height - headerRect.size.height;
+            [viewTableView setFrame:tableRect];
+            
+        }];
+    } else {
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            CGRect headerRect = viewHeader.frame;
+            CGRect tableRect = viewTableView.frame;
+            
+            headerRect.origin.y = 0 - headerRect.size.height;
+            [viewHeader setFrame:headerRect];
+            
+            tableRect.origin.y = 0;
+            tableRect.size.height = self.view.frame.size.height;
+            [viewTableView setFrame:tableRect];
+            
+        }];
+    }
+}
+
+- (IBAction)panGestureHandle:(id)sender {
+    UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
+    
+    CGPoint velocity = [recognizer velocityInView:self.view];
+    
+    if (velocity.y > VERLOCITY) {
+        [self showHideHeaderView:YES];
+    } else if (velocity.y < - VERLOCITY) {
+        [self showHideHeaderView:NO];
     }
 }
 @end

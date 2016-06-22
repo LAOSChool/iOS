@@ -33,6 +33,13 @@
         self.classArray = nil;
         
         self.selected = NO;
+        
+        //additional
+        self.email = @"";
+        self.parentPhone = @"";
+        self.parentEmail = @"";
+        self.parentName = @"";
+        self.address = @"";
     }
     return self;
 }

@@ -37,6 +37,7 @@
 #define UNREAD_COLOR [UIColor colorWithRed:255/255.f green:249/255.f blue:196/255.f alpha:1]
 #define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
 
+#define VERLOCITY 600
 
 //user default keys
 #define KEY_AUTH_KEY @"authenkey"

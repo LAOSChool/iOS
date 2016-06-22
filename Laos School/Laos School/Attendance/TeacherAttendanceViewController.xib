@@ -15,6 +15,7 @@
                 <outlet property="studentTableView" destination="WQt-kZ-SrQ" id="yae-LR-UAO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewDate" destination="VMa-3J-0Qd" id="1Lw-5c-ZZs"/>
+                <outlet property="viewHeader" destination="90T-Dp-smi" id="6hG-uz-8lH"/>
                 <outlet property="viewInfo" destination="hez-C2-ap6" id="ver-8Q-A19"/>
                 <outlet property="viewSession" destination="8nS-mL-Ylg" id="20w-tE-kpT"/>
                 <outlet property="viewTableView" destination="4DC-ub-luz" id="Kpp-PK-i9r"/>
@@ -26,25 +27,91 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="e3g-eg-e3t">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="90T-Dp-smi">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9DH-kU-yMo">
-                            <rect key="frame" x="8" y="8" width="304" height="21"/>
+                        <view contentMode="scaleToFill" id="e3g-eg-e3t">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iuz-VA-X0a">
-                            <rect key="frame" x="289" y="6" width="25" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="ic_expand.png"/>
-                        </button>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9DH-kU-yMo">
+                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iuz-VA-X0a">
+                                    <rect key="frame" x="289" y="6" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" image="ic_expand.png"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="hez-C2-ap6">
+                            <rect key="frame" x="0.0" y="38" width="320" height="75"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" id="VMa-3J-0Qd">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dRs-T9-Gwz">
+                                            <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F7X-Pw-Fmx">
+                                            <rect key="frame" x="289" y="6" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="ic_calendar_white.png"/>
+                                            <connections>
+                                                <action selector="btnChooseDateClick:" destination="-1" eventType="touchUpInside" id="z1G-zl-dmM"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="Gab-Ui-3zU" appends="YES" id="mpz-qp-v5R"/>
+                                    </connections>
+                                </view>
+                                <view contentMode="scaleToFill" id="8nS-mL-Ylg">
+                                    <rect key="frame" x="0.0" y="38" width="320" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PLV-4K-Ahb">
+                                            <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5J2-el-eDJ">
+                                            <rect key="frame" x="289" y="6" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="ic_clock_white.png"/>
+                                            <connections>
+                                                <action selector="btnChooseSectionClick:" destination="-1" eventType="touchUpInside" id="zUt-Bv-a5z"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="Brs-uJ-Sld" appends="YES" id="ruO-ii-XNw"/>
+                                    </connections>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="4DC-ub-luz">
                     <rect key="frame" x="0.0" y="113" width="320" height="455"/>
@@ -70,67 +137,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" id="hez-C2-ap6">
-                    <rect key="frame" x="0.0" y="38" width="320" height="75"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" id="VMa-3J-0Qd">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dRs-T9-Gwz">
-                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F7X-Pw-Fmx">
-                                    <rect key="frame" x="289" y="6" width="25" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="ic_calendar_white.png"/>
-                                    <connections>
-                                        <action selector="btnChooseDateClick:" destination="-1" eventType="touchUpInside" id="z1G-zl-dmM"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <gestureRecognizers/>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="Gab-Ui-3zU" appends="YES" id="mpz-qp-v5R"/>
-                            </connections>
-                        </view>
-                        <view contentMode="scaleToFill" id="8nS-mL-Ylg">
-                            <rect key="frame" x="0.0" y="38" width="320" height="37"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PLV-4K-Ahb">
-                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5J2-el-eDJ">
-                                    <rect key="frame" x="289" y="6" width="25" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="ic_clock_white.png"/>
-                                    <connections>
-                                        <action selector="btnChooseSectionClick:" destination="-1" eventType="touchUpInside" id="zUt-Bv-a5z"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <gestureRecognizers/>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="Brs-uJ-Sld" appends="YES" id="ruO-ii-XNw"/>
-                            </connections>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="SC5-xc-xcP" appends="YES" id="AMf-Yl-3bI"/>
+            </connections>
             <point key="canvasLocation" x="81" y="425"/>
         </view>
         <tapGestureRecognizer id="Gab-Ui-3zU">
@@ -145,6 +157,12 @@
                 <outlet property="delegate" destination="-1" id="fJQ-Kp-K1v"/>
             </connections>
         </tapGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="SC5-xc-xcP">
+            <connections>
+                <action selector="panGestureHandle:" destination="-1" id="63J-gw-Hem"/>
+                <outlet property="delegate" destination="-1" id="TkY-6V-k4F"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_calendar_white.png" width="30" height="30"/>

@@ -12,6 +12,7 @@
                 <outlet property="searchBar" destination="SQp-RN-YeE" id="7i0-QZ-HDf"/>
                 <outlet property="studentTableView" destination="DWd-Ut-Md0" id="SpH-AD-kiC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeader" destination="eZJ-yS-1kh" id="Jqa-YE-gxs"/>
                 <outlet property="viewInfo" destination="Fk8-ev-OoK" id="bHm-3M-dzf"/>
                 <outlet property="viewSubject" destination="tyt-Ol-tVc" id="qLm-es-00C"/>
                 <outlet property="viewTableView" destination="vCf-MV-ce9" id="6bR-Lh-CQD"/>
@@ -23,23 +24,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="Fk8-ev-OoK">
-                    <rect key="frame" x="0.0" y="38" width="320" height="37"/>
+                <view contentMode="scaleToFill" id="eZJ-yS-1kh">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="tyt-Ol-tVc">
+                        <view contentMode="scaleToFill" id="bQl-NU-BLe">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vns-TI-SMc">
-                                    <rect key="frame" x="289" y="6" width="25" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="ic_subject.png"/>
-                                    <connections>
-                                        <action selector="btnChooseSubjectClick:" destination="-1" eventType="touchUpInside" id="Ntm-ED-rTx"/>
-                                    </connections>
-                                </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h1n-em-8Qi">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1QD-9g-cXw">
                                     <rect key="frame" x="8" y="8" width="304" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -48,13 +41,42 @@
                                 </label>
                             </subviews>
                             <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <gestureRecognizers/>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="7kg-Tu-fu4" appends="YES" id="g7b-ov-FYc"/>
-                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" id="Fk8-ev-OoK">
+                            <rect key="frame" x="0.0" y="38" width="320" height="37"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" id="tyt-Ol-tVc">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vns-TI-SMc">
+                                            <rect key="frame" x="289" y="6" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="ic_subject.png"/>
+                                            <connections>
+                                                <action selector="btnChooseSubjectClick:" destination="-1" eventType="touchUpInside" id="Ntm-ED-rTx"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h1n-em-8Qi">
+                                            <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="7kg-Tu-fu4" appends="YES" id="g7b-ov-FYc"/>
+                                    </connections>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="vCf-MV-ce9">
                     <rect key="frame" x="0.0" y="75" width="320" height="493"/>
@@ -80,22 +102,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" id="bQl-NU-BLe">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1QD-9g-cXw">
-                            <rect key="frame" x="8" y="8" width="304" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.77195785979999998" green="0.3542815708" blue="0.36043231520000002" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="J8I-VY-aP9" appends="YES" id="qsA-m0-BB9"/>
+            </connections>
             <point key="canvasLocation" x="462" y="231"/>
         </view>
         <tapGestureRecognizer id="7kg-Tu-fu4">
@@ -104,6 +116,12 @@
                 <outlet property="delegate" destination="-1" id="yiY-uV-Z8P"/>
             </connections>
         </tapGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="J8I-VY-aP9">
+            <connections>
+                <action selector="panGestureHandle:" destination="-1" id="dWU-ya-U3X"/>
+                <outlet property="delegate" destination="-1" id="ZJj-9M-ZJd"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_subject.png" width="30" height="30"/>

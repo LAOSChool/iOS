@@ -389,6 +389,7 @@
 - (IBAction)btnAddClick:(id)sender {
     StudentsListViewController *studentsList = [[StudentsListViewController alloc] initWithNibName:@"StudentsListViewController" bundle:nil];
     studentsList.selectedArray = _receiverArray;
+    studentsList.studentListType = StudentList_Message;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:studentsList];
     

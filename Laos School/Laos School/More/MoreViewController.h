@@ -16,17 +16,30 @@ typedef enum {
     MoreGroupMax
 } MORE_TABLEVIEW_GROUP;
 
+//student enum
 typedef enum {
-    ProfileSectionProfile = 0,
-    ProfileSectionTimeTable,
-    ProfileSectionMax
-} PROFILE_SECTION;
+    StudentProfileSectionProfile = 0,
+    StudentProfileSectionTimeTable,
+    StudentProfileSectionMax
+} STUDENT_PROFILE_SECTION;
 
 typedef enum {
-    SchoolSectionInfo = 0,
-    SchoolSectionTeacherList,
-    SchoolSectionMax
-} SCHOOL_SECTION;
+    StudentSchoolSectionInfo = 0,
+    StudentSchoolSectionTeacherList,
+    StudentSchoolSectionMax
+} STUDENT_SCHOOL_SECTION;
+
+//teacher enum
+typedef enum {
+    TeacherProfileSectionTimeTable = 0,
+    TeacherProfileSectionMax
+} TEACHER_PROFILE_SECTION;
+
+typedef enum {
+    TeacherSchoolSectionInfo = 0,
+    TeacherSchoolSectionStudentList,
+    TeacherSchoolSectionMax
+} TEACHER_SCHOOL_SECTION;
 
 typedef enum {
     SettingsSectionChangePassword = 0,

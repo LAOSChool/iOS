@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef enum {
+    StudentList_Normal = 0,
+    StudentList_Message,
+    StudentList_Max
+} STUDENT_LIST_TYPE;
+
 @interface StudentsListViewController : UIViewController
 {
     IBOutlet UITableView *studentsTableView;
@@ -16,4 +23,5 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *selectedArray;
+@property (nonatomic, assign) STUDENT_LIST_TYPE studentListType;
 @end

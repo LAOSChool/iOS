@@ -47,14 +47,19 @@ typedef enum {
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) NSString *avatarPath;
 @property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *email;
 @property (nonatomic, assign) USER_ROLE userRole;
 @property (nonatomic, assign) PERMISSION_GRANTED permission;
 @property (nonatomic, strong) NSString *shoolID;    //current shcool
 @property (nonatomic, strong) NSString *schoolName;
-//@property (nonatomic, strong) NSString *schoolName;
 @property (nonatomic, strong) ClassObject *classObj;
 @property (nonatomic, strong) NSArray *classArray; //array of classID that user belong to
 
+//Additional info
+@property (nonatomic, strong) NSString *parentEmail;
+@property (nonatomic, strong) NSString *parentPhone;
+@property (nonatomic, strong) NSString *parentName;
+@property (nonatomic, strong) NSString *address;
 
 //use for students list
 @property (nonatomic, assign) BOOL selected;
