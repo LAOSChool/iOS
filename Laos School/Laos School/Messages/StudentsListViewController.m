@@ -8,6 +8,7 @@
 
 #import "StudentsListViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "PersonalInfoViewController.h"
 #import "LocalizeHelper.h"
 #import "StudentsListTableViewCell.h"
 #import "UserObject.h"
@@ -265,7 +266,7 @@
         }
         
     } else {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     
     return cell;
@@ -308,7 +309,12 @@
         [self updateHeaderInfo];
         
     } else {
+        PersonalInfoViewController *personalInfoView = [[PersonalInfoViewController alloc] initWithNibName:@"PersonalInfoViewController" bundle:nil];
+        personalInfoView.userObj = userObject;
         
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personalInfoView];
+        
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
     }
     
 }
@@ -361,7 +367,12 @@
 }
 
 - (void)updateHeaderInfo {
-    lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
+    if (_studentListType == StudentList_Message) {
+        lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
+    } else {
+        lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[studentsArray count]];
+    }
+    
 }
 
 #pragma mark RequestToServer delegate
@@ -433,19 +444,38 @@
             if ([studentDict valueForKey:@"schoolName"] != (id)[NSNull null]) {
                 userObject.schoolName = [studentDict objectForKey:@"schoolName"];
             }
+            
+            if ([studentDict valueForKey:@"std_contact_email"] != (id)[NSNull null]) {
+                userObject.parentEmail = [studentDict objectForKey:@"std_contact_email"];
+            }
+            
+            if ([studentDict valueForKey:@"std_contact_name"] != (id)[NSNull null]) {
+                userObject.parentName = [studentDict objectForKey:@"std_contact_name"];
+            }
+            
+            if ([studentDict valueForKey:@"std_contact_phone"] != (id)[NSNull null]) {
+                userObject.parentPhone = [studentDict objectForKey:@"std_contact_phone"];
+            }
+            
+            if ([studentDict valueForKey:@"std_contact_address"] != (id)[NSNull null]) {
+                userObject.address = [studentDict objectForKey:@"std_contact_address"];
+            }
 
             [studentsArray addObject:userObject];
         }
     }
     
-    if ([studentsArray count] > 0) {
-        [self activateButtons:YES];
+    if (_studentListType == StudentList_Message) {
+        if ([studentsArray count] > 0) {
+            [self activateButtons:YES];
+            
+        } else {
+            [self activateButtons:NO];
+        }
         
-    } else {
-        [self activateButtons:NO];
+        [self checkSelectedAll];
     }
     
-    [self checkSelectedAll];
     [self updateHeaderInfo];
     
     [studentsTableView reloadData];

@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomTextField.h"
+#import "UserObject.h"
+#import "AsyncImageView.h"
 
 @interface PersonalInfoViewController : UIViewController
 {
     IBOutlet CustomTextField *txtPhonenumber;
-    IBOutlet UIImageView *imgAvatar;
+    IBOutlet CustomTextField *txtUserEmail;
+    IBOutlet AsyncImageView *imgAvatar;
+
+    IBOutlet CustomTextField *txtParentPhone;
+    IBOutlet CustomTextField *txtParentEmail;
+    IBOutlet UITextView *txtParentAddress;
+    IBOutlet UILabel *lbFullname;
+    IBOutlet UILabel *lbAdditionalInfo;
     
 }
+
+@property (nonatomic, strong) UserObject *userObj;
 @end

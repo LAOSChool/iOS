@@ -58,7 +58,7 @@
     ClassObject *classObj = userObj.classObj;
     
     lbSchoolName.text = userObj.schoolName;
-    lbStudentName.text = [NSString stringWithFormat:@"%@\n%@", userObj.username, classObj.className];
+    lbStudentName.text = [NSString stringWithFormat:@"%@\n%@", userObj.displayName, classObj.className];
     lbYearAndTerm.text = [NSString stringWithFormat:@"%@ Term %@", classObj.currentYear, classObj.currentTerm];
     
     if (userObj.avatarPath && userObj.avatarPath.length > 0) {
@@ -210,14 +210,14 @@
                         cell.imageView.image = [UIImage imageNamed:@"ic_school.png"];
                     }
                         break;
-                        
+                    /*
                     case StudentSchoolSectionTeacherList:
                     {
                         cell.textLabel.text = LocalizedString(@"Teachers list");
                         cell.imageView.image = [UIImage imageNamed:@"ic_group_gray.png"];
                     }
                         break;
-                        
+                        */
                     default:
                         break;
                 }
@@ -353,7 +353,7 @@
                         [self.navigationController pushViewController:schoolInfoView animated:YES];
                     }
                         break;
-                        
+                     /*
                     case StudentSchoolSectionTeacherList:
                     {
                         TeacherListViewController *teacherListView = [[TeacherListViewController alloc] initWithNibName:@"TeacherListViewController" bundle:nil];
@@ -361,7 +361,7 @@
                         [self.navigationController pushViewController:teacherListView animated:YES];
                     }
                         break;
-                        
+                       */ 
                     default:
                         break;
                 }

@@ -7,8 +7,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInfoViewController">
             <connections>
-                <outlet property="imgAvatar" destination="NyP-Pw-51v" id="mNO-DP-yeN"/>
+                <outlet property="imgAvatar" destination="NyP-Pw-51v" id="WnY-s3-gF0"/>
+                <outlet property="lbAdditionalInfo" destination="jLZ-VO-QOC" id="s3T-zV-f3b"/>
+                <outlet property="lbFullname" destination="K7E-7T-RWV" id="Fa3-H6-APo"/>
+                <outlet property="txtParentAddress" destination="vfj-vw-D8r" id="se2-0I-hhp"/>
+                <outlet property="txtParentEmail" destination="tT7-Lj-g67" id="wfz-8D-YfZ"/>
+                <outlet property="txtParentPhone" destination="vJI-Fb-xUG" id="ThH-gd-fMG"/>
                 <outlet property="txtPhonenumber" destination="lIh-Of-NbW" id="0dj-ay-JSs"/>
+                <outlet property="txtUserEmail" destination="Cs5-kS-EHa" id="2iB-mK-x0o"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,14 +34,16 @@
                     <state key="normal" image="ic_camera.png"/>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" id="lIh-Of-NbW" customClass="CustomTextField">
-                    <rect key="frame" x="8" y="205" width="304" height="30"/>
+                    <rect key="frame" x="8" y="210" width="304" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" id="Cs5-kS-EHa" customClass="CustomTextField">
-                    <rect key="frame" x="8" y="234" width="304" height="30"/>
+                    <rect key="frame" x="8" y="239" width="304" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                 </textField>
@@ -54,31 +62,32 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="zyg-wy-ZXf">
-                    <rect key="frame" x="8" y="200" width="304" height="1"/>
+                    <rect key="frame" x="8" y="205" width="304" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parents infomation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E6l-2s-Zzt">
-                    <rect key="frame" x="8" y="272" width="304" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="8" y="277" width="304" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" id="vJI-Fb-xUG" customClass="CustomTextField">
-                    <rect key="frame" x="8" y="301" width="304" height="30"/>
+                    <rect key="frame" x="8" y="306" width="304" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" id="tT7-Lj-g67" customClass="CustomTextField">
-                    <rect key="frame" x="8" y="330" width="304" height="30"/>
+                    <rect key="frame" x="8" y="335" width="304" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" id="vfj-vw-D8r">
-                    <rect key="frame" x="8" y="358" width="304" height="202"/>
+                    <rect key="frame" x="8" y="365" width="304" height="195"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

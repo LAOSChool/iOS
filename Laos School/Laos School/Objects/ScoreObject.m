@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ScoreObject.h"
+#import "LocalizeHelper.h"
 
 /*
  @property (nonatomic, strong) NSString *scoreID;
@@ -95,4 +96,62 @@
     return self;
 }
 
+- (NSString *)scoreDisplayName {
+    NSString *res = @"";
+    
+    if ([_scoreDisplayName isEqualToString:@"Sep"]) {
+        res = LocalizedString(@"Sep");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Oct"]) {
+        res = LocalizedString(@"Oct");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Nov"]) {
+        res = LocalizedString(@"Nov");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Dec"]) {
+        res = LocalizedString(@"Dec");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Feb"]) {
+        res = LocalizedString(@"Feb");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Mar"]) {
+        res = LocalizedString(@"Mar");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Apr"]) {
+        res = LocalizedString(@"Apr");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"May"]) {
+        res = LocalizedString(@"May");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Aver4Months1"]) {
+        res = LocalizedString(@"Ave_m1");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"TermExam1"]) {
+        res = LocalizedString(@"Test term I");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"AverageTerm1"]) {
+        res = LocalizedString(@"Ave term I");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Aver4Months2"]) {
+        res = LocalizedString(@"Ave_m2");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"TermExam2"]) {
+        res = LocalizedString(@"Test term II");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"AverageTerm2"]) {
+        res = LocalizedString(@"Ave term II");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Overall"]) {
+        res = LocalizedString(@"Ave year");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Retest"]) {
+        res = LocalizedString(@"Retest");
+        
+    } else if ([_scoreDisplayName isEqualToString:@"Graduation"]) {
+        res = LocalizedString(@"Test grad");
+        
+    }
+    
+    return res;
+}
 @end

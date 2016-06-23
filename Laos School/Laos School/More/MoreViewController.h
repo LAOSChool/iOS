@@ -25,7 +25,7 @@ typedef enum {
 
 typedef enum {
     StudentSchoolSectionInfo = 0,
-    StudentSchoolSectionTeacherList,
+//    StudentSchoolSectionTeacherList,
     StudentSchoolSectionMax
 } STUDENT_SCHOOL_SECTION;
 

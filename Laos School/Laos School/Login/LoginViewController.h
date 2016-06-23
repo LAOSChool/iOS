@@ -14,6 +14,7 @@
     IBOutlet UIImageView *imgBackground;
     IBOutlet UILabel *lbAppName;
     
+    IBOutlet UIView *viewContainer;
     IBOutlet UILabel *lbUsername;
     IBOutlet CustomTextField *txtUsername;
     IBOutlet UILabel *lbPassword;

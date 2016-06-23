@@ -399,31 +399,7 @@
             [searchResults removeAllObjects];
             
             NSArray *scores = [jsonObj objectForKey:@"messageObject"];
-            /*{
-             "class_id" = 1;
-             "exam_dt" = "<null>";
-             "exam_id" = 1;
-             "exam_month" = 9;
-             "exam_name" = "Normal exam";
-             "exam_type" = 1;
-             "exam_year" = "<null>";
-             id = "<null>";
-             notice = BLANK;
-             "sch_year_id" = 1;
-             "school_id" = 1;
-             sresult = "<null>";
-             "std_nickname" = "Student 10";
-             "std_photo" = "http://192.168.0.202:9090/eschool_content/avatar/student1.png";
-             "student_id" = 10;
-             "student_name" = 00000010;
-             subject = Ly;
-             "subject_id" = 2;
-             teacher = "<null>";
-             "teacher_id" = "<null>";
-             term = "HK 1";
-             "term_id" = 1;
-             "term_val" = 1;
-             }*/
+            /**/
             if (scores != (id)[NSNull null]) {
                 for (NSDictionary *scoreDict in scores) {
                     

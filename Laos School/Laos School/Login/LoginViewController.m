@@ -49,9 +49,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:COMMON_COLOR];
+    [viewContainer setBackgroundColor:[UIColor whiteColor]];
     
-    [txtUsername setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
-    [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
+    viewContainer.layer.cornerRadius = 8.0f;
+    viewContainer.layer.masksToBounds = YES;
+    
+    if (IS_IPAD) {
+        [txtUsername setColor:COMMON_COLOR andImage:[UIImage imageNamed:@"ic_user_gray"]];
+        [txtPassword setColor:COMMON_COLOR andImage:[UIImage imageNamed:@"ic_key"]];
+
+    } else {
+        [txtUsername setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
+        [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
+    }
     
     [txtUsername setPlaceholder:LocalizedString(@"Username")];
     [txtUsername setPlaceholder:LocalizedString(@"Password")];
@@ -384,13 +394,14 @@
     //for iPad
     UISplitViewController *splitViewController = nil;
     if (IS_IPAD) {
-        MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
-        messageDetailViewController.isIncomeMessage = YES;
-        
-        UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
+//        MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
+//        messageDetailViewController.isIncomeMessage = YES;
+//        
+//        UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
         
         splitViewController = [[UISplitViewController alloc] init];
-        [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
+//        [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
+        [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, nil]];
         messageViewController.splitViewController = splitViewController;
         splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     }
