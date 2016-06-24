@@ -113,8 +113,8 @@
         
         [textViewTitle becomeFirstResponder];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+      /*  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];*/
     }
     
     if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
@@ -209,6 +209,7 @@
 }
 
 #pragma mark - keyboard movements
+/*
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
@@ -225,7 +226,7 @@
         rect.origin.y = self.view.frame.size.height - rect.size.height;
         toolbar.frame = rect;
     }];
-}
+}*/
 
 #pragma mark text view delegate
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {
@@ -510,7 +511,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 - (void)addImageToDetailView:(PhotoObject *)photo {
     CGFloat y = textViewTitle.frame.origin.y + textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET * 2;
     y = y + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count];
-    CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, self.view.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
+    CGRect rect = CGRectMake(IMAGE_VIEW_OFFSET, y, mainScrollView.frame.size.width - IMAGE_VIEW_OFFSET*2, IMAGE_VIEW_HEIGHT);
     
     CustomImageView * customImageView = [[CustomImageView alloc] initWithFrame:rect];
     customImageView.isViewDetail = _isViewDetail;

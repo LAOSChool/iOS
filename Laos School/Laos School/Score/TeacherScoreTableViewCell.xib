@@ -45,7 +45,7 @@
                 <outlet property="lbStudentName" destination="jcs-au-Ujw" id="g35-fH-u8l"/>
                 <outlet property="viewScorePanel" destination="jyW-Vu-zhu" id="iC0-wT-kgY"/>
             </connections>
-            <point key="canvasLocation" x="219" y="215.5"/>
+            <point key="canvasLocation" x="-29" y="171.5"/>
         </tableViewCell>
     </objects>
     <resources>

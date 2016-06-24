@@ -313,6 +313,8 @@
         personalInfoView.userObj = userObject;
         
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personalInfoView];
+        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         
         [self.navigationController presentViewController:nav animated:YES completion:nil];
     }

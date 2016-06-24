@@ -35,6 +35,7 @@
     
     BOOL isReachToEnd;
     UIRefreshControl *refreshControl;
+    NSIndexPath *selectedIndex;
 }
 @end
 
@@ -49,6 +50,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     isReachToEnd = NO;
+    selectedIndex = nil;
     
     if (([ShareData sharedShareData].userObj.permission & Permission_SendAnnouncement) == Permission_SendAnnouncement) {
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addNewAnnouncement)];
@@ -201,6 +203,8 @@
     composeViewController = [[CreatePostViewController alloc] initWithNibName:@"CreatePostViewController" bundle:nil];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
     
@@ -497,27 +501,27 @@
     cell.delegate = (id)self;
     [cell.lbSubject setTextColor:TITLE_COLOR];
     
-    AnnouncementObject *announcementObjectObj = nil;
+    AnnouncementObject *announcementObject = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        announcementObjectObj = [searchResults objectAtIndex:indexPath.row];
+        announcementObject = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        announcementObjectObj = [self getAnnouncementObjectAtIndex:indexPath.row];
+        announcementObject = [self getAnnouncementObjectAtIndex:indexPath.row];
     }
     
     //    [dataDic setObject:wordObj forKey:wordObj.question];
     
-    cell.tag = announcementObjectObj.announcementID;
-    cell.lbSubject.text = announcementObjectObj.subject;
-    cell.lbBriefContent.text = announcementObjectObj.content;
+    cell.tag = announcementObject.announcementID;
+    cell.lbSubject.text = announcementObject.subject;
+    cell.lbBriefContent.text = announcementObject.content;
     
-    if (announcementObjectObj.dateTime && announcementObjectObj.dateTime.length > 0) {
-        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:announcementObjectObj.dateTime withFormat:@"MM-dd HH:mm"];
+    if (announcementObject.dateTime && announcementObject.dateTime.length > 0) {
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:announcementObject.dateTime withFormat:@"MM-dd HH:mm"];
     }
     
-    cell.lbSenderName.text = announcementObjectObj.fromUsername;
+    cell.lbSenderName.text = announcementObject.fromUsername;
     
-    if (announcementObjectObj.importanceType == ImportanceHigh) {
+    if (announcementObject.importanceType == ImportanceHigh) {
         [cell.btnImportanceFlag setTintColor:HIGH_IMPORTANCE_COLOR];
         
     } else {
@@ -525,7 +529,7 @@
     }
     
     
-    if (announcementObjectObj.unreadFlag) {
+    if (announcementObject.unreadFlag) {
         [cell.contentView setBackgroundColor:UNREAD_COLOR];
         [cell setBackgroundColor:UNREAD_COLOR];
     } else {
@@ -543,31 +547,32 @@
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!IS_IPAD) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    selectedIndex = indexPath;
     
-    AnnouncementObject *announcementObjectObj = nil;
+    AnnouncementObject *announcementObject = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        announcementObjectObj = [searchResults objectAtIndex:indexPath.row];
+        announcementObject = [searchResults objectAtIndex:indexPath.row];
         
     } else {
-        announcementObjectObj = [self getAnnouncementObjectAtIndex:indexPath.row];
+        announcementObject = [self getAnnouncementObjectAtIndex:indexPath.row];
     }
     
-    announcementObjectObj.unreadFlag = NO;
-    [announcementTableView beginUpdates];
-    [announcementTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [announcementTableView endUpdates];
+    if (announcementObject.unreadFlag == YES) {
+        [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementRead:announcementObject.announcementID withFlag:YES];
+        [requestToServer updateAnnouncementRead:announcementObject.announcementID withFlag:YES];
+        
+        announcementObject.unreadFlag = NO;
+        [announcementTableView beginUpdates];
+        [announcementTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [announcementTableView endUpdates];
+    }
     
-    [self updateAnnouncementArrayWithObject:announcementObjectObj];
+    [self updateAnnouncementArrayWithObject:announcementObject];
     
-    [[CoreDataUtil sharedCoreDataUtil] updateAnnouncementRead:announcementObjectObj.announcementID withFlag:YES];
-    [requestToServer updateAnnouncementRead:announcementObjectObj.announcementID withFlag:YES];
-    
-    CreatePostViewController *announcementDetailViewController = [[CreatePostViewController alloc] initWithNibName:@"CreatePostViewController" bundle:nil];
-    announcementDetailViewController.isViewDetail = YES;
-    announcementDetailViewController.announcementObject = announcementObjectObj;
-    
-    [self.navigationController pushViewController:announcementDetailViewController animated:YES];
+    [self showDetailView:announcementObject];
     
 }
 
@@ -751,7 +756,32 @@
         [self sortAnnouncementsArrayByID];
     }
     
+    if (IS_IPAD) {
+        if (selectedIndex == nil) {
+            AnnouncementObject *announcementObject = [self getAnnouncementObjectAtIndex:0];
+            if (announcementObject) {
+                [self showDetailView:announcementObject];
+                
+                selectedIndex = [NSIndexPath indexPathForItem:0 inSection:0];
+            }
+        }
+    }
+    
     [announcementTableView reloadData];
+}
+
+- (void)showDetailView:(AnnouncementObject *)announcementObject {
+    CreatePostViewController *announcementDetailViewController = [[CreatePostViewController alloc] initWithNibName:@"CreatePostViewController" bundle:nil];
+    announcementDetailViewController.isViewDetail = YES;
+    announcementDetailViewController.announcementObject = announcementObject;
+    
+    if (IS_IPAD) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:announcementDetailViewController];
+        [self showDetailViewController:nav sender:self];
+        
+    } else {
+        [self.navigationController pushViewController:announcementDetailViewController animated:YES];
+    }
 }
 
 - (void)insertArrayToArray:(NSArray *)arr {

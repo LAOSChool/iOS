@@ -41,6 +41,10 @@
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
     }
+    
+    UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
+    
+    self.navigationItem.leftBarButtonItems = @[btnClose];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +61,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)closeButtonClick {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {

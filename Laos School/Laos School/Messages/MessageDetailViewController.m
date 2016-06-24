@@ -24,7 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [self.navigationController setNavigationColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     /*
      IBOutlet UIImageView *imgAvatar;
      IBOutlet UIButton *btnImportanceFlag;

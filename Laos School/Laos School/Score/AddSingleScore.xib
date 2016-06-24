@@ -28,7 +28,7 @@
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" id="B8T-Sr-CNs">
                     <rect key="frame" x="18" y="130" width="283" height="274"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6UO-hs-9AY">
                             <rect key="frame" x="253" y="0.0" width="30" height="30"/>

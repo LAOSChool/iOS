@@ -394,21 +394,30 @@
     //for iPad
     UISplitViewController *splitViewController = nil;
     if (IS_IPAD) {
-//        MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
-//        messageDetailViewController.isIncomeMessage = YES;
-//        
-//        UINavigationController *navMessageDetail = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
-        
         splitViewController = [[UISplitViewController alloc] init];
-//        [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, navMessageDetail, nil]];
         [splitViewController setViewControllers:[NSArray arrayWithObjects:navMessage, nil]];
         messageViewController.splitViewController = splitViewController;
+        splitViewController.delegate = (id)messageViewController;
+        splitViewController.extendedLayoutIncludesOpaqueBars = YES;
+        
         splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     }
     
     //Announcement
     AnnouncementViewController *announcementViewController = [[AnnouncementViewController alloc] initWithNibName:@"AnnouncementViewController" bundle:nil];
     UINavigationController *navAnnouncement = [[UINavigationController alloc] initWithRootViewController:announcementViewController];
+    
+    //for iPad
+    UISplitViewController *splitViewController_announce = nil;
+    if (IS_IPAD) {
+        splitViewController_announce = [[UISplitViewController alloc] init];
+        [splitViewController_announce setViewControllers:[NSArray arrayWithObjects:navAnnouncement, nil]];
+        announcementViewController.splitViewController = splitViewController_announce;
+        splitViewController_announce.delegate = (id)announcementViewController;
+        splitViewController_announce.extendedLayoutIncludesOpaqueBars = YES;
+        
+        splitViewController_announce.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    }
     
     //Scrore
     UINavigationController *navScoreView = nil;
@@ -442,7 +451,7 @@
     //More
     MoreViewController *moreViewController = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
     UINavigationController *navMore = [[UINavigationController alloc] initWithRootViewController:moreViewController];
-    
+    /*
     //for iPad
     UISplitViewController *splitViewController_More = nil;
     if (IS_IPAD) {
@@ -453,11 +462,11 @@
         [splitViewController_More setViewControllers:[NSArray arrayWithObjects:navMore, navschoolProfile, nil]];
         moreViewController.splitViewController = splitViewController_More;
         splitViewController_More.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    }
+    }*/
     
     NSArray *tabArray = nil;
     if (IS_IPAD) {
-        tabArray = [[NSArray alloc] initWithObjects:splitViewController, navAnnouncement, navAttendance, navScoreView, splitViewController_More, nil];
+        tabArray = [[NSArray alloc] initWithObjects:splitViewController, splitViewController_announce, navAttendance, navScoreView, navMore, nil];
     } else {
         tabArray = [[NSArray alloc] initWithObjects:navMessage, navAnnouncement, navAttendance, navScoreView, navMore, nil];
     }

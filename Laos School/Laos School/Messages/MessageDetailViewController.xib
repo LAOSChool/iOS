@@ -55,7 +55,7 @@
                         <action selector="btnImportanceFlagClick:" destination="-1" eventType="touchUpInside" id="oDt-JA-9sd"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="64m-5e-CVh">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" id="64m-5e-CVh">
                     <rect key="frame" x="8" y="63" width="304" height="497"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

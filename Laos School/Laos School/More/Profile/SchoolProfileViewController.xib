@@ -130,7 +130,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j7Q-yJ-Gpl">
                                     <rect key="frame" x="290" y="61" width="30" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <state key="normal" image="ic_info.png"/>
                                     <connections>
                                         <action selector="btnInforClick:" destination="-1" eventType="touchUpInside" id="NHV-VX-pKH"/>

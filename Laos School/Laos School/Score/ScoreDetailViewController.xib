@@ -33,7 +33,7 @@
                 </view>
                 <view contentMode="scaleToFill" id="bgS-QE-ljp">
                     <rect key="frame" x="8" y="148" width="304" height="244"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view clipsSubviews="YES" alpha="0.94999999999999996" contentMode="scaleToFill" id="B8T-Sr-CNs">
                             <rect key="frame" x="13" y="15" width="280" height="229"/>

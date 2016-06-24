@@ -38,6 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setTitle:LocalizedString(@"More")];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
@@ -152,7 +153,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:moreCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreCellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     cell.textLabel.textColor = [UIColor blackColor];
@@ -252,6 +252,7 @@
                 {
                     cell.textLabel.text = LocalizedString(@"Change password");
                     cell.imageView.image = [UIImage imageNamed:@"ic_key.png"];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
                 }
                     break;
                     
@@ -259,6 +260,7 @@
                 {
                     cell.textLabel.text = LocalizedString(@"Change language");
                     cell.imageView.image = [UIImage imageNamed:@"ic_language_gray.png"];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
                 }
                     break;
                     
@@ -298,13 +300,13 @@
                     {
                         SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
                         
-                        if (IS_IPAD) {
-                            UINavigationController *navSchoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
-                            
-                            [self.splitViewController showDetailViewController:navSchoolProfile sender:self];
-                        } else {
+//                        if (IS_IPAD) {
+//                            UINavigationController *navSchoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
+//                            
+//                            [self.splitViewController showDetailViewController:navSchoolProfile sender:self];
+//                        } else {
                             [self.navigationController pushViewController:schoolProfileView animated:YES];
-                        }
+//                        }
                     }
                         break;
                         //Time table
@@ -312,13 +314,13 @@
                     {
                         StudentTimeTableViewController *timeTableView = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
                         
-                        if (IS_IPAD) {
-                            UINavigationController *navTimeTableView = [[UINavigationController alloc] initWithRootViewController:timeTableView];
-                            
-                            [self.splitViewController showDetailViewController:navTimeTableView sender:self];
-                        } else {
+//                        if (IS_IPAD) {
+//                            UINavigationController *navTimeTableView = [[UINavigationController alloc] initWithRootViewController:timeTableView];
+//                            
+//                            [self.splitViewController showDetailViewController:navTimeTableView sender:self];
+//                        } else {
                             [self.navigationController pushViewController:timeTableView animated:YES];
-                        }
+//                        }
                     }
                         break;
                         
@@ -397,16 +399,14 @@
             switch (indexPath.row) {
                 case SettingsSectionChangePassword:
                 {
-                    
                     ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                     
-                    if (IS_IPAD) {
-                        UINavigationController *navChangePassView = [[UINavigationController alloc] initWithRootViewController:changePassView];
-                        
-                        [self.splitViewController showDetailViewController:navChangePassView sender:self];
-                    } else {
-                        [self.navigationController pushViewController:changePassView animated:YES];
-                    }
+                    [self presentViewController:nav animated:YES completion:nil];
+
                 }
                     break;
                     
@@ -414,14 +414,13 @@
                 {
                     
                     ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
+
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
+                    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
                     
-                    if (IS_IPAD) {
-                        UINavigationController *navChangeLanguageView = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
-                        
-                        [self.splitViewController showDetailViewController:navChangeLanguageView sender:self];
-                    } else {
-                        [self.navigationController pushViewController:changeLanguageView animated:YES];
-                    }
+                    [self presentViewController:nav animated:YES completion:nil];
+
                 }
                     break;
                     

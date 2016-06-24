@@ -37,6 +37,7 @@
     
     BOOL isReachToEnd;
     UIRefreshControl *refreshControl;
+    NSIndexPath *selectedIndex;
 }
 @end
 
@@ -48,11 +49,13 @@
     [TagManagerHelper pushOpenScreenEvent:@"iMessagesViewController"];
     
 //    [self setTitle:LocalizedString(@"Messages")];
-    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
+    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+    
     isReachToEnd = NO;
+    selectedIndex = nil;
     
     if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
         
@@ -411,6 +414,8 @@
     }
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
     
@@ -470,14 +475,19 @@
 - (MessageObject *)getMessageObjectAtIndex:(NSInteger)index {
     MessageObject *messageObj = nil;
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-        messageObj = [messagesArray objectAtIndex:index];
+        if ([messagesArray count] > 0) {
+            messageObj = [messagesArray objectAtIndex:index];
+        }
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-        messageObj = [unreadMessagesArray objectAtIndex:index];
+        if ([unreadMessagesArray count] > 0) {
+            messageObj = [unreadMessagesArray objectAtIndex:index];
+        }
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-        messageObj = [sentMessagesArray objectAtIndex:index];
-        
+        if ([sentMessagesArray count] > 0) {
+            messageObj = [sentMessagesArray objectAtIndex:index];
+        }
     }
     
     return messageObj;
@@ -581,7 +591,10 @@
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!IS_IPAD) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    selectedIndex = indexPath;
     
     MessageObject *messageObj = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -591,16 +604,26 @@
         messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
-    messageObj.unreadFlag = NO;
-    [messagesTableView beginUpdates];
-    [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [messagesTableView endUpdates];
+    if (messageObj.unreadFlag == YES) {
+        [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
+        [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
+        
+        messageObj.unreadFlag = NO;
+        [messagesTableView beginUpdates];
+        [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [messagesTableView endUpdates];
+    }
     
     [self updateMessageArrayWithObject:messageObj];
     
-    [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
-    [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
+    [self showDetailView:messageObj];
     
+//    MessagesConversationViewController *vc = [MessagesConversationViewController messagesViewController];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (void)showDetailView:(MessageObject *)messageObj {
     MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithNibName:@"MessageDetailViewController" bundle:nil];
     messageDetailViewController.messageObject = messageObj;
     if (segmentedControl.selectedSegmentIndex == 2) {
@@ -610,11 +633,13 @@
         messageDetailViewController.isIncomeMessage = YES;
     }
     
-    [self.navigationController pushViewController:messageDetailViewController animated:YES];
-    
-//    MessagesConversationViewController *vc = [MessagesConversationViewController messagesViewController];
-//    [self.navigationController pushViewController:vc animated:YES];
-    
+    if (IS_IPAD) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:messageDetailViewController];
+        [self showDetailViewController:nav sender:self];
+        
+    } else {
+        [self.navigationController pushViewController:messageDetailViewController animated:YES];
+    }
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -795,6 +820,17 @@
         }
         
         [self sortMessagesArrayByID];
+    }
+    
+    if (IS_IPAD) {
+        if (selectedIndex == nil) {
+            MessageObject *messageObj = [self getMessageObjectAtIndex:0];
+            if (messageObj) {
+                [self showDetailView:messageObj];
+                
+                selectedIndex = [NSIndexPath indexPathForItem:0 inSection:0];
+            }
+        }
     }
     
     [messagesTableView reloadData];

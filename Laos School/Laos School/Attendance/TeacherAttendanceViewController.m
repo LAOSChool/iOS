@@ -204,6 +204,8 @@
     composeViewController.content = content;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

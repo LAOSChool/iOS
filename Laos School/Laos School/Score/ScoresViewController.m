@@ -175,6 +175,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (IS_IPAD) {
+        return 115.0;
+    }
     return 170.0;
 }
 
@@ -186,6 +189,13 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudentScoreTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    if (IS_IPAD) {
+        CGRect rect = cell.contentView.frame;
+        rect.size.width = self.view.frame.size.width;
+        
+        [cell.contentView setFrame:rect];
     }
     
     NSArray *keyArr = [groupBySubject allKeys];
