@@ -12,6 +12,7 @@
 #import "TAGContainer.h"
 #import "TAGContainerOpener.h"
 #import "TAGManager.h"
+#import "LocalizeHelper.h"
 
 #import "CoreDataUtil.h"
 #import "ArchiveHelper.h"
@@ -28,6 +29,7 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self initialConfiguration];
     
     LoginViewController *loginViewController = nil;
     
@@ -242,6 +244,20 @@
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
+        }
+    }
+}
+
+- (void)initialConfiguration {
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if (curLang == nil) {
+        LocalizationSetLanguage(LANGUAGE_LAOS);
+        [[NSUserDefaults standardUserDefaults] setObject:LANGUAGE_LAOS forKey:@"CurrentLanguageInApp"];
+    } else {
+        if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+            LocalizationSetLanguage(LANGUAGE_LAOS);
+        } else if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+            LocalizationSetLanguage(LANGUAGE_ENGLISH);
         }
     }
 }

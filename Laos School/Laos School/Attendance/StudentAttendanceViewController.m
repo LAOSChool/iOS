@@ -207,7 +207,7 @@
         } else {
             cell.lbReason.textColor = [UIColor redColor];
             cell.lbSession.textColor = [UIColor whiteColor];
-            cell.lbReason.text = LocalizedString(@"No reason");
+            cell.lbReason.text = LocalizedString(@"[No reason]");
         }
         
         

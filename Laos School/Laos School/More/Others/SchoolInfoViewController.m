@@ -12,7 +12,8 @@
 #import "TagManagerHelper.h"
 #import "Common.h"
 
-#define SCHOOL_INFO_LINK @"https://www.youtube.com/watch?v=dA8qruho2Ow"
+#define SCHOOL_INFO_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
+#define SCHOOL_INFO_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 
 @interface SchoolInfoViewController ()
 
@@ -28,7 +29,17 @@
     [self setTitle:LocalizedString(@"School info")];
     
     if ([[Common sharedCommon] networkIsActive]) {
-        NSString *urlAddress = SCHOOL_INFO_LINK;
+        NSString *urlAddress = SCHOOL_INFO_LINK_ENG;
+        
+        NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+        
+        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+            urlAddress = SCHOOL_INFO_LINK_ENG;
+            
+        } else {
+            urlAddress = SCHOOL_INFO_LINK_LAOS;
+        }
+        
         NSURL *url = [NSURL URLWithString:urlAddress];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         
@@ -65,6 +76,16 @@
 
 - (void)loadLocalHtml {
     NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info" ofType:@"htm"];
+    
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    
+    if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info" ofType:@"htm"];
+        
+    } else {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info_laos" ofType:@"htm"];
+    }
+    
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     
     [webView loadHTMLString:htmlString baseURL:nil];

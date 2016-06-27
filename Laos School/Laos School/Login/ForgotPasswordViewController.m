@@ -32,6 +32,14 @@
     [txtUsername setColor:[UIColor grayColor] andImage:[UIImage imageNamed:@"ic_user_gray"]];
     [txtPhonenumber setColor:[UIColor grayColor] andImage:[UIImage imageNamed:@"ic_phone_gray"]];
     
+    [txtUsername setPlaceholder:LocalizedString(@"User name")];
+    [txtPhonenumber setPlaceholder:LocalizedString(@"Phone number")];
+    
+    [btnSubmit setTitle:LocalizedString(@"Submit") forState:UIControlStateNormal];
+    
+    lbGuide1.text = LocalizedString(@"Please enter your username and the phone number that is being registered for this account.");
+    lbGuide2.text = LocalizedString(@"(If you do not remember your username and phone number, please contact with school's admin.)");
+    
     UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
     
     self.navigationItem.leftBarButtonItems = @[btnClose];
@@ -169,14 +177,14 @@
 }
 
 - (void)showAlertInvalidInputs {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your username and phone number!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter your user name and phone number!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 4;
     
     [alert show];
 }
 
 - (void)showAlertWrongUsernamePhonenumber {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Username or phone number is incorrect!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"User name or phone number is incorrect!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 5;
     
     [alert show];

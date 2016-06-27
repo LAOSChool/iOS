@@ -41,13 +41,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:LocalizedString(@"New Message")];
+    [self setTitle:LocalizedString(@"New message")];
     
     [self.navigationController setNavigationColor];
     
     [lbTeacherReceiverList setTextColor:BLUE_COLOR];
     [txtContent setFont:[UIFont systemFontOfSize:15]];
     
+    lbTo.text = LocalizedString(@"To:");
+    lbSMS.text = LocalizedString(@"SMS:");
+
     if (_receiverArray == nil) {
         _receiverArray = [[NSMutableArray alloc] init];
     } else {
@@ -89,11 +92,11 @@
             if (reasonList == nil) {
                 reasonList = [[NSMutableArray alloc] init];
             }
-            [reasonList addObject:LocalizedString(@"Lý do 1")];
-            [reasonList addObject:LocalizedString(@"Lý do 2")];
-            [reasonList addObject:LocalizedString(@"Lý do 3")];
-            [reasonList addObject:LocalizedString(@"Lý do 4")];
-            [reasonList addObject:LocalizedString(@"Lý do 5")];
+            [reasonList addObject:LocalizedString(@"Reason 1")];
+            [reasonList addObject:LocalizedString(@"Reason 2")];
+            [reasonList addObject:LocalizedString(@"Reason 3")];
+            [reasonList addObject:LocalizedString(@"Reason 4")];
+            [reasonList addObject:LocalizedString(@"Reason 5")];
             
             btnSampleMessage.hidden = NO;
             btnSampleMessage.layer.masksToBounds = NO;
@@ -494,10 +497,10 @@
     NSString *content = @"";
     
     if (_isTeacherForm) {
-        content = LocalizedString(@"Please enter recipient and content before sending!");
+        content = LocalizedString(@"Please enter recipient and content!");
         
     } else {
-        content = LocalizedString(@"Please enter content before sending!");
+        content = LocalizedString(@"Please enter content!");
     }
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];

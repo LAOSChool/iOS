@@ -224,8 +224,8 @@
 
 #pragma mark alert
 - (void)confirmBeforeSendingRequest {
-    NSString *content = LocalizedString(@"Please double check information before sending your request.");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    NSString *content = LocalizedString(@"Please double check information before sending your request. Are you sure?");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 1;
     
     [alert show];

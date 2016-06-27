@@ -370,7 +370,7 @@
 
 - (void)updateHeaderInfo {
     if (_studentListType == StudentList_Message) {
-        lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Count"), (unsigned long)[_selectedArray count]];
+        lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Selected"), (unsigned long)[_selectedArray count]];
     } else {
         lbCount.text =[NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[studentsArray count]];
     }

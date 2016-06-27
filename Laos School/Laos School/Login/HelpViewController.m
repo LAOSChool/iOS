@@ -9,6 +9,10 @@
 #import "HelpViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
+#import "Common.h"
+
+#define HELP_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
+#define HELP_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 
 @interface HelpViewController ()
 
@@ -22,6 +26,25 @@
     [self setTitle:LocalizedString(@"Help")];
     
     [self.navigationController setNavigationColor];
+    
+    if ([[Common sharedCommon] networkIsActive]) {
+        NSString *urlAddress = HELP_LINK_ENG;
+        NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+        
+        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+            urlAddress = HELP_LINK_ENG;
+            
+        } else {
+            urlAddress = HELP_LINK_LAOS;
+        }
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        
+        [webView loadRequest:requestObj];
+        
+    } else {
+        [self loadLocalHtml];
+    }
     
     UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
     
@@ -45,5 +68,22 @@
 
 - (void)closeButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)loadLocalHtml {
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info" ofType:@"htm"];
+    
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    
+    if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info" ofType:@"htm"];
+        
+    } else {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"school_info_laos" ofType:@"htm"];
+    }
+    
+    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+    
+    [webView loadHTMLString:htmlString baseURL:nil];
 }
 @end

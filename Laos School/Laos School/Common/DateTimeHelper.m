@@ -8,6 +8,7 @@
 
 #import "DateTimeHelper.h"
 #import "LocalizeHelper.h"
+#import "CommonDefine.h"
 #import "UIKit/UIKit.h"
 
 // Singleton
@@ -281,9 +282,9 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     if (curLang == nil) {
         res = [self convertDateOfWeekToVN:[dateFormatter stringFromDate:date]];
     } else {
-        if ([curLang isEqualToString:@"vi"]) {
+        if ([curLang isEqualToString:LANGUAGE_LAOS]) {
             res = [self convertDateOfWeekToVN:[dateFormatter stringFromDate:date]];
-        } else if ([curLang isEqualToString:@"en"]) {
+        } else if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
             res = [dateFormatter stringFromDate:date];
         }
     }

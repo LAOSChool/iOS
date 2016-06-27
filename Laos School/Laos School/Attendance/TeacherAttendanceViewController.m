@@ -302,7 +302,7 @@
             cell.lbNoreason.hidden = YES;
         } else {
             cell.lbNoreason.hidden = NO;
-            cell.lbNoreason.text = LocalizedString(@"No reason");
+            cell.lbNoreason.text = LocalizedString(@"[No reason]");
         }
         
     } else {
@@ -460,7 +460,7 @@
             } else {
                 MGSwipeButton *btnOff = nil;
                 
-                btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Off") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
+                btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Absent") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                     return NO;
                 }];
                 
@@ -487,7 +487,7 @@
     if (direction == MGSwipeDirectionRightToLeft && index == 0) {
         if (checkAttObj.state == 1) {   //cancel
             willDeleteIndexPath = indexPath;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:LocalizedString(@"Cancel this attendance checking result.") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:LocalizedString(@"Cancel this attendance checking result. Are you sure?") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
             alert.tag = 2;
             
             [alert show];
@@ -523,7 +523,7 @@
     [searchBar resignFirstResponder];
     
     StdTimeTableDayViewController *timeDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
-    timeDayViewController.title = LocalizedString(@"Select session");
+    timeDayViewController.title = LocalizedString(@"Select a session");
     timeDayViewController.sessionsArray = sessionsArray;
     timeDayViewController.timeTableType = TimeTableOneDay;
     timeDayViewController.selectedSession = currentSession;

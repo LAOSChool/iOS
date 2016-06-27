@@ -97,7 +97,7 @@
         [textViewPost setFont:[UIFont systemFontOfSize:15]];
         
     } else {
-        [self setTitle:LocalizedString(@"New Anouncement")];
+        [self setTitle:LocalizedString(@"New anouncement")];
         lbTo.text = LocalizedString(@"To:");
         lbReceiverList.text = [[[ShareData sharedShareData] userObj] classObj].className;
         lbDateTime.text = @"";
@@ -568,7 +568,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (void)sendNewAnnouncement {
-    [SVProgressHUD showWithStatus:LocalizedString(@"Uploading")];
+    [SVProgressHUD showWithStatus:LocalizedString(@"Uploading...")];
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CREATE_ANNOUNCEMENT];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
@@ -799,8 +799,8 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (void)confirmBeforeSendingAnnouncement {
-    NSString *content = [NSString stringWithFormat:LocalizedString(@"Send this announcement to class %@"), [ShareData sharedShareData].userObj.classObj.className];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    NSString *content = [NSString stringWithFormat:LocalizedString(@"Send this announcement to class %@. Are you sure?"), [ShareData sharedShareData].userObj.classObj.className];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 4;
     
     [alert show];

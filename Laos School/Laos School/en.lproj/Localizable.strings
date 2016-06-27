@@ -5,3 +5,89 @@
   Created by HuKhong on 2/23/16.
   Copyright © 2016 com.born2go.laosschool. All rights reserved.
 */
+
+//Tab name
+"Messages" = "Messages";
+"Announcements" = "Announcements";
+"Attendance" = "Attendance";
+"Scores" = "Scores";
+"More" = "More";
+
+//common
+"Close" = "Close";
+"Cancel" = "Cancel";
+"OK" = "OK";
+"Yes" = "Yes";
+"No" = "No";
+"Confirmation" = "Confirmation";
+"Submit" = "Submit";
+"Error" = "Error";
+"Failed" = "Failed";
+"Successfully" = "Successfully";
+"Search" = "Search";
+"All" = "All";
+"Unread" = "Unread";
+"Sent" = "Sent";
+"Done" = "Done";
+"Selected" = "Selected";
+"Total" = "Total";
+"Off" = "Off"
+"Absent" = "Absent"
+
+//Common alert
+"Failed to connect to server. Please try again." = "Failed to connect to server. Please try again.";
+"There is an error while trying to connect to server. Please try again." = "There is an error while trying to connect to server. Please try again.";
+"This account was being logged in by other device. Please re-login." = "This account was being logged in by other device. Please re-login.";
+
+//login, help, forgot password
+"Login" = "Login";
+"Forgot password?" = "Forgot password?";
+"Password" = "Password";
+"Username" = "User name";
+"Phone number" = "Phone number";
+"Help" = "Help";
+"Forgot password" = "Forgot password";
+
+"Please enter your username and the phone number that is being registered for this account." = "Please enter your username and the phone number that is being registered for this account.";
+"(If you do not remember your username and phone number, please contact with school's admin.)" = "(If you do not remember your username and phone number, please contact with school's admin.)";
+
+"Please enter your user name and phone number!" = "Please enter your user name and phone number!";
+"User name or phone number is incorrect!" = "User name or phone number is incorrect!";
+"A new password will be sent to your phone number." = "A new password will be sent to your phone number.";
+
+//Messages
+"New message" = "New message";
+"To:" = "To:";
+"From:" = "From:";
+"SMS:" = "SMS:";
+"Reason 1" = "Reason 1";
+"Reason 2" = "Reason 2";
+"Reason 3" = "Reason 3";
+"Reason 4" = "Reason 4";
+"Reason 5" = "Reason 5";
+"[No subject]" = "[No subject]"
+
+"There was an error while sending message. Please try again." = "There was an error while sending message. Please try again.";
+"Please enter recipient and content!" = "Please enter recipient and content!";
+"Please enter content!" = "Please enter content!";
+
+//Students list
+"Students list" = "Students list";
+
+//Announcement
+"New anouncement" = "New anouncement";
+"Attention" = "Attention";
+"You have reached to the limitation. Only allow %ld photos." = "You have reached to the limitation. Only allow %ld photos.";
+"Uploading" = "Uploading...";
+"There was an error while sending announcement. Please try again." = "There was an error while sending announcement. Please try again.";
+"Send this announcement to class %@. Are you sure?" = "Send this announcement to class %@. Are you sure?";
+"Please enter subject and content!" = "Please enter subject and content!";
+
+//Attendance
+"Select a session" = "Select a session";
+"Cancel this attendance checking result. Are you sure?" = "Cancel this attendance checking result. Are you sure?";
+"[No reason]" = "[No reason]";
+"No reason" = "No reason";
+"(Tap to view detail)" = "(Tap to view detail)";
+
+

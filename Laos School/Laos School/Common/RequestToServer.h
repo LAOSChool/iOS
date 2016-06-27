@@ -23,6 +23,7 @@
 #endif                                                                                                                                           
 
 #define API_NAME_LOGIN @"/login"
+#define API_NAME_LOGOUT @"/api/logout"
 #define API_NAME_MYPROFILE @"/api/users/myprofile"
 #define API_NAME_RESET_FORGOT_PASS @"/forgot_pass"
 #define API_NAME_CHANGE_PASS @"/api/users/change_pass"
@@ -74,6 +75,7 @@
 - (void)loginWithWrongUserPassword;
 - (void)accountLoginByOtherDevice;
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj;
+- (void)logoutSuccessfully;
 @end
 
 @interface RequestToServer : NSObject
@@ -123,6 +125,8 @@
 - (void)getMyProfile;
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
 - (void)requestToChangePassword:(NSString *)username oldPass:(NSString *)oldPass byNewPass:(NSString *)newPass;
+- (void)sendLogoutRequest;
+
 
 //school record
 - (void)getStudentTermList;

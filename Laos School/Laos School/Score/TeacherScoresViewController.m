@@ -349,7 +349,9 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [self showHideHeaderView:NO];
+    if (!IS_IPAD) {
+        [self showHideHeaderView:NO];
+    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {

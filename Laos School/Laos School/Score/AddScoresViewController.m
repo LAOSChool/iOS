@@ -461,7 +461,9 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [self showHideHeaderView:NO];
+    if (!IS_IPAD) {
+        [self showHideHeaderView:NO];
+    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -894,8 +896,8 @@
 }
 
 - (void)confirmBeforeSubmitScore {
-    NSString *content = LocalizedString(@"Please double check information before you submit scores.");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    NSString *content = LocalizedString(@"Please double check information before you submit scores. Are you sure?");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 2;
     
     [alert show];
@@ -910,7 +912,7 @@
 }
 
 - (void)confirmCancelAddScore {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Are you sure?") message:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:LocalizedString(@"Are you sure you want to cancel?") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 4;
     
     [alert show];

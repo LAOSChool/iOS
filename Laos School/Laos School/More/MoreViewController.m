@@ -21,15 +21,18 @@
 #import "AppDelegate.h"
 #import "ShareData.h"
 #import "ChangePasswordViewController.h"
-
+#import "RequestToServer.h"
 
 #import "LocalizeHelper.h"
 #import "Common.h"
 #import "UIView+CustomUIView.h"
 #import "ArchiveHelper.h"
+#import "SVProgressHUD.h"
 
 @interface MoreViewController ()
-
+{
+    RequestToServer *requestToServer;
+}
 @end
 
 @implementation MoreViewController
@@ -76,6 +79,11 @@
         } else if ([userObj.gender isEqualToString:@"female"]) {
             imgAvatar.image = [UIImage imageNamed:@"ic_female.png"];
         }
+    }
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
     }
     
 }
@@ -300,13 +308,7 @@
                     {
                         SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
                         
-//                        if (IS_IPAD) {
-//                            UINavigationController *navSchoolProfile = [[UINavigationController alloc] initWithRootViewController:schoolProfileView];
-//                            
-//                            [self.splitViewController showDetailViewController:navSchoolProfile sender:self];
-//                        } else {
                             [self.navigationController pushViewController:schoolProfileView animated:YES];
-//                        }
                     }
                         break;
                         //Time table
@@ -314,13 +316,7 @@
                     {
                         StudentTimeTableViewController *timeTableView = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
                         
-//                        if (IS_IPAD) {
-//                            UINavigationController *navTimeTableView = [[UINavigationController alloc] initWithRootViewController:timeTableView];
-//                            
-//                            [self.splitViewController showDetailViewController:navTimeTableView sender:self];
-//                        } else {
                             [self.navigationController pushViewController:timeTableView animated:YES];
-//                        }
                     }
                         break;
                         
@@ -426,7 +422,11 @@
                     
                 case SettingsSectionLogout:
                 {
-                    [self backTologinScreen];
+                    NSString *content = LocalizedString(@"Are you sure you want to logout?");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+                    alert.tag = 1;
+                    
+                    [alert show];
                 }
                     break;
                     
@@ -445,7 +445,6 @@
     //clear authen key
     [[ArchiveHelper sharedArchiveHelper] clearAuthKey];
     
-    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     LoginViewController *loginView = nil;
     
@@ -458,6 +457,11 @@
     appDelegate.window.rootViewController = loginView;
 }
 
+- (void)logoutRequest {
+    [SVProgressHUD show];
+    [requestToServer sendLogoutRequest];
+}
+
 #pragma mark button and gesture handle
 - (IBAction)btnEditClick:(id)sender {
     PersonalInfoViewController *personalInfoView = [[PersonalInfoViewController alloc] initWithNibName:@"PersonalInfoViewController" bundle:nil];
@@ -468,4 +472,38 @@
     
 }
 
+#pragma mark RequestToServer delegate
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
+    [SVProgressHUD dismiss];
+    [self backTologinScreen];
+}
+
+- (void)failToConnectToServer {
+    [SVProgressHUD dismiss];
+    [self backTologinScreen];
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+    [SVProgressHUD dismiss];
+    [self backTologinScreen];
+}
+
+- (void)accountLoginByOtherDevice {
+    [SVProgressHUD dismiss];
+    [self backTologinScreen];
+}
+
+- (void)logoutSuccessfully {
+    [SVProgressHUD dismiss];
+    [self backTologinScreen];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 1) {    //logout
+        if (buttonIndex != 0) {
+            [self logoutRequest];
+        }
+    }
+}
 @end

@@ -470,14 +470,19 @@
 - (AnnouncementObject *)getAnnouncementObjectAtIndex:(NSInteger)index {
     AnnouncementObject *announcementObj = nil;
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-        announcementObj = [announceArray objectAtIndex:index];
+        if ([announceArray count] > 0) {
+            announcementObj = [announceArray objectAtIndex:index];
+        }
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-        announcementObj = [unreadAnnouncementsArray objectAtIndex:index];
+        if ([unreadAnnouncementsArray count] > 0) {
+            announcementObj = [unreadAnnouncementsArray objectAtIndex:index];
+        }
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-        announcementObj = [sentAnnouncementsArray objectAtIndex:index];
-        
+        if ([sentAnnouncementsArray count] > 0) {
+            announcementObj = [sentAnnouncementsArray objectAtIndex:index];
+        }
     }
     
     return announcementObj;

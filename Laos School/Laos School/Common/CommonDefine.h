@@ -45,6 +45,9 @@
 
 #define ATTENDANCE_DATE_FORMATE @"EEEE, yyyy-MM-dd"
 
+#define LANGUAGE_LAOS @"lo"
+#define LANGUAGE_ENGLISH @"en"
+
 @interface CommonDefine : NSObject
 
 

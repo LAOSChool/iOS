@@ -8,10 +8,15 @@
 
 #import "ChangeLanguageViewController.h"
 #import "UINavigationController+CustomNavigation.h"
+#import "LoginViewController.h"
 #import "LocalizeHelper.h"
+#import "CommonDefine.h"
+#import "AppDelegate.h"
 
 @interface ChangeLanguageViewController ()
-
+{
+    NSString *selectedLang;
+}
 @end
 
 @implementation ChangeLanguageViewController
@@ -26,6 +31,13 @@
     UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
     
     self.navigationItem.leftBarButtonItems = @[btnClose];
+    
+    UIBarButtonItem *btnApply = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Apply") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(btnApplyClick)];
+    
+    self.navigationItem.rightBarButtonItem = btnApply;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    selectedLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,6 +57,14 @@
 
 - (void)closeButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)btnApplyClick {
+    NSString *content = LocalizedString(@"App will be reload after changing language. Are you sure?");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 1;
+    
+    [alert show];
 }
 
 #pragma table delegate
@@ -78,13 +98,11 @@
     cell.textLabel.textColor = [UIColor darkGrayColor];
     cell.textLabel.font = [UIFont systemFontOfSize:16];
     
-    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
-    
     switch (indexPath.row) {
         case LanguageEnglish:
             cell.textLabel.text = LocalizedString(@"English");
 
-            if (curLang && [curLang isEqualToString:@"en"]) {
+            if (selectedLang && [selectedLang isEqualToString:LANGUAGE_ENGLISH]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             } else {
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -94,7 +112,7 @@
         case LanguageViet:
             cell.textLabel.text = LocalizedString(@"Tiếng Việt");
 
-            if (curLang && [curLang isEqualToString:@"vi"]) {
+            if (selectedLang && [selectedLang isEqualToString:LANGUAGE_LAOS]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             } else {
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -116,23 +134,46 @@
     
     switch (indexPath.row) {
         case LanguageEnglish:
-            LocalizationSetLanguage(@"en");
-            [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"CurrentLanguageInApp"];
+            selectedLang = LANGUAGE_ENGLISH;
             
             break;
             
         case LanguageViet:
-            LocalizationSetLanguage(@"vi");
-            [[NSUserDefaults standardUserDefaults] setObject:@"vi" forKey:@"CurrentLanguageInApp"];
+            selectedLang = LANGUAGE_LAOS;
             break;
             
         default:
             break;
     }
+    NSString *oldLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if ([selectedLang isEqualToString:oldLang]) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
     
     [tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeLanguage" object:nil];
-    [self setTitle:LocalizedString(@"Change language")];
+    if (alertView.tag == 1) {    //confirm changing language
+        if (buttonIndex != 0) {
+            LocalizationSetLanguage(selectedLang);
+            [[NSUserDefaults standardUserDefaults] setObject:selectedLang forKey:@"CurrentLanguageInApp"];
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            LoginViewController *loginView = nil;
+            
+            if (IS_IPAD) {
+                loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController_iPad" bundle:nil];
+            } else {
+                loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+            }
+            
+            appDelegate.window.rootViewController = loginView;
+        }
+    }
 }
 @end

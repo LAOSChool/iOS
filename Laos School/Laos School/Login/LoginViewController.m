@@ -63,8 +63,11 @@
         [txtPassword setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_key"]];
     }
     
-    [txtUsername setPlaceholder:LocalizedString(@"Username")];
-    [txtUsername setPlaceholder:LocalizedString(@"Password")];
+    [txtUsername setPlaceholder:LocalizedString(@"User name")];
+    [txtPassword setPlaceholder:LocalizedString(@"Password")];
+    
+    [btnLogin setTitle:LocalizedString(@"Login") forState:UIControlStateNormal];
+    [btnForgot setTitle:LocalizedString(@"Forgot password?") forState:UIControlStateNormal];
     
     
     if (requestToServer == nil) {
