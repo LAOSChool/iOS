@@ -108,8 +108,10 @@
             viewSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
             viewSampleMessage.layer.shadowRadius = 5;
             viewSampleMessage.layer.shadowOpacity = 0.5;
+            viewSampleMessage.layer.cornerRadius = 3;
+            viewSampleMessage.clipsToBounds = YES;
             
-            viewSampleMessage.layer.borderColor = [UIColor darkGrayColor].CGColor;
+            viewSampleMessage.layer.borderColor = BLUE_COLOR.CGColor;
             viewSampleMessage.layer.borderWidth = 3.0f;
 
             

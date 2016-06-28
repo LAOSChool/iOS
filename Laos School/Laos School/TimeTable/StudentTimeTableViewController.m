@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:LocalizedString(@"Time table")];
+    [self setTitle:LocalizedString(@"Timetable")];
     
     [self.navigationController setNavigationColor];
     [viewHeader setBackgroundColor:GREEN_COLOR];

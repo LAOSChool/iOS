@@ -220,7 +220,7 @@
         [cell setBackgroundColor:[UIColor whiteColor]];
         
         //fill data
-        cell.lbSession.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Session"), sessionObj.session];
+        cell.lbSession.text = [NSString stringWithFormat:@"%@\n%@", LocalizedString(@"Period"), sessionObj.session];
         cell.lbDuration.text = sessionObj.duration;
         cell.lbSubject.text = sessionObj.subject;
         cell.lbTeacherName.text = sessionObj.teacherName;

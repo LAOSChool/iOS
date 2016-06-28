@@ -321,6 +321,28 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    UserObject *userObject = nil;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        userObject = [searchResults objectAtIndex:indexPath.row];
+        
+    } else {
+        userObject = [studentsArray objectAtIndex:indexPath.row];
+    }
+    
+    if (_studentListType == StudentList_Normal) {
+        PersonalInfoViewController *personalInfoView = [[PersonalInfoViewController alloc] initWithNibName:@"PersonalInfoViewController" bundle:nil];
+        personalInfoView.userObj = userObject;
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personalInfoView];
+        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+    }
+}
+
 #pragma mark - UISearchDisplayController Delegate Methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString

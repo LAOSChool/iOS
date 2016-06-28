@@ -12,11 +12,6 @@
 #import "Common.h"
 #import "LocalizeHelper.h"
 
-#define NORMAL_SCORE [UIColor lightGrayColor]
-#define AVERAGE_SCORE GREEN_COLOR
-#define EXAM_SCORE BLUE_COLOR
-#define FINAL_SCORE COMMON_COLOR
-
 @implementation ScoreCell
 
 

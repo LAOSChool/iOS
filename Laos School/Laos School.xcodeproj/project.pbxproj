@@ -71,12 +71,9 @@
 		552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552400F21C881DA600F7D057 /* CreatePermissionViewController.xib */; };
 		552400F81C883AAA00F7D057 /* StuAttendanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552400F61C883AAA00F7D057 /* StuAttendanceTableViewCell.m */; };
 		552400F91C883AAA00F7D057 /* StuAttendanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552400F71C883AAA00F7D057 /* StuAttendanceTableViewCell.xib */; };
-		5531DBE11CE2D07B00FBD6A4 /* ic_up_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBDB1CE2D07B00FBD6A4 /* ic_up_arrow.png */; };
-		5531DBE21CE2D07B00FBD6A4 /* ic_up_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBDC1CE2D07B00FBD6A4 /* ic_up_arrow@2x.png */; };
 		5531DBE31CE2D07B00FBD6A4 /* ic_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBDD1CE2D07B00FBD6A4 /* ic_arrow_down.png */; };
 		5531DBE41CE2D07B00FBD6A4 /* ic_arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBDE1CE2D07B00FBD6A4 /* ic_arrow_down@2x.png */; };
 		5531DBE51CE2D07B00FBD6A4 /* ic_arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBDF1CE2D07B00FBD6A4 /* ic_arrow_down@3x.png */; };
-		5531DBE61CE2D07B00FBD6A4 /* ic_up_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBE01CE2D07B00FBD6A4 /* ic_up_arrow@3x.png */; };
 		5531DBEA1CE2EB8000FBD6A4 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5531DBE71CE2EB8000FBD6A4 /* InformationViewController.m */; };
 		5531DBEB1CE2EB8000FBD6A4 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5531DBE81CE2EB8000FBD6A4 /* InformationViewController.xib */; };
 		55320C991CEDA8AB00E45492 /* ic_class_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320C931CEDA8AB00E45492 /* ic_class_white.png */; };
@@ -445,6 +442,9 @@
 		55B50D5C1CC8AC2A002B3412 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D5A1CC8AC2A002B3412 /* Photos.m */; };
 		55BA86FB1C8D7710000221D7 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */; };
 		55BA86FC1C8D7710000221D7 /* PersonalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */; };
+		55BDA51F1D223AD6007E3A1D /* ic_content_paste_colors.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */; };
+		55BDA5201D223AD6007E3A1D /* ic_content_paste_colors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51D1D223AD6007E3A1D /* ic_content_paste_colors@2x.png */; };
+		55BDA5211D223AD6007E3A1D /* ic_content_paste_colors@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51E1D223AD6007E3A1D /* ic_content_paste_colors@3x.png */; };
 		55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */; };
 		55CBB7851CAB93F700308266 /* TeacherScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */; };
 		55CF10BD1C8543AC00DC1AB9 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CF10BB1C8543AC00DC1AB9 /* MessageTableViewCell.m */; };
@@ -633,12 +633,9 @@
 		552400F51C883AA900F7D057 /* StuAttendanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StuAttendanceTableViewCell.h; sourceTree = "<group>"; };
 		552400F61C883AAA00F7D057 /* StuAttendanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StuAttendanceTableViewCell.m; sourceTree = "<group>"; };
 		552400F71C883AAA00F7D057 /* StuAttendanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StuAttendanceTableViewCell.xib; sourceTree = "<group>"; };
-		5531DBDB1CE2D07B00FBD6A4 /* ic_up_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_up_arrow.png; sourceTree = "<group>"; };
-		5531DBDC1CE2D07B00FBD6A4 /* ic_up_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_up_arrow@2x.png"; sourceTree = "<group>"; };
 		5531DBDD1CE2D07B00FBD6A4 /* ic_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_arrow_down.png; sourceTree = "<group>"; };
 		5531DBDE1CE2D07B00FBD6A4 /* ic_arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_down@2x.png"; sourceTree = "<group>"; };
 		5531DBDF1CE2D07B00FBD6A4 /* ic_arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_down@3x.png"; sourceTree = "<group>"; };
-		5531DBE01CE2D07B00FBD6A4 /* ic_up_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_up_arrow@3x.png"; sourceTree = "<group>"; };
 		5531DBE71CE2EB8000FBD6A4 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = "Laos School/Custom/InformationViewController.m"; sourceTree = SOURCE_ROOT; };
 		5531DBE81CE2EB8000FBD6A4 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = "Laos School/Custom/InformationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		5531DBE91CE2EB8000FBD6A4 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = "Laos School/Custom/InformationViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -1178,6 +1175,9 @@
 		55BA86F81C8D7710000221D7 /* PersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoViewController.h; sourceTree = "<group>"; };
 		55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
 		55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoViewController.xib; sourceTree = "<group>"; };
+		55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_content_paste_colors.png; sourceTree = "<group>"; };
+		55BDA51D1D223AD6007E3A1D /* ic_content_paste_colors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste_colors@2x.png"; sourceTree = "<group>"; };
+		55BDA51E1D223AD6007E3A1D /* ic_content_paste_colors@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste_colors@3x.png"; sourceTree = "<group>"; };
 		55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoresViewController.h; sourceTree = "<group>"; };
 		55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoresViewController.m; sourceTree = "<group>"; };
 		55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoresViewController.xib; sourceTree = "<group>"; };
@@ -1581,6 +1581,9 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */,
+				55BDA51D1D223AD6007E3A1D /* ic_content_paste_colors@2x.png */,
+				55BDA51E1D223AD6007E3A1D /* ic_content_paste_colors@3x.png */,
 				5569468E1D1BE68900D73658 /* ic_help_gray@3x.png */,
 				5569468F1D1BE68900D73658 /* ic_help_gray.png */,
 				556946901D1BE68900D73658 /* ic_help_gray@2x.png */,
@@ -1659,12 +1662,9 @@
 				55320C961CEDA8AB00E45492 /* ic_user_white.png */,
 				55320C971CEDA8AB00E45492 /* ic_user_white@2x.png */,
 				55320C981CEDA8AB00E45492 /* ic_user_white@3x.png */,
-				5531DBDB1CE2D07B00FBD6A4 /* ic_up_arrow.png */,
-				5531DBDC1CE2D07B00FBD6A4 /* ic_up_arrow@2x.png */,
 				5531DBDD1CE2D07B00FBD6A4 /* ic_arrow_down.png */,
 				5531DBDE1CE2D07B00FBD6A4 /* ic_arrow_down@2x.png */,
 				5531DBDF1CE2D07B00FBD6A4 /* ic_arrow_down@3x.png */,
-				5531DBE01CE2D07B00FBD6A4 /* ic_up_arrow@3x.png */,
 				55510DE31CD9EA0E00638646 /* ic_right_arrow.png */,
 				55510DE41CD9EA0E00638646 /* ic_right_arrow@2x.png */,
 				55510DE51CD9EA0E00638646 /* ic_right_arrow@3x.png */,
@@ -2796,7 +2796,9 @@
 				554769C91C917FA700269EBB /* btn_165_30@3x.png in Resources */,
 				5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */,
 				55CF10DA1C857E2D00DC1AB9 /* ic_flag_white@2x.png in Resources */,
+				55BDA5211D223AD6007E3A1D /* ic_content_paste_colors@3x.png in Resources */,
 				5579D13F1D1A7A98001DC526 /* ic_language_gray@2x.png in Resources */,
+				55BDA5201D223AD6007E3A1D /* ic_content_paste_colors@2x.png in Resources */,
 				55797CC31C86D08A00A0098D /* ic_camera@2x.png in Resources */,
 				5579D13A1D1A77B3001DC526 /* ic_group_gray@3x.png in Resources */,
 				5569468C1D1B960D00D73658 /* img_default_user@2x.png in Resources */,
@@ -2805,7 +2807,6 @@
 				556946911D1BE68900D73658 /* ic_help_gray@3x.png in Resources */,
 				558FC5E71CEEC83900CD0389 /* ic_school_white@2x.png in Resources */,
 				55CF10D61C857E2D00DC1AB9 /* ic_flag_gray.png in Resources */,
-				5531DBE21CE2D07B00FBD6A4 /* ic_up_arrow@2x.png in Resources */,
 				55797CBF1C86D08A00A0098D /* ic_attendance.png in Resources */,
 				558FC5ED1CEECBD900CD0389 /* ic_edit_gray@2x.png in Resources */,
 				55FC72351C7C599D00B0B8D0 /* LICENSE in Resources */,
@@ -2899,7 +2900,6 @@
 				55320C9B1CEDA8AB00E45492 /* ic_class_white@3x.png in Resources */,
 				5579D1321D1A772D001DC526 /* ic_storage_gray.png in Resources */,
 				5538B13E1CFEEC40009544D5 /* ic_cancel_white@3x.png in Resources */,
-				5531DBE11CE2D07B00FBD6A4 /* ic_up_arrow.png in Resources */,
 				55797CC71C86D08A00A0098D /* ic_message@3x.png in Resources */,
 				55510DE71CD9EA0E00638646 /* ic_right_arrow@2x.png in Resources */,
 				5575ED491CA4EA4E00EFC02C /* CreatePostViewController.xib in Resources */,
@@ -2936,6 +2936,7 @@
 				5587823A1C8FD0FB00365369 /* SchoolProfileViewController.xib in Resources */,
 				557D78D31C97FEA5008096A0 /* ic_checkall@3x.png in Resources */,
 				55797C941C86958000A0098D /* StudentAttendanceViewController.xib in Resources */,
+				55BDA51F1D223AD6007E3A1D /* ic_content_paste_colors.png in Resources */,
 				555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */,
 				552094511C8932CF004670B3 /* ic_clock@3x.png in Resources */,
 				55FEDB9A1C841EC100DD0D24 /* ComposeViewController.xib in Resources */,
@@ -2977,7 +2978,6 @@
 				557D78D41C97FEA5008096A0 /* ic_checkall.png in Resources */,
 				5538A98B1CBCF3E500659C8A /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
 				55B108E81C802CA200EB695C /* ic_alert_white@2x.png in Resources */,
-				5531DBE61CE2D07B00FBD6A4 /* ic_up_arrow@3x.png in Resources */,
 				5587824E1C9010B800365369 /* TeacherListViewController.xib in Resources */,
 				55797CC21C86D08A00A0098D /* ic_camera.png in Resources */,
 				55797CC41C86D08A00A0098D /* ic_camera@3x.png in Resources */,

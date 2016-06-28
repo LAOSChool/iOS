@@ -109,8 +109,8 @@
             }
             break;
             
-        case LanguageViet:
-            cell.textLabel.text = LocalizedString(@"Tiếng Việt");
+        case LanguageLaos:
+            cell.textLabel.text = LocalizedString(@"ພາສາລາວ");
 
             if (selectedLang && [selectedLang isEqualToString:LANGUAGE_LAOS]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -138,7 +138,7 @@
             
             break;
             
-        case LanguageViet:
+        case LanguageLaos:
             selectedLang = LANGUAGE_LAOS;
             break;
             

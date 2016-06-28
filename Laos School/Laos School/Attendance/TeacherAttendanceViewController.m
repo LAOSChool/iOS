@@ -116,7 +116,7 @@
     [viewDate setBackgroundColor:GREEN_COLOR];
     [viewSession setBackgroundColor:GREEN_COLOR];
     
-    lbSession.text = LocalizedString(@"Select a session");
+    lbSession.text = LocalizedString(@"Select a period");
     [lbSession setTextColor:[UIColor lightGrayColor]];
     
     [self loadData];
@@ -523,7 +523,7 @@
     [searchBar resignFirstResponder];
     
     StdTimeTableDayViewController *timeDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
-    timeDayViewController.title = LocalizedString(@"Select a session");
+    timeDayViewController.title = LocalizedString(@"Select a period");
     timeDayViewController.sessionsArray = sessionsArray;
     timeDayViewController.timeTableType = TimeTableOneDay;
     timeDayViewController.selectedSession = currentSession;

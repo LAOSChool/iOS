@@ -85,7 +85,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZNR-vK-iqD">
                             <rect key="frame" x="184" y="265" width="100" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <state key="normal" title="Send" backgroundImage="btn_165_30.png">
+                            <state key="normal" title="Submit" backgroundImage="btn_165_30.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>

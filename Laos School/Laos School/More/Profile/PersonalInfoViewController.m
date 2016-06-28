@@ -21,6 +21,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:LocalizedString(@"Student info")];
+    lbParentInfo.text = LocalizedString(@"Parents information");
+    
+    txtPhonenumber.placeholder = LocalizedString(@"Phone number");
+    txtUserEmail.placeholder = LocalizedString(@"Email");
+    
+    txtParentPhone.placeholder = LocalizedString(@"Phone number");
+    txtParentEmail.placeholder = LocalizedString(@"Email");
     
     [self.navigationController setNavigationColor];
     

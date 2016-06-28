@@ -81,15 +81,15 @@ typedef enum {
     [viewHeaderContainer setBackgroundColor:[UIColor whiteColor]];
     [viewTerm setBackgroundColor:GREEN_COLOR];
     
-    lbClass.text = LocalizedString(@"Class:");
-    lbAverage1.text = LocalizedString(@"Term I:");
-    lbAverage2.text = LocalizedString(@"Term II:");
-    lbAverageYear.text = LocalizedString(@"Overall:");
+    lbClass.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Class")];
+    lbAverage1.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Term I")];
+    lbAverage2.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Term II")];
+    lbAverageYear.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Overall")];
     
     lbPassed.text = @"...";
-    lbMorality.text = LocalizedString(@"Morality:");
-    lbAbsence.text = LocalizedString(@"Absence:");
-    lbTeacherComment.text = LocalizedString(@"Teacher's comment:");
+    lbMorality.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Morality")];
+    lbAbsence.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Absence")];
+    lbTeacherComment.text = [NSString stringWithFormat:@"%@:", LocalizedString(@"Teacher's comment")];
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadSchoolProfileData)];
     

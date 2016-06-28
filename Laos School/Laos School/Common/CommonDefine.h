@@ -37,6 +37,11 @@
 #define UNREAD_COLOR [UIColor colorWithRed:255/255.f green:249/255.f blue:196/255.f alpha:1]
 #define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
 
+#define NORMAL_SCORE [UIColor lightGrayColor]
+#define AVERAGE_SCORE GREEN_COLOR
+#define EXAM_SCORE BLUE_COLOR
+#define FINAL_SCORE COMMON_COLOR
+
 #define VERLOCITY 600
 
 //user default keys

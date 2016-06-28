@@ -21,7 +21,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down_arrow.png" id="btE-Ya-dFf">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down.png" id="btE-Ya-dFf">
                         <rect key="frame" x="341" y="12" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -53,6 +53,6 @@
         <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="NYe-hn-c43"/>
     </objects>
     <resources>
-        <image name="ic_down_arrow.png" width="30" height="30"/>
+        <image name="ic_arrow_down.png" width="30" height="30"/>
     </resources>
 </document>

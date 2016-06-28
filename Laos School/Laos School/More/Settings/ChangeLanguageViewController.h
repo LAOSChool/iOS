@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    LanguageViet = 0,
+    LanguageLaos = 0,
     LanguageEnglish,
     LanguageMax
 } SUPPORTED_LANG;

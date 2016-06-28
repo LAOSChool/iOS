@@ -40,6 +40,7 @@
     
     lbTitle.text = LocalizedString(@"Reason");
     lbFullday.text = LocalizedString(@"Full day");
+    [btnSend setTitle:LocalizedString(@"Send") forState:UIControlStateNormal];
     
     [lbFullday setTextColor:BLUE_COLOR];
     
@@ -62,11 +63,11 @@
     [btnFullday setImage:imgUncheck forState:UIControlStateNormal];
     
     [reasonList addObject:LocalizedString(@"No reason")];
-    [reasonList addObject:LocalizedString(@"Lý do 1")];
-    [reasonList addObject:LocalizedString(@"Lý do 2")];
-    [reasonList addObject:LocalizedString(@"Lý do 3")];
-    [reasonList addObject:LocalizedString(@"Lý do 4")];
-    [reasonList addObject:LocalizedString(@"Lý do 5")];
+    [reasonList addObject:LocalizedString(@"Reason 1")];
+    [reasonList addObject:LocalizedString(@"Reason 2")];
+    [reasonList addObject:LocalizedString(@"Reason 3")];
+    [reasonList addObject:LocalizedString(@"Reason 4")];
+    [reasonList addObject:LocalizedString(@"Reason 5")];
     [reasonList addObject:LocalizedString(@"Other")];
     
     [navigationView setBackgroundColor:COMMON_COLOR];
@@ -392,7 +393,7 @@
 }
 
 - (void)sendRequestFailed {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while sending request. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 4;
     
     [alert show];

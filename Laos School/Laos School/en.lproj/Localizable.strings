@@ -31,8 +31,12 @@
 "Done" = "Done";
 "Selected" = "Selected";
 "Total" = "Total";
-"Off" = "Off"
-"Absent" = "Absent"
+"Absent" = "Absent";
+"Send" = "Send";
+"Attention" = "Attention";
+"Save" = "Save";
+"Email" = "Email";
+"Class" = "Class";
 
 //Common alert
 "Failed to connect to server. Please try again." = "Failed to connect to server. Please try again.";
@@ -65,7 +69,8 @@
 "Reason 3" = "Reason 3";
 "Reason 4" = "Reason 4";
 "Reason 5" = "Reason 5";
-"[No subject]" = "[No subject]"
+"[No subject]" = "[No subject]";
+
 
 "There was an error while sending message. Please try again." = "There was an error while sending message. Please try again.";
 "Please enter recipient and content!" = "Please enter recipient and content!";
@@ -84,10 +89,75 @@
 "Please enter subject and content!" = "Please enter subject and content!";
 
 //Attendance
-"Select a session" = "Select a session";
+"Select a period" = "Select a period";
 "Cancel this attendance checking result. Are you sure?" = "Cancel this attendance checking result. Are you sure?";
 "[No reason]" = "[No reason]";
 "No reason" = "No reason";
-"(Tap to view detail)" = "(Tap to view detail)";
+"Reason" = "Reason";
+"Permitted" = "Permitted";
+"Period" = "Period";
+"Periods" = "Periods";
+"Full day" = "Full day";
+"Absence request" = "Absence request";
+"Please double check information before sending your request. Are you sure?" = "Please double check information before sending your request. Are you sure?";
+"Please enter a reason!" = "Please enter a reason!";
+"There was an error while sending request. Please try again." = "There was an error while sending request. Please try again.";
+"An absence request had been sent for day %@. Please double check." = "An absence request had been sent for day %@. Please double check.";
+"Other" = "Other";
+"There was an error. Please try again." = "There was an error. Please try again.";
 
+//score
+"Term I" = "Term I";
+"Term II" = "Term II";
+"Term" = "Term";
+"Select a subject" = "Select a subject";
+"Add scores" = "Add scores";
+"Select a score type" = "Select a score type";
+"Please double check information before you submit scores. Are you sure?" = "Please double check information before you submit scores. Are you sure?";
+"You do not complete filling scores. Submit now?" = "You do not complete filling scores. Submit now?";
+"Are you sure you want to cancel?" = "Are you sure you want to cancel?";
+"Comment" = "Comment";
+"Score" = "Score";
+"There was an error while submitting score. Please try again." = "There was an error while submitting score. Please try again.";
+"There was an error while submitting scores. Please try again." = "There was an error while submitting scores. Please try again.";
 
+//More
+"School records" = "School records";
+"Timetable" = "Timetable";
+"Schedule" = "Schedule";
+"School information" = "School information";
+"Students list" = "Students list";
+"Change password" = "Change password";
+"Change language" = "Change language";
+"Logout" = "Logout";
+"Are you sure you want to logout?" = "Are you sure you want to logout?";
+
+//personal info
+"Student info" = "Student info";
+
+//school records
+"Overall" = "Overall";
+"Morality" = "Morality";
+"Absence" = "Absence";
+"Teacher's comment" = "Teacher's comment";
+"Select a school year" = "Select a school year";
+
+//Timetable
+"Morning" = "Morning";
+"Afternoon" = "Afternoon";
+"Evening" = "Evening";
+
+//Change password
+"Change password" = "Change password";
+"Your password has been changed successfully." = "Your password has been changed successfully.";
+"Old password is incorrect!" = "Old password is incorrect!";
+"Password require a length of 4 to 20 characters!" = "Password require a length of 4 to 20 characters!";
+"New password and confirmation password do not match!" = "New password and confirmation password do not match!";
+"Try again" = "Try again";
+"Re-type new password" = "Re-type new password";
+"Old password" = "Old password";
+"New password" = "New password";
+
+//change language
+"Apply" = "Apply";
+"App will be reload after changing language. Are you sure?" = "App will be reload after changing language. Are you sure?";

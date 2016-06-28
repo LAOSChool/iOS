@@ -86,7 +86,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HrI-Xn-GZJ">
                     <rect key="frame" x="285" y="107" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_content_paste.png"/>
+                    <state key="normal" image="ic_content_paste_colors.png"/>
                     <connections>
                         <action selector="btnShowSampleClick:" destination="-1" eventType="touchUpInside" id="nbE-Wr-5qI"/>
                     </connections>
@@ -126,7 +126,7 @@
     </objects>
     <resources>
         <image name="ic_add_gray.png" width="30" height="30"/>
-        <image name="ic_content_paste.png" width="30" height="30"/>
+        <image name="ic_content_paste_colors.png" width="30" height="30"/>
         <image name="ic_flag_white.png" width="30" height="30"/>
         <image name="ic_uncheck_gray.png" width="30" height="30"/>
     </resources>

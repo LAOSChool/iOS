@@ -73,17 +73,55 @@
 }
 
 - (void)loadInformation {
-    lbSubject.text = _scoreObj.subject;
-    lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term , [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month]];
-    
-    if (_scoreObj.scoreType == ScoreType_Normal) {
-        lbScoreMonth.textColor = [UIColor darkGrayColor];
+    NSString *scoreName = @"";
+    if (_scoreObj) {
+        scoreName = _scoreObj.scoreDisplayName;
+        lbScore.text = _scoreObj.score;
         
-    } else if (_scoreObj.scoreType == ScoreType_Final) {
-        lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term ,  LocalizedString(@"Final")];
-        lbScoreMonth.textColor = [UIColor redColor];
+        if (_scoreObj.scoreType == ScoreType_Normal) {
+            lbScoreMonth.textColor = NORMAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Average) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            
+            lbScoreMonth.textColor = AVERAGE_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Exam) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            lbScoreMonth.textColor = EXAM_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Final) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            lbScoreMonth.textColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_YearFinal) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            lbScoreMonth.textColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_ExamAgain) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            lbScoreMonth.textColor = FINAL_SCORE;
+            
+        } else if (_scoreObj.scoreType == ScoreType_Graduate) {
+            if (_scoreObj.scoreDisplayName.length == 0) {
+                scoreName = _scoreObj.scoreName;
+            }
+            lbScoreMonth.textColor = FINAL_SCORE;
+        }
     }
     
+    lbSubject.text = _scoreObj.subject;
+    lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term , scoreName];    
     
     lbScore.text = _scoreObj.score;
     

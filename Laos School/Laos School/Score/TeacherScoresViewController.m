@@ -90,7 +90,7 @@
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
 
-    lbClass.text = [NSString stringWithFormat:@"%@ | %@ Term %@", classObj.className, classObj.currentYear, classObj.currentTerm];
+    lbClass.text = [NSString stringWithFormat:@"%@ | %@ %@ %@", classObj.className, classObj.currentYear, LocalizedString(@"Term"), classObj.currentTerm];
     
     [viewTerm setBackgroundColor:GREEN_COLOR];
     [viewInfo setBackgroundColor:[UIColor whiteColor]];

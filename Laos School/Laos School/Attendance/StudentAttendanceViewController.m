@@ -87,11 +87,11 @@
     [attendanceTable addSubview:refreshControl];
 
     lbTotal.text = @"";
-    lbRequested.text = LocalizedString(@"Got reason");
+    lbRequested.text = LocalizedString(@"Permitted");
     lbNoRequested.text = LocalizedString(@"No reason");
     
     lbFullday.text = LocalizedString(@"Full day");
-    lbSession.text = LocalizedString(@"Session");
+    lbSession.text = LocalizedString(@"Period");
     
     lbFulldayGotReasonValue.text = @"0";
     lbFulldayNoReasonValue.text = @"0";
@@ -217,7 +217,7 @@
         
         if (session && session.length > 0) {
             if (subject && subject.length > 0) {
-                session = [NSString stringWithFormat:@"%@ - %@", session, subject];
+                session = [NSString stringWithFormat:@"%@ %@ - %@", LocalizedString(@"Period"), session, subject];
             }
         } else {
             if (subject && subject.length > 0) {
@@ -256,9 +256,15 @@
     if ([attObj.detailSession count] > 0) {
         cell.imgArrow.hidden = NO;
         
-        cell.lbSession.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)[attObj.detailSession count], LocalizedString(@"Session(s)")];
-        cell.lbReason.text = LocalizedString(@"(Tap to view detail)");
+        if ([attObj.detailSession count] == 1) {
+            cell.lbSession.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)[attObj.detailSession count], LocalizedString(@"Period")];
+        } else {
+            cell.lbSession.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)[attObj.detailSession count], LocalizedString(@"Periods")];
+        }
+        
+//        cell.lbReason.text = LocalizedString(@"(Tap to view detail)");
         cell.lbReason.textColor = [UIColor lightGrayColor];
+        [cell.imgArrow setImage:[UIImage imageNamed:@"ic_arrow_down.png"]];
         
 //        CGRect rect = cell.lbSession.frame;
 //        CGRect rectImgArrow = cell.imgArrow.frame;
@@ -274,13 +280,14 @@
     } else {
         cell.imgArrow.hidden = YES;
         cell.lbSession.text = LocalizedString(@"Full day");
+        cell.imgArrow.hidden = YES;
         
         cell.lbReason.hidden = NO;
         if (attObj.hasRequest) {
             cell.lbReason.text = attObj.reason;
             cell.lbReason.textColor = BLUE_COLOR;
         } else {
-            cell.lbReason.text = LocalizedString(@"No reason");
+            cell.lbReason.text = LocalizedString(@"[No reason]");
             cell.lbReason.textColor = [UIColor redColor];
         }
     }
@@ -360,7 +367,7 @@
     StuAttendanceTableViewCell *selectedCell = (StuAttendanceTableViewCell*)[attendanceTable cellForRowAtIndexPath:indexPathSelected];
 //    selectedCell.contentView.backgroundColor = DOCUMENT_SELECTED_CELL_COLOR;
     //set indicator icon
-    [selectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_up_arrow.png"]];
+    [selectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_arrow_up.png"]];
     
     [attendanceTable beginUpdates];
     [attendanceTable insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
@@ -380,7 +387,7 @@
     StuAttendanceTableViewCell *oldSelectedCell = (StuAttendanceTableViewCell*)[attendanceTable cellForRowAtIndexPath:indexPathOldSelected];
 //    oldSelectedCell.contentView.backgroundColor = DOCUMENT_NORMAL_CELL_COLOR;
     //set indicator icon
-    [oldSelectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_down_arrow.png"]];
+    [oldSelectedCell.imgArrow setImage:[UIImage imageNamed:@"ic_arrow_down.png"]];
     
     [attendanceTable beginUpdates];
     [attendanceTable deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];

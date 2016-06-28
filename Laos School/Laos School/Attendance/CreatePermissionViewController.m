@@ -45,6 +45,10 @@
     [self.navigationController setNavigationColor];
     selectedItem = 0;
     
+    [viewFrom setBackgroundColor:GREEN_COLOR];
+    [viewTo setBackgroundColor:GREEN_COLOR];
+    [txtReason becomeFirstResponder];
+    
     UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     
     self.navigationItem.leftBarButtonItems = @[btnCancel];

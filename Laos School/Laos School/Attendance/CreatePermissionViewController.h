@@ -10,6 +10,8 @@
 
 @interface CreatePermissionViewController : UIViewController
 {
+    IBOutlet UIView *viewFrom;
     
+    IBOutlet UIView *viewTo;
 }
 @end

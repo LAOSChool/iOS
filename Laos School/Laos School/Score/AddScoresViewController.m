@@ -96,7 +96,7 @@
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
     
-    lbClass.text = [NSString stringWithFormat:@"%@ | %@ Term %@", classObj.className, classObj.currentYear, classObj.currentTerm];
+    lbClass.text = [NSString stringWithFormat:@"%@ | %@ %@ %@", classObj.className, classObj.currentYear, LocalizedString(@"Term"), classObj.currentTerm];
     
     [viewClass setBackgroundColor:GREEN_COLOR];
     [viewInfo setBackgroundColor:[UIColor whiteColor]];
@@ -501,10 +501,9 @@
     [refreshControl endRefreshing];
     
     NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+    NSString *url = [jsonObj objectForKey:@"url"];
     
-    if (statusCode == HttpOK) {
-        NSString *url = [jsonObj objectForKey:@"url"];
-        
+    if (statusCode == HttpOK) {        
         if ([url rangeOfString:API_NAME_TEACHER_GET_EXAM_TYPE_LIST].location != NSNotFound) {
             NSArray *scoreTypeArr = [jsonObj objectForKey:@"messageObject"];
             
@@ -528,7 +527,12 @@
         }
         
     } else {
-        [self failToGetInfo];
+        if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
+            [self submitScoreFailed];
+            
+        } else {
+            [self failToGetInfo];
+        }
     }
 }
 
@@ -921,6 +925,13 @@
 - (void)failToGetInfo {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 5;
+    
+    [alert show];
+}
+
+- (void)submitScoreFailed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while submitting scores. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 6;
     
     [alert show];
 }

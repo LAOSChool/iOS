@@ -63,7 +63,7 @@
     
     lbSchoolName.text = userObj.schoolName;
     lbStudentName.text = [NSString stringWithFormat:@"%@\n%@", userObj.displayName, classObj.className];
-    lbYearAndTerm.text = [NSString stringWithFormat:@"%@ Term %@", classObj.currentYear, classObj.currentTerm];
+    lbYearAndTerm.text = [NSString stringWithFormat:@"%@ %@ %@", classObj.currentYear, LocalizedString(@"Term"), classObj.currentTerm];
     
     if (userObj.avatarPath && userObj.avatarPath.length > 0) {
         //cancel loading previous image for cell
@@ -184,7 +184,7 @@
                        
                     case StudentProfileSectionTimeTable:
                     {
-                        cell.textLabel.text = LocalizedString(@"Time table");
+                        cell.textLabel.text = LocalizedString(@"Timetable");
                         cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
                     }
                         break;
@@ -196,7 +196,7 @@
                 switch (indexPath.row) {
                     case TeacherProfileSectionTimeTable:
                     {
-                        cell.textLabel.text = LocalizedString(@"Time table");
+                        cell.textLabel.text = LocalizedString(@"Schedule");
                         cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
                     }
                         break;

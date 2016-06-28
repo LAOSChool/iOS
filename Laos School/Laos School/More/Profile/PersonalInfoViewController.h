@@ -23,6 +23,7 @@
     IBOutlet UILabel *lbFullname;
     IBOutlet UILabel *lbAdditionalInfo;
     
+    IBOutlet UILabel *lbParentInfo;
 }
 
 @property (nonatomic, strong) UserObject *userObj;

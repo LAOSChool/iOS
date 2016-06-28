@@ -28,6 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:LocalizedString(@"Change password")];
+    txtOldPass.placeholder = LocalizedString(@"Old password");
+    txtNewPass.placeholder = LocalizedString(@"New password");
+    txtConfirmation.placeholder = LocalizedString(@"Re-type new password");
     
     [self.navigationController setNavigationColor];
     
@@ -124,7 +127,7 @@
             [SVProgressHUD show];
             UserObject *userObj = [[ShareData sharedShareData] userObj];
             
-            [requestToServer requestToChangePassword:@"00000010" oldPass:txtOldPass.text byNewPass:txtNewPass.text];
+            [requestToServer requestToChangePassword:userObj.username oldPass:txtOldPass.text byNewPass:txtNewPass.text];
         }
     } else {
         [self showAlertPasswordNotMatch];
@@ -191,7 +194,7 @@
 }
 
 - (void)showChangePassSuccessfully {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:LocalizedString(@"Change password successfully.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:LocalizedString(@"Your password has been changed successfully.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 3;
     
     [alert show];
@@ -205,7 +208,7 @@
 }
 
 - (void)showAlertPasswordTooShort {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"The password is required a length of 4 to 20 characters!") delegate:(id)self cancelButtonTitle:LocalizedString(@"Try again") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Password require a length of 4 to 20 characters!") delegate:(id)self cancelButtonTitle:LocalizedString(@"Try again") otherButtonTitles:nil];
     alert.tag = 5;
     
     [alert show];
