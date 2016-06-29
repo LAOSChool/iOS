@@ -101,7 +101,7 @@ static RequestToServer* sharedRequestToServer = nil;
 #pragma mark score
 - (void)getMyScoreListInClass:(NSString *)classID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_SCORE_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@", requestString, classID];
+//    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@", requestString, classID];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy

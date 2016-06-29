@@ -230,51 +230,12 @@
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     NSArray *scores = [jsonObj objectForKey:@"messageObject"];
-    
+    /*
     if (scores != (id)[NSNull null]) {
         
         for (NSDictionary *scoreDict in scores) {
             ScoreObject *scoreObj = [[ScoreObject alloc] init];
-            /*
-             {
-             "class_id" = 2;
-             "exam_dt" = "2016-10-12 09:40:27.0";
-             "exam_id" = 1;
-             "exam_month" = 9;
-             "exam_name" = "Normal exam";
-             "exam_type" = 1;
-             "exam_year" = 2016;
-             id = 7;
-             notice = Good;
-             "sch_year_id" = 1;
-             "school_id" = 1;
-             sresult = 666;
-             "std_nickname" = "Student 10";
-             "std_photo" = "http://192.168.0.202:9090/eschool_content/avatar/student1.png";
-             "student_id" = 10;
-             "student_name" = 00000010;
-             subject = Toan;
-             "subject_id" = 1;
-             teacher = "Teacher class 2";
-             "teacher_id" = 6;
-             term = "HK 1";
-             "term_id" = 1;
-             "term_val" = 1;
-             }
-             */
-            /*
-             @property (nonatomic, strong) NSString *scoreID;
-             @property (nonatomic, strong) NSString *score;
-             @property (nonatomic, strong) NSString *subject;
-             @property (nonatomic, strong) NSString *dateTime;
-             @property (nonatomic, assign) SCORE_TYPE scoreType;
-             @property (nonatomic, strong) NSString *month;
-             @property (nonatomic, assign) NSInteger weight;
-             @property (nonatomic, strong) NSString *teacherName;
-             @property (nonatomic, strong) NSString *comment;
-             @property (nonatomic, strong) NSString *termID;
-             @property (nonatomic, strong) NSString *term;
-             */
+
             if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
                 scoreObj.scoreID = [scoreDict valueForKey:@"id"];
             }
@@ -363,7 +324,7 @@
             [scoresStore setObject:arr forKey:scoreObj.termID];
         }
     }
-    
+    */
     [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
     [self groupDataBySubject];
     [scoresTableView reloadData];

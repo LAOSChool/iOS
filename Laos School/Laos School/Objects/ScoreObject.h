@@ -20,23 +20,10 @@
     
 }
 
-@property (nonatomic, strong) NSString *scoreID;
 @property (nonatomic, strong) NSString *score;
-@property (nonatomic, strong) NSString *subjectID;
-@property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *dateTime;
-@property (nonatomic, strong) NSString *examID;
-@property (nonatomic, strong) NSString *scoreName;
-@property (nonatomic, strong) NSString *scoreDisplayName;
-@property (nonatomic, assign) SCORE_TYPE scoreType;
-@property (nonatomic, assign) NSInteger month;
-@property (nonatomic, assign) NSInteger year;
-@property (nonatomic, assign) NSInteger weight;
-@property (nonatomic, strong) NSString *teacherName;
+@property (nonatomic, strong) ScoreTypeObject *scoreTypeObj;
 @property (nonatomic, strong) NSString *comment;
-@property (nonatomic, strong) NSString *termID;
-@property (nonatomic, strong) NSString *term;
-
 
 @end
 

@@ -44,7 +44,7 @@
 #define API_NAME_TEACHER_CHECK_ATTENDANCE_LIST @"/api/attendances/rollup"
 
 #define API_NAME_STU_SCORE_LIST @"/api/exam_results/myprofile"
-#define API_NAME_TEACHER_SCORE_LIST @"/api/exam_results/marks"
+#define API_NAME_TEACHER_SCORE_LIST @"/api/exam_results"
 #define API_NAME_TEACHER_ADD_SCORE @"/api/exam_results/input"
 #define API_NAME_TEACHER_ADD_MULTIPLE_SCORE @"/api/exam_results/input/batch"
 

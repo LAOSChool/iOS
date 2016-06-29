@@ -45,7 +45,7 @@
         rect.size.width = CELL_SIZE_WIDTH;
         rect.size.height = CELL_SIZE_HEIGHT;
         
-        if (found == NO && scoreObj.scoreType != ScoreType_Normal) {
+        if (found == NO && scoreObj.scoreTypeObj.scoreType != ScoreType_Normal) {
             if (col > 0) {
                 row++;
                 col = 0;

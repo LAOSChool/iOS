@@ -54,7 +54,7 @@
 
 - (void)setScoreObj:(ScoreObject *)scoreObj {
     _scoreObj = scoreObj;
-    
+    /*
     if (_scoreObj) {
 //        lbMonth.text = [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month];
         lbMonth.text = _scoreObj.scoreDisplayName;
@@ -100,7 +100,7 @@
             }
             viewMonth.backgroundColor = FINAL_SCORE;
         }
-    }
+    }*/
 }
 
 - (IBAction)tapGestureHandle:(id)sender {

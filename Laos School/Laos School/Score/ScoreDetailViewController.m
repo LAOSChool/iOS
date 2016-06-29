@@ -72,47 +72,47 @@
     }];
 }
 
-- (void)loadInformation {
+- (void)loadInformation {/*
     NSString *scoreName = @"";
     if (_scoreObj) {
         scoreName = _scoreObj.scoreDisplayName;
         lbScore.text = _scoreObj.score;
         
-        if (_scoreObj.scoreType == ScoreType_Normal) {
+        if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Normal) {
             lbScoreMonth.textColor = NORMAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Average) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Average) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
             
             lbScoreMonth.textColor = AVERAGE_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Exam) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Exam) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
             lbScoreMonth.textColor = EXAM_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Final) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Final) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
             lbScoreMonth.textColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_YearFinal) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
             lbScoreMonth.textColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_ExamAgain) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
             lbScoreMonth.textColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Graduate) {
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
             if (_scoreObj.scoreDisplayName.length == 0) {
                 scoreName = _scoreObj.scoreName;
             }
@@ -128,6 +128,6 @@
     lbComment.text = _scoreObj.comment;
     lbTeacherName.text = _scoreObj.teacherName;
     lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_scoreObj.dateTime withFormat:@"yyyy-MM-dd"];
-    
+    */
 }
 @end

@@ -211,7 +211,7 @@
     
     NSMutableArray *scoresArr = [[NSMutableArray alloc] init];
     //create scores json
-
+/*
     for (UserScore *userScore in scoresArray) {
         if ([userScore.scoreArray count] > 0) {
             NSMutableDictionary *scoreDict = [[NSMutableDictionary alloc] init];
@@ -229,7 +229,7 @@
             [scoresArr addObject:scoreDict];
         }
     }
-    
+    */
     if ([scoresArr count] > 0) {
         [requestToServer submitMultipleScoresWithObject:scoresArr];
     }
@@ -541,7 +541,7 @@
 
 - (void)parseScoreTypeList:(NSArray *)scoreTypeArr {
     [scoreTypesArray removeAllObjects];
-    
+    /*
     for (NSDictionary *scoreTypeDict in scoreTypeArr) {
         ScoreTypeObject *scoreTypeObj = [[ScoreTypeObject alloc] init];
         
@@ -594,14 +594,14 @@
     
     NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreMonth" ascending:YES];
     NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
-    [scoreTypesArray sortUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];
+    [scoreTypesArray sortUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];*/
 }
 
 - (void)parseScoreList:(NSArray *)scores {
     [scoresArray removeAllObjects];
     [userScoreDict removeAllObjects];
     [searchResults removeAllObjects];
-    
+    /*
     for (NSDictionary *scoreDict in scores) {
         
         ScoreObject *scoreObj = [[ScoreObject alloc] init];
@@ -730,7 +730,7 @@
         [searchResults addObjectsFromArray:scoresArray];
     }
     
-    [studentTableView reloadData];
+    [studentTableView reloadData];*/
 }
 
 //call this function whenever changing scoresArray

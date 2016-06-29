@@ -58,7 +58,7 @@
         lbStudentName.text = _userScoreObj.username;
         lbAdditionalInfo.text = _userScoreObj.additionalInfo;
         lbSubject.text = scoreObj.subject;
-        lbScoreMonth.text = scoreObj.scoreName;
+//        lbScoreMonth.text = scoreObj.scoreName;
         
         if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
             //cancel loading previous image for cell
@@ -141,7 +141,7 @@
      jsonObject.addProperty("notice", notice);
      }
      
-     },*/
+     },*//*
     if ([_userScoreObj.scoreArray count] > 0) {
         ScoreObject *scoreObj = [_userScoreObj.scoreArray objectAtIndex:0];
         
@@ -155,7 +155,7 @@
         [scoreDict setValue:txtComment.text forKey:@"notice"];
         
         [requestToServer submitScoreWithObject:scoreDict];
-    }
+    }*/
 }
 
 
@@ -170,7 +170,7 @@
     lbStudentName.text = _userScoreObj.username;
     lbAdditionalInfo.text = _userScoreObj.additionalInfo;
     lbSubject.text = scoreObj.subject;
-    lbScoreMonth.text = scoreObj.scoreName;
+ //   lbScoreMonth.text = scoreObj.scoreName;
     
     if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
         //cancel loading previous image for cell

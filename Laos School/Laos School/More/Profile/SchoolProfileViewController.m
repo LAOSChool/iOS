@@ -310,37 +310,12 @@ typedef enum {
     }
     
     NSArray *scores = [scoresDict objectForKey:@"exam_results"];
-    
+    /*
     if (scores != (id)[NSNull null]) {
         
         for (NSDictionary *scoreDict in scores) {
             ScoreObject *scoreObj = [[ScoreObject alloc] init];
-            /*
-             {"class_id" = 1;
-             "exam_dt" = "2016-06-15 16:10:45.0";
-             "exam_id" = 2;
-             "exam_month" = 10;
-             "exam_name" = "October score";
-             "exam_type" = 1;
-             "exam_year" = 2016;
-             id = 2;
-             notice = "Nam test - 2016-06-15";
-             "sch_year_id" = 1;
-             "school_id" = 1;
-             sresult = 9;
-             "std_nickname" = "Student 10";
-             "std_photo" = "http://192.168.0.202:9090/eschool_content/avatar/student1.png";
-             "student_id" = 10;
-             "student_name" = 00000010;
-             subject = Toan;
-             "subject_id" = 1;
-             teacher = "Teacher class 1";
-             "teacher_id" = 5;
-             term = "HK 1";
-             "term_id" = 1;
-             "term_val" = 1;
-             }
-             */
+
             if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
                 scoreObj.scoreID = [scoreDict valueForKey:@"id"];
             }
@@ -435,7 +410,7 @@ typedef enum {
         if (tabViewController) {
             [tabViewController.view removeFromSuperview];
         }
-    }
+    }*/
 }
 
 - (void)groupScoresByTermAndDisplay {
@@ -481,8 +456,8 @@ typedef enum {
      ScoreType_ExamAgain,
      ScoreType_Graduate,*/
     for (ScoreObject *score in firstArray) {
-        if (score.scoreType == ScoreType_Final ||
-            score.scoreType == ScoreType_YearFinal) {
+        if (score.scoreTypeObj.scoreType == ScoreType_Final ||
+            score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             
             [totalArray addObject:score];
             [firstAverageArray addObject:score];
@@ -490,8 +465,8 @@ typedef enum {
     }
     
     for (ScoreObject *score in secondArray) {
-        if (score.scoreType == ScoreType_Final ||
-            score.scoreType == ScoreType_YearFinal) {
+        if (score.scoreTypeObj.scoreType == ScoreType_Final ||
+            score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             
             [totalArray addObject:score];
             [secondAverageArray addObject:score];

@@ -198,10 +198,10 @@
         ScoreObject *scoreObj = [userScoreObj.scoreArray objectAtIndex:0];
         BOOL editFlag = YES;
         
-        if (scoreObj.scoreType == ScoreType_Normal ||
-            scoreObj.scoreType == ScoreType_Exam ||
-            scoreObj.scoreType == ScoreType_ExamAgain ||
-            scoreObj.scoreType == ScoreType_Graduate) {
+        if (scoreObj.scoreTypeObj.scoreType == ScoreType_Normal ||
+            scoreObj.scoreTypeObj.scoreType == ScoreType_Exam ||
+            scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain ||
+            scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
             
             editFlag = YES;
             
@@ -416,11 +416,53 @@
             /**/
             if (scores != (id)[NSNull null]) {
                 for (NSDictionary *scoreDict in scores) {
-                    
+                    /*{
+                     "class_id" = "<null>";
+                     id = 8;
+                     m1 = "<null>";
+                     m10 = "<null>";
+                     m11 = "<null>";
+                     m12 = "<null>";
+                     m13 = "<null>";
+                     m14 = "<null>";
+                     m15 = "<null>";
+                     m16 = "<null>";
+                     m17 = "<null>";
+                     m18 = "<null>";
+                     m19 = "<null>";
+                     m2 = "<null>";
+                     m20 = "<null>";
+                     m3 = "<null>";
+                     m4 = "<null>";
+                     m5 = "<null>";
+                     m6 = "<null>";
+                     m7 = "<null>";
+                     m8 = "<null>";
+                     m9 = "<null>";
+                     notice = "<null>";
+                     "sch_year_id" = 2;
+                     "school_id" = 1;
+                     "std_nickname" = "Student 11";
+                     "std_photo" = "http://192.168.0.202:9090/eschool_content/avatar/student2.png";
+                     "student_id" = 11;
+                     "student_name" = 00000011;
+                     "subject_id" = 1;
+                     "subject_name" = Toan;
+                     }
+                     @property (nonatomic, strong) NSString *userID;
+                     @property (nonatomic, strong) NSString *username;
+                     @property (nonatomic, strong) NSString *displayName;
+                     @property (nonatomic, strong) NSString *additionalInfo;
+                     @property (nonatomic, strong) NSString *avatarLink;
+                     @property (nonatomic, strong) NSMutableArray *scoreArray;
+                     @property (nonatomic, strong) NSString *subjectID;
+                     @property (nonatomic, strong) NSString *subject;*/
+
                     ScoreObject *scoreObj = [[ScoreObject alloc] init];
                     NSString *studentID = @"";
                     NSString *studentName = @"";
                     NSString *nickname = @"";
+                    NSString *fullname = @"";
                     NSString *avatarLink = @"";
                     
                     if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
@@ -435,91 +477,15 @@
                         nickname = [scoreDict valueForKey:@"std_nickname"];
                     }
                     
+                    if ([scoreDict valueForKey:@"std_fullname"] != (id)[NSNull null]) {
+                        fullname = [scoreDict valueForKey:@"std_fullname"];
+                    }
+                    
                     if ([scoreDict valueForKey:@"std_photo"] != (id)[NSNull null]) {
                         avatarLink = [scoreDict valueForKey:@"std_photo"];
                     }
                     
-                    if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
-                        scoreObj.scoreID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"id"]];
-                    }
                     
-                    if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
-                        scoreObj.score = [scoreDict valueForKey:@"sresult"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
-                        scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                        scoreObj.subject = [scoreDict valueForKey:@"subject"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
-                        scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
-                        scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
-                        scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"ex_displayname"] != (id)[NSNull null]) {
-                        scoreObj.scoreDisplayName = [scoreDict valueForKey:@"ex_displayname"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
-                        NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];
-                        
-                        if (type == 1) {
-                            scoreObj.scoreType = ScoreType_Normal;
-                            
-                        } else if (type == 2) {
-                            scoreObj.scoreType = ScoreType_Exam;
-                            
-                        } else if (type == 3) {
-                            scoreObj.scoreType = ScoreType_Average;
-                            
-                        } else if (type == 4) {
-                            scoreObj.scoreType = ScoreType_Final;
-                            
-                        } else if (type == 5) {
-                            scoreObj.scoreType = ScoreType_YearFinal;
-                            
-                        } else if (type == 6) {
-                            scoreObj.scoreType = ScoreType_ExamAgain;
-                            
-                        } else if (type == 7) {
-                            scoreObj.scoreType = ScoreType_Graduate;
-                        }
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_month"] != (id)[NSNull null]) {
-                        scoreObj.month = [[scoreDict valueForKey:@"exam_month"] integerValue];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"exam_year"] != (id)[NSNull null]) {
-                        scoreObj.year = [[scoreDict valueForKey:@"exam_year"] integerValue];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
-                        scoreObj.teacherName = [scoreDict valueForKey:@"teacher"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"notice"] != (id)[NSNull null]) {
-                        scoreObj.comment = [scoreDict valueForKey:@"notice"];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"term_id"] != (id)[NSNull null]) {
-                        scoreObj.termID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"term_id"]];
-                    }
-                    
-                    if ([scoreDict valueForKey:@"term"] != (id)[NSNull null]) {
-                        scoreObj.term = [scoreDict valueForKey:@"term"];
-                    }
                     
                     UserScore *oldUserScoreObj = [userScoreDict objectForKey:studentID];
                     

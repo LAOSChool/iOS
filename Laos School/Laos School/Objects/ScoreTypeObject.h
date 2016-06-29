@@ -12,6 +12,23 @@
 
 #import <UIKit/UIKit.h>
 
+#define SCORE_KEY_SEP @"m1"
+#define SCORE_KEY_OCT @"m2"
+#define SCORE_KEY_NOV @"m3"
+#define SCORE_KEY_DEC @"m4"
+#define SCORE_KEY_AVE4M1 @"m5"
+#define SCORE_KEY_TERM_EXAM1 @"m6"
+#define SCORE_KEY_AVE_TERM1 @"m7"
+#define SCORE_KEY_FEB @"m8"
+#define SCORE_KEY_MAR @"m9"
+#define SCORE_KEY_APR @"m10"
+#define SCORE_KEY_MAY @"m11"
+#define SCORE_KEY_AVE4M2 @"m12"
+#define SCORE_KEY_TERM_EXAM2 @"m13"
+#define SCORE_KEY_AVE_TERM2 @"m14"
+#define SCORE_KEY_OVERALL @"m15"
+#define SCORE_KEY_RETEST @"m16"
+#define SCORE_KEY_GRADUATION @"m17"
 /*
  A 1  Normal
  2 Thi Hoc Ky
@@ -37,10 +54,10 @@ typedef enum {
     
 }
 
-@property (nonatomic, strong) NSString *typeID;
 @property (nonatomic, strong) NSString *scoreName;
 @property (nonatomic, assign) SCORE_TYPE scoreType;
-@property (nonatomic, assign) NSInteger scoreMonth;
+@property (nonatomic, strong) NSString *scoreKey;
+@property (nonatomic, strong) NSString *scoreShortName;
 
 
 @end

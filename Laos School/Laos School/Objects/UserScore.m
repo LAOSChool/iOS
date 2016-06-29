@@ -12,8 +12,12 @@
 /*
  @property (nonatomic, strong) NSString *userID;
  @property (nonatomic, strong) NSString *username;
+ @property (nonatomic, strong) NSString *displayName;
  @property (nonatomic, strong) NSString *additionalInfo;
+ @property (nonatomic, strong) NSString *avatarLink;
  @property (nonatomic, strong) NSMutableArray *scoreArray;
+ @property (nonatomic, strong) NSString *subjectID;
+ @property (nonatomic, strong) NSString *subject;
  */
 @implementation UserScore
 
@@ -22,10 +26,12 @@
     if (self) {
         self.userID = @"";
         self.username = @"";
+        self.displayName = @"";
         self.additionalInfo = @"";
         self.avatarLink = @"";
         self.scoreArray = [[NSMutableArray alloc] init];
-        self.averageScore = @"";
+        self.subjectID = @"";
+        self.subject = @"";
     }
     return self;
 }
@@ -35,10 +41,12 @@
     
     [encoder encodeObject:self.userID forKey:@"userID"];
     [encoder encodeObject:self.username forKey:@"username"];
+    [encoder encodeObject:self.displayName forKey:@"displayName"];
     [encoder encodeObject:self.additionalInfo forKey:@"additionalInfo"];
     [encoder encodeObject:self.avatarLink forKey:@"avatarLink"];
     [encoder encodeObject:self.scoreArray forKey:@"scoreArray"];
-    [encoder encodeObject:self.averageScore forKey:@"averageScore"];
+    [encoder encodeObject:self.subjectID forKey:@"subjectID"];
+    [encoder encodeObject:self.subject forKey:@"subject"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -46,10 +54,12 @@
     {
         self.userID = [decoder decodeObjectForKey:@"userID"];
         self.username = [decoder decodeObjectForKey:@"username"];
+        self.displayName = [decoder decodeObjectForKey:@"displayName"];
         self.additionalInfo = [decoder decodeObjectForKey:@"additionalInfo"];
         self.avatarLink = [decoder decodeObjectForKey:@"avatarLink"];
         self.scoreArray = [decoder decodeObjectForKey:@"scoreArray"];
-        self.averageScore = [decoder decodeObjectForKey:@"averageScore"];
+        self.subjectID = [decoder decodeObjectForKey:@"subjectID"];
+        self.subject = [decoder decodeObjectForKey:@"subject"];
     }
     
     return self;

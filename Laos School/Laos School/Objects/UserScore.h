@@ -19,10 +19,12 @@
 
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *additionalInfo;
 @property (nonatomic, strong) NSString *avatarLink;
 @property (nonatomic, strong) NSMutableArray *scoreArray;
-@property (nonatomic, strong) NSString *averageScore;
+@property (nonatomic, strong) NSString *subjectID;
+@property (nonatomic, strong) NSString *subject;
 
 
 @end
