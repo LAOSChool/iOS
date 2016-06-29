@@ -10,6 +10,7 @@
 #import "CreatePermissionViewController.h"
 #import "StuAttendanceTableViewCell.h"
 #import "StuDetailAttendanceTableViewCell.h"
+#import "TeacherAttendanceViewController.h"
 
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
@@ -49,25 +50,16 @@
     [self setTitle:LocalizedString(@"Attendance")];
     
     [viewHeader setBackgroundColor:GREEN_COLOR];
+
+    if (([ShareData sharedShareData].userObj.permission & Permission_CheckAttendance) == Permission_CheckAttendance) {
+        UIBarButtonItem *btnCheck = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_checklist_white.png"] style:UIBarButtonItemStyleDone target:self action:@selector(checkAttendance)];
+        
+        self.navigationItem.leftBarButtonItems = @[btnCheck];
+    }
     
     UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewFormGetAllowance)];
-    
+        
     self.navigationItem.rightBarButtonItems = @[btnAdd];
-/*
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:
-                                            [NSArray arrayWithObjects:LocalizedString(@"Term 1"), LocalizedString(@"Term 2"), LocalizedString(@"All"),
-                                             nil]];
-    segmentedControl.frame = CGRectMake(0, 0, 210, 30);
-    [segmentedControl setWidth:70.0 forSegmentAtIndex:0];
-    [segmentedControl setWidth:70.0 forSegmentAtIndex:1];
-    [segmentedControl setWidth:70.0 forSegmentAtIndex:2];
-    
-    [segmentedControl setSelectedSegmentIndex:0];
-    
-    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    
-    self.navigationItem.titleView = segmentedControl;
- */
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -121,7 +113,13 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)checkAttendance {
+    TeacherAttendanceViewController *checkAttendanceView = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:checkAttendanceView];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
 
 - (IBAction)segmentAction:(id)sender {
     

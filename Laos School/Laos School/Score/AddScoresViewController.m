@@ -334,19 +334,22 @@
         } else if (dataPicker.pickerType == Picker_ScoreType) {
             [lbScoreType setTextColor:[UIColor whiteColor]];
             ScoreTypeObject *typeObj = (ScoreTypeObject *)returnedObj;
-            lbScoreType.text = typeObj.scoreName;
-            _selectedType = typeObj;
             
-            if ([userScoreDict count] > 0) {
-                [scoresArray removeAllObjects];
-                [searchResults removeAllObjects];
+            if (typeObj) {
+                lbScoreType.text = typeObj.scoreName;
+                _selectedType = typeObj;
                 
-                NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
-                [scoresArray addObjectsFromArray:arr];
-                [searchResults addObjectsFromArray:scoresArray];
-                [self resizeTableView];
-            
-                [studentTableView reloadData];
+                if ([userScoreDict count] > 0) {
+                    [scoresArray removeAllObjects];
+                    [searchResults removeAllObjects];
+                    
+                    NSArray *arr = [userScoreDict objectForKey:_selectedType.typeID];
+                    [scoresArray addObjectsFromArray:arr];
+                    [searchResults addObjectsFromArray:scoresArray];
+                    [self resizeTableView];
+                
+                    [studentTableView reloadData];
+                }
             }
         }
     }

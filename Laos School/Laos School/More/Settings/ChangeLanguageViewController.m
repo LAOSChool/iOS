@@ -60,7 +60,7 @@
 }
 
 - (void)btnApplyClick {
-    NSString *content = LocalizedString(@"App will be reload after changing language. Are you sure?");
+    NSString *content = LocalizedString(@"App will be reloaded after changing language. Are you sure?");
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
     alert.tag = 1;
     

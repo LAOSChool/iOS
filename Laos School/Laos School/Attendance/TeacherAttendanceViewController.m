@@ -79,6 +79,12 @@
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
     
+    if (userObj.userRole == UserRole_Student) {
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+        
+        self.navigationItem.leftBarButtonItems = @[btnCancel];
+    }
+    
     lbClass.text = classObj.className;
     lbDate.text = [[DateTimeHelper sharedDateTimeHelper] dateStringFromDate:[NSDate date] withFormat:ATTENDANCE_DATE_FORMATE];
     
@@ -167,6 +173,10 @@
     } else {
         [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
     }
+}
+
+- (void)cancelButtonClick {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)actionButtonClick:(id)sender {
