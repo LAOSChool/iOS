@@ -188,31 +188,6 @@
         [SVProgressHUD showWithStatus:LocalizedString(@"Login...")];
         [requestToServer loginWithUsername:username andPassword:txtPassword.text];
         
-        /*UserObject *userObject = [[UserObject alloc] init];
-         
-         userObject.userID = @"1";
-         userObject.username = @"Nguyen Tien Nam";
-         userObject.displayName = @"Nguyen Nam";
-         userObject.nickName = @"Yukan";
-         userObject.avatarPath = @"";
-         userObject.phoneNumber = @"0938912885";
-         userObject.userRole = UserRole_Teacher;
-         userObject.permission = Permission_Normal | Permission_SendMessage;
-         
-         userObject.shoolID = @"2";
-         userObject.schoolName = @"Bach khoa Ha Noi";
-         
-         ClassObject *classObject = [[ClassObject alloc] init];
-         classObject.classID = @"1";
-         classObject.className = @"Dien tu vien thong";
-         classObject.pupilArray = nil;
-         
-         userObject.classObj = classObject;
-         userObject.currentTerm = @"2015 - 2016 Hoc ky 1";
-         userObject.classArray = nil;
-         
-         [[ShareData sharedShareData] setUserObj:userObject];*/
-        
     } else {
         //show alert
         [self showAlertInvalidInputs];

@@ -30,7 +30,6 @@
     BOOL isShowingViewInfo;
     NSMutableArray *subjectsArray;
     NSMutableArray *userScroreArray;
-    NSMutableDictionary *userScoreDict;     //group scores by studentID
     NSMutableArray *searchResults;
     
     LevelPickerViewController *dataPicker;
@@ -39,6 +38,8 @@
     
     RequestToServer *requestToServer;
     UIRefreshControl *refreshControl;
+    
+    BOOL isVisible;
 }
 @end
 
@@ -59,6 +60,7 @@
         self.navigationItem.rightBarButtonItems = @[addButton];
     }
     
+    isVisible = NO;
     isShowingViewInfo = YES;
     selectedSubject = nil;
     
@@ -68,10 +70,6 @@
     
     if (userScroreArray == nil) {
         userScroreArray = [[NSMutableArray alloc] init];
-    }
-    
-    if (userScoreDict == nil) {
-        userScoreDict = [[NSMutableDictionary alloc] init];
     }
     
     if (searchResults == nil) {
@@ -100,7 +98,7 @@
     [lbSubject setTextColor:[UIColor lightGrayColor]];
     
     [self loadSubjectList];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showScoreEdit:)
                                                  name:@"TapOnScoreCell"
@@ -136,6 +134,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)viewDidAppear:(BOOL)animated {
+    isVisible = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    isVisible = NO;
+}
 
 - (void)reloadSelectedScoreList {
     if (selectedSubject) {
@@ -192,41 +197,45 @@
 }
 
 - (void)showScoreEdit:(NSNotification *)notification {
-    UserScore *userScoreObj = (UserScore *)notification.object;
+    NSDictionary *passedObj = (NSDictionary *)notification.object;
+    UserScore *userScoreObj = [passedObj objectForKey:@"UserScoreObj"];
+    ScoreObject *scoreObj = [passedObj objectForKey:@"ScoreObj"];
     
-    if (userScoreObj) {
-        ScoreObject *scoreObj = [userScoreObj.scoreArray objectAtIndex:0];
-        BOOL editFlag = YES;
-        
-        if (scoreObj.scoreTypeObj.scoreType == ScoreType_Normal ||
-            scoreObj.scoreTypeObj.scoreType == ScoreType_Exam ||
-            scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain ||
-            scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
+    if (isVisible) {
+        if (userScoreObj) {
+            BOOL editFlag = YES;
             
-            editFlag = YES;
+            if (scoreObj.scoreTypeObj.scoreType == ScoreType_Normal ||
+                scoreObj.scoreTypeObj.scoreType == ScoreType_Exam ||
+                scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain ||
+                scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
+                
+                editFlag = YES;
+                
+            } else {
+                editFlag = NO;
+            }
             
-        } else {
-            editFlag = NO;
+            if (addSingleScoreView == nil) {
+                addSingleScoreView = [[AddSingleScore alloc] initWithNibName:@"AddSingleScore" bundle:nil];
+            }
+            
+            addSingleScoreView.scoreObj = scoreObj;
+            addSingleScoreView.userScoreObj = userScoreObj;
+            addSingleScoreView.editFlag = editFlag;
+            addSingleScoreView.view.alpha = 0;
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            CGRect rect = appDelegate.window.frame;
+            [addSingleScoreView.view setFrame:rect];
+            
+            [appDelegate.window addSubview:addSingleScoreView.view];
+            
+            [UIView animateWithDuration:0.3 animations:^(void) {
+                addSingleScoreView.view.alpha = 1;
+            }];
         }
-        
-        if (addSingleScoreView == nil) {
-            addSingleScoreView = [[AddSingleScore alloc] initWithNibName:@"AddSingleScore" bundle:nil];
-        }
-        
-        addSingleScoreView.userScoreObj = userScoreObj;
-        addSingleScoreView.editFlag = editFlag;
-        addSingleScoreView.view.alpha = 0;
-        
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        CGRect rect = appDelegate.window.frame;
-        [addSingleScoreView.view setFrame:rect];
-        
-        [appDelegate.window addSubview:addSingleScoreView.view];
-        
-        [UIView animateWithDuration:0.3 animations:^(void) {
-            addSingleScoreView.view.alpha = 1;
-        }];
     }
 }
 
@@ -292,6 +301,12 @@
         return 155.0;
     }
 
+    if ([[[[ShareData sharedShareData] userObj] classObj].currentTerm isEqualToString:TERM_VALUE_1]) {
+        return 155.0;
+        
+    } else {
+        return 210.0;
+    }
     return 210.0;
 }
 
@@ -312,6 +327,8 @@
         
         [cell.contentView setFrame:rect];
     }
+    
+    cell.curTerm = [[[ShareData sharedShareData] userObj] classObj].currentTerm;
     
     UserScore *userScoreObject = nil;
     
@@ -409,7 +426,6 @@
             
         } else if ([url rangeOfString:API_NAME_TEACHER_SCORE_LIST].location != NSNotFound) {
             [userScroreArray removeAllObjects];
-            [userScoreDict removeAllObjects];
             [searchResults removeAllObjects];
             
             NSArray *scores = [jsonObj objectForKey:@"messageObject"];
@@ -458,12 +474,13 @@
                      @property (nonatomic, strong) NSString *subjectID;
                      @property (nonatomic, strong) NSString *subject;*/
 
-                    ScoreObject *scoreObj = [[ScoreObject alloc] init];
                     NSString *studentID = @"";
                     NSString *studentName = @"";
                     NSString *nickname = @"";
                     NSString *fullname = @"";
                     NSString *avatarLink = @"";
+                    NSString *subjectID = @"";
+                    NSString *subject = @"";
                     
                     if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
                         studentID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"student_id"]];
@@ -485,29 +502,78 @@
                         avatarLink = [scoreDict valueForKey:@"std_photo"];
                     }
                     
-                    
-                    
-                    UserScore *oldUserScoreObj = [userScoreDict objectForKey:studentID];
-                    
-                    if (oldUserScoreObj) {
-                        [oldUserScoreObj.scoreArray addObject:scoreObj];
-                        
-                    } else {
-                        UserScore *newUserScoreObj = [[UserScore alloc] init];
-                        
-                        newUserScoreObj.userID = studentID;
-                        newUserScoreObj.username = studentName;
-                        newUserScoreObj.additionalInfo = nickname;
-                        newUserScoreObj.avatarLink = avatarLink;
-                        
-                        [newUserScoreObj.scoreArray addObject:scoreObj];
-                        
-                        [userScoreDict setObject:newUserScoreObj forKey:studentID];
+                    if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                        subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
                     }
+                    
+                    if ([scoreDict valueForKey:@"subject_name"] != (id)[NSNull null]) {
+                        subject = [scoreDict valueForKey:@"subject_name"];
+                    }
+                    
+                    UserScore *newUserScoreObj = [[UserScore alloc] init];
+                    
+                    newUserScoreObj.userID = studentID;
+                    newUserScoreObj.username = studentName;
+                    newUserScoreObj.additionalInfo = nickname;
+                    newUserScoreObj.displayName = fullname;
+                    newUserScoreObj.avatarLink = avatarLink;
+                    newUserScoreObj.subjectID = subjectID;
+                    newUserScoreObj.subject = subject;
+                    
+                    NSString *key = @"";
+                    for (int i = 1; i <= 20; i++) {
+                        key = [NSString stringWithFormat:@"m%d", i];
+                        NSString *stringScoreJson = [scoreDict objectForKey:key];
+                        
+                        if (stringScoreJson != (id)[NSNull null]) {
+                            NSData *objectData = [stringScoreJson dataUsingEncoding:NSUTF8StringEncoding];
+                            NSDictionary *score = [NSJSONSerialization JSONObjectWithData:objectData options:kNilOptions error:nil];
+                            ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                            /*@property (nonatomic, strong) NSString *score;
+                             @property (nonatomic, strong) NSString *dateTime;
+                             @property (nonatomic, strong) ScoreTypeObject *scoreTypeObj;
+                             @property (nonatomic, strong) NSString *comment;*/
+                            
+                            if ([score valueForKey:@"sresult"] != (id)[NSNull null]) {
+                                scoreObj.score = [score valueForKey:@"sresult"];
+                            }
+                            
+                            if ([score valueForKey:@"exam_dt"] != (id)[NSNull null]) {
+                                scoreObj.dateTime = [score valueForKey:@"exam_dt"];
+                            }
+                            
+                            ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                            typeObj.scoreKey = key;
+                            
+                            scoreObj.scoreTypeObj = typeObj;
+                            
+                            if ([score valueForKey:@"notice"] != (id)[NSNull null]) {
+                                scoreObj.comment = [score valueForKey:@"notice"];
+                            }
+                            
+                            [newUserScoreObj.scoreArray addObject:scoreObj];
+                            
+                        } else {
+                            
+                            ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                            ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                            typeObj.scoreKey = key;
+                            scoreObj.scoreTypeObj = typeObj;
+                            [newUserScoreObj.scoreArray addObject:scoreObj];
+                        }
+                    }
+                    
+                    NSSortDescriptor *sortByType = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+
+                    [newUserScoreObj.scoreArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByType, nil]];
+                    
+                    [userScroreArray addObject:newUserScoreObj];
                 }
                 
-                [userScroreArray addObjectsFromArray:[userScoreDict allValues]];
+                NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES];
                 
+                [userScroreArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByName, nil]];
+
                 [searchResults addObjectsFromArray:userScroreArray];
             }
             
@@ -584,14 +650,21 @@
 }
 
 - (IBAction)panGestureHandle:(id)sender {
-    UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
-    
-    CGPoint velocity = [recognizer velocityInView:self.view];
-    
-    if (velocity.y > VERLOCITY) {
-        [self showHideHeaderView:YES];
-    } else if (velocity.y < - VERLOCITY) {
-        [self showHideHeaderView:NO];
+    if (dataPicker.view.alpha == 0) {
+        UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
+        
+        CGPoint velocity = [recognizer velocityInView:self.view];
+        
+        if (velocity.y > VERLOCITY) {
+            [self showHideHeaderView:YES];
+        } else if (velocity.y < - VERLOCITY) {
+            [self showHideHeaderView:NO];
+        }
     }
+}
+
+- (void)dealloc {
+    requestToServer.delegate = nil;
+    dataPicker.delegate = nil;
 }
 @end

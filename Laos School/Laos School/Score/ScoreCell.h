@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ScoreObject.h"
+#import "UserScore.h"
 
 @protocol ScoreCellDelegate <NSObject>
 
@@ -34,7 +34,9 @@
 @property (nonatomic, strong) NSString *additionalInfo;
 @property (nonatomic, strong) NSString *avatarLink;
 
-@property (assign, nonatomic) ScoreObject *scoreObj;
+@property (nonatomic, strong) UserScore *userScoreObj;
+@property (nonatomic, strong) ScoreObject *scoreObj;
+@property (nonatomic, strong) NSString *scoreKey;
 
 @property (strong, nonatomic) id<ScoreCellDelegate> delegate;
 

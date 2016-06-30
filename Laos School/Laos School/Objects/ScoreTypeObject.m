@@ -23,135 +23,107 @@
 }
 
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
+//- (void)encodeWithCoder:(NSCoder *)encoder {
+//
+//}
+//
+//- (id)initWithCoder:(NSCoder *)decoder {
+//    if ((self = [super init])) // Superclass init
+//    {
+//
+//    }
+//    
+//    return self;
+//}
 
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    if ((self = [super init])) // Superclass init
-    {
-
-    }
-    
-    return self;
-}
-
-- (NSString *)scoreName {
-    NSString *res = @"";
+- (void)setScoreKey:(NSString *)scoreKey {
+    _scoreKey = scoreKey;
     
     if ([_scoreKey isEqualToString:SCORE_KEY_SEP]) {
-        res = LocalizedString(@"September score");
+        _scoreName = LocalizedString(@"September score");
+        _scoreShortName = LocalizedString(@"Sep");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_OCT]) {
-        res = LocalizedString(@"October score");
+        _scoreName = LocalizedString(@"October score");
+        _scoreShortName = LocalizedString(@"Oct");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_NOV]) {
-        res = LocalizedString(@"November score");
+        _scoreName = LocalizedString(@"November score");
+        _scoreShortName = LocalizedString(@"Nov");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_DEC]) {
-        res = LocalizedString(@"December score");
+        _scoreName = LocalizedString(@"December score");
+        _scoreShortName = LocalizedString(@"Dec");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE4M1]) {
-        res = LocalizedString(@"Average 4 months");
+        _scoreName = LocalizedString(@"Average 4 months");
+        _scoreShortName = LocalizedString(@"Ave m1");
+        _scoreType = ScoreType_Average;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_TERM_EXAM1]) {
-        res = LocalizedString(@"Term exam 1");
+        _scoreName = LocalizedString(@"Term exam I");
+        _scoreShortName = LocalizedString(@"Term exam I");
+        _scoreType = ScoreType_Exam;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE_TERM1]) {
-        res = LocalizedString(@"Average term 1");
+        _scoreName = LocalizedString(@"Average term 1");
+        _scoreShortName = LocalizedString(@"Ave term I");
+        _scoreType = ScoreType_TermFinal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_FEB]) {
-        res = LocalizedString(@"February score");
+        _scoreName = LocalizedString(@"February score");
+        _scoreShortName = LocalizedString(@"Feb");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_MAR]) {
-        res = LocalizedString(@"March score");
+        _scoreName = LocalizedString(@"March score");
+        _scoreShortName = LocalizedString(@"Mar");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_APR]) {
-        res = LocalizedString(@"April score");
+        _scoreName = LocalizedString(@"April score");
+        _scoreShortName = LocalizedString(@"Apr");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_MAY]) {
-        res = LocalizedString(@"May score");
+        _scoreName = LocalizedString(@"May score");
+        _scoreShortName = LocalizedString(@"May");
+        _scoreType = ScoreType_Normal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE4M2]) {
-        res = LocalizedString(@"Average 4 months");
+        _scoreName = LocalizedString(@"Average 4 months");
+        _scoreShortName = LocalizedString(@"Ave m2");
+        _scoreType = ScoreType_Average;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_TERM_EXAM2]) {
-        res = LocalizedString(@"Term exam 2");
+        _scoreName = LocalizedString(@"Term exam 2");
+        _scoreShortName = LocalizedString(@"Test term II");
+        _scoreType = ScoreType_Exam;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE_TERM2]) {
-        res = LocalizedString(@"Average term 2");
+        _scoreName = LocalizedString(@"Average term 2");
+        _scoreShortName = LocalizedString(@"Ave term II");
+        _scoreType = ScoreType_TermFinal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_OVERALL]) {
-        res = LocalizedString(@"Overall");
+        _scoreName = LocalizedString(@"Overall");
+        _scoreShortName = LocalizedString(@"Ave year");
+        _scoreType = ScoreType_YearFinal;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_RETEST]) {
-        res = LocalizedString(@"Retest");
+        _scoreName = LocalizedString(@"Retest");
+        _scoreShortName = LocalizedString(@"Retest");
+        _scoreType = ScoreType_ExamAgain;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_GRADUATION]) {
-        res = LocalizedString(@"Graduation");
-        
+        _scoreName = LocalizedString(@"Graduation");
+        _scoreShortName = LocalizedString(@"Test grad");
+        _scoreType = ScoreType_Graduate;
     }
-    
-    return res;
-}
-
-- (NSString *)scoreShortName {
-    NSString *res = @"";
-    
-    if ([_scoreKey isEqualToString:@"Sep"]) {
-        res = LocalizedString(@"Sep");
-        
-    } else if ([_scoreKey isEqualToString:@"Oct"]) {
-        res = LocalizedString(@"Oct");
-        
-    } else if ([_scoreKey isEqualToString:@"Nov"]) {
-        res = LocalizedString(@"Nov");
-        
-    } else if ([_scoreKey isEqualToString:@"Dec"]) {
-        res = LocalizedString(@"Dec");
-        
-    } else if ([_scoreKey isEqualToString:@"Feb"]) {
-        res = LocalizedString(@"Feb");
-        
-    } else if ([_scoreKey isEqualToString:@"Mar"]) {
-        res = LocalizedString(@"Mar");
-        
-    } else if ([_scoreKey isEqualToString:@"Apr"]) {
-        res = LocalizedString(@"Apr");
-        
-    } else if ([_scoreKey isEqualToString:@"May"]) {
-        res = LocalizedString(@"May");
-        
-    } else if ([_scoreKey isEqualToString:@"Aver4Months1"]) {
-        res = LocalizedString(@"Ave_m1");
-        
-    } else if ([_scoreKey isEqualToString:@"TermExam1"]) {
-        res = LocalizedString(@"Test term I");
-        
-    } else if ([_scoreKey isEqualToString:@"AverageTerm1"]) {
-        res = LocalizedString(@"Ave term I");
-        
-    } else if ([_scoreKey isEqualToString:@"Aver4Months2"]) {
-        res = LocalizedString(@"Ave_m2");
-        
-    } else if ([_scoreKey isEqualToString:@"TermExam2"]) {
-        res = LocalizedString(@"Test term II");
-        
-    } else if ([_scoreKey isEqualToString:@"AverageTerm2"]) {
-        res = LocalizedString(@"Ave term II");
-        
-    } else if ([_scoreKey isEqualToString:@"Overall"]) {
-        res = LocalizedString(@"Ave year");
-        
-    } else if ([_scoreKey isEqualToString:@"Retest"]) {
-        res = LocalizedString(@"Retest");
-        
-    } else if ([_scoreKey isEqualToString:@"Graduation"]) {
-        res = LocalizedString(@"Test grad");
-        
-    }
-    
-    return res;
 }
 
 @end

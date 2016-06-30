@@ -14,7 +14,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
-#import "ScoreObject.h"
+#import "UserScore.h"
 #import "CommonDefine.h"
 #import "ShareData.h"
 #import "UserObject.h"
@@ -115,8 +115,8 @@
 */
 
 - (IBAction)segmentAction:(id)sender {
-    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
-    [self groupDataBySubject];
+//    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
+//    [self groupDataBySubject];
     [scoresTableView reloadData];
 }
 
@@ -134,7 +134,9 @@
 }
 
 - (void)showScoreDetail:(NSNotification *)notification {
-    ScoreObject *scoreObj = (ScoreObject *)notification.object;
+    NSDictionary *passedObj = (NSDictionary *)notification.object;
+    UserScore *userScoreObj = [passedObj objectForKey:@"UserScoreObj"];
+    ScoreObject *scoreObj = [passedObj objectForKey:@"ScoreObj"];
     
     if (isVisible) {
         if (scoreObj && scoreObj.score.length > 0) {
@@ -143,6 +145,7 @@
             }
             
             scoreDetailView.scoreObj = scoreObj;
+            scoreDetailView.userScoreObj = userScoreObj;
             scoreDetailView.view.alpha = 0;
             
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -171,13 +174,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [[groupBySubject allKeys] count];
+    return [_scoresArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (IS_IPAD) {
         return 115.0;
     }
+    
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        return 115.0;
+        
+    } else {
+        return 170.0;
+    }
+    
     return 170.0;
 }
 
@@ -198,17 +209,20 @@
         [cell.contentView setFrame:rect];
     }
     
-    NSArray *keyArr = [groupBySubject allKeys];
-    
-    if (indexPath.row < [keyArr count]) {
-        NSString *subject  = [keyArr objectAtIndex:indexPath.row];
-        NSArray *arr = [groupBySubject objectForKey:subject];
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        cell.curTerm = TERM_VALUE_1;
         
-        cell.scoresArray = [self sortScoresArrayByMonth:arr];
-        cell.lbSubject.text = subject;
-        
-        cell.lbSubject.textColor = BLUE_COLOR;
+    } else {
+        cell.curTerm = TERM_VALUE_2;
     }
+    
+    UserScore *userScoreObject = nil;
+    
+    userScoreObject = [_scoresArray objectAtIndex:indexPath.row];
+    cell.userScoreObj = userScoreObject;
+    
+    cell.lbSubject.textColor = BLUE_COLOR;
+    cell.lbSubject.text = userScoreObject.subject;
     
     return cell;
 }
@@ -230,146 +244,108 @@
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     NSArray *scores = [jsonObj objectForKey:@"messageObject"];
-    /*
     if (scores != (id)[NSNull null]) {
-        
         for (NSDictionary *scoreDict in scores) {
-            ScoreObject *scoreObj = [[ScoreObject alloc] init];
-
-            if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
-                scoreObj.scoreID = [scoreDict valueForKey:@"id"];
+            NSString *studentID = @"";
+            NSString *studentName = @"";
+            NSString *nickname = @"";
+            NSString *fullname = @"";
+            NSString *avatarLink = @"";
+            NSString *subjectID = @"";
+            NSString *subject = @"";
+            
+            if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
+                studentID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"student_id"]];
             }
             
-            if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
-                scoreObj.score = [scoreDict valueForKey:@"sresult"];
+            if ([scoreDict valueForKey:@"student_name"] != (id)[NSNull null]) {
+                studentName = [scoreDict valueForKey:@"student_name"];
+            }
+            
+            if ([scoreDict valueForKey:@"std_nickname"] != (id)[NSNull null]) {
+                nickname = [scoreDict valueForKey:@"std_nickname"];
+            }
+            
+            if ([scoreDict valueForKey:@"std_fullname"] != (id)[NSNull null]) {
+                fullname = [scoreDict valueForKey:@"std_fullname"];
+            }
+            
+            if ([scoreDict valueForKey:@"std_photo"] != (id)[NSNull null]) {
+                avatarLink = [scoreDict valueForKey:@"std_photo"];
             }
             
             if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
-                scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
+                subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
             }
             
-            if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                scoreObj.subject = [scoreDict valueForKey:@"subject"];
+            if ([scoreDict valueForKey:@"subject_name"] != (id)[NSNull null]) {
+                subject = [scoreDict valueForKey:@"subject_name"];
             }
             
-            if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
-                scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
-            }
+            UserScore *newUserScoreObj = [[UserScore alloc] init];
             
-            if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
-                scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
-            }
+            newUserScoreObj.userID = studentID;
+            newUserScoreObj.username = studentName;
+            newUserScoreObj.additionalInfo = nickname;
+            newUserScoreObj.displayName = fullname;
+            newUserScoreObj.avatarLink = avatarLink;
+            newUserScoreObj.subjectID = subjectID;
+            newUserScoreObj.subject = subject;
             
-            if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
-                scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
-            }
-            
-            if ([scoreDict valueForKey:@"ex_displayname"] != (id)[NSNull null]) {
-                scoreObj.scoreDisplayName = [scoreDict valueForKey:@"ex_displayname"];
-            }
-            
-            if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
-                NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];
+            NSString *key = @"";
+            for (int i = 1; i <= 20; i++) {
+                key = [NSString stringWithFormat:@"m%d", i];
+                NSString *stringScoreJson = [scoreDict objectForKey:key];
                 
-                if (type == 1) {
-                    scoreObj.scoreType = ScoreType_Normal;
+                if (stringScoreJson != (id)[NSNull null]) {
+                    NSData *objectData = [stringScoreJson dataUsingEncoding:NSUTF8StringEncoding];
+                    NSDictionary *score = [NSJSONSerialization JSONObjectWithData:objectData options:kNilOptions error:nil];
+                    ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                    /*@property (nonatomic, strong) NSString *score;
+                     @property (nonatomic, strong) NSString *dateTime;
+                     @property (nonatomic, strong) ScoreTypeObject *scoreTypeObj;
+                     @property (nonatomic, strong) NSString *comment;*/
                     
-                } else if (type == 2) {
-                    scoreObj.scoreType = ScoreType_Exam;
+                    if ([score valueForKey:@"sresult"] != (id)[NSNull null]) {
+                        scoreObj.score = [score valueForKey:@"sresult"];
+                    }
                     
-                } else if (type == 3) {
-                    scoreObj.scoreType = ScoreType_Average;
+                    if ([score valueForKey:@"exam_dt"] != (id)[NSNull null]) {
+                        scoreObj.dateTime = [score valueForKey:@"exam_dt"];
+                    }
                     
-                } else if (type == 4) {
-                    scoreObj.scoreType = ScoreType_Final;
+                    ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                    typeObj.scoreKey = key;
                     
-                } else if (type == 5) {
-                    scoreObj.scoreType = ScoreType_YearFinal;
+                    scoreObj.scoreTypeObj = typeObj;
                     
-                } else if (type == 6) {
-                    scoreObj.scoreType = ScoreType_ExamAgain;
+                    if ([score valueForKey:@"notice"] != (id)[NSNull null]) {
+                        scoreObj.comment = [score valueForKey:@"notice"];
+                    }
                     
-                } else if (type == 7) {
-                    scoreObj.scoreType = ScoreType_Graduate;
+                    [newUserScoreObj.scoreArray addObject:scoreObj];
+                } else {
+                    
+                    ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                    ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                    typeObj.scoreKey = key;
+                    scoreObj.scoreTypeObj = typeObj;
+                    [newUserScoreObj.scoreArray addObject:scoreObj];
                 }
             }
             
-            if ([scoreDict valueForKey:@"exam_month"] != (id)[NSNull null]) {
-                scoreObj.month = [[scoreDict valueForKey:@"exam_month"] integerValue];
-            }
+            NSSortDescriptor *sortByType = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
             
-            if ([scoreDict valueForKey:@"exam_year"] != (id)[NSNull null]) {
-                scoreObj.year = [[scoreDict valueForKey:@"exam_year"] integerValue];
-            }
+            [newUserScoreObj.scoreArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByType, nil]];
             
-            if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
-                scoreObj.teacherName = [scoreDict valueForKey:@"teacher"];
-            }
-            
-            if ([scoreDict valueForKey:@"notice"] != (id)[NSNull null]) {
-                scoreObj.comment = [scoreDict valueForKey:@"notice"];
-            }
-            
-            if ([scoreDict valueForKey:@"term_id"] != (id)[NSNull null]) {
-                scoreObj.termID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"term_id"]];
-            }
-            
-            if ([scoreDict valueForKey:@"term"] != (id)[NSNull null]) {
-                scoreObj.term = [scoreDict valueForKey:@"term"];
-            }
-
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[scoresStore objectForKey:scoreObj.termID]];
-            
-            [arr addObject:scoreObj];
-            [scoresStore setObject:arr forKey:scoreObj.termID];
+            [_scoresArray addObject:newUserScoreObj];
         }
+
     }
-    */
-    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
-    [self groupDataBySubject];
+    
+//    [self prepareDataForSegment:segmentedControl.selectedSegmentIndex];
+//    [self groupDataBySubject];
     [scoresTableView reloadData];
-}
-
-//group data by term
-- (void)prepareDataForSegment:(NSInteger)segmentID {
-    [_scoresArray removeAllObjects];
-    NSArray *keyArr = [scoresStore allKeys];
-    
-    if ([keyArr count] > 1) {
-        [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            if ([obj1 intValue]==[obj2 intValue])
-                return NSOrderedSame;
-            
-            else if ([obj1 intValue]<[obj2 intValue])
-                return NSOrderedAscending;
-            else
-                return NSOrderedDescending;
-            
-        }];
-    }
-    
-    if ([keyArr count] > segmentID) {
-        [_scoresArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:segmentID]]];
-    }
-}
-
-- (void)groupDataBySubject {
-    if (groupBySubject == nil) {
-        groupBySubject = [[NSMutableDictionary alloc] init];
-        
-    } else {
-        [groupBySubject removeAllObjects];
-    }
-    
-    if ([_scoresArray count] > 0) {
-        for (ScoreObject *scoreObj in _scoresArray) {
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[groupBySubject objectForKey:scoreObj.subject]];
-            
-            [arr addObject:scoreObj];
-
-            [groupBySubject setObject:arr forKey:scoreObj.subject];
-        }
-    }
 }
 
 - (void)setScoresArray:(NSMutableArray *)scoresArray {
@@ -381,18 +357,16 @@
     
     [_scoresArray addObjectsFromArray:scoresArray];
     
-    [self groupDataBySubject];
-    
     [scoresTableView reloadData];
 }
 
-- (NSArray *)sortScoresArrayByMonth:(NSArray *)scores {
-    NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"month" ascending:YES];
-    NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
-    NSArray *resultArr = [scores sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];
-    
-    return resultArr;
-}
+//- (NSArray *)sortScoresArrayByMonth:(NSArray *)scores {
+//    NSSortDescriptor *sortMonthDes = [NSSortDescriptor sortDescriptorWithKey:@"month" ascending:YES];
+//    NSSortDescriptor *sortTypeDes = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+//    NSArray *resultArr = [scores sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortTypeDes, sortMonthDes, nil]];
+//    
+//    return resultArr;
+//}
 
 - (void)failToConnectToServer {
     [SVProgressHUD dismiss];
@@ -419,5 +393,9 @@
     alert.tag = 1;
     
     [alert show];
+}
+
+- (void)dealloc {
+    requestToServer.delegate = nil;
 }
 @end

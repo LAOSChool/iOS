@@ -50,7 +50,7 @@
 
 #define API_NAME_STU_TIMETABLE_LIST @"/api/timetables"
 #define API_NAME_TEACHER_GET_SUBJECTS_LIST @"/api/timetables/subjects"
-#define API_NAME_TEACHER_GET_EXAM_TYPE_LIST @"/api/classes/exams"
+#define API_NAME_TEACHER_GET_EXAM_TYPE_LIST @"/api/schools/exams"
 
 #define API_NAME_STU_TERMS_LIST @"/api/school_years/myprofile"
 #define API_NAME_STU_SCHOOL_RECORDS @"/api/edu_profiles/myprofile"
@@ -93,7 +93,7 @@
 - (void)getMyScoreListInClass:(NSString *)classID;
 - (void)getMySchoolRecordInClass:(NSString *)classID;
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
-- (void)getScoreTypeListInClass:(NSString *)classID;
+- (void)getScoreTypeList;
 - (void)submitScoreWithObject:(NSDictionary *)scoreDict;
 - (void)submitMultipleScoresWithObject:(NSArray *)scoresArray;
 

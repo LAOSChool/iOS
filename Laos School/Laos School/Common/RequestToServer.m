@@ -80,9 +80,8 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
-- (void)getScoreTypeListInClass:(NSString *)classID {
+- (void)getScoreTypeList {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_TEACHER_GET_EXAM_TYPE_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_class_id=%@", requestString, classID];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy

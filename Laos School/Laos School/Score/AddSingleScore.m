@@ -57,8 +57,8 @@
         
         lbStudentName.text = _userScoreObj.username;
         lbAdditionalInfo.text = _userScoreObj.additionalInfo;
-        lbSubject.text = scoreObj.subject;
-//        lbScoreMonth.text = scoreObj.scoreName;
+        lbSubject.text = _userScoreObj.subject;
+        lbScoreMonth.text = scoreObj.scoreTypeObj.scoreShortName;
         
         if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
             //cancel loading previous image for cell
@@ -91,7 +91,7 @@
         
         txtScore.enabled = _editFlag;
         txtComment.editable = _editFlag;
-        btnSubmit.enabled = _editFlag;
+        btnSubmit.enabled = NO;
     }
 }
 
@@ -141,21 +141,32 @@
      jsonObject.addProperty("notice", notice);
      }
      
-     },*//*
+     },*/
     if ([_userScoreObj.scoreArray count] > 0) {
-        ScoreObject *scoreObj = [_userScoreObj.scoreArray objectAtIndex:0];
-        
         [scoreDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
         [scoreDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
-        [scoreDict setValue:txtScore.text forKey:@"sresult"];
         [scoreDict setValue:_userScoreObj.userID forKey:@"student_id"];
-        [scoreDict setValue:scoreObj.subjectID forKey:@"subject_id"];
-        [scoreDict setValue:scoreObj.examID forKey:@"exam_id"];
-        [scoreDict setValue:scoreObj.termID forKey:@"term_id"];
-        [scoreDict setValue:txtComment.text forKey:@"notice"];
+        [scoreDict setValue:_userScoreObj.subjectID forKey:@"subject_id"];
+
+        NSMutableDictionary *scoreValueDict = [[NSMutableDictionary alloc] init];
+        NSString *comment = txtComment.text;
+        if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
+            comment = @"";
+        }
         
+        [scoreValueDict setValue:comment forKey:@"notice"];
+        [scoreValueDict setValue:txtScore.text forKey:@"sresult"];
+        
+        NSString *dateTime = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeWithFormat:COMMON_DATE_FORMATE];
+        [scoreValueDict setValue:dateTime forKey:@"exam_dt"];
+        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:scoreValueDict options:0 error:nil];
+        NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        [scoreDict setValue:myString forKey:_scoreObj.scoreTypeObj.scoreKey];
+        
+        [SVProgressHUD show];
         [requestToServer submitScoreWithObject:scoreDict];
-    }*/
+    }
 }
 
 
@@ -165,12 +176,12 @@
     
     _userScoreObj = userScoreObj;
     
-    ScoreObject *scoreObj = [_userScoreObj.scoreArray objectAtIndex:0];
+    ScoreObject *scoreObj = _scoreObj;
     
     lbStudentName.text = _userScoreObj.username;
     lbAdditionalInfo.text = _userScoreObj.additionalInfo;
-    lbSubject.text = scoreObj.subject;
- //   lbScoreMonth.text = scoreObj.scoreName;
+    lbSubject.text = _userScoreObj.subject;
+    lbScoreMonth.text = scoreObj.scoreTypeObj.scoreShortName;
     
     if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
         //cancel loading previous image for cell
@@ -286,31 +297,7 @@
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
     NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
-    /*messageObject =     {
-     "class_id" = 1;
-     "exam_dt" = "2016-06-14 15:03:17";
-     "exam_id" = 2;
-     "exam_month" = "<null>";
-     "exam_name" = "<null>";
-     "exam_type" = "<null>";
-     "exam_year" = 2016;
-     id = 2;
-     notice = "Nam test";
-     "sch_year_id" = 1;
-     "school_id" = 1;
-     sresult = 10;
-     "std_nickname" = "Student 10";
-     "std_photo" = "http://192.168.0.202:9090/eschool_content/avatar/student1.png";
-     "student_id" = 10;
-     "student_name" = 00000010;
-     subject = "<null>";
-     "subject_id" = 1;
-     teacher = "<null>";
-     "teacher_id" = 5;
-     term = "HK 1";
-     "term_id" = 1;
-     "term_val" = 1;
-     };*/
+    /**/
     if (statusCode == HttpOK) {
         [SVProgressHUD showSuccessWithStatus:@"Successfully"];
         [UIView animateWithDuration:0.3 animations:^(void) {

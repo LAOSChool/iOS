@@ -92,7 +92,7 @@
             ScoreTypeObject *selected = (ScoreTypeObject *)_selectedItem;
             if ([_dataArray count] > 0) {
                 for (ScoreTypeObject *type in _dataArray) {
-                    if ([type.typeID isEqualToString:selected.typeID]) {
+                    if ([type.scoreKey isEqualToString:selected.scoreKey]) {
                         break;
                     }
                     

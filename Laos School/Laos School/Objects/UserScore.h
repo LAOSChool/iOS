@@ -11,6 +11,7 @@
 #define LazzyBee_UserScore_h
 
 #import <UIKit/UIKit.h>
+#import "ScoreObject.h"
 
 @interface UserScore : NSObject
 {

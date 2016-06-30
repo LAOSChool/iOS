@@ -30,6 +30,7 @@
 }
 
 @property (nonatomic, strong) UserScore *userScoreObj;
+@property (nonatomic, strong) ScoreObject *scoreObj;
 @property (nonatomic, assign) BOOL editFlag;
 
 @end

@@ -52,73 +52,43 @@
 }
 */
 
-- (void)setScoreObj:(ScoreObject *)scoreObj {
-    _scoreObj = scoreObj;
-    /*
-    if (_scoreObj) {
-//        lbMonth.text = [[DateTimeHelper sharedDateTimeHelper] convertMonthFromInt:_scoreObj.month];
-        lbMonth.text = _scoreObj.scoreDisplayName;
+- (void)setUserScoreObj:(UserScore *)userScoreObj {
+    _userScoreObj = userScoreObj;
+
+    if (_userScoreObj) {
+        lbMonth.text = _scoreObj.scoreTypeObj.scoreShortName;
         lbScore.text = _scoreObj.score;
         
-        if (_scoreObj.scoreType == ScoreType_Normal) {
+        if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Normal) {
             viewMonth.backgroundColor = NORMAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Average) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
-
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Average) {
             viewMonth.backgroundColor = AVERAGE_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Exam) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Exam) {
             viewMonth.backgroundColor = EXAM_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Final) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_TermFinal) {
             viewMonth.backgroundColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_YearFinal) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             viewMonth.backgroundColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_ExamAgain) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain) {
             viewMonth.backgroundColor = FINAL_SCORE;
             
-        } else if (_scoreObj.scoreType == ScoreType_Graduate) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                lbMonth.text = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
             viewMonth.backgroundColor = FINAL_SCORE;
         }
-    }*/
+    }
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
-    if (_userID && _userID.length > 0) {
-        UserScore *newUserScoreObj = [[UserScore alloc] init];
-        
-        newUserScoreObj.userID = _userID;
-        newUserScoreObj.username = _username;
-        newUserScoreObj.additionalInfo = _additionalInfo;
-        newUserScoreObj.avatarLink = _avatarLink;
-        
-        [newUserScoreObj.scoreArray addObject:_scoreObj];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:newUserScoreObj];
-    } else {
-        if (_scoreObj) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:_scoreObj];
-        }
-    }
+    NSMutableDictionary *passedObj = [[NSMutableDictionary alloc] init];
+    
+    [passedObj setObject:_userScoreObj forKey:@"UserScoreObj"];
+    [passedObj setObject:_scoreObj forKey:@"ScoreObj"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TapOnScoreCell" object:passedObj];
 }
 @end

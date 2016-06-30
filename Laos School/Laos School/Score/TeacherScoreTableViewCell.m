@@ -9,6 +9,7 @@
 #import "TeacherScoreTableViewCell.h"
 #import "ScoreCell.h"
 #import "ScoreObject.h"
+#import "CommonDefine.h"
 
 #define CELL_OFFSET 5
 #define CELL_SIZE_WIDTH 50
@@ -40,6 +41,34 @@
     }
     
     for (ScoreObject *scoreObj in _userScoreObj.scoreArray) {
+        if ([_curTerm isEqualToString:TERM_VALUE_1]) {
+            if (!([scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_SEP] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_OCT] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_NOV] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_DEC] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE4M1] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_TERM_EXAM1] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM1])) {
+                
+                continue;
+            }
+        } else if ([_curTerm isEqualToString:TERM_VALUE_2]) {
+            if (!([scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_FEB] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_MAR] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_APR] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_MAY] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE4M2] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_TERM_EXAM2] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM2] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_RETEST] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_GRADUATION])) {
+                
+                continue;
+            }
+        } else {
+            break;
+        }
+        
         count ++;
         CGRect rect;
         rect.size.width = CELL_SIZE_WIDTH;
@@ -69,7 +98,8 @@
         }
         
         ScoreCell *scoreCell = [[ScoreCell alloc] initWithFrame:rect];
-        scoreCell.scoreObj = scoreObj;
+        scoreCell.scoreObj = scoreObj;  //set scoreObj before userScoreObj
+        scoreCell.userScoreObj = userScoreObj;
         scoreCell.userID = _userScoreObj.userID;
         scoreCell.username = _userScoreObj.username;
         scoreCell.additionalInfo = _userScoreObj.additionalInfo;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserScore.h"
 
 @interface StudentScoreTableViewCell : UITableViewCell
 {
@@ -15,5 +16,7 @@
 }
 @property (strong, nonatomic) IBOutlet UILabel *lbSubject;
 
-@property (nonatomic, strong) NSArray *scoresArray;
+@property (nonatomic, strong) UserScore *userScoreObj;
+@property (nonatomic, strong) NSString *curTerm;
+
 @end

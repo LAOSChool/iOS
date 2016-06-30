@@ -20,4 +20,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbAdditionalInfo;
 
 @property (nonatomic, strong) UserScore *userScoreObj;
+@property (nonatomic, strong) NSString *curTerm;
 @end

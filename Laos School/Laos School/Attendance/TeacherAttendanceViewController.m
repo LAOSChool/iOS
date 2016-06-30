@@ -1132,14 +1132,16 @@
 }
 
 - (IBAction)panGestureHandle:(id)sender {
-    UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
-    
-    CGPoint velocity = [recognizer velocityInView:self.view];
-    
-    if (velocity.y > VERLOCITY) {
-        [self showHideHeaderView:YES];
-    } else if (velocity.y < - VERLOCITY) {
-        [self showHideHeaderView:NO];
+    if (dataPicker.view.alpha == 0) {
+        UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
+        
+        CGPoint velocity = [recognizer velocityInView:self.view];
+        
+        if (velocity.y > VERLOCITY) {
+            [self showHideHeaderView:YES];
+        } else if (velocity.y < - VERLOCITY) {
+            [self showHideHeaderView:NO];
+        }
     }
 }
 @end

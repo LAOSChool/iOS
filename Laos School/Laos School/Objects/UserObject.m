@@ -45,19 +45,19 @@
 }
 
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    
-//    [encoder encodeObject:self.wordid forKey:@"wordid"];
-
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    if ((self = [super init])) // Superclass init
-    {
-//        self.wordid = [decoder decodeObjectForKey:@"wordid"];
-
-    }
-    
-    return self;
-}
+//- (void)encodeWithCoder:(NSCoder *)encoder {
+//    
+////    [encoder encodeObject:self.wordid forKey:@"wordid"];
+//
+//}
+//
+//- (id)initWithCoder:(NSCoder *)decoder {
+//    if ((self = [super init])) // Superclass init
+//    {
+////        self.wordid = [decoder decodeObjectForKey:@"wordid"];
+//
+//    }
+//    
+//    return self;
+//}
 @end

@@ -42,7 +42,7 @@ typedef enum {
     ScoreType_Normal = 0,   //"exam_type" = 1;
     ScoreType_Average,  //"exam_type" = 3;  average of 4 months
     ScoreType_Exam,     //"exam_type" = 2;
-    ScoreType_Final,    //"exam_type" = 4;
+    ScoreType_TermFinal,    //"exam_type" = 4;
     ScoreType_YearFinal,
     ScoreType_ExamAgain,
     ScoreType_Graduate,

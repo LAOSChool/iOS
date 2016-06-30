@@ -49,6 +49,10 @@
 #define KEY_USERNAME @"usernamekey"
 
 #define ATTENDANCE_DATE_FORMATE @"EEEE, yyyy-MM-dd"
+#define COMMON_DATE_FORMATE @"yyyy-MM-dd"
+
+#define TERM_VALUE_1 @"1"
+#define TERM_VALUE_2 @"2"
 
 #define LANGUAGE_LAOS @"lo"
 #define LANGUAGE_ENGLISH @"en"

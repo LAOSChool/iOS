@@ -25,12 +25,8 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.scoreID = @"";
         self.score = @"";
-        self.subjectID = @"";
-        self.subject = @"";
         self.dateTime = @"";
-        self.scoreDisplayName = @"";
         self.scoreTypeObj = [[ScoreTypeObject alloc] init];
         self.comment = @"";
     }
@@ -50,4 +46,7 @@
 //    return self;
 //}
 
+- (SCORE_TYPE)scoreType {
+    return _scoreTypeObj.scoreType;
+}
 @end

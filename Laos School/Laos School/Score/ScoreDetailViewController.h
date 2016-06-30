@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ScoreObject.h"
+#import "UserScore.h"
 
 @interface ScoreDetailViewController : UIViewController
 {
@@ -21,6 +21,7 @@
     IBOutlet UIView *viewContainer;
 }
 
+@property(nonatomic, strong) UserScore *userScoreObj;
 @property(nonatomic, strong) ScoreObject *scoreObj;
 
 - (void)loadInformation;

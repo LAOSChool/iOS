@@ -361,7 +361,7 @@ typedef enum {
                     scoreObj.scoreType = ScoreType_Average;
                     
                 } else if (type == 4) {
-                    scoreObj.scoreType = ScoreType_Final;
+                    scoreObj.scoreType = ScoreType_TermFinal;
                     
                 } else if (type == 5) {
                     scoreObj.scoreType = ScoreType_YearFinal;
@@ -451,12 +451,12 @@ typedef enum {
      ScoreType_Normal = 0,
      ScoreType_Average,
      ScoreType_Exam,
-     ScoreType_Final,
+     ScoreType_TermFinal,
      ScoreType_YearFinal,
      ScoreType_ExamAgain,
      ScoreType_Graduate,*/
     for (ScoreObject *score in firstArray) {
-        if (score.scoreTypeObj.scoreType == ScoreType_Final ||
+        if (score.scoreTypeObj.scoreType == ScoreType_TermFinal ||
             score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             
             [totalArray addObject:score];
@@ -465,7 +465,7 @@ typedef enum {
     }
     
     for (ScoreObject *score in secondArray) {
-        if (score.scoreTypeObj.scoreType == ScoreType_Final ||
+        if (score.scoreTypeObj.scoreType == ScoreType_TermFinal ||
             score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
             
             [totalArray addObject:score];

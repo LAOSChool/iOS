@@ -72,62 +72,42 @@
     }];
 }
 
-- (void)loadInformation {/*
+- (void)loadInformation {
     NSString *scoreName = @"";
     if (_scoreObj) {
-        scoreName = _scoreObj.scoreDisplayName;
+        scoreName = _scoreObj.scoreTypeObj.scoreName;
         lbScore.text = _scoreObj.score;
         
         if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Normal) {
             lbScoreMonth.textColor = NORMAL_SCORE;
             
         } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Average) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
-            
             lbScoreMonth.textColor = AVERAGE_SCORE;
             
         } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Exam) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
             lbScoreMonth.textColor = EXAM_SCORE;
             
-        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Final) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
+        } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_TermFinal) {
             lbScoreMonth.textColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_YearFinal) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
             lbScoreMonth.textColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_ExamAgain) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
             lbScoreMonth.textColor = FINAL_SCORE;
             
         } else if (_scoreObj.scoreTypeObj.scoreType == ScoreType_Graduate) {
-            if (_scoreObj.scoreDisplayName.length == 0) {
-                scoreName = _scoreObj.scoreName;
-            }
             lbScoreMonth.textColor = FINAL_SCORE;
         }
     }
     
-    lbSubject.text = _scoreObj.subject;
-    lbScoreMonth.text = [NSString stringWithFormat:@"%@ - %@", _scoreObj.term , scoreName];    
-    
+    lbSubject.text = _userScoreObj.subject;
+//    lbScoreMonth.text = [NSString stringWithFormat:@"%@ %@ - %@", LocalizedString(@"Term"),_scoreObj.term , scoreName];
+    lbScoreMonth.text = scoreName;
     lbScore.text = _scoreObj.score;
     
     lbComment.text = _scoreObj.comment;
-    lbTeacherName.text = _scoreObj.teacherName;
-    lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_scoreObj.dateTime withFormat:@"yyyy-MM-dd"];
-    */
+//    lbTeacherName.text = _scoreObj.teacherName;
+    lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_scoreObj.dateTime withFormat:COMMON_DATE_FORMATE];
 }
 @end
