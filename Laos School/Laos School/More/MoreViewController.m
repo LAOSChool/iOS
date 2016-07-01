@@ -73,10 +73,10 @@
         imgAvatar.imageURL = [NSURL URLWithString:userObj.avatarPath];
         
     } else {
-        if ([userObj.gender isEqualToString:@"male"]) {
+        if ([[userObj.gender lowercaseString] isEqualToString:@"male"]) {
             imgAvatar.image = [UIImage imageNamed:@"ic_male.png"];
             
-        } else if ([userObj.gender isEqualToString:@"female"]) {
+        } else if ([[userObj.gender lowercaseString] isEqualToString:@"female"]) {
             imgAvatar.image = [UIImage imageNamed:@"ic_female.png"];
         }
     }
@@ -194,12 +194,12 @@
                 }
             } else if (userObj.userRole == UserRole_Teacher) {
                 switch (indexPath.row) {
-                    case TeacherProfileSectionTimeTable:
-                    {
-                        cell.textLabel.text = LocalizedString(@"Schedule");
-                        cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
-                    }
-                        break;
+//                    case TeacherProfileSectionTimeTable:
+//                    {
+//                        cell.textLabel.text = LocalizedString(@"Schedule");
+//                        cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
+//                    }
+//                        break;
                         
                     default:
                         break;
@@ -327,11 +327,11 @@
             } else if (userObj.userRole == UserRole_Teacher) {
                 switch (indexPath.row) {
                         //Time table
-                    case TeacherProfileSectionTimeTable:
-                    {
-                        
-                    }
-                        break;
+//                    case TeacherProfileSectionTimeTable:
+//                    {
+//                        
+//                    }
+//                        break;
                         
                     default:
                         break;

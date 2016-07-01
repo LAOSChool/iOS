@@ -21,6 +21,8 @@
 
 @interface AddCommentView : UIView
 {
+    IBOutlet UIView *viewHeader;
+    IBOutlet UILabel *lbTitle;
 
     IBOutlet UITextView *txtComment;
     IBOutlet AsyncImageView *imgAvatar;

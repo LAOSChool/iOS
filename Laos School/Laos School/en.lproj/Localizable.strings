@@ -40,14 +40,14 @@
 
 //Common alert
 "Failed to connect to server. Please try again." = "Failed to connect to server. Please try again.";
-"There is an error while trying to connect to server. Please try again." = "There is an error while trying to connect to server. Please try again.";
+"There was an error while trying to connect to server. Please try again." = "There was an error while trying to connect to server. Please try again.";
 "This account was being logged in by other device. Please re-login." = "This account was being logged in by other device. Please re-login.";
 
 //login, help, forgot password
 "Login" = "Login";
 "Forgot password?" = "Forgot password?";
 "Password" = "Password";
-"Username" = "User name";
+"User name" = "User name";
 "Phone number" = "Phone number";
 "Help" = "Help";
 "Forgot password" = "Forgot password";
@@ -151,7 +151,7 @@
 "Change password" = "Change password";
 "Your password has been changed successfully." = "Your password has been changed successfully.";
 "Old password is incorrect!" = "Old password is incorrect!";
-"Password require a length of 4 to 20 characters!" = "Password require a length of 4 to 20 characters!";
+"Password is required a length of 4 to 20 characters!" = "Password is required a length of 4 to 20 characters!";
 "New password and confirmation password do not match!" = "New password and confirmation password do not match!";
 "Try again" = "Try again";
 "Re-type new password" = "Re-type new password";
@@ -161,3 +161,43 @@
 //change language
 "Apply" = "Apply";
 "App will be reloaded after changing language. Are you sure?" = "App will be reloaded after changing language. Are you sure?";
+
+//Score type
+"September score" = "September score";
+"October score" = "October score";
+"November score" = "November score";
+"December score" = "December score";
+"Average 4 months" = "Average 4 months";
+"Term exam I" = "Term exam I";
+"Average term I" = "Average term I";
+"February score" = "February score";
+"March score" = "March score";
+"April score" = "April score";
+"May score" = "May score";
+"Average 4 months" = "Average 4 months";
+"Term exam II" = "Term exam II";
+"Average term II" = "Average term II";
+"Overall" = "Overall";
+"Retest" = "Retest";
+"Graduation" = "Graduation";
+
+"Sep" = "Sep";
+"Oct" = "Oct";
+"Nov" = "Nov";
+"Dec" = "Dec";
+"Ave m1" = "Ave m1";
+"Term exam I" = "Term exam I";
+"Ave term I" = "Ave term I";
+"Feb" = "Feb";
+"Mar" = "Mar";
+"Apr" = "Apr";
+"May" = "May";
+"Ave m2" = "Ave m2";
+"Term exam II" = "Term exam II";
+"Ave term II" = "Ave term II";
+"Ave year" = "Ave year";
+"Retest" = "Retest";
+"Test grad" = "Test grad";
+
+
+

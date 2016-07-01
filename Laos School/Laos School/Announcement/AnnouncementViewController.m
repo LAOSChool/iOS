@@ -44,10 +44,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:LocalizedString(@"Announcements")];
     
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self setTitle:LocalizedString(@"Announcements")];
+    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     isReachToEnd = NO;
     selectedIndex = nil;

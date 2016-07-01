@@ -11,8 +11,10 @@
                 <outlet property="imgAvatar" destination="ANK-f0-kS0" id="Wbe-jb-bez"/>
                 <outlet property="lbAdditionalInfo" destination="OeW-HJ-DSZ" id="R5X-7u-SHf"/>
                 <outlet property="lbStudentName" destination="G3K-zm-mam" id="b7v-xI-Bgg"/>
+                <outlet property="lbTitle" destination="1ty-54-ZhN" id="Eya-M7-Obm"/>
                 <outlet property="txtComment" destination="BYV-nj-Vng" id="PNs-og-hqg"/>
                 <outlet property="view" destination="img-Ve-RfE" id="Jdx-uS-Ve9"/>
+                <outlet property="viewHeader" destination="rH8-jP-Ssv" id="Vn4-Fm-bGS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,8 +22,32 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="330"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="rH8-jP-Ssv">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1ty-54-ZhN">
+                            <rect key="frame" x="12" y="12" width="276" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8ee-gt-PDG">
+                            <rect key="frame" x="270" y="8" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="ic_clear.png"/>
+                            <connections>
+                                <action selector="btnCloseClick:" destination="-1" eventType="touchUpInside" id="3Pr-Qc-vNy"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" id="BYV-nj-Vng">
-                    <rect key="frame" x="8" y="47" width="284" height="247"/>
+                    <rect key="frame" x="8" y="84" width="284" height="210"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,26 +57,11 @@
                         <outlet property="delegate" destination="-1" id="W9R-19-hWC"/>
                     </connections>
                 </textView>
-                <view contentMode="scaleToFill" id="rH8-jP-Ssv">
-                    <rect key="frame" x="0.0" y="47" width="300" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
                 <view contentMode="scaleToFill" id="8ev-jH-ucH">
                     <rect key="frame" x="0.0" y="297" width="300" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8ee-gt-PDG">
-                    <rect key="frame" x="270" y="0.0" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <color key="tintColor" red="0.75808869950000002" green="0.0" blue="0.17734529260000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" image="ic_clear.png"/>
-                    <connections>
-                        <action selector="btnCloseClick:" destination="-1" eventType="touchUpInside" id="3Pr-Qc-vNy"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zMx-qF-ry5">
                     <rect key="frame" x="241" y="299" width="60" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -61,18 +72,18 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_gray.png" id="ANK-f0-kS0" customClass="AsyncImageView">
-                    <rect key="frame" x="8" y="8" width="25" height="25"/>
+                    <rect key="frame" x="8" y="51" width="25" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G3K-zm-mam">
-                    <rect key="frame" x="41" y="2" width="221" height="21"/>
+                    <rect key="frame" x="41" y="45" width="221" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OeW-HJ-DSZ">
-                    <rect key="frame" x="41" y="21" width="221" height="21"/>
+                    <rect key="frame" x="41" y="64" width="221" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -85,7 +96,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="umS-lq-2OX" appends="YES" id="nfT-v2-oP6"/>
             </connections>
-            <point key="canvasLocation" x="73" y="128"/>
+            <point key="canvasLocation" x="154" y="142"/>
         </view>
         <panGestureRecognizer minimumNumberOfTouches="1" id="blb-wP-dtj">
             <connections>

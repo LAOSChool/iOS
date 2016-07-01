@@ -38,6 +38,8 @@
     [TagManagerHelper pushOpenScreenEvent:@"iReasonViewController"];
     // Do any additional setup after loading the view from its nib.
     
+    [navigationView setBackgroundColor:COMMON_COLOR];
+    
     lbTitle.text = LocalizedString(@"Reason");
     lbFullday.text = LocalizedString(@"Full day");
     [btnSend setTitle:LocalizedString(@"Send") forState:UIControlStateNormal];
@@ -69,8 +71,6 @@
     [reasonList addObject:LocalizedString(@"Reason 4")];
     [reasonList addObject:LocalizedString(@"Reason 5")];
     [reasonList addObject:LocalizedString(@"Other")];
-    
-    [navigationView setBackgroundColor:COMMON_COLOR];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];

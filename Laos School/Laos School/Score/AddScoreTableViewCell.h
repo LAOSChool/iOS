@@ -32,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtScore;
 
 @property (strong, nonatomic) UserScore *userScore;
+@property (strong, nonatomic) NSString *scoreKey;
 
 @property(nonatomic, readwrite) id <AddScoreTableViewCellDelegate> delegate;
 

@@ -1,7 +1,202 @@
-/* 
-  Localizable.strings
-  Laos School
+/*
+ Localizable.strings
+ Laos School
+ 
+ Created by HuKhong on 2/23/16.
+ Copyright © 2016 com.born2go.laosschool. All rights reserved.
+ */
 
-  Created by HuKhong on 2/23/16.
-  Copyright © 2016 com.born2go.laosschool. All rights reserved.
-*/
+//Tab name
+"Messages" = "Messages";
+"Announcements" = "ປະ​ກາດ";
+"Attendance" = "ການ​ມາ​ຮຽນ";
+"Scores" = "ຄະ​ແນນ";
+"More" = "ອື່ນໆ";
+
+//common
+"Close" = "ປິດ";
+"Cancel" = "ຍົກ​ເລີກ";
+"OK" = "ຕົກ​ລົງ";
+"Yes" = "ແມ່ນ";
+"No" = "ບໍ່";
+"Confirmation" = "ຢືນ​ຢັນ";
+"Submit" = "ເຂົ້າ​ຂໍ້​ມູນ";
+"Error" = "ຜິດ​ພາດ";
+"Failed" = "ລົ້ມ​ເຫຼວ";
+"Successfully" = "ສຳ​ເລັດ";
+"Search" = "ຄົ້ນ​ຫ​າ";
+"All" = "ທັງ​ໝົດ";
+"Unread" = "ຍັງ​ບໍ່​ອ່ານ";
+"Sent" = "ສົ່ງແລ້ວ";
+"Done" = "ແລ້ວ";
+"Selected" = "ເລືອກ​ແລ້ວ";
+"Total" = "ລວມ";
+"Absent" = "ຂາດ";
+"Send" = "ສົ່ງ";
+"Attention" = "ມາ​ຮຽນ";
+"Save" = "ບັນທຶກ";
+"Email" = "ອິ​ເມວ";
+"Class" = "ຫ້ອງ";
+
+//Common alert
+"Failed to connect to server. Please try again." = "ການເຊື່ອມ​ຕໍ່​ໃສ່​ເຊີ​ເວີ​ລົ້ມ​ເຫຼວ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"There was an error while trying to connect to server. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​ຕອນກຳ​ລັງ​ເຊື່ອມ​ຕໍ່​ໃສ່​ເຊີ​ເວີ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"This account was being logged in by other device. Please re-login." = "ບັນ​ຊີ​ນີ້​ໄດ້​ຖືກ​ນຳ​ໃຊ້​ຢູ່​ອຸ​ປະ​ກອ​ນອື່​ນ​ແລ້ວ. ກະ​ລຸ​ນາ​ເຂົ້າ​ໃໝ່.";
+
+//login, help, forgot password
+"Login" = "ເຂົ້າ​ສູ່​ລະ​ບົບ";
+"Forgot password?" = "ລືມ​ລະ​ຫັດ​ຜ່ານ?";
+"Password" = "ລະ​ຫັດ​ຜ່ານ";
+"User name" = "ຊື່​ຜູ້​ນຳ​ໃຊ້";
+"Phone number" = "ເບີ​ໂທ";
+"Help" = "ຊ່ວຍ​ເຫຼືອ";
+"Forgot password" = "ລືມ​ລະ​ຫັດ​ຜ່ານ";
+
+"Please enter your username and the phone number that is being registered for this account." = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ທີ່​ໄດ້ລົງ​ທະ​ບຽນ​ສຳ​ລັບ​ບັນ​ຊີ​ນີ້.";
+"(If you do not remember your user name and phone number, please contact with school's admin.)" = "(ຫາກ​ທ່ານ​ຈື້ ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່​ໄດ້, ກະ​ລຸ​ນາ​ຕິດ​ຕໍ່​ທາງໂຮງ​ຮຽນ.)";
+
+"Please enter your user name and phone number!" = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ!";
+"User name or phone number is incorrect!" = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່ຖືກ​ຕ້ອງ!";
+"A new password will be sent to your phone number." = "ລະ​ຫັດ​ຜ່ານ​ໂຕ​ໃໝ່ ຈະ​ຖືກ​ສົ່ງ​ໄປ​ໃຫ້​ທ່ານ​ທາງ SMS.";
+
+//Messages
+"New message" = "SMS ມາ​ໃໝ່";
+"To:" = "ເຖິງ:";
+"From:" = "ຈາກ:";
+"SMS:" = "SMS:";
+"Sample 1" = "ນັກ​ຮຽ​ນເຂົ້າ​ຫ້ອງ​ປົກ​ກະ​ຕິ";
+"Sample 2" = "ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 3" = "ຊົ່ວ​ໂມງທີ 1 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 4" = "ຊົ່ວ​ໂມງທີ 2 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 5" = "ຊົ່ວ​ໂມງທີ 3 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 6" = "ຊົ່ວ​ໂມງທີ 4 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 7" = "ຊົ່ວ​ໂມງທີ 5 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"[No subject]" = "[No subject]";
+
+
+"There was an error while sending message. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງ SMS ເກີດ​ຂຶ້ນ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"Please enter recipient and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຜູ້​ຮັບ ແລະ ເນື້ອ​ໃນ!";
+"Please enter content!" = "ກະ​ລຸ​ນາ​ໃສ່​ເນື້ອ​ໃນ!";
+
+//Students list
+"Students list" = "ລາຍ​ຊື່​ນັກ​ຮຽນ";
+
+//Announcement
+"New anouncement" = "ປະ​ກາດ​ໃໝ່";
+"Attention" = "Attention";
+"You have reached to the limitation. Only allow %ld photos." = "ກາຍກຳ​ນົດແລ້ວ. ​ອະ​ນຸ​ຍາດໃຫ້​ແມ່ນ %ld ຮູບ​ພາບ.";
+"Uploading" = "ກຳ​ລັງ​ອັບ​ໂຫຼດ...";
+"There was an error while sending announcement. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງປະ​ກາດ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@ ແມ່ນ​ບໍ?";
+"Please enter subject and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຫົວ​ຂໍ້ ແລະ ເນື້ອ​ໃນ!";
+
+//Attendance
+"Select a period" = "ເລືອກ​ຮອບ";
+"Cancel this attendance checking result. Are you sure?" = "Cancel this attendance checking result. Are you sure?";
+"[No reason]" = "(ບໍ່​ມີ​ເຫດ​ຜົນ)";
+"No reason" = "ບໍ່​ມີ​ເຫດ​ຜົນ";
+"Reason" = "ມີ​ເຫດ​ຜົນ";
+"Permitted" = "ອະ​ນຸ​ຍາດ";
+"Period" = "ເປັ​ນເວ​ລາ​";
+"Periods" = "ເປັ​ນເວ​ລາ​";
+"Full day" = "ໝົດ​ມື້";
+"Absence request" = "ໃບລາ​ພັກ​";
+"Please double check information before sending your request. Are you sure?" = "ກະ​ລຸ​ນາ​ກວດ​ສອບ​ຂໍ້​ມູນ​ອີກ​ຄັ້ງ​ກ່ອນ​ຈະ​ສົ່ງ​ໄປ. ທ່ານ​ໝັ້ນ​ໃຈ​ແລ້​ວ​ບໍ?";
+"Please enter a reason!" = "ກະ​ລຸຸ​ນາ​ໃສ່ເຫດ​ຜົນ!";
+"There was an error while sending request. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"An absence request had been sent for day %@. Please double check." = "ໃບລາ​ພັກ​ໄດ້​ສົ່ງ​ໄປ​ສຳ​ລັບ​ລາ​ພັກ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນ​ອີກ​ຄັ້ງ.";
+"Other" = "Other";
+"There was an error. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+
+//score
+"Term I" = "ພາກ​ຮຽນ I";
+"Term II" = "ພາກ​ຮຽນ II";
+"Term" = "ພາກ​ຮຽນ";
+"Select a subject" = "ເລື​ອກ​ຫົວ​ຂໍ້";
+"Add scores" = "ໃສ່​ຄະ​ແນນ";
+"Select a score type" = "ເລືື​ອກ​ປະ​ເພດ​ຄະ​ແນນ";
+"Please double check information before you submit scores. Are you sure?" = "ກະ​ລຸ​ນາ​ກວດ​ຄືນ​ອີກ​ຄັ້ງ ກ່ອນ​ທີ່​ທ່ານ​ຈະ​ເຂົ້າ​ຂໍ້​ມູນຄະ​ແນນ?";
+"You do not complete filling scores. Submit now?" = "ທ່ານ​ຍັງ​ໃສ່​ຄະ​ແນນບໍ່​ສຳ​ເລັດ. ກົດໃສ່ ​\"ເຂົາ​ຂໍ້​ມຸນ​\" ດຽວ​ນີ້.?";
+"Are you sure you want to cancel?" = "ທ່່ານ​ຈ​ະ​ຍົກ​ເລີກ​ບໍ?";
+"Comment" = "ຄຳ​ຄິດ​ເຫັນ";
+"Score" = "ຄະ​ແນນ";
+"There was an error while submitting score. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"There was an error while submitting scores. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+
+//More
+"School records" = "ບັນ​ທຶກ​ຂອງ​ໂຮງ​ຮຽນ";
+"Timetable" = "ຕາ​ຕະ​ລາງ​ເວ​ລາ";
+"Schedule" = "ຕາ​ຕະ​ລາງ​ຮຽນ";
+"School information" = "ຂໍ້​ມູນ​ທາງ​ໂຮງ​ຮຽນ";
+"Students list" = "ລາຍ​ຊື່​ນັກ​ຮຽນ";
+"Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";
+"Change language" = "ປ່່ຽນພາສາ";
+"Logout" = "ອອກ​ຈາກ​ລະ​ບົບ";
+"Are you sure you want to logout?" = "ທ່ານ​ຕ້ອງ​ການຈະ​ອອກ​ຈາກ​ລະ​ບົບບໍ?";
+
+//personal info
+"Student info" = "ຂໍ້​ມູນ​ນັກ​ຮຽນ";
+
+//school records
+"Overall" = "ທັງ​ໝົດ";
+"Morality" = "ຄຸນ​ສົມ​ບັດ";
+"Absence" = "ຂາດ";
+"Teacher's comment" = "ຄ​ຳເຫັນ​ຂອງ​ອາ​ຈານ";
+"Select a school year" = "ເລືອກ​ປີ​ຮຽນ";
+
+//Timetable
+"Morning" = "ຕອນ​ເຊົ້​າ";
+"Afternoon" = "ຕອນ​ບ່າຍ";
+"Evening" = "ຕອນ​ແລງ";
+
+//Change password
+"Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";
+"Your password has been changed successfully." = "ລະ​ຫັດ​ຂອງ​ທ່ານ​ໄດ້​ປ່ຽນ​ໃໝ່​ແລ້ວ.";
+"Old password is incorrect!" = "ລະ​ຫັດເກົ່າ​ຂອງ​ທ່ານບໍ່​ຖືກ!";
+"Password is required a length of 4 to 20 characters!" = "ຄວາມ​ຍາວ​ຂອງ​ລະ​ຫັດ​ແມ່ນ​ແຕ່ 4 ຫາ 20 ໂຕ!";
+"New password and confirmation password do not match!" = "ລະ​ຫັດ​ໃໝ່ຂອງ​ທ່ານບໍ່​ຕົງ​ກັນ!";
+"Try again" = "ລອງ​ໃໝ່​ອີກ​ຄັ້ງ";
+"Re-type new password" = "ໃສ່​ລະ​ຫັດ​ໃໝ່​ອີກ​ຄັ້ງ";
+"Old password" = "ລະ​ຫັດ​ເກົ່າ";
+"New password" = "ລະ​ຫັດ​ໃໝ່່";
+
+//change language
+"Apply" = "ການນຳ​ໃຊ້";
+"App will be reloaded after changing language. Are you sure?" = "ການ​ນຳ​ໃຊ້​ຈະ​ຖືກ​ໂຫຼດ​ຄື​ນຫຼັງ​ຈາກ​ການ​ປ່ຽນ​ພາ​ສາ. ທ່ານ​ແນ່​ໃຈບໍ?";
+
+//score type
+"September score" = "ເດືອນ 09";
+"October score" = "ເດືອນ 10";
+"November score" = "ເດືອນ 11";
+"December score" = "ເດືອນ 12";
+"Average 4 months" = "ສ​ະ​ເລ່ຍ 4ດ";
+"Term exam I" = "ພາກ​ຮຽນ I";
+"Average term I" = "ສະ​ເລ່ຍ ພ​ຮ I";
+"February score" = "ເດືອນ 02";
+"March score" = "ເດືອນ 03";
+"April score" = "ເດືອນ 04";
+"May score" = "ເດືອນ 05";
+"Average 4 months" = "ສ​ະ​ເລ່ຍ 4ດ";
+"Term exam II" = "ພາກ​ຮຽນ II";
+"Average term II" = "ສະ​ເລ່ຍ ພ​ຮ II";
+"Overall" = "ສະ​ເລ່ຍ​ປີ";
+"Retest" = "ເສັງ​ຄືນ";
+"Graduation" = "ເສັງ​ຈົບ";
+
+"Sep" = "ເດືອນ 09";
+"Oct" = "ເດືອນ 10";
+"Nov" = "ເດືອນ 11";
+"Dec" = "ເດືອນ 12";
+"Ave m1" = "ສ​ະ​ເລ່ຍ 4ດ";
+"Term exam I" = "ພາກ​ຮຽນ I";
+"Ave term I" = "ສະ​ເລ່ຍ ພ​ຮ I";
+"Feb" = "ເດືອນ 02";
+"Mar" = "ເດືອນ 03";
+"Apr" = "ເດືອນ 04";
+"May" = "ເດືອນ 05";
+"Ave m2" = "ສ​ະ​ເລ່ຍ 4ດ";
+"Term exam II" = "ພາກ​ຮຽນ II";
+"Ave term II" = "ສະ​ເລ່ຍ ພ​ຮ II";
+"Ave year" = "ສະ​ເລ່ຍ​ປີ";
+"Retest" = "ເສັງ​ຄືນ";
+"Test grad" = "ເສັງ​ຈົບ";

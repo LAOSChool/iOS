@@ -18,7 +18,7 @@
 #import "TagManagerHelper.h"
 
 #import "TermObject.h"
-#import "ScoreObject.h"
+#import "UserScore.h"
 
 #import "SVProgressHUD.h"
 #import "MHTabBarController.h"
@@ -33,22 +33,7 @@ typedef enum {
 
 @interface SchoolProfileViewController ()
 {
-    //overal data
-    NSString *className;
-    NSString *averageTermOne;
-    NSString *averageTermSecond;
-    NSString *overalYear;
-    NSString *comment;
-    NSString *additionalInfo;
-    NSInteger rank;
-    NSString *grade;
-    
-    NSMutableArray *averageMonthArr;
-    NSString *average4Months;
-    NSString *averageExams;
-    NSMutableArray *gradeMonthArr;
-    NSMutableArray *rankMonthArr;
-    
+
     BOOL isShowingInfo;
     
     //subject data
@@ -264,10 +249,10 @@ typedef enum {
         }
         
     } else if ([url rangeOfString:API_NAME_STU_SCHOOL_RECORDS].location != NSNotFound) {
-        NSDictionary *scoresDict = [jsonObj objectForKey:@"messageObject"];
+        NSArray *scoresArr = [jsonObj objectForKey:@"messageObject"];
         
-        if (scoresDict != (id)[NSNull null]) {
-            [self parseSchoolRecords:scoresDict];
+        if (scoresArr != (id)[NSNull null]) {
+            [self parseSchoolRecords:scoresArr];
             
         } else {
             if (tabViewController) {
@@ -279,229 +264,193 @@ typedef enum {
     }
 }
 
-- (void)parseSchoolRecords:(NSDictionary *)scoresDict {
+- (void)parseSchoolRecords:(NSArray *)scoresArr {
     [scoresArray removeAllObjects];
     [scoresStore removeAllObjects];
     
-    //common info
-    if ([scoresDict valueForKey:@"cls_name"] != (id)[NSNull null]) {
-        lbClassValue.text = [scoresDict objectForKey:@"cls_name"];
-    }
-    
-    if ([scoresDict valueForKey:@"passed"] != (id)[NSNull null]) {
-        BOOL passed = [[scoresDict objectForKey:@"passed"] boolValue];
+    if ([scoresArr count] > 0) {
+        NSDictionary *scoresDict = [scoresArr objectAtIndex:0];
         
-        if (passed) {
-            lbPassed.text = LocalizedString(@"Passed");
-
-        } else {
-            lbPassed.text = LocalizedString(@"Not pass");
+        //common info
+        if ([scoresDict valueForKey:@"cls_name"] != (id)[NSNull null]) {
+            lbClassValue.text = [scoresDict objectForKey:@"cls_name"];
         }
-    }
-    
-    if ([scoresDict valueForKey:@"day_absents"] != (id)[NSNull null]) {
-        lbAbsenceValue.text = [NSString stringWithFormat:@"%@", [scoresDict objectForKey:@"day_absents"]];
-    }
-    
-    if ([scoresDict valueForKey:@"notice"] != (id)[NSNull null]) {
-        txtComment.text = [scoresDict objectForKey:@"notice"];
-    } else {
-        txtComment.text = LocalizedString(@"No comment");
-    }
-    
-    NSArray *scores = [scoresDict objectForKey:@"exam_results"];
-    /*
-    if (scores != (id)[NSNull null]) {
         
-        for (NSDictionary *scoreDict in scores) {
-            ScoreObject *scoreObj = [[ScoreObject alloc] init];
-
-            if ([scoreDict valueForKey:@"id"] != (id)[NSNull null]) {
-                scoreObj.scoreID = [scoreDict valueForKey:@"id"];
-            }
+        if ([scoresDict valueForKey:@"passed"] != (id)[NSNull null]) {
+            BOOL passed = [[scoresDict objectForKey:@"passed"] boolValue];
             
-            if ([scoreDict valueForKey:@"sresult"] != (id)[NSNull null]) {
-                scoreObj.score = [scoreDict valueForKey:@"sresult"];
-            }
-            
-            if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
-                scoreObj.subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
-            }
-            
-            if ([scoreDict valueForKey:@"subject"] != (id)[NSNull null]) {
-                scoreObj.subject = [scoreDict valueForKey:@"subject"];
-            }
-            
-            if ([scoreDict valueForKey:@"exam_dt"] != (id)[NSNull null]) {
-                scoreObj.dateTime = [scoreDict valueForKey:@"exam_dt"];
-            }
-            
-            if ([scoreDict valueForKey:@"exam_id"] != (id)[NSNull null]) {
-                scoreObj.examID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"exam_id"]];
-            }
-            
-            if ([scoreDict valueForKey:@"exam_name"] != (id)[NSNull null]) {
-                scoreObj.scoreName = [scoreDict valueForKey:@"exam_name"];
-            }
-            
-            if ([scoreDict valueForKey:@"ex_displayname"] != (id)[NSNull null]) {
-                scoreObj.scoreDisplayName = [scoreDict valueForKey:@"ex_displayname"];
-            }
-            
-            if ([scoreDict valueForKey:@"exam_type"] != (id)[NSNull null]) {
-                NSInteger type = [[scoreDict valueForKey:@"exam_type"] integerValue];
+            if (passed) {
+                lbPassed.text = LocalizedString(@"Passed");
                 
-                if (type == 1) {
-                    scoreObj.scoreType = ScoreType_Normal;
-                    
-                } else if (type == 2) {
-                    scoreObj.scoreType = ScoreType_Exam;
-                    
-                } else if (type == 3) {
-                    scoreObj.scoreType = ScoreType_Average;
-                    
-                } else if (type == 4) {
-                    scoreObj.scoreType = ScoreType_TermFinal;
-                    
-                } else if (type == 5) {
-                    scoreObj.scoreType = ScoreType_YearFinal;
-                    
-                } else if (type == 6) {
-                    scoreObj.scoreType = ScoreType_ExamAgain;
-                    
-                } else if (type == 7) {
-                    scoreObj.scoreType = ScoreType_Graduate;
+            } else {
+                lbPassed.text = LocalizedString(@"Not pass");
+            }
+        }
+        
+        if ([scoresDict valueForKey:@"day_absents"] != (id)[NSNull null]) {
+            lbAbsenceValue.text = [NSString stringWithFormat:@"%@", [scoresDict objectForKey:@"day_absents"]];
+        }
+        
+        if ([scoresDict valueForKey:@"notice"] != (id)[NSNull null]) {
+            txtComment.text = [scoresDict objectForKey:@"notice"];
+        } else {
+            txtComment.text = LocalizedString(@"No comment");
+        }
+        
+        NSArray *scores = [scoresDict objectForKey:@"exam_results"];
+        if (scores != (id)[NSNull null]) {
+            for (NSDictionary *scoreDict in scores) {
+                NSString *studentID = @"";
+                NSString *studentName = @"";
+                NSString *nickname = @"";
+                NSString *fullname = @"";
+                NSString *avatarLink = @"";
+                NSString *subjectID = @"";
+                NSString *subject = @"";
+                
+                if ([scoreDict valueForKey:@"student_id"] != (id)[NSNull null]) {
+                    studentID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"student_id"]];
                 }
+                
+                if ([scoreDict valueForKey:@"student_name"] != (id)[NSNull null]) {
+                    studentName = [scoreDict valueForKey:@"student_name"];
+                }
+                
+                if ([scoreDict valueForKey:@"std_nickname"] != (id)[NSNull null]) {
+                    nickname = [scoreDict valueForKey:@"std_nickname"];
+                }
+                
+                if ([scoreDict valueForKey:@"std_fullname"] != (id)[NSNull null]) {
+                    fullname = [scoreDict valueForKey:@"std_fullname"];
+                }
+                
+                if ([scoreDict valueForKey:@"std_photo"] != (id)[NSNull null]) {
+                    avatarLink = [scoreDict valueForKey:@"std_photo"];
+                }
+                
+                if ([scoreDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                    subjectID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"subject_id"]];
+                }
+                
+                if ([scoreDict valueForKey:@"subject_name"] != (id)[NSNull null]) {
+                    subject = [scoreDict valueForKey:@"subject_name"];
+                }
+                
+                UserScore *newUserScoreObj = [[UserScore alloc] init];
+                
+                newUserScoreObj.userID = studentID;
+                newUserScoreObj.username = studentName;
+                newUserScoreObj.additionalInfo = nickname;
+                newUserScoreObj.displayName = fullname;
+                newUserScoreObj.avatarLink = avatarLink;
+                newUserScoreObj.subjectID = subjectID;
+                newUserScoreObj.subject = subject;
+                
+                NSString *key = @"";
+                for (int i = 1; i <= 20; i++) {
+                    key = [NSString stringWithFormat:@"m%d", i];
+                    NSString *stringScoreJson = [scoreDict objectForKey:key];
+                    
+                    if (stringScoreJson != (id)[NSNull null]) {
+                        NSData *objectData = [stringScoreJson dataUsingEncoding:NSUTF8StringEncoding];
+                        NSDictionary *score = [NSJSONSerialization JSONObjectWithData:objectData options:kNilOptions error:nil];
+                        ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                        /*@property (nonatomic, strong) NSString *score;
+                         @property (nonatomic, strong) NSString *dateTime;
+                         @property (nonatomic, strong) ScoreTypeObject *scoreTypeObj;
+                         @property (nonatomic, strong) NSString *comment;*/
+                        
+                        if ([score valueForKey:@"sresult"] != (id)[NSNull null]) {
+                            scoreObj.score = [score valueForKey:@"sresult"];
+                        }
+                        
+                        if ([score valueForKey:@"exam_dt"] != (id)[NSNull null]) {
+                            scoreObj.dateTime = [score valueForKey:@"exam_dt"];
+                        }
+                        
+                        ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                        typeObj.scoreKey = key;
+                        
+                        scoreObj.scoreTypeObj = typeObj;
+                        
+                        if ([score valueForKey:@"notice"] != (id)[NSNull null]) {
+                            scoreObj.comment = [score valueForKey:@"notice"];
+                        }
+                        
+                        [newUserScoreObj.scoreArray addObject:scoreObj];
+                    } else {
+                        
+                        ScoreObject *scoreObj = [[ScoreObject alloc] init];
+                        ScoreTypeObject *typeObj = [[ScoreTypeObject alloc] init];
+                        typeObj.scoreKey = key;
+                        scoreObj.scoreTypeObj = typeObj;
+                        [newUserScoreObj.scoreArray addObject:scoreObj];
+                    }
+                }
+                
+                NSSortDescriptor *sortByType = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+                
+                [newUserScoreObj.scoreArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByType, nil]];
+                
+                [scoresArray addObject:newUserScoreObj];
             }
             
-            if ([scoreDict valueForKey:@"exam_month"] != (id)[NSNull null]) {
-                scoreObj.month = [[scoreDict valueForKey:@"exam_month"] integerValue];
+            [self groupScoresByTermAndDisplay];
+            
+        } else {
+            if (tabViewController) {
+                [tabViewController.view removeFromSuperview];
             }
-            
-            if ([scoreDict valueForKey:@"exam_year"] != (id)[NSNull null]) {
-                scoreObj.year = [[scoreDict valueForKey:@"exam_year"] integerValue];
-            }
-            
-            if ([scoreDict valueForKey:@"teacher"] != (id)[NSNull null]) {
-                scoreObj.teacherName = [scoreDict valueForKey:@"teacher"];
-            }
-            
-            if ([scoreDict valueForKey:@"notice"] != (id)[NSNull null]) {
-                scoreObj.comment = [scoreDict valueForKey:@"notice"];
-            }
-            
-            if ([scoreDict valueForKey:@"term_id"] != (id)[NSNull null]) {
-                scoreObj.termID = [NSString stringWithFormat:@"%@", [scoreDict valueForKey:@"term_id"]];
-            }
-            
-            if ([scoreDict valueForKey:@"term"] != (id)[NSNull null]) {
-                scoreObj.term = [scoreDict valueForKey:@"term"];
-            }
-            
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[scoresStore objectForKey:scoreObj.termID]];
-            
-            [arr addObject:scoreObj];
-            [scoresStore setObject:arr forKey:scoreObj.termID];
         }
-        
-        [self groupScoresByTermAndDisplay];
-        
-    } else {
-        if (tabViewController) {
-            [tabViewController.view removeFromSuperview];
-        }
-    }*/
+    }
 }
 
 - (void)groupScoresByTermAndDisplay {
-    
-    //break scores into 3 arrays
-    NSMutableArray *totalArray = [[NSMutableArray alloc] init];
-    NSMutableArray *firstArray = [[NSMutableArray alloc] init];
-    NSMutableArray *firstAverageArray = [[NSMutableArray alloc] init];
-    
-    NSMutableArray *secondArray = [[NSMutableArray alloc] init];
-    NSMutableArray *secondAverageArray = [[NSMutableArray alloc] init];
-    
-    NSArray *keyArr = [scoresStore allKeys];
-    
-    if ([keyArr count] > 1) {
-        [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            if ([obj1 intValue]==[obj2 intValue])
-                return NSOrderedSame;
-            
-            else if ([obj1 intValue]<[obj2 intValue])
-                return NSOrderedAscending;
-            else
-                return NSOrderedDescending;
-            
-        }];
-    }
-    
-    if ([keyArr count] > TabType_TermFirst) {
-        [firstArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:TabType_TermFirst]]];
-    }
-    
-    if ([keyArr count] > TabType_TermSecond) {
-        [secondArray addObjectsFromArray:[scoresStore objectForKey:[keyArr objectAtIndex:TabType_TermSecond]]];
-    }
-    
-    //if a score is average type, copy it to totalArray
-    /*
-     ScoreType_Normal = 0,
-     ScoreType_Average,
-     ScoreType_Exam,
-     ScoreType_TermFinal,
-     ScoreType_YearFinal,
-     ScoreType_ExamAgain,
-     ScoreType_Graduate,*/
-    for (ScoreObject *score in firstArray) {
-        if (score.scoreTypeObj.scoreType == ScoreType_TermFinal ||
-            score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
-            
-            [totalArray addObject:score];
-            [firstAverageArray addObject:score];
-        }
-    }
-    
-    for (ScoreObject *score in secondArray) {
-        if (score.scoreTypeObj.scoreType == ScoreType_TermFinal ||
-            score.scoreTypeObj.scoreType == ScoreType_YearFinal) {
-            
-            [totalArray addObject:score];
-            [secondAverageArray addObject:score];
-        }
-    }
-    
     //calculate average
     float totalFirst = 0;
     float totalSecond = 0;
     float totalFinal = 0;
-    
-    for (ScoreObject *score in firstAverageArray) {
-        totalFirst = totalFirst + [score.score floatValue];
-        
+    NSInteger countFirst = 0;
+    NSInteger countSecond = 0;
+    NSInteger countTotal = 0;
+
+    for (UserScore *userScore in scoresArray) {
+        for (ScoreObject *score in userScore.scoreArray) {
+            if ([score.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM1]) {
+                totalFirst = totalFirst + [score.score floatValue];
+                countFirst ++;
+                
+            } else if ([score.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM2]) {
+                totalSecond = totalSecond + [score.score floatValue];
+                countSecond ++;
+                
+            } else if ([score.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_OVERALL]) {
+                totalFinal = totalFinal + [score.score floatValue];
+                countTotal ++;
+            }
+        }
     }
     
-    for (ScoreObject *score in secondAverageArray) {
-        totalSecond = totalSecond + [score.score floatValue];
-        
-    }
-    totalFinal = totalFirst + totalSecond;
-    
-    if ([firstAverageArray count] > 0) {
-        lbAverage1Value.text = [NSString stringWithFormat:@"%.1f", totalFirst/[firstAverageArray count]];
+    if (countFirst > 0) {
+        lbAverage1Value.text = [NSString stringWithFormat:@"%.1f", totalFirst/countFirst];
     } else {
         lbAverage1Value.text = @"0";
     }
     
-    if ([secondAverageArray count] > 0) {
-        lbAverage2Value.text = [NSString stringWithFormat:@"%.1f", totalSecond/[secondAverageArray count]];
+    if (countSecond > 0) {
+        lbAverage2Value.text = [NSString stringWithFormat:@"%.1f", totalSecond/countSecond];
     } else {
         lbAverage2Value.text = @"0";
     }
-
-    lbAverageYearValue.text = [NSString stringWithFormat:@"%.1f", totalFinal/2];
+    
+    if (countSecond > 0) {
+        lbAverageYearValue.text = [NSString stringWithFormat:@"%.1f", totalFinal/countTotal];
+    } else {
+        lbAverageYearValue.text = @"0";
+    }
+    
+    NSLog(@"Final :: %f", (totalFirst/countFirst + totalSecond/countSecond)/2);
+//    lbAverageYearValue.text = [NSString stringWithFormat:@"%.1f", totalFinal/2];
     
     //display score as tabs
     tabViewController = [[MHTabBarController alloc] init];
@@ -511,19 +460,21 @@ typedef enum {
     ScoresViewController *allYearScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     allYearScoreViewController.title = @"Overall";
     allYearScoreViewController.tableType = ScoreTable_SchoolRecord;
-    allYearScoreViewController.scoresArray = totalArray;
+    allYearScoreViewController.scoresArray = scoresArray;
+    allYearScoreViewController.curTerm = TERM_VALUE_OVERALL;
     
     //term 1
     ScoresViewController *term1ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term1ScoreViewController.title = @"Term I";
-    term1ScoreViewController.tableType = ScoreTable_SchoolRecord;
-    term1ScoreViewController.scoresArray = firstArray;
+    allYearScoreViewController.scoresArray = scoresArray;
+    allYearScoreViewController.curTerm = TERM_VALUE_OVERALL;
     
     //Term 2
     ScoresViewController *term2ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term2ScoreViewController.title = @"Term II";
     term2ScoreViewController.tableType = ScoreTable_SchoolRecord;
-    term2ScoreViewController.scoresArray = secondArray;
+    term2ScoreViewController.scoresArray = scoresArray;
+    term2ScoreViewController.curTerm = TERM_VALUE_OVERALL;
     
     //add tab view
     tabViewController.viewControllers = @[allYearScoreViewController, term1ScoreViewController, term2ScoreViewController];

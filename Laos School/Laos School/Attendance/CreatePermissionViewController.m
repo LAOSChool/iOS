@@ -41,6 +41,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:LocalizedString(@"Absence request")];
+    lbFrom.text = LocalizedString(@"From:");
+    lbTo.text = LocalizedString(@"To:");
     
     [self.navigationController setNavigationColor];
     selectedItem = 0;

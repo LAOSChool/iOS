@@ -44,6 +44,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.navigationController setNavigationColor];
+    [self setTitle:LocalizedString(@"Scores")];
     
     if (_tableType == ScoreTable_Normal) {
         segmentedControl = [[UISegmentedControl alloc] initWithItems:
@@ -208,12 +209,16 @@
         
         [cell.contentView setFrame:rect];
     }
-    
-    if (segmentedControl.selectedSegmentIndex == 0) {
-        cell.curTerm = TERM_VALUE_1;
+    if (_curTerm && _curTerm.length > 0) {
+        cell.curTerm = _curTerm;
         
     } else {
-        cell.curTerm = TERM_VALUE_2;
+        if (segmentedControl.selectedSegmentIndex == 0) {
+            cell.curTerm = TERM_VALUE_1;
+            
+        } else {
+            cell.curTerm = TERM_VALUE_2;
+        }
     }
     
     UserScore *userScoreObject = nil;

@@ -38,7 +38,7 @@
     [btnSubmit setTitle:LocalizedString(@"Submit") forState:UIControlStateNormal];
     
     lbGuide1.text = LocalizedString(@"Please enter your username and the phone number that is being registered for this account.");
-    lbGuide2.text = LocalizedString(@"(If you do not remember your username and phone number, please contact with school's admin.)");
+    lbGuide2.text = LocalizedString(@"(If you do not remember your user name and phone number, please contact with school's admin.)");
     
     UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
     
@@ -163,7 +163,7 @@
 }
 
 - (void)showAlertUnknowError {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 2;
     
     [alert show];

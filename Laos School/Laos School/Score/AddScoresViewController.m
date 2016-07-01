@@ -23,8 +23,8 @@
 
 #import "SVProgressHUD.h"
 
-#define NOTE_WIDTH 230
-#define NOTE_HEIGHT 200
+#define NOTE_WIDTH 250
+#define NOTE_HEIGHT 250
 
 @interface AddScoresViewController ()
 {
@@ -144,7 +144,7 @@
             CGRect rect = addCommentView.frame;
             
             rect.origin.x = (size.width - NOTE_WIDTH)/2;
-            rect.origin.y = (size.height - NOTE_HEIGHT)/2 - 40;
+            rect.origin.y = (size.height - NOTE_HEIGHT)/2 - 60;
             
             [addCommentView setFrame:rect];
         }
@@ -212,25 +212,40 @@
     
     NSMutableArray *scoresArr = [[NSMutableArray alloc] init];
     //create scores json
-/*
+
     for (UserScore *userScore in scoresArray) {
         if ([userScore.scoreArray count] > 0) {
             NSMutableDictionary *scoreDict = [[NSMutableDictionary alloc] init];
-            ScoreObject *scoreObj = [userScore.scoreArray objectAtIndex:0];
+            ScoreObject *scoreObj = nil;
+            
+            for (ScoreObject *score in userScore.scoreArray) {
+                if ([score.scoreTypeObj.scoreKey isEqualToString:_selectedType.scoreKey]) {
+                    scoreObj = score;
+                    break;
+                }
+            }
             
             [scoreDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
             [scoreDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
-            [scoreDict setValue:scoreObj.score forKey:@"sresult"];
             [scoreDict setValue:userScore.userID forKey:@"student_id"];
-            [scoreDict setValue:scoreObj.subjectID forKey:@"subject_id"];
-            [scoreDict setValue:scoreObj.examID forKey:@"exam_id"];
-            [scoreDict setValue:scoreObj.termID forKey:@"term_id"];
-            [scoreDict setValue:scoreObj.comment forKey:@"notice"];
+            [scoreDict setValue:userScore.subjectID forKey:@"subject_id"];
+            
+            NSMutableDictionary *scoreValueDict = [[NSMutableDictionary alloc] init];
+            
+            [scoreValueDict setValue:scoreObj.comment forKey:@"notice"];
+            [scoreValueDict setValue:scoreObj.score forKey:@"sresult"];
+            
+            NSString *dateTime = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeWithFormat:COMMON_DATE_FORMATE];
+            [scoreValueDict setValue:dateTime forKey:@"exam_dt"];
+            NSData * jsonData = [NSJSONSerialization dataWithJSONObject:scoreValueDict options:0 error:nil];
+            NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            [scoreDict setValue:myString forKey:scoreObj.scoreTypeObj.scoreKey];
             
             [scoresArr addObject:scoreDict];
         }
     }
-    */
+
     if ([scoresArr count] > 0) {
         [requestToServer submitMultipleScoresWithObject:scoresArr];
     }
@@ -337,13 +352,12 @@
                 lbScoreType.text = typeObj.scoreName;
                 _selectedType = typeObj;
                 
-                if ([userScoreDict count] > 0) {
-                    [scoresArray removeAllObjects];
+                if ([scoresArray count] > 0) {
+                    [searchBar resignFirstResponder];
+                    searchBar.text = @"";
                     [searchResults removeAllObjects];
-                    
-                    NSArray *arr = [userScoreDict objectForKey:_selectedType.scoreKey];
-                    [scoresArray addObjectsFromArray:arr];
                     [searchResults addObjectsFromArray:scoresArray];
+
                     [self resizeTableView];
                 
                     [studentTableView reloadData];
@@ -362,8 +376,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [searchResults count];
+    if (_selectedType) {
+        return [searchResults count];
+    }
     
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -387,12 +404,16 @@
     UserScore *userScoreObject = [searchResults objectAtIndex:indexPath.row];
     ScoreObject *scoreObj = nil;
     
-    if ([userScoreObject.scoreArray count] > 0) {
-        scoreObj = [userScoreObject.scoreArray objectAtIndex:0];
+    for (ScoreObject *score in userScoreObject.scoreArray) {
+        if ([score.scoreTypeObj.scoreKey isEqualToString:_selectedType.scoreKey]) {
+            scoreObj = score;
+            break;
+        }
     }
     
+    cell.scoreKey = _selectedType.scoreKey;
     cell.userScore = userScoreObject;
-    cell.lbStudentName.text = userScoreObject.username;
+    cell.lbStudentName.text = userScoreObject.displayName;
     cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
 
     cell.txtScore.text =  scoreObj.score;
@@ -512,6 +533,12 @@
                 [self parseScoreTypeList:scoreTypeArr];
 
             }
+            //API_NAME_TEACHER_ADD_MULTIPLE_SCORE must put before API_NAME_TEACHER_SCORE_LIST
+        } else if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
+            [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Successfully")];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToRefreshScoreList" object:nil];
             
         } else if ([url rangeOfString:API_NAME_TEACHER_SCORE_LIST].location != NSNotFound) {
             NSArray *scores = [jsonObj objectForKey:@"messageObject"];
@@ -520,11 +547,6 @@
                 [self parseScoreList:scores];
             }
             
-        } else if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
-            [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Successfully")];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToRefreshScoreList" object:nil];
         }
         
     } else {
@@ -677,13 +699,10 @@
     
     [searchResults addObjectsFromArray:scoresArray];
 
-    if (_selectedType) {
-        [scoresArray addObjectsFromArray:[userScoreDict objectForKey:_selectedType.scoreKey]];
+    if (_selectedType && [searchResults count] > 0) {
         [self resizeTableView];
-        [searchResults addObjectsFromArray:scoresArray];
+        [studentTableView reloadData];
     }
-
-    [studentTableView reloadData];
 }
 
 //call this function whenever changing scoresArray
@@ -739,7 +758,7 @@
     
     rect.origin.x = (webRect.size.width - NOTE_WIDTH)/2;
     
-    rect.origin.y = (webRect.size.height - NOTE_HEIGHT)/2 - 40; //40 :: to move the save button from the keyboard
+    rect.origin.y = (webRect.size.height - NOTE_HEIGHT)/2 - 60; //60 :: to move the save button from the keyboard
     
     if (addCommentView == nil) {
 
@@ -838,7 +857,7 @@
 
 
 - (IBAction)panGestureHandle:(id)sender {
-    if (dataPicker.view.alpha == 0) {
+    if (dataPicker.view.alpha == 0 && (addCommentView == nil || addCommentView.alpha == 0)) {
         UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer *)sender;
         
         CGPoint velocity = [recognizer velocityInView:self.view];
@@ -883,7 +902,7 @@
 }
 
 - (void)failToGetInfo {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 5;
     
     [alert show];

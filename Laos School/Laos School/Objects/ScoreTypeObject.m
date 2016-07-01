@@ -70,7 +70,7 @@
         _scoreType = ScoreType_Exam;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE_TERM1]) {
-        _scoreName = LocalizedString(@"Average term 1");
+        _scoreName = LocalizedString(@"Average term I");
         _scoreShortName = LocalizedString(@"Ave term I");
         _scoreType = ScoreType_TermFinal;
         
@@ -100,12 +100,12 @@
         _scoreType = ScoreType_Average;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_TERM_EXAM2]) {
-        _scoreName = LocalizedString(@"Term exam 2");
-        _scoreShortName = LocalizedString(@"Test term II");
+        _scoreName = LocalizedString(@"Term exam II");
+        _scoreShortName = LocalizedString(@"Term exam II");
         _scoreType = ScoreType_Exam;
         
     } else if ([_scoreKey isEqualToString:SCORE_KEY_AVE_TERM2]) {
-        _scoreName = LocalizedString(@"Average term 2");
+        _scoreName = LocalizedString(@"Average term II");
         _scoreShortName = LocalizedString(@"Ave term II");
         _scoreType = ScoreType_TermFinal;
         

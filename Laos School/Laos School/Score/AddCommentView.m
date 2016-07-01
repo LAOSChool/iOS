@@ -10,6 +10,7 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "ScoreObject.h"
+#import "CommonDefine.h"
 
 #define TEXT_PLACEHOLDER LocalizedString(@"Comment")
 
@@ -33,8 +34,8 @@
         self.view.layer.borderColor = [UIColor darkGrayColor].CGColor;
         self.view.layer.borderWidth = 1.0f;
         
-        self.view.layer.cornerRadius = 5.0f;
-        self.view.clipsToBounds = YES;
+//        self.view.layer.cornerRadius = 5.0f;
+//        self.view.clipsToBounds = YES;
         
         self.view.layer.masksToBounds = NO;
         self.view.layer.shadowOffset = CGSizeMake(-5, 10);
@@ -43,6 +44,10 @@
 
         btnSave.enabled = NO;
         [txtComment becomeFirstResponder];
+        
+        [viewHeader setBackgroundColor:COMMON_COLOR];
+        
+        lbTitle.text = LocalizedString(@"Comment");
         
         _isShowing = YES;
     }
@@ -56,6 +61,9 @@
 //}
 
 - (void)setUserScore:(UserScore *)userScore {
+    [viewHeader setBackgroundColor:COMMON_COLOR];
+    
+    lbTitle.text = LocalizedString(@"Comment");
     [btnSave setTitle:LocalizedString(@"Save") forState:UIControlStateNormal];
     
     _userScore = userScore;
@@ -73,12 +81,7 @@
         
     }
     
-    if (scoreObj.comment == nil || scoreObj.comment.length == 0) {
-        txtComment.text = TEXT_PLACEHOLDER;
-        
-        txtComment.textColor = [UIColor lightGrayColor];
-        
-    } else {
+    if (scoreObj.comment != nil && scoreObj.comment.length == 0) {
         txtComment.text = scoreObj.comment;
         txtComment.textColor = [UIColor darkGrayColor];
     }
@@ -97,9 +100,9 @@
 - (IBAction)btnSaveClick:(id)sender {
     [TagManagerHelper pushOpenScreenEvent:@"iAddCommentView"];
     
-    if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
-        txtComment.text = @"";
-    }
+//    if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
+//        txtComment.text = @"";
+//    }
     
     ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
     
@@ -133,10 +136,10 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     //set placeholder, because it's not support by default
-    if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
-        txtComment.text = @"";
-        txtComment.textColor = [UIColor darkGrayColor]; //optional
-    }
+//    if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
+//        txtComment.text = @"";
+//        txtComment.textColor = [UIColor darkGrayColor]; //optional
+//    }
     
     [txtComment becomeFirstResponder];
 }

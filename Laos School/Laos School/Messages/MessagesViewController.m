@@ -48,7 +48,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iMessagesViewController"];
     
-//    [self setTitle:LocalizedString(@"Messages")];
+    [self setTitle:LocalizedString(@"Messages")];
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 

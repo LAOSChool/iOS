@@ -23,4 +23,6 @@ typedef enum {
 @property (nonatomic, assign) SCORE_TABLE_TYPE tableType;
 
 @property (nonatomic, strong) NSMutableArray *scoresArray;
+
+@property (nonatomic, strong) NSString *curTerm;    //use for school records
 @end

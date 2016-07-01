@@ -92,11 +92,13 @@
             if (reasonList == nil) {
                 reasonList = [[NSMutableArray alloc] init];
             }
-            [reasonList addObject:LocalizedString(@"Reason 1")];
-            [reasonList addObject:LocalizedString(@"Reason 2")];
-            [reasonList addObject:LocalizedString(@"Reason 3")];
-            [reasonList addObject:LocalizedString(@"Reason 4")];
-            [reasonList addObject:LocalizedString(@"Reason 5")];
+            [reasonList addObject:LocalizedString(@"Sample 1")];
+            [reasonList addObject:LocalizedString(@"Sample 2")];
+            [reasonList addObject:LocalizedString(@"Sample 3")];
+            [reasonList addObject:LocalizedString(@"Sample 4")];
+            [reasonList addObject:LocalizedString(@"Sample 5")];
+            [reasonList addObject:LocalizedString(@"Sample 6")];
+            [reasonList addObject:LocalizedString(@"Sample 7")];
             
             btnSampleMessage.hidden = NO;
             btnSampleMessage.layer.masksToBounds = NO;

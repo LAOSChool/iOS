@@ -142,7 +142,7 @@
      }
      
      },*/
-    if ([_userScoreObj.scoreArray count] > 0) {
+    if (_userScoreObj && _scoreObj) {
         [scoreDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
         [scoreDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
         [scoreDict setValue:_userScoreObj.userID forKey:@"student_id"];

@@ -101,7 +101,7 @@
         scoreCell.scoreObj = scoreObj;  //set scoreObj before userScoreObj
         scoreCell.userScoreObj = userScoreObj;
         scoreCell.userID = _userScoreObj.userID;
-        scoreCell.username = _userScoreObj.username;
+        scoreCell.username = _userScoreObj.displayName;
         scoreCell.additionalInfo = _userScoreObj.additionalInfo;
         scoreCell.avatarLink = _userScoreObj.avatarLink;
         

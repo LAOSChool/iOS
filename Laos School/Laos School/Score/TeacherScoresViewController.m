@@ -334,7 +334,7 @@
     
     userScoreObject = [searchResults objectAtIndex:indexPath.row];
     
-    cell.lbStudentName.text = userScoreObject.username;
+    cell.lbStudentName.text = userScoreObject.displayName;
     cell.lbAdditionalInfo.text = userScoreObject.additionalInfo;
     cell.userScoreObj = userScoreObject;
     
@@ -585,7 +585,7 @@
 }
 
 - (void)failToGetInfo {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while trying to connect to server. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 2;
     
     [alert show];

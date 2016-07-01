@@ -208,7 +208,7 @@
 }
 
 - (void)showAlertPasswordTooShort {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Password require a length of 4 to 20 characters!") delegate:(id)self cancelButtonTitle:LocalizedString(@"Try again") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Password is required a length of 4 to 20 characters!") delegate:(id)self cancelButtonTitle:LocalizedString(@"Try again") otherButtonTitles:nil];
     alert.tag = 5;
     
     [alert show];

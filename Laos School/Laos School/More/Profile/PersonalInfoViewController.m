@@ -10,6 +10,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "Common.h"
+#import "ComposeViewController.h"
 
 @interface PersonalInfoViewController ()
 
@@ -62,6 +63,11 @@
     
     self.navigationItem.rightBarButtonItems = @[btnSave];
     */
+    
+    UIBarButtonItem *btnMessage = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_message.png"] style:UIBarButtonItemStyleDone target:self action:@selector(sendMessageClick)];
+    
+    self.navigationItem.rightBarButtonItems = @[btnMessage];
+    
     UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     
     self.navigationItem.leftBarButtonItems = @[btnCancel];
@@ -81,6 +87,29 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)sendMessageClick {
+    ComposeViewController *composeViewController = nil;
+    
+    composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+    composeViewController.isTeacherForm = YES;
+    composeViewController.isShowBtnSampleMessage = NO;
+    
+    //set recipient
+    NSMutableArray *recipents = [[NSMutableArray alloc] init];
+    [recipents addObject:_userObj];
+    composeViewController.receiverArray = recipents;
+    
+    //set content
+    NSString *content = @"";
+    composeViewController.content = content;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
 
 - (IBAction)btnCameraClick:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Select photo source") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Camera"), LocalizedString(@"Photo library"), nil];

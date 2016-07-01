@@ -23,7 +23,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="clip" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" id="xiC-8h-fRu">
-                            <rect key="frame" x="1" y="0.0" width="51" height="25"/>
+                            <rect key="frame" x="2" y="0.0" width="49" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

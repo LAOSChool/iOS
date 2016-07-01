@@ -8,6 +8,7 @@
 
 #import "MainTabBarViewController.h"
 #import "CommonDefine.h"
+#import "LocalizeHelper.h"
 
 @interface MainTabBarViewController ()
 {
@@ -38,27 +39,27 @@
 	for (NSInteger index = 0; index < [_viewControllerItems count]; index++) {
 		switch (index) {
 			case MESSAGE_TAB:
-                [self.tabBar.items[index] setTitle:@"Messages"];
+                [self.tabBar.items[index] setTitle:LocalizedString(@"Messages")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_message"]];
 				break;
                 
             case ANNOUNCEMENT_TAB:
-                [self.tabBar.items[index] setTitle:@"Announcements"];
+                [self.tabBar.items[index] setTitle:LocalizedString(@"Announcements")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_announcement"]];
                 break;
                 
             case ATTENDANCE_TAB:
-                [self.tabBar.items[index] setTitle:@"Attendance"];
+                [self.tabBar.items[index] setTitle:LocalizedString(@"Attendance")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_attendance"]];
                 break;
                 
             case TIMETABLE_TAB:
-                [self.tabBar.items[index] setTitle:@"Scores"];
+                [self.tabBar.items[index] setTitle:LocalizedString(@"Scores")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_score"]];
                 break;
                 
             case MORE_TAB:
-                [self.tabBar.items[index] setTitle:@"More"];
+                [self.tabBar.items[index] setTitle:LocalizedString(@"More")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_more"]];
                 break;
 

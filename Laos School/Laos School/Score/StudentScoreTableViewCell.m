@@ -65,6 +65,13 @@
                 
                 continue;
             }
+        } else if ([_curTerm isEqualToString:TERM_VALUE_OVERALL]) {
+            if (!([scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM1] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM2] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_OVERALL])) {
+                
+                continue;
+            }
         } else {
             break;
         }

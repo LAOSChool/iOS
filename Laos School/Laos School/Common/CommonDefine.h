@@ -53,6 +53,7 @@
 
 #define TERM_VALUE_1 @"1"
 #define TERM_VALUE_2 @"2"
+#define TERM_VALUE_OVERALL @"3"
 
 #define LANGUAGE_LAOS @"lo"
 #define LANGUAGE_ENGLISH @"en"
