@@ -813,7 +813,7 @@
             }
             
             if ([sessionDict valueForKey:@"weekday_id"] != (id)[NSNull null]) {
-                sessionObj.weekDayID = [[sessionDict valueForKey:@"weekday_id"] integerValue];
+                sessionObj.weekDayID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"weekday_id"]];
             }
             
             if ([sessionDict valueForKey:@"weekday"] != (id)[NSNull null]) {
@@ -829,15 +829,15 @@
                 
                 NSArray *splitedArr = [val componentsSeparatedByString:@"@"];
                 
-                if ([splitedArr count] == 1) {
+                if ([splitedArr count] > 0) {
                     sessionObj.session = [splitedArr objectAtIndex:0];
                 }
                 
-                if ([splitedArr count] == 2) {
+                if ([splitedArr count] > 1) {
                     sessionObj.duration = [splitedArr objectAtIndex:1];
                 }
                 
-                if ([splitedArr count] == 3) {
+                if ([splitedArr count] > 2) {
                     if ([[splitedArr objectAtIndex:2] isEqualToString:@"1"]) {
                         sessionObj.sessionType = SessionType_Morning;
                         
@@ -849,7 +849,7 @@
                     }
                 }
                 
-                if ([splitedArr count] == 4) {
+                if ([splitedArr count] > 3) {
                     sessionObj.order = [[splitedArr objectAtIndex:3] integerValue];
                 }
             }

@@ -146,7 +146,7 @@
             }
             
             if ([sessionDict valueForKey:@"weekday_id"] != (id)[NSNull null]) {
-                sessionObj.weekDayID = [[sessionDict valueForKey:@"weekday_id"] integerValue];
+                sessionObj.weekDayID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"weekday_id"]];
             }
             
             if ([sessionDict valueForKey:@"weekday"] != (id)[NSNull null]) {
@@ -162,15 +162,15 @@
                 
                 NSArray *splitedArr = [val componentsSeparatedByString:@"@"];
                 
-                if ([splitedArr count] == 1) {
+                if ([splitedArr count] > 0) {
                     sessionObj.session = [splitedArr objectAtIndex:0];
                 }
                 
-                if ([splitedArr count] == 2) {
+                if ([splitedArr count] > 1) {
                     sessionObj.duration = [splitedArr objectAtIndex:1];
                 }
                 
-                if ([splitedArr count] == 3) {
+                if ([splitedArr count] > 2) {
                     if ([[splitedArr objectAtIndex:2] isEqualToString:@"1"]) {
                         sessionObj.sessionType = SessionType_Morning;
                         
@@ -182,15 +182,15 @@
                     }
                 }
                 
-                if ([splitedArr count] == 4) {
+                if ([splitedArr count] > 3) {
                     sessionObj.order = [[splitedArr objectAtIndex:3] integerValue];
                 }
             }
             
-            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[sessionsGroupByDay objectForKey:sessionObj.weekDay]];
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[sessionsGroupByDay objectForKey:sessionObj.weekDayID]];
             
             [arr addObject:sessionObj];
-            [sessionsGroupByDay setObject:arr forKey:sessionObj.weekDay];
+            [sessionsGroupByDay setObject:arr forKey:sessionObj.weekDayID];
         }
 
         if ([sessionsGroupByDay count] > 0) {
@@ -205,7 +205,7 @@
             
             for (NSString *key in keyArr) {
                 StdTimeTableDayViewController *weekDayViewController = [[StdTimeTableDayViewController alloc] initWithNibName:@"StdTimeTableDayViewController" bundle:nil];
-                weekDayViewController.title = key;
+                weekDayViewController.title = [self returnWeekdayFromID:key];
                 weekDayViewController.sessionsArray = [sessionsGroupByDay objectForKey:key];
                 weekDayViewController.timeTableType = TimeTableFull;
                 
@@ -213,7 +213,7 @@
                 
             }
             
-            if ([viewControllers  count] > 0) {
+            if ([viewControllers  count] > 1) {
                 tabViewController.viewControllers = viewControllers;
                 CGRect rect = viewContainer.frame;
                 rect.origin.y = 0;
@@ -255,6 +255,34 @@
         return sortArr;
     }
     return arr;
+}
+
+- (NSString *)returnWeekdayFromID:(NSString *)key {
+    NSString *res = @"";
+    
+    if ([key isEqualToString:@"1"]) {
+        res = LocalizedString(@"Mon");
+        
+    } else if ([key isEqualToString:@"2"]) {
+        res = LocalizedString(@"Tue");
+        
+    } else if ([key isEqualToString:@"3"]) {
+        res = LocalizedString(@"Wed");
+        
+    } else if ([key isEqualToString:@"4"]) {
+        res = LocalizedString(@"Thu");
+        
+    } else if ([key isEqualToString:@"5"]) {
+        res = LocalizedString(@"Fri");
+        
+    } else if ([key isEqualToString:@"6"]) {
+        res = LocalizedString(@"Sat");
+        
+    } else if ([key isEqualToString:@"7"]) {
+        res = LocalizedString(@"Sun");
+    }
+    
+    return res;
 }
 
 - (void)failToConnectToServer {

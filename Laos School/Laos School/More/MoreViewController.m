@@ -194,12 +194,12 @@
                 }
             } else if (userObj.userRole == UserRole_Teacher) {
                 switch (indexPath.row) {
-//                    case TeacherProfileSectionTimeTable:
-//                    {
-//                        cell.textLabel.text = LocalizedString(@"Schedule");
-//                        cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
-//                    }
-//                        break;
+                    case TeacherProfileSectionTimeTable:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Timetable");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_calendar_gray.png"];
+                    }
+                        break;
                         
                     default:
                         break;
@@ -327,11 +327,13 @@
             } else if (userObj.userRole == UserRole_Teacher) {
                 switch (indexPath.row) {
                         //Time table
-//                    case TeacherProfileSectionTimeTable:
-//                    {
-//                        
-//                    }
-//                        break;
+                    case TeacherProfileSectionTimeTable:
+                    {
+                        StudentTimeTableViewController *timeTableView = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
+                        
+                        [self.navigationController pushViewController:timeTableView animated:YES];
+                    }
+                        break;
                         
                     default:
                         break;

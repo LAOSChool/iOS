@@ -22,6 +22,7 @@
 
     IBOutlet UIButton *btnLogin;
     IBOutlet UIButton *btnForgot;
+    IBOutlet UIButton *btnLanguage;
 }
 
 @end

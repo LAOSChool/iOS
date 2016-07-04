@@ -283,7 +283,7 @@
     [textViewPost resignFirstResponder];
     [textViewTitle resignFirstResponder];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select photo source" delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo library", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Select photo source") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Camera"), LocalizedString(@"Photo library"), nil];
     
     actionSheet.tag = 1;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;

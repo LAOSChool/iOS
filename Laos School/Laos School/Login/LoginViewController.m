@@ -22,6 +22,7 @@
 #import "SchoolProfileViewController.h"
 #import "ScoresViewController.h"
 #import "TeacherScoresViewController.h"
+#import "ChangeLanguageViewController.h"
 
 #import "ForgotPasswordViewController.h"
 #import "HelpViewController.h"
@@ -69,6 +70,7 @@
     [btnLogin setTitle:LocalizedString(@"Login") forState:UIControlStateNormal];
     [btnForgot setTitle:LocalizedString(@"Forgot password?") forState:UIControlStateNormal];
     
+    [btnLanguage setTitle:LocalizedString(@"Change language") forState:UIControlStateNormal];
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
@@ -194,6 +196,16 @@
     }
 }
 
+- (IBAction)btnChangeLanguageClick:(id)sender {
+    
+    ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    
+    [self presentViewController:nav animated:YES completion:nil];
+}
 #pragma mark RequestToServer delegate
 - (void)failToConnectToServer {
     [SVProgressHUD dismiss];

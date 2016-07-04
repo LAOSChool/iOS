@@ -64,11 +64,14 @@
 "To:" = "To:";
 "From:" = "From:";
 "SMS:" = "SMS:";
-"Reason 1" = "Reason 1";
-"Reason 2" = "Reason 2";
-"Reason 3" = "Reason 3";
-"Reason 4" = "Reason 4";
-"Reason 5" = "Reason 5";
+"Sample 1" = "Students are learning in class.";
+"Sample 2" = "Teacher is busy and not coming";
+"Sample 3" = "Period 1 - Teacher is busy and not coming";
+"Sample 4" = "Period 2 - Teacher is busy and not coming";
+"Sample 5" = "Period 3 - Teacher is busy and not coming";
+"Sample 6" = "Period 4 - Teacher is busy and not coming";
+"Sample 7" = "Period 5 - Teacher is busy and not coming";
+"Sample 8" = "Class is off today";
 "[No subject]" = "[No subject]";
 
 
@@ -94,6 +97,13 @@
 "[No reason]" = "[No reason]";
 "No reason" = "No reason";
 "Reason" = "Reason";
+
+"Reason 1" = "Coming late";
+"Reason 2" = "Personal reason";
+"Reason 3" = "Got sick";
+"Reason 4" = "Leave class without permission";
+"Reason 5" = "Got an permission";
+
 "Permitted" = "Permitted";
 "Period" = "Period";
 "Periods" = "Periods";

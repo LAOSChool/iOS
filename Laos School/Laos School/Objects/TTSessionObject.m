@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         self.weekDay = @"";
-        self.weekDayID = 0;
+        self.weekDayID = @"";
         self.subject = @"";
         self.subjectID = @"";
         self.session = @"";

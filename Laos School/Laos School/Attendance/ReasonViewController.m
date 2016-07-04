@@ -92,6 +92,12 @@
 }
 */
 
+- (void)setCheckAttendanceObj:(CheckAttendanceObject *)checkAttendanceObj {
+    _checkAttendanceObj = checkAttendanceObj;
+    
+    btnFullday
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     selectedIndex = nil;
     [reasonTableView reloadData];

@@ -99,17 +99,18 @@
             [reasonList addObject:LocalizedString(@"Sample 5")];
             [reasonList addObject:LocalizedString(@"Sample 6")];
             [reasonList addObject:LocalizedString(@"Sample 7")];
+            [reasonList addObject:LocalizedString(@"Sample 8")];
             
             btnSampleMessage.hidden = NO;
-            btnSampleMessage.layer.masksToBounds = NO;
-            btnSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
-            btnSampleMessage.layer.shadowRadius = 5;
-            btnSampleMessage.layer.shadowOpacity = 0.5;
+//            btnSampleMessage.layer.masksToBounds = NO;
+//            btnSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
+//            btnSampleMessage.layer.shadowRadius = 5;
+//            btnSampleMessage.layer.shadowOpacity = 0.5;
 
-            viewSampleMessage.layer.masksToBounds = NO;
-            viewSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
-            viewSampleMessage.layer.shadowRadius = 5;
-            viewSampleMessage.layer.shadowOpacity = 0.5;
+//            viewSampleMessage.layer.masksToBounds = NO;
+//            viewSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
+//            viewSampleMessage.layer.shadowRadius = 5;
+//            viewSampleMessage.layer.shadowOpacity = 0.5;
             viewSampleMessage.layer.cornerRadius = 3;
             viewSampleMessage.clipsToBounds = YES;
             
@@ -564,6 +565,8 @@
     }
 
     cell.textLabel.textColor = [UIColor darkGrayColor];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
+    [cell.textLabel setNumberOfLines:2];
     cell.textLabel.text = [reasonList objectAtIndex:indexPath.row];
     
     return cell;

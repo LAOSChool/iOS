@@ -7,7 +7,7 @@
  */
 
 //Tab name
-"Messages" = "Messages";
+"Messages" = "ຂໍ້​ຄວາມ";
 "Announcements" = "ປະ​ກາດ";
 "Attendance" = "ການ​ມາ​ຮຽນ";
 "Scores" = "ຄະ​ແນນ";
@@ -60,7 +60,7 @@
 "A new password will be sent to your phone number." = "ລະ​ຫັດ​ຜ່ານ​ໂຕ​ໃໝ່ ຈະ​ຖືກ​ສົ່ງ​ໄປ​ໃຫ້​ທ່ານ​ທາງ SMS.";
 
 //Messages
-"New message" = "SMS ມາ​ໃໝ່";
+"New message" = "ຂໍ້​ຄວາມ​ໃໝ່";
 "To:" = "ເຖິງ:";
 "From:" = "ຈາກ:";
 "SMS:" = "SMS:";
@@ -71,6 +71,7 @@
 "Sample 5" = "ຊົ່ວ​ໂມງທີ 3 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
 "Sample 6" = "ຊົ່ວ​ໂມງທີ 4 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
 "Sample 7" = "ຊົ່ວ​ໂມງທີ 5 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 8" = "ມີື້​ນີ້​ພັກ​ໝົດ​ມື້";
 "[No subject]" = "[No subject]";
 
 
@@ -92,9 +93,16 @@
 
 //Attendance
 "Select a period" = "ເລືອກ​ຮອບ";
-"Cancel this attendance checking result. Are you sure?" = "Cancel this attendance checking result. Are you sure?";
+"Cancel this attendance checking result. Are you sure?" = "ຍົກ​ເລີກ​ໝາຍ​ຂາດ. ທ່າ​ນ​ແນ່​ໃຈ​ບໍ?";
 "[No reason]" = "(ບໍ່​ມີ​ເຫດ​ຜົນ)";
 "No reason" = "ບໍ່​ມີ​ເຫດ​ຜົນ";
+
+"Reason 1" = "ມາຊ້າ";
+"Reason 2" = "ຄອບ​ຂາດ​ມີວຽກ​ທາງ​ບ້ານ";
+"Reason 3" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ";
+"Reason 4" = "ລັກ​ເມືອ";
+"Reason 5" = "ອະ​ນຸ​ຍາດລາ​ພັກ";
+
 "Reason" = "ມີ​ເຫດ​ຜົນ";
 "Permitted" = "ອະ​ນຸ​ຍາດ";
 "Period" = "ເປັ​ນເວ​ລາ​";
@@ -105,7 +113,7 @@
 "Please enter a reason!" = "ກະ​ລຸຸ​ນາ​ໃສ່ເຫດ​ຜົນ!";
 "There was an error while sending request. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 "An absence request had been sent for day %@. Please double check." = "ໃບລາ​ພັກ​ໄດ້​ສົ່ງ​ໄປ​ສຳ​ລັບ​ລາ​ພັກ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນ​ອີກ​ຄັ້ງ.";
-"Other" = "Other";
+"Other" = "ອື່ນໆ";
 "There was an error. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 
 //score

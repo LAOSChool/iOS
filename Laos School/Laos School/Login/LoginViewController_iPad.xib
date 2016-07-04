@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
                 <outlet property="btnForgot" destination="yUr-7a-Jtd" id="DYG-23-7em"/>
+                <outlet property="btnLanguage" destination="S0p-KG-tl3" id="rre-pi-A6o"/>
                 <outlet property="btnLogin" destination="y6c-Js-3Cm" id="3XR-FX-Tn8"/>
                 <outlet property="imgBackground" destination="sJX-fW-U6Q" id="ZWx-Gl-pSR"/>
                 <outlet property="lbAppName" destination="qw8-jM-Wri" id="HPs-gq-JBe"/>
@@ -77,7 +78,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yUr-7a-Jtd">
                             <rect key="frame" x="80" y="141" width="160" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Forgot password?">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,6 +90,19 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="S0p-KG-tl3">
+                    <rect key="frame" x="284" y="922" width="200" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Chang language">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnChangeLanguageClick:" destination="-1" eventType="touchUpInside" id="niO-uk-QzS"/>
+                        <action selector="btnForgotClick:" destination="-1" eventType="touchUpInside" id="Jpn-qc-tqi"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="245" y="291"/>

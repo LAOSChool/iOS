@@ -31,7 +31,7 @@ typedef enum {
 
 //teacher enum
 typedef enum {
-//    TeacherProfileSectionTimeTable = 0,
+    TeacherProfileSectionTimeTable = 0,
     TeacherProfileSectionMax
 } TEACHER_PROFILE_SECTION;
 

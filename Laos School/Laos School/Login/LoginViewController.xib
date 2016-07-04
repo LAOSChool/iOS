@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
                 <outlet property="btnForgot" destination="0iC-gp-CIb" id="GFG-hU-dYe"/>
+                <outlet property="btnLanguage" destination="RTk-SV-wFl" id="keX-l6-Q4B"/>
                 <outlet property="btnLogin" destination="8Jx-Pc-KF2" id="K4O-FK-KmZ"/>
                 <outlet property="imgBackground" destination="t1h-Jb-JZP" id="4JG-k4-7N0"/>
                 <outlet property="lbAppName" destination="xpV-sJ-Fma" id="hat-Pa-9EB"/>
@@ -90,6 +91,19 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RTk-SV-wFl">
+                    <rect key="frame" x="80" y="505" width="160" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="Change language">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnChangeLanguageClick:" destination="-1" eventType="touchUpInside" id="Gve-ww-qc3"/>
+                        <action selector="btnForgotClick:" destination="-1" eventType="touchUpInside" id="cSb-uA-eYz"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.77195785984848486" green="0.3542815708464972" blue="0.36043231524488356" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="190" y="158"/>
