@@ -84,12 +84,15 @@
 
 //Announcement
 "New anouncement" = "ປະ​ກາດ​ໃໝ່";
-"Attention" = "Attention";
+"Attention" = "ເຊັກ​ລາຍ​ຊື່​ນັກ​ນ​ຮຽນ​ຂາດ";
 "You have reached to the limitation. Only allow %ld photos." = "ກາຍກຳ​ນົດແລ້ວ. ​ອະ​ນຸ​ຍາດໃຫ້​ແມ່ນ %ld ຮູບ​ພາບ.";
 "Uploading" = "ກຳ​ລັງ​ອັບ​ໂຫຼດ...";
 "There was an error while sending announcement. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງປະ​ກາດ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 "Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@ ແມ່ນ​ບໍ?";
 "Please enter subject and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຫົວ​ຂໍ້ ແລະ ເນື້ອ​ໃນ!";
+"Select photo source" = "ເລືອກ​ຮູບ";
+"Camera" = "ຮູບ​ຖ່​າຍ";
+"Photo library" = "ຄັງ​ຮູບ";
 
 //Attendance
 "Select a period" = "ເລືອກ​ຮອບ";
@@ -112,7 +115,7 @@
 "Please double check information before sending your request. Are you sure?" = "ກະ​ລຸ​ນາ​ກວດ​ສອບ​ຂໍ້​ມູນ​ອີກ​ຄັ້ງ​ກ່ອນ​ຈະ​ສົ່ງ​ໄປ. ທ່ານ​ໝັ້ນ​ໃຈ​ແລ້​ວ​ບໍ?";
 "Please enter a reason!" = "ກະ​ລຸຸ​ນາ​ໃສ່ເຫດ​ຜົນ!";
 "There was an error while sending request. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"An absence request had been sent for day %@. Please double check." = "ໃບລາ​ພັກ​ໄດ້​ສົ່ງ​ໄປ​ສຳ​ລັບ​ລາ​ພັກ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນ​ອີກ​ຄັ້ງ.";
+"An absence request had been sent for day %@ already. Please double check." = "ໃບລາ​ພັກ​ໄດ້​ສົ່ງ​ໄປ​ສຳ​ລັບ​ລາ​ພັກ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນ​ອີກ​ຄັ້ງ.";
 "Other" = "ອື່ນໆ";
 "There was an error. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 
@@ -156,6 +159,13 @@
 "Morning" = "ຕອນ​ເຊົ້​າ";
 "Afternoon" = "ຕອນ​ບ່າຍ";
 "Evening" = "ຕອນ​ແລງ";
+"Mon" = "ວັນ​ຈັນ";
+"Tue" = "ວັັນ​ອັງຄານ";
+"Wed" = "ວັນ​ພຸດ";
+"Thu" = "ວັນ​ພະ​ຫັດ";
+"Fri" = "ວັນ​ສຸກ";
+"Sat" = "ວັນ​ເສົາ";
+"Sun" = "ວັນ​ອາ​ທິດ";
 
 //Change password
 "Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";

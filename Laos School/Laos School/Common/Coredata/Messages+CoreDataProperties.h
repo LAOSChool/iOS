@@ -2,7 +2,7 @@
 //  Messages+CoreDataProperties.h
 //  Laos School
 //
-//  Created by HuKhong on 4/29/16.
+//  Created by HuKhong on 7/5/16.
 //  Copyright © 2016 com.born2go.laosschool. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -23,11 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *messageID;
 @property (nullable, nonatomic, retain) NSNumber *messageType;
 @property (nullable, nonatomic, retain) NSString *messageTypeIcon;
+@property (nullable, nonatomic, retain) NSString *senderAvatar;
 @property (nullable, nonatomic, retain) NSString *subject;
 @property (nullable, nonatomic, retain) NSString *toID;
 @property (nullable, nonatomic, retain) NSString *toUsername;
 @property (nullable, nonatomic, retain) NSNumber *unreadFlag;
-@property (nullable, nonatomic, retain) NSString *senderAvatar;
 
 @end
 

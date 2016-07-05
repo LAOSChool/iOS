@@ -15,6 +15,10 @@
 #define CELL_SIZE_WIDTH 50
 #define CELL_SIZE_HEIGHT 50
 
+#define CELL_SIZE_WIDTH_IPAD 60
+#define CELL_SIZE_HEIGHT_IPAD 60
+
+
 @implementation StudentScoreTableViewCell
 
 - (void)awakeFromNib {
@@ -37,6 +41,14 @@
     //remove all old subviews
     for (UIView *view in viewScorePanel.subviews) {
         [view removeFromSuperview];
+    }
+    
+    NSInteger widthConst = CELL_SIZE_WIDTH;
+    NSInteger heightConst = CELL_SIZE_HEIGHT;
+    
+    if (IS_IPAD) {
+        widthConst = CELL_SIZE_WIDTH_IPAD;
+        heightConst = CELL_SIZE_HEIGHT_IPAD;
     }
     
     for (ScoreObject *scoreObj in userScoreObj.scoreArray) {
@@ -77,8 +89,9 @@
         }
         count ++;
         CGRect rect;
-        rect.size.width = CELL_SIZE_WIDTH;
-        rect.size.height = CELL_SIZE_HEIGHT;
+        
+        rect.size.width = widthConst;
+        rect.size.height = heightConst;
         
         if (found == NO && scoreObj.scoreTypeObj.scoreType != ScoreType_Normal) {
             if (col > 0) {
@@ -87,18 +100,18 @@
             }
 
             found = YES;
-            rect.origin.x = (CELL_SIZE_WIDTH + CELL_OFFSET) * col;
-            rect.origin.y = CELL_OFFSET + (CELL_SIZE_HEIGHT + CELL_OFFSET) * row;
+            rect.origin.x = (widthConst + CELL_OFFSET) * col;
+            rect.origin.y = CELL_OFFSET + (heightConst + CELL_OFFSET) * row;
             
             col ++;
             
         } else {
-            rect.origin.x = (CELL_SIZE_WIDTH + CELL_OFFSET) * col;
-            rect.origin.y = CELL_OFFSET + (CELL_SIZE_HEIGHT + CELL_OFFSET) * row;
+            rect.origin.x = (widthConst + CELL_OFFSET) * col;
+            rect.origin.y = CELL_OFFSET + (heightConst + CELL_OFFSET) * row;
             
             col ++;
             
-            if (((CELL_SIZE_WIDTH + CELL_OFFSET) * (col + 1)) > viewScorePanel.frame.size.width) {
+            if (((widthConst + CELL_OFFSET) * (col + 1)) > viewScorePanel.frame.size.width) {
                 col = 0;
                 row ++;
             }

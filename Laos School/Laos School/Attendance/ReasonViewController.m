@@ -94,8 +94,8 @@
 
 - (void)setCheckAttendanceObj:(CheckAttendanceObject *)checkAttendanceObj {
     _checkAttendanceObj = checkAttendanceObj;
-    
-    btnFullday
+    isFulldayChecked = NO;
+    [btnFullday setImage:imgUncheck forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

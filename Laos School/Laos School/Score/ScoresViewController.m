@@ -180,7 +180,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (IS_IPAD) {
-        return 115.0;
+        return 135.0;
     }
     
     if (segmentedControl.selectedSegmentIndex == 0) {
@@ -228,6 +228,10 @@
     
     cell.lbSubject.textColor = BLUE_COLOR;
     cell.lbSubject.text = userScoreObject.subject;
+    
+    if (IS_IPAD) {
+        [cell.lbSubject setFont:[UIFont boldSystemFontOfSize:15]];
+    }
     
     return cell;
 }

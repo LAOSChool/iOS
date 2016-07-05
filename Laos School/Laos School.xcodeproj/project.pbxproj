@@ -767,6 +767,7 @@
 		5538B1391CFEEC40009544D5 /* ic_cancel_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_cancel_white.png; sourceTree = "<group>"; };
 		5538B13A1CFEEC40009544D5 /* ic_cancel_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cancel_white@2x.png"; sourceTree = "<group>"; };
 		5538B13B1CFEEC40009544D5 /* ic_cancel_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cancel_white@3x.png"; sourceTree = "<group>"; };
+		5542C44A1D2BA02F00E9B1FB /* LaosSchool_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool_v3.xcdatamodel; sourceTree = "<group>"; };
 		5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool.xcdatamodel; sourceTree = "<group>"; };
 		554769911C9165DD00269EBB /* CoreDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataUtil.h; sourceTree = "<group>"; };
 		554769921C9165DD00269EBB /* CoreDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataUtil.m; sourceTree = "<group>"; };
@@ -2751,6 +2752,11 @@
 					550FD27F1C7AF60C009D7159 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 23G9UAL37D;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3426,6 +3432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3434,8 +3441,9 @@
 					School/GGLib,
 					"$(PROJECT_DIR)/Laos\\ School",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laosshool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laoschool;
 				PRODUCT_NAME = "Laos School";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3446,6 +3454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3454,8 +3463,9 @@
 					School/GGLib,
 					"$(PROJECT_DIR)/Laos\\ School",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laosshool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laoschool;
 				PRODUCT_NAME = "Laos School";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3487,10 +3497,11 @@
 		5547698D1C9151EC00269EBB /* LaosSchool.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5542C44A1D2BA02F00E9B1FB /* LaosSchool_v3.xcdatamodel */,
 				55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */,
 				5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */,
 			);
-			currentVersion = 55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */;
+			currentVersion = 5542C44A1D2BA02F00E9B1FB /* LaosSchool_v3.xcdatamodel */;
 			path = LaosSchool.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

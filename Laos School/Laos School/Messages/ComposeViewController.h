@@ -29,7 +29,7 @@
     IBOutlet UIButton *btnSampleMessage;
 }
 
-@property (nonatomic, strong) NSMutableArray *receiverArray;
+@property (nonatomic, strong) NSMutableArray *receiverArray;    //must be NSMutableArray because this array maybe changed
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) MessageObject *messageObject;
 

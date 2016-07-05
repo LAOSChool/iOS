@@ -233,7 +233,7 @@
 - (BOOL)validateInputs {
     BOOL res = YES;
     
-    NSString *subject = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtSubject.text];
+//    NSString *subject = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtSubject.text];
     NSString *content = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:txtContent.text];
     
     if (content.length == 0) {

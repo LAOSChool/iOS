@@ -90,6 +90,9 @@
 "There was an error while sending announcement. Please try again." = "There was an error while sending announcement. Please try again.";
 "Send this announcement to class %@. Are you sure?" = "Send this announcement to class %@. Are you sure?";
 "Please enter subject and content!" = "Please enter subject and content!";
+"Select photo source" = "Select photo source";
+"Camera" = "Camera";
+"Photo library" = "Photo library";
 
 //Attendance
 "Select a period" = "Select a period";
@@ -112,7 +115,7 @@
 "Please double check information before sending your request. Are you sure?" = "Please double check information before sending your request. Are you sure?";
 "Please enter a reason!" = "Please enter a reason!";
 "There was an error while sending request. Please try again." = "There was an error while sending request. Please try again.";
-"An absence request had been sent for day %@. Please double check." = "An absence request had been sent for day %@. Please double check.";
+"An absence request had been sent for day %@ already. Please double check." = "An absence request had been sent for day %@ already. Please double check.";
 "Other" = "Other";
 "There was an error. Please try again." = "There was an error. Please try again.";
 
@@ -156,6 +159,13 @@
 "Morning" = "Morning";
 "Afternoon" = "Afternoon";
 "Evening" = "Evening";
+"Mon" = "Mon";
+"Tue" = "Tue";
+"Wed" = "Wed";
+"Thu" = "Thu";
+"Fri" = "Fri";
+"Sat" = "Sat";
+"Sun" = "Sun";
 
 //Change password
 "Change password" = "Change password";

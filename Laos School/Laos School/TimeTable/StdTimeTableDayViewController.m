@@ -31,7 +31,7 @@
     if (_timeTableType == TimeTableOneDay) {
         [self.navigationController setNavigationColor];
         
-        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
         
         self.navigationItem.leftBarButtonItems = @[btnCancel];
         

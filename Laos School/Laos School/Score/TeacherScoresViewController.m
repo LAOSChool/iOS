@@ -298,7 +298,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (IS_IPAD) {
-        return 155.0;
+        return 175.0;
     }
 
     if ([[[[ShareData sharedShareData] userObj] classObj].currentTerm isEqualToString:TERM_VALUE_1]) {

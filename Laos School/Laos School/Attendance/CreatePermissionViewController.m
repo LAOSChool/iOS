@@ -266,7 +266,7 @@
 }
 
 - (void)showAlertRequestDuplicated {
-    NSString *content = [NSString stringWithFormat:LocalizedString(@"An absence request had been sent for day %@. Please double check."), [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"]];
+    NSString *content = [NSString stringWithFormat:LocalizedString(@"An absence request had been sent for day %@ already. Please double check."), [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 6;
     

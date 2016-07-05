@@ -193,12 +193,6 @@
         [actionSheet showInView:self.view];
     }
      */
-    ComposeViewController *composeViewController = nil;
-    
-    composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
-        composeViewController.isTeacherForm = YES;
-    composeViewController.isShowBtnSampleMessage = YES;
-    
     //set recipient
     NSMutableArray *recipents = [[NSMutableArray alloc] init];
     for (CheckAttendanceObject *student in checkAttendanceArray) {
@@ -206,7 +200,19 @@
             [recipents addObject:student.userObject];
         }
     }
-    composeViewController.receiverArray = recipents;
+
+    [self showMessageFormToRecipents:recipents withSampleFlag:YES];
+}
+
+- (void)showMessageFormToRecipents:(NSArray *)recipents withSampleFlag:(BOOL)showFlag {
+    ComposeViewController *composeViewController = nil;
+    
+    composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
+    composeViewController.isTeacherForm = YES;
+    composeViewController.isShowBtnSampleMessage = showFlag;
+    
+    //set recipient
+    composeViewController.receiverArray = [recipents mutableCopy];
     
     //set content
     NSString *content = @"";
@@ -449,12 +455,6 @@
             expansionSettings.fillOnTrigger = NO;
             expansionSettings.threshold = 1.1;
             
-       /*     MGSwipeButton *btnInform = nil;
-            
-            btnInform = [MGSwipeButton buttonWithTitle:LocalizedString(@"Inform") icon:[UIImage imageNamed:@"ic_alert_white"] backgroundColor:ALERT_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
-                return NO;
-            }];*/
-            
             NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
             CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
             
@@ -468,13 +468,19 @@
                 return @[btnCancel];
                 
             } else {
+                MGSwipeButton *btnInform = nil;
+                
+                btnInform = [MGSwipeButton buttonWithTitle:LocalizedString(@"Inform") icon:[UIImage imageNamed:@"ic_alert_white"] backgroundColor:ALERT_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
+                    return NO;
+                }];
+                
                 MGSwipeButton *btnOff = nil;
                 
                 btnOff = [MGSwipeButton buttonWithTitle:LocalizedString(@"Absent") icon:[UIImage imageNamed:@"ic_off"] backgroundColor:OFF_COLOR padding:5 callback:^BOOL(MGSwipeTableCell *sender) {
                     return NO;
                 }];
                 
-                return @[btnOff];
+                return @[btnOff, btnInform];
             }
             
       /*      MGSwipeButton *btnLate = nil;
@@ -494,19 +500,26 @@
     NSIndexPath *indexPath = [studentTableView indexPathForCell:cell];
     CheckAttendanceObject *checkAttObj = [searchResults objectAtIndex:indexPath.row];
 
-    if (direction == MGSwipeDirectionRightToLeft && index == 0) {
+    if (direction == MGSwipeDirectionRightToLeft) {
         if (checkAttObj.state == 1) {   //cancel
-            willDeleteIndexPath = indexPath;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:LocalizedString(@"Cancel this attendance checking result. Are you sure?") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
-            alert.tag = 2;
-            
-            [alert show];
+            if (direction == MGSwipeDirectionRightToLeft && index == 0) {
+                willDeleteIndexPath = indexPath;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:LocalizedString(@"Cancel this attendance checking result. Are you sure?") delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+                alert.tag = 2;
+                
+                [alert show];
+            }
             
         } else {
-            
-            [self displayReasonView:checkAttObj];
+            if (index == 0) {   //absent
+                [self displayReasonView:checkAttObj];
+                
+            } else {    //send message
+                NSMutableArray *recipents = [[NSMutableArray alloc] init];
+                [recipents addObject:checkAttObj.userObject];
+                [self showMessageFormToRecipents:recipents withSampleFlag:NO];
+            }
         }
-        
     }
 
     return YES;  //autohide
@@ -541,6 +554,8 @@
     timeDayViewController.delegate = (id)self;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:timeDayViewController];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
