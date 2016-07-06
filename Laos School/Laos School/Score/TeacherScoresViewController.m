@@ -134,6 +134,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (dataPicker != nil) {
+        [dataPicker.view removeFromSuperview];;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     isVisible = YES;
 }
@@ -249,9 +256,9 @@
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
     [searchBar resignFirstResponder];
     
-    if (dataPicker == nil) {
+//    if (dataPicker == nil) {
         dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
-    }
+//    }
     
     dataPicker.pickerType = pickerType;
     dataPicker.dataArray = subjectsArray;

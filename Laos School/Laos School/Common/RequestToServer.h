@@ -55,6 +55,7 @@
 #define API_NAME_STU_TERMS_LIST @"/api/school_years/myprofile"
 #define API_NAME_STU_SCHOOL_RECORDS @"/api/edu_profiles/myprofile"
 
+#define API_NAME_STU_RANKING @"/api/exam_results/ranks"
 
 #define HttpOK 200
 #define Accepted 201
@@ -91,11 +92,11 @@
 
 //score
 - (void)getMyScoreListInClass:(NSString *)classID;
-- (void)getMySchoolRecordInClass:(NSString *)classID;
 - (void)getScoresListByClassID:(NSString *)classID andSubjectID:(NSString *)subjectID;
 - (void)getScoreTypeList;
 - (void)submitScoreWithObject:(NSDictionary *)scoreDict;
 - (void)submitMultipleScoresWithObject:(NSArray *)scoresArray;
+- (void)getRankingDataByserID:(NSString *)userID inClass:(NSString *)classID;
 
 //attendance
 - (void)getAttendancesListWithUserID:(NSString *)userID inClass:(NSString *)classID;

@@ -133,6 +133,9 @@
 "Score" = "ຄະ​ແນນ";
 "There was an error while submitting score. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 "There was an error while submitting scores. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"Average:" = "Average:";
+"Grade:" = "Grade:";
+"Rank:" = "Rank:";
 
 //More
 "School records" = "ບັນ​ທຶກ​ຂອງ​ໂຮງ​ຮຽນ";

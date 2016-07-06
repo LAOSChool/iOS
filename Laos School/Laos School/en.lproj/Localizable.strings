@@ -133,6 +133,9 @@
 "Score" = "Score";
 "There was an error while submitting score. Please try again." = "There was an error while submitting score. Please try again.";
 "There was an error while submitting scores. Please try again." = "There was an error while submitting scores. Please try again.";
+"Average:" = "Average:";
+"Grade:" = "Grade:";
+"Rank:" = "Rank:";
 
 //More
 "School records" = "School records";

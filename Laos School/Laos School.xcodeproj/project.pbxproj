@@ -88,6 +88,9 @@
 		55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */; };
 		55320CA31CEDAA1A00E45492 /* ic_clock_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */; };
 		55320CA41CEDAA1A00E45492 /* ic_clock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */; };
+		553479641D2D0479002AD407 /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 553479631D2D0479002AD407 /* RankingObject.m */; };
+		553479681D2D0B98002AD407 /* RankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 553479661D2D0B98002AD407 /* RankingTableViewCell.m */; };
+		553479691D2D0B98002AD407 /* RankingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553479671D2D0B98002AD407 /* RankingTableViewCell.xib */; };
 		5534FF6E1D112E3E0014CC99 /* TermObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5534FF6C1D112E3E0014CC99 /* TermObject.m */; };
 		5538828A1CF702CF00E12EFC /* school_info.htm in Resources */ = {isa = PBXBuildFile; fileRef = 553882891CF702CF00E12EFC /* school_info.htm */; };
 		5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5538828B1CF706DF00E12EFC /* ChangeLanguageViewController.xib */; };
@@ -654,6 +657,11 @@
 		55320C9F1CEDAA1A00E45492 /* ic_clock_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clock_white.png; sourceTree = "<group>"; };
 		55320CA01CEDAA1A00E45492 /* ic_clock_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@2x.png"; sourceTree = "<group>"; };
 		55320CA11CEDAA1A00E45492 /* ic_clock_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_white@3x.png"; sourceTree = "<group>"; };
+		553479621D2D0479002AD407 /* RankingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingObject.h; sourceTree = "<group>"; };
+		553479631D2D0479002AD407 /* RankingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingObject.m; sourceTree = "<group>"; };
+		553479651D2D0B98002AD407 /* RankingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingTableViewCell.h; sourceTree = "<group>"; };
+		553479661D2D0B98002AD407 /* RankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingTableViewCell.m; sourceTree = "<group>"; };
+		553479671D2D0B98002AD407 /* RankingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankingTableViewCell.xib; sourceTree = "<group>"; };
 		5534FF6C1D112E3E0014CC99 /* TermObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermObject.m; sourceTree = "<group>"; };
 		5534FF6D1D112E3E0014CC99 /* TermObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermObject.h; sourceTree = "<group>"; };
 		553882891CF702CF00E12EFC /* school_info.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = school_info.htm; sourceTree = "<group>"; };
@@ -2590,6 +2598,9 @@
 				558F95521D0A744D0086AD9E /* AddScoreTableViewCell.h */,
 				558F95531D0A744D0086AD9E /* AddScoreTableViewCell.m */,
 				558F95541D0A744D0086AD9E /* AddScoreTableViewCell.xib */,
+				553479651D2D0B98002AD407 /* RankingTableViewCell.h */,
+				553479661D2D0B98002AD407 /* RankingTableViewCell.m */,
+				553479671D2D0B98002AD407 /* RankingTableViewCell.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2692,6 +2703,8 @@
 		55FEDB9B1C84205100DD0D24 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				553479621D2D0479002AD407 /* RankingObject.h */,
+				553479631D2D0479002AD407 /* RankingObject.m */,
 				5534FF6D1D112E3E0014CC99 /* TermObject.h */,
 				5534FF6C1D112E3E0014CC99 /* TermObject.m */,
 				559A08041D095C7500B31125 /* ScoreTypeObject.h */,
@@ -2831,6 +2844,7 @@
 				55510DE81CD9EA0E00638646 /* ic_right_arrow@3x.png in Resources */,
 				55320CA31CEDAA1A00E45492 /* ic_clock_white@2x.png in Resources */,
 				555130771CE4260C0001B2F0 /* StudentScoreTableViewCell.xib in Resources */,
+				553479691D2D0B98002AD407 /* RankingTableViewCell.xib in Resources */,
 				5520944C1C8932CF004670B3 /* ic_class.png in Resources */,
 				556758091D067CBE0000321B /* ic_subject@2x.png in Resources */,
 				558D6DDF1CA27B0500EE34BD /* ic_add.png in Resources */,
@@ -3167,6 +3181,7 @@
 				557D78CB1C97C8FB008096A0 /* StudentsListTableViewCell.m in Sources */,
 				5538A9651CBCF3E500659C8A /* NSBundle+JSQMessages.m in Sources */,
 				5538A9911CBCF3E500659C8A /* JSQSystemSoundPlayer.m in Sources */,
+				553479641D2D0479002AD407 /* RankingObject.m in Sources */,
 				55510DDE1CD9CF2500638646 /* JTSImageInfo.m in Sources */,
 				558B78F61CAE2725003F437E /* ScoreObject.m in Sources */,
 				55CF10DE1C85850300DC1AB9 /* ImportanceFlagButton.m in Sources */,
@@ -3305,6 +3320,7 @@
 				550A75E31CCE153A0050240B /* CTAssetSelectionButton.m in Sources */,
 				5538A98A1CBCF3E500659C8A /* JSQMessagesLoadEarlierHeaderView.m in Sources */,
 				559A07FC1D0912ED00B31125 /* AddScoresViewController.m in Sources */,
+				553479681D2D0B98002AD407 /* RankingTableViewCell.m in Sources */,
 				550A75DB1CCE153A0050240B /* UICollectionView+CTAssetsPickerController.m in Sources */,
 				55797C8E1C8693DA00A0098D /* AnnouncementViewController.m in Sources */,
 				55B50D551CC89360002B3412 /* Announcements+CoreDataProperties.m in Sources */,

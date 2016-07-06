@@ -30,6 +30,7 @@ typedef enum {
     IBOutlet UIPickerView *levelPicker;
     IBOutlet UIButton *btnDone;
     
+    IBOutlet UIView *viewContainer;
 }
 
 @property (nonatomic, assign) PICKER_TYPE pickerType;

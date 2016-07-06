@@ -125,6 +125,12 @@ typedef enum {
 }
 */
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (termPicker != nil) {
+        [termPicker.view removeFromSuperview];;
+    }
+}
+
 - (void)reloadSchoolProfileData {
     if (termPicker && termPicker.view.alpha == 1) {
         [UIView animateWithDuration:0.3 animations:^(void) {
@@ -141,9 +147,9 @@ typedef enum {
 }
 
 - (void)showLevelPicker {
-    if (termPicker == nil) {
+//    if (termPicker == nil) {
         termPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
-    }
+//    }
     
     termPicker.pickerType = Picker_Terms;
     termPicker.dataArray = termsArray;

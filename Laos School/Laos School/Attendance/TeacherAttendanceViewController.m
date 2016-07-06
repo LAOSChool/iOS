@@ -154,6 +154,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (dataPicker != nil) {
+        [dataPicker.view removeFromSuperview];;
+    }
+}
 
 - (void)reloadStudentsData {
     [self loadData];
@@ -587,9 +592,9 @@
 
 #pragma mark data picker
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
-    if (dataPicker == nil) {
+//    if (dataPicker == nil) {
         dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
-    }
+//    }
     
     dataPicker.pickerType = pickerType;
     dataPicker.view.alpha = 0;

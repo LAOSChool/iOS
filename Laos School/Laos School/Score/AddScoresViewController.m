@@ -149,6 +149,10 @@
             [addCommentView setFrame:rect];
         }
     }];
+    
+    if (dataPicker != nil) {
+        [dataPicker.view removeFromSuperview];;
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -304,9 +308,9 @@
 - (void)showDataPicker:(PICKER_TYPE)pickerType {
     [searchBar resignFirstResponder];
     
-    if (dataPicker == nil) {
+//    if (dataPicker == nil) {
         dataPicker = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
-    }
+//    }
     
     dataPicker.pickerType = pickerType;
     
