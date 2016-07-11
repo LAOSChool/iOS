@@ -136,6 +136,7 @@
 "Average:" = "Average:";
 "Grade:" = "Grade:";
 "Rank:" = "Rank:";
+"Ranking" = "Ranking";
 
 //More
 "School records" = "School records";
@@ -220,7 +221,7 @@
 "Ave term II" = "Ave term II";
 "Ave year" = "Ave year";
 "Retest" = "Retest";
-"Test grad" = "Test grad";
+"Test grad" = "Grad exam";
 
 
 

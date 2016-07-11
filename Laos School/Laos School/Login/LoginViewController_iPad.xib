@@ -12,6 +12,7 @@
                 <outlet property="btnLogin" destination="y6c-Js-3Cm" id="3XR-FX-Tn8"/>
                 <outlet property="imgBackground" destination="sJX-fW-U6Q" id="ZWx-Gl-pSR"/>
                 <outlet property="lbAppName" destination="qw8-jM-Wri" id="HPs-gq-JBe"/>
+                <outlet property="lbVersion" destination="EzI-6G-1TC" id="SGE-ny-wns"/>
                 <outlet property="txtPassword" destination="hEm-3u-Jnh" id="dNs-Tx-XdW"/>
                 <outlet property="txtUsername" destination="ah5-WF-7Fr" id="pzk-GW-T67"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mwN-nA-t1B"/>
@@ -27,6 +28,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EzI-6G-1TC">
+                    <rect key="frame" x="227" y="1000" width="314" height="24"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LaoSchool" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qw8-jM-Wri">
                     <rect key="frame" x="224" y="171" width="320" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -91,9 +99,9 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="S0p-KG-tl3">
-                    <rect key="frame" x="284" y="922" width="200" height="30"/>
+                    <rect key="frame" x="279" y="919" width="210" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="Chang language">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,7 +113,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="245" y="291"/>
+            <point key="canvasLocation" x="243" y="286"/>
         </view>
     </objects>
     <resources>

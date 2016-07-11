@@ -211,27 +211,32 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    float res = 0;
     if (segmentedControl.selectedSegmentIndex == 0 ||
         segmentedControl.selectedSegmentIndex == 1) {
         
         if (IS_IPAD) {
-            return 135.0;
+            res = 135.0;
         }
         
         if (segmentedControl.selectedSegmentIndex == 0) {
-            return 115.0;
+            
+            if (_curTerm && [_curTerm isEqualToString:TERM_VALUE_2 ]) {
+                res = 170.0;
+                
+            } else {
+                res = 115.0;
+            }
             
         } else {
-            return 170.0;
+            res = 170.0;
         }
         
-        return 170.0;
-        
     } else {
-        return 64;
+        res = 64;
     }
     
-    return 64;
+    return res;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -299,6 +304,11 @@
         RankingObject *rankingObj = [rankingArray objectAtIndex:indexPath.row];
         
         cell.lbScoreType.textColor = BLUE_COLOR;
+        cell.lbAverage.textColor = [UIColor darkGrayColor];
+        cell.lbGrade.textColor = [UIColor darkGrayColor];
+        cell.lbRanking.textColor = COMMON_COLOR;
+        
+        cell.lbRankValue.textColor = COMMON_COLOR;
         
         cell.lbAverage.text = LocalizedString(@"Average:");
         cell.lbGrade.text = LocalizedString(@"Grade:");

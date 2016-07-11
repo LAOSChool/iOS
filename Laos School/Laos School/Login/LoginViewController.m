@@ -98,6 +98,12 @@
                                              selector:@selector(disableForgotPassword)
                                                  name:@"SentForgotPassRequest"
                                                object:nil];
+    
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"]; // example: 1.0.0
+    NSString *buildNumber = [infoDict objectForKey:@"CFBundleVersion"];
+    
+    lbVersion.text = [NSString stringWithFormat:@"%@ %@", appVersion, buildNumber];
 }
 
 - (void)didReceiveMemoryWarning {

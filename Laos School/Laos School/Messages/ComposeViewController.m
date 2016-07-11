@@ -400,6 +400,8 @@
     studentsList.studentListType = StudentList_Message;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:studentsList];
+    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

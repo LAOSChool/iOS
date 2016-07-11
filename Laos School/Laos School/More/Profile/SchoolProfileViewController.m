@@ -472,15 +472,15 @@ typedef enum {
     //term 1
     ScoresViewController *term1ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term1ScoreViewController.title = @"Term I";
-    allYearScoreViewController.scoresArray = scoresArray;
-    allYearScoreViewController.curTerm = TERM_VALUE_OVERALL;
+    term1ScoreViewController.scoresArray = scoresArray;
+    term1ScoreViewController.curTerm = TERM_VALUE_1;
     
     //Term 2
     ScoresViewController *term2ScoreViewController = [[ScoresViewController alloc] initWithNibName:@"ScoresViewController" bundle:nil];
     term2ScoreViewController.title = @"Term II";
     term2ScoreViewController.tableType = ScoreTable_SchoolRecord;
     term2ScoreViewController.scoresArray = scoresArray;
-    term2ScoreViewController.curTerm = TERM_VALUE_OVERALL;
+    term2ScoreViewController.curTerm = TERM_VALUE_2;
     
     //add tab view
     tabViewController.viewControllers = @[allYearScoreViewController, term1ScoreViewController, term2ScoreViewController];

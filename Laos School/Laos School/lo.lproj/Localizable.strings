@@ -95,7 +95,7 @@
 "Photo library" = "ຄັງ​ຮູບ";
 
 //Attendance
-"Select a period" = "ເລືອກ​ຮອບ";
+"Select a period" = "ເລືອກຈຳ​ນວນ​ຊົ່ວ​ໂມງ​ຂາດ";
 "Cancel this attendance checking result. Are you sure?" = "ຍົກ​ເລີກ​ໝາຍ​ຂາດ. ທ່າ​ນ​ແນ່​ໃຈ​ບໍ?";
 "[No reason]" = "(ບໍ່​ມີ​ເຫດ​ຜົນ)";
 "No reason" = "ບໍ່​ມີ​ເຫດ​ຜົນ";
@@ -136,6 +136,7 @@
 "Average:" = "Average:";
 "Grade:" = "Grade:";
 "Rank:" = "Rank:";
+"Ranking" = "Ranking";
 
 //More
 "School records" = "ບັນ​ທຶກ​ຂອງ​ໂຮງ​ຮຽນ";
