@@ -93,7 +93,7 @@
     
     composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
     composeViewController.isTeacherForm = YES;
-    composeViewController.isShowBtnSampleMessage = NO;
+    composeViewController.composeType = MessageCompose_Normal;
     
     //set recipient
     NSMutableArray *recipents = [[NSMutableArray alloc] init];

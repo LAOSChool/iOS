@@ -405,12 +405,12 @@
     if ([ShareData sharedShareData].userObj.userRole == UserRole_Student) {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"ComposeViewController" bundle:nil];
         composeViewController.isTeacherForm = NO;
-        composeViewController.isShowBtnSampleMessage = NO;
+        composeViewController.composeType = MessageCompose_Normal;
         
     } else {
         composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
         composeViewController.isTeacherForm = YES;
-        composeViewController.isShowBtnSampleMessage = NO;
+        composeViewController.composeType = MessageCompose_Normal;
     }
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];

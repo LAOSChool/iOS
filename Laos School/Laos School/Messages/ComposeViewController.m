@@ -88,29 +88,30 @@
         [btnCheck setImage:imgCheck forState:UIControlStateNormal];
         
         //setting for sample message view
-        if (_isShowBtnSampleMessage) {
+        if (_composeType == MessageCompose_Attendance ||
+            _composeType == MessageCompose_Inform) {
             if (reasonList == nil) {
                 reasonList = [[NSMutableArray alloc] init];
             }
-            [reasonList addObject:LocalizedString(@"Sample 1")];
-            [reasonList addObject:LocalizedString(@"Sample 2")];
-            [reasonList addObject:LocalizedString(@"Sample 3")];
-            [reasonList addObject:LocalizedString(@"Sample 4")];
-            [reasonList addObject:LocalizedString(@"Sample 5")];
-            [reasonList addObject:LocalizedString(@"Sample 6")];
-            [reasonList addObject:LocalizedString(@"Sample 7")];
-            [reasonList addObject:LocalizedString(@"Sample 8")];
+            
+            
+            if (_composeType == MessageCompose_Attendance) {
+                [reasonList addObject:LocalizedString(@"Sample 1")];
+                [reasonList addObject:LocalizedString(@"Sample 2")];
+                [reasonList addObject:LocalizedString(@"Sample 3")];
+                [reasonList addObject:LocalizedString(@"Sample 4")];
+                [reasonList addObject:LocalizedString(@"Sample 5")];
+                [reasonList addObject:LocalizedString(@"Sample 6")];
+                [reasonList addObject:LocalizedString(@"Sample 7")];
+                [reasonList addObject:LocalizedString(@"Sample 8")];
+                
+                [self getAttendanceMessageContentSample];
+                
+            } else {
+                [self getInformMessageContentSample];
+            }
             
             btnSampleMessage.hidden = NO;
-//            btnSampleMessage.layer.masksToBounds = NO;
-//            btnSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
-//            btnSampleMessage.layer.shadowRadius = 5;
-//            btnSampleMessage.layer.shadowOpacity = 0.5;
-
-//            viewSampleMessage.layer.masksToBounds = NO;
-//            viewSampleMessage.layer.shadowOffset = CGSizeMake(-5, 10);
-//            viewSampleMessage.layer.shadowRadius = 5;
-//            viewSampleMessage.layer.shadowOpacity = 0.5;
             viewSampleMessage.layer.cornerRadius = 3;
             viewSampleMessage.clipsToBounds = YES;
             
@@ -194,6 +195,15 @@
         txtContent.frame = rect;
     }];
 }
+
+- (void)getAttendanceMessageContentSample {
+    [requestToServer getAttendanceMessageContentSample];
+}
+
+- (void)getInformMessageContentSample {
+    [requestToServer getInformMessageContentSample];
+}
+
 - (IBAction)swipeGestureHandle:(id)sender {
     [txtContent resignFirstResponder];
     [txtSubject resignFirstResponder];
@@ -440,30 +450,49 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    [SVProgressHUD showSuccessWithStatus:@"Sent"];
-    NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
     
-    if (statusCode == HttpOK) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
-//        MessageObject *messageObj = [[MessageObject alloc] initWithMessageDictionary:[jsonObj objectForKey:@"messageObject"]];
-//        
-//        if (messageObj) {
+    NSString *url = [jsonObj objectForKey:@"url"];
+    
+    if (url != nil && [url rangeOfString:API_NAME_CREATEMESSAGE].location != NSNotFound) {
         
-//            dispatch_async([CoreDataUtil getDispatch], ^(){
-//                
-//                [[CoreDataUtil sharedCoreDataUtil] insertNewMessage:messageObj];
-//                //
-//                //        dispatch_async(dispatch_get_main_queue(), ^(){
-//                //
-//                //        });
-//            });
-//        } else {
-//            [self sendMessageFailed];
-//        }
-    } else {
-        [self sendMessageFailed];
+        [SVProgressHUD showSuccessWithStatus:@"Sent"];
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
         
+        if (statusCode == HttpOK) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SentNewMessage" object:nil];
+
+        } else {
+            [self sendMessageFailed];       
+            
+        }
         
+    } else if (url != nil && ([url rangeOfString:API_NAME_MESSAGE_CONTENT_SAMPLE].location != NSNotFound ||
+               [url rangeOfString:API_NAME_MESSAGE_CONTENT_SAMPLE].location != NSNotFound)) {
+        
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+        
+        if (statusCode == HttpOK) {
+            
+            
+        } else {
+            [self hardCodeForAttendanceMessageSample];
+            
+        }
+    }
+}
+
+- (void)hardCodeForAttendanceMessageSample {
+    if ([reasonList count] == 0) {
+        [reasonList addObject:LocalizedString(@"Sample 1")];
+        [reasonList addObject:LocalizedString(@"Sample 2")];
+        [reasonList addObject:LocalizedString(@"Sample 3")];
+        [reasonList addObject:LocalizedString(@"Sample 4")];
+        [reasonList addObject:LocalizedString(@"Sample 5")];
+        [reasonList addObject:LocalizedString(@"Sample 6")];
+        [reasonList addObject:LocalizedString(@"Sample 7")];
+        [reasonList addObject:LocalizedString(@"Sample 8")];
+        
+        [tableViewSampleMessage reloadData];
     }
 }
 
@@ -538,6 +567,8 @@
             viewSampleMessage.hidden = YES;
         }];
     }
+    
+    [self hardCodeForAttendanceMessageSample];
 }
 
 #pragma mark data source

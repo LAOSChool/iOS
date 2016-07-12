@@ -10,6 +10,7 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
+
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -32,6 +33,8 @@
 #define API_NAME_CREATEMESSAGE @"/api/messages/create"
 #define API_NAME_UPDATEMESSAGE @"/api/messages/update"
 #define API_NAME_STUDENT_LIST @"/api/users"
+#define API_NAME_ABSENCE_REASON_SAMPLE @"/api/sys/sys_late_reason"
+#define API_NAME_MESSAGE_CONTENT_SAMPLE @"/api/sys/sys_att_msg"
 
 #define API_NAME_ANNOUNCEMENT_LIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"
@@ -120,6 +123,10 @@
 - (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
 - (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getAbsenceReasonSample;
+- (void)getAttendanceMessageContentSample;
+- (void)getInformMessageContentSample;
+
 
 //login and password
 - (void)requestToResetForgotPassword:(NSString *)username andPhonenumber:(NSString *)phonenumber;

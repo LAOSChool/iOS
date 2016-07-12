@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MessageObject.h"
 
+typedef enum {
+    MessageCompose_Normal = 0,
+    MessageCompose_Attendance,
+    MessageCompose_Inform,
+    MessageCompose_Max
+} MESSAGE_COMPOSE_TYPE;
+
 @interface ComposeViewController : UIViewController
 {
     IBOutlet UILabel *lbTeacherReceiverList;
@@ -34,5 +41,7 @@
 @property (nonatomic, strong) MessageObject *messageObject;
 
 @property (nonatomic, assign) BOOL isTeacherForm;
-@property (nonatomic, assign) BOOL isShowBtnSampleMessage;
+
+@property (nonatomic, assign) MESSAGE_COMPOSE_TYPE composeType;
+
 @end

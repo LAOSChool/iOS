@@ -15,12 +15,13 @@
 #import "ClassObject.h"
 #import "RequestToServer.h"
 #import "ShareData.h"
+#import "CommonDefine.h"
 
 #import "SVProgressHUD.h"
 
 @interface StudentsListViewController ()
 {
-    UIBarButtonItem *btnCheck;
+//    UIBarButtonItem *btnCheck;
     NSMutableArray *searchResults;
     
     RequestToServer *requestToServer;
@@ -39,15 +40,21 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     if (_studentListType == StudentList_Message) {
+        btnCheck.hidden = NO;
+        [btnCheck setTintColor:[UIColor whiteColor]];
+        
         UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
         
-        btnCheck = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_checkall"] style:UIBarButtonItemStylePlain target:self action:@selector(checkButtonClick)];
+//        btnCheck = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_checkall"] style:UIBarButtonItemStylePlain target:self action:@selector(checkButtonClick)];
         
-        self.navigationItem.rightBarButtonItems = @[btnDone, btnCheck];
+        self.navigationItem.rightBarButtonItems = @[btnDone];
         
         UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
         
         self.navigationItem.leftBarButtonItems = @[btnClose];
+        
+    } else {
+        btnCheck.hidden = YES;
     }
     
     refreshControl = [[UIRefreshControl alloc] init];
@@ -122,7 +129,7 @@
     }
     
     if (isEqual == YES) {
-        [btnCheck setTintColor:[UIColor blueColor]];
+        [btnCheck setTintColor:BLUE_COLOR];
         
     } else {
         [btnCheck setTintColor:[UIColor whiteColor]];
@@ -145,7 +152,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectReceiverCompleted" object:nil];
 }
 
-- (void)checkButtonClick {
+//- (void)checkButtonClick {
+//    
+//}
+- (IBAction)checkButtonClick:(id)sender {
     BOOL isEqual = NO;
     if ([_selectedArray count] == [studentsArray count]) {
         isEqual = YES;

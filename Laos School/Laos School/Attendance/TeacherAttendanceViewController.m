@@ -206,15 +206,15 @@
         }
     }
 
-    [self showMessageFormToRecipents:recipents withSampleFlag:YES];
+    [self showMessageFormToRecipents:recipents withComposeType:MessageCompose_Attendance];
 }
 
-- (void)showMessageFormToRecipents:(NSArray *)recipents withSampleFlag:(BOOL)showFlag {
+- (void)showMessageFormToRecipents:(NSArray *)recipents withComposeType:(MESSAGE_COMPOSE_TYPE)composeType {
     ComposeViewController *composeViewController = nil;
     
     composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
     composeViewController.isTeacherForm = YES;
-    composeViewController.isShowBtnSampleMessage = showFlag;
+    composeViewController.composeType = composeType;
     
     //set recipient
     composeViewController.receiverArray = [recipents mutableCopy];
@@ -522,7 +522,7 @@
             } else {    //send message
                 NSMutableArray *recipents = [[NSMutableArray alloc] init];
                 [recipents addObject:checkAttObj.userObject];
-                [self showMessageFormToRecipents:recipents withSampleFlag:NO];
+                [self showMessageFormToRecipents:recipents withComposeType:MessageCompose_Inform];
             }
         }
     }
@@ -583,7 +583,7 @@
             subject = currentSession.subject;
         }
         
-        lbSession.text = [NSString stringWithFormat:@"%@ - %@", session, subject];
+        lbSession.text = [NSString stringWithFormat:@"%@ %@ - %@", LocalizedString(@"Period"), session, subject];
         
         [self prepareDataForChecking];
         [studentTableView reloadData];

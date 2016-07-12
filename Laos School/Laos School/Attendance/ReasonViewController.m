@@ -72,6 +72,8 @@
     [reasonList addObject:LocalizedString(@"Reason 5")];
     [reasonList addObject:LocalizedString(@"Other")];
     
+    [self getAbsenceReasonSample];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
@@ -91,6 +93,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getAbsenceReasonSample {
+    [requestToServer getAbsenceReasonSample];
+}
 
 - (void)setCheckAttendanceObj:(CheckAttendanceObject *)checkAttendanceObj {
     _checkAttendanceObj = checkAttendanceObj;
@@ -121,7 +127,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect rect = containerView.frame;
-        rect.origin.y = rect.origin.y - 80;
+        rect.origin.y = (self.view.frame.size.height - rect.size.height)/2 - 80;
         containerView.frame = rect;
     }];
 }
@@ -287,6 +293,7 @@
             cell.textLabel.textColor = [UIColor darkGrayColor];
         }
         
+        [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
         cell.textLabel.text = [reasonList objectAtIndex:indexPath.row];
         
         if (selectedIndex && [indexPath isEqual:selectedIndex]) {
@@ -325,48 +332,76 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+    NSString *url = [jsonObj objectForKey:@"url"];
     
-    if (statusCode == HttpOK) {
-        NSDictionary *attendanceDict = [jsonObj objectForKey:@"messageObject"];
+    if (url != nil && [url rangeOfString:API_NAME_TEACHER_CREATE_ATTENDANCE].location != NSNotFound) {
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
         
-        if ([attendanceDict valueForKey:@"id"] != (id)[NSNull null]) {
-            _checkAttendanceObj.attendanceID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"id"]];
+        if (statusCode == HttpOK) {
+            NSDictionary *attendanceDict = [jsonObj objectForKey:@"messageObject"];
+            
+            if ([attendanceDict valueForKey:@"id"] != (id)[NSNull null]) {
+                _checkAttendanceObj.attendanceID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"id"]];
+            }
+            
+            if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
+                _checkAttendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
+            }
+            
+            if ([attendanceDict valueForKey:@"excused"] != (id)[NSNull null]) {
+                _checkAttendanceObj.hasRequest = [[attendanceDict valueForKey:@"excused"] boolValue];
+            }
+            
+            if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
+                _checkAttendanceObj.reason = [attendanceDict valueForKey:@"notice"];
+            }
+            
+            if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
+                _checkAttendanceObj.session = [attendanceDict valueForKey:@"session"];
+            }
+            
+            if ([attendanceDict valueForKey:@"session_id"] != (id)[NSNull null]) {
+                _checkAttendanceObj.sessionID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"session_id"]];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
+                _checkAttendanceObj.subject = [attendanceDict valueForKey:@"subject"];
+            }
+            
+            if ([attendanceDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
+                _checkAttendanceObj.subjectID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"subject_id"]];
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckAttendanceSuccessful" object:_checkAttendanceObj];
+            
+        } else {
+            [self sendRequestFailed];
+     
         }
         
-        if ([attendanceDict valueForKey:@"att_dt"] != (id)[NSNull null]) {
-            _checkAttendanceObj.dateTime = [attendanceDict valueForKey:@"att_dt"];
+    } else if (url != nil && [url rangeOfString:API_NAME_ABSENCE_REASON_SAMPLE].location != NSNotFound) {
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+        
+        if (statusCode == HttpOK) {
+            
+        } else {
+            
+            [self hardCodeForReasonSample];
         }
+    }
+}
+
+- (void)hardCodeForReasonSample {
+    if ([reasonList count] == 0) {
+        [reasonList addObject:LocalizedString(@"No reason")];
+        [reasonList addObject:LocalizedString(@"Reason 1")];
+        [reasonList addObject:LocalizedString(@"Reason 2")];
+        [reasonList addObject:LocalizedString(@"Reason 3")];
+        [reasonList addObject:LocalizedString(@"Reason 4")];
+        [reasonList addObject:LocalizedString(@"Reason 5")];
+        [reasonList addObject:LocalizedString(@"Other")];
         
-        if ([attendanceDict valueForKey:@"excused"] != (id)[NSNull null]) {
-            _checkAttendanceObj.hasRequest = [[attendanceDict valueForKey:@"excused"] boolValue];
-        }
-        
-        if ([attendanceDict valueForKey:@"notice"] != (id)[NSNull null]) {
-            _checkAttendanceObj.reason = [attendanceDict valueForKey:@"notice"];
-        }
-        
-        if ([attendanceDict valueForKey:@"session"] != (id)[NSNull null]) {
-            _checkAttendanceObj.session = [attendanceDict valueForKey:@"session"];
-        }
-        
-        if ([attendanceDict valueForKey:@"session_id"] != (id)[NSNull null]) {
-            _checkAttendanceObj.sessionID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"session_id"]];
-        }
-        
-        if ([attendanceDict valueForKey:@"subject"] != (id)[NSNull null]) {
-            _checkAttendanceObj.subject = [attendanceDict valueForKey:@"subject"];
-        }
-        
-        if ([attendanceDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
-            _checkAttendanceObj.subjectID = [NSString stringWithFormat:@"%@", [attendanceDict valueForKey:@"subject_id"]];
-        }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckAttendanceSuccessful" object:_checkAttendanceObj];
-        
-    } else {
-        [self sendRequestFailed];
- 
+        [reasonTableView reloadData];
     }
 }
 

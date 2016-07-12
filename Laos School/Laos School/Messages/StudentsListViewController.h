@@ -20,6 +20,9 @@ typedef enum {
     IBOutlet UITableView *studentsTableView;
     NSMutableArray *studentsArray;
     IBOutlet UILabel *lbCount;
+    
+    IBOutlet UIButton *btnCheck;
+    
 }
 
 @property (nonatomic, strong) NSMutableArray *selectedArray;
