@@ -75,7 +75,7 @@
 "[No subject]" = "[No subject]";
 
 
-"There was an error while sending message. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງ SMS ເກີດ​ຂຶ້ນ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"There was an error while sending message. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງຂໍ້​ຄວາມ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 "Please enter recipient and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຜູ້​ຮັບ ແລະ ເນື້ອ​ໃນ!";
 "Please enter content!" = "ກະ​ລຸ​ນາ​ໃສ່​ເນື້ອ​ໃນ!";
 
@@ -90,6 +90,7 @@
 "There was an error while sending announcement. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງປະ​ກາດ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
 "Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@ ແມ່ນ​ບໍ?";
 "Please enter subject and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຫົວ​ຂໍ້ ແລະ ເນື້ອ​ໃນ!";
+"There is no image attached. Please attach at least one." = "There is no image attached. Please attach at least one.";
 "Select photo source" = "ເລືອກ​ຮູບ";
 "Camera" = "ຮູບ​ຖ່​າຍ";
 "Photo library" = "ຄັງ​ຮູບ";

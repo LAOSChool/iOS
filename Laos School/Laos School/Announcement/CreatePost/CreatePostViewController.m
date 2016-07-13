@@ -560,7 +560,12 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 
 - (void)btnSendClick {
     if ([self validateInputs]) {
-         [self confirmBeforeSendingAnnouncement];
+        if ([photoArray count] == 0) {
+            [self showAlertNoImageAttached];
+            
+        } else {
+            [self confirmBeforeSendingAnnouncement];
+        }
         
     } else {
         [self showAlertInvalidInputs];
@@ -809,6 +814,13 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 - (void)showAlertInvalidInputs {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"Please enter subject and content!") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 5;
+    
+    [alert show];
+}
+
+- (void)showAlertNoImageAttached {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There is no image attached. Please attach at least one.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 6;
     
     [alert show];
 }

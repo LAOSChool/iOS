@@ -90,6 +90,7 @@
 "There was an error while sending announcement. Please try again." = "There was an error while sending announcement. Please try again.";
 "Send this announcement to class %@. Are you sure?" = "Send this announcement to class %@. Are you sure?";
 "Please enter subject and content!" = "Please enter subject and content!";
+"There is no image attached. Please attach at least one." = "There is no image attached. Please attach at least one.";
 "Select photo source" = "Select photo source";
 "Camera" = "Camera";
 "Photo library" = "Photo library";
