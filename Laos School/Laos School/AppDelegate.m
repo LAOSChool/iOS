@@ -9,16 +9,18 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "UIView+CustomUIView.h"
-#import "TAGContainer.h"
-#import "TAGContainerOpener.h"
-#import "TAGManager.h"
 #import "LocalizeHelper.h"
 
 #import "CoreDataUtil.h"
 #import "ArchiveHelper.h"
 #import "CommonDefine.h"
 
-@interface AppDelegate ()<TAGContainerOpenerNotifier>
+@import Firebase;
+@import FirebaseInstanceID;
+@import FirebaseMessaging;
+
+
+@interface AppDelegate ()
 
 @end
 
@@ -42,29 +44,8 @@
     self.window.rootViewController = loginViewController;
     [self.window makeKeyAndVisible];
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-    } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
-    }
-    
     //prevent backup icloud
     [self addSkipBackupAttributeToItemAtPath:[[ArchiveHelper sharedArchiveHelper] libraryFolder]];
-    
-    self.tagManager = [TAGManager instance];
-    
-    // Optional: Change the LogLevel to Verbose to enable logging at VERBOSE and higher levels.
-    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
-    
-    // Add the code in bold below to preview a Google Tag Manager container.
-    // IMPORTANT: This code must be called before the container is opened.
-    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    if (url != nil) {
-        [self.tagManager previewWithUrl:url];
-    }
     
     /*
      * Opens a container.
@@ -76,12 +57,6 @@
      * @param notifier The notifier to inform on container load events.
      */
     
-    [TAGContainerOpener openContainerWithId:@"GTM-TLHBMW"
-                                 tagManager:self.tagManager
-                                   openType:kTAGOpenTypePreferFresh
-                                    timeout:nil
-                                   notifier:(id)self];
-    
     [[CoreDataUtil sharedCoreDataUtil] setDefaultManagedObjectContext:self.managedObjectContext];
     
     
@@ -90,18 +65,77 @@
                                                  name:@"PushToLoginScreen"
                                                object:nil];
     
+    // Register for remote notifications
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+        // iOS 7.1 or earlier
+        UIRemoteNotificationType allNotificationTypes =
+        (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge);
+        [application registerForRemoteNotificationTypes:allNotificationTypes];
+    } else {
+        // iOS 8 or later
+        // [START register_for_notifications]
+        UIUserNotificationType allNotificationTypes =
+        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        // [END register_for_notifications]
+    }
+    
+     [FIRApp configure];
+    
     return YES;
 }
 
-// TAGContainerOpenerNotifier callback.
-- (void)containerAvailable:(TAGContainer *)container {
-    // Note that containerAvailable may be called on any thread, so you may need to dispatch back to
-    // your main thread.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.container = container;
-
-    });
+// With "FirebaseAppDelegateProxyEnabled": NO
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
 }
+
+- (void)connectToFcm {
+    [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Unable to connect to FCM. %@", error);
+        } else {
+            NSLog(@"Connected to FCM.");
+        }
+    }];
+}
+
+// [START receive_message]
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // If you are receiving a notification message while your app is in the background,
+    // this callback will not be fired till the user taps on the notification launching the application.
+    // TODO: Handle data of notification
+    
+    // Print message ID.
+    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+    
+    // Let FCM know about the message for analytics etc.
+    [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
+    
+    // Pring full message.
+    NSLog(@"%@", userInfo);
+}
+// [END receive_message]
+
+// [START refresh_token]
+- (void)tokenRefreshNotification:(NSNotification *)notification {
+    // Note that this callback will be fired everytime a new token is generated, including the first
+    // time. So if you need to retrieve the token as soon as it is available this is where that
+    // should be done.
+    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+    NSLog(@"InstanceID token: %@", refreshedToken);
+    
+    // Connect to FCM since connection may have failed when attempted before having a token.
+    [self connectToFcm];
+    
+    // TODO: If necessary send token to appliation server.
+}
+// [END refresh_token]
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -111,6 +145,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[FIRMessaging messaging] disconnect];
+    NSLog(@"Disconnected from FCM");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -119,6 +155,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self connectToFcm];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -146,10 +183,6 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    
-    if ([self.tagManager previewWithUrl:url]) {
-        return YES;
-    }
     
     // Code to handle other urls.
     return NO;

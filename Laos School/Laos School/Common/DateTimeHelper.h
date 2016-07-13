@@ -33,6 +33,7 @@
 - (NSTimeInterval)getBeginOfDayInMinisec;
 - (NSTimeInterval)getCurrentDatetimeInSec;
 - (NSTimeInterval)getBeginOfDayInSec;
+- (NSTimeInterval)timeIntervalOfDateString:(NSString *)dateStr;
 - (NSString *)getDayOfWeek:(NSDate *)date;
 
 - (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek;

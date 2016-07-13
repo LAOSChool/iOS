@@ -8,7 +8,6 @@
 
 #import "AddSingleScore.h"
 #import "ScoreObject.h"
-#import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "DateTimeHelper.h"
 #import "CommonDefine.h"
@@ -29,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TagManagerHelper pushOpenScreenEvent:@"iAddSingleScore"];
     // Do any additional setup after loading the view from its nib.
 
     viewContainer.layer.borderColor = [UIColor darkGrayColor].CGColor;

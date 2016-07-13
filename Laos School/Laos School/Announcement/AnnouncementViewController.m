@@ -329,7 +329,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortAnnouncementsArrayByID:announceArray];
+    [self sortAnnouncementsArrayByDateTime:announceArray];
 
 }
 
@@ -365,7 +365,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortAnnouncementsArrayByID:unreadAnnouncementsArray];
+    [self sortAnnouncementsArrayByDateTime:unreadAnnouncementsArray];
 }
 
 - (void)loadUnreadAnnouncementsFromServer {
@@ -402,7 +402,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortAnnouncementsArrayByID:sentAnnouncementsArray];
+    [self sortAnnouncementsArrayByDateTime:sentAnnouncementsArray];
 }
 
 - (void)loadSentAnnouncementsFromServer {
@@ -759,7 +759,7 @@
             });
         }
         
-        [self sortAnnouncementsArrayByID];
+        [self sortAnnouncementsArrayByDateTime];
     }
     
     if (IS_IPAD) {
@@ -803,15 +803,15 @@
     }
 }
 
-- (void)sortAnnouncementsArrayByID {
+- (void)sortAnnouncementsArrayByDateTime {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-        [self sortAnnouncementsArrayByID:announceArray];
+        [self sortAnnouncementsArrayByDateTime:announceArray];
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-        [self sortAnnouncementsArrayByID:unreadAnnouncementsArray];
+        [self sortAnnouncementsArrayByDateTime:unreadAnnouncementsArray];
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-        [self sortAnnouncementsArrayByID:sentAnnouncementsArray];
+        [self sortAnnouncementsArrayByDateTime:sentAnnouncementsArray];
         
     }
 }
@@ -843,8 +843,8 @@
     [alert show];
 }
 
-- (void)sortAnnouncementsArrayByID:(NSMutableArray *)announcementArr {
-    NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
+- (void)sortAnnouncementsArrayByDateTime:(NSMutableArray *)announcementArr {
+    NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
     NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementID, nil]];
     
     [announcementArr removeAllObjects];

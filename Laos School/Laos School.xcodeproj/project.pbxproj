@@ -69,7 +69,6 @@
 		5520945C1C89852D004670B3 /* ic_school.png in Resources */ = {isa = PBXBuildFile; fileRef = 552094591C89852D004670B3 /* ic_school.png */; };
 		5520945D1C89852D004670B3 /* ic_school@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5520945A1C89852D004670B3 /* ic_school@2x.png */; };
 		5520945E1C89852D004670B3 /* ic_school@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5520945B1C89852D004670B3 /* ic_school@3x.png */; };
-		552400EF1C87F62C00F7D057 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552400EE1C87F62C00F7D057 /* libGoogleAnalyticsServices.a */; };
 		552400F31C881DA600F7D057 /* CreatePermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552400F11C881DA600F7D057 /* CreatePermissionViewController.m */; };
 		552400F41C881DA600F7D057 /* CreatePermissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552400F21C881DA600F7D057 /* CreatePermissionViewController.xib */; };
 		552400F81C883AAA00F7D057 /* StuAttendanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552400F61C883AAA00F7D057 /* StuAttendanceTableViewCell.m */; };
@@ -223,9 +222,6 @@
 		55524FFB1C7ED9EE0027A4ED /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FFA1C7ED9EE0027A4ED /* libz.tbd */; };
 		55524FFD1C7ED9F70027A4ED /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FFC1C7ED9F70027A4ED /* libsqlite3.tbd */; };
 		555250011C7EDF7B0027A4ED /* GTM-TLHBMW in Resources */ = {isa = PBXBuildFile; fileRef = 555250001C7EDF7B0027A4ED /* GTM-TLHBMW */; };
-		5552501B1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5552500F1C7EE0680027A4ED /* Readme.txt */; };
-		5552501C1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 555250171C7EE0680027A4ED /* Readme.txt */; };
-		5552501F1C7EE0680027A4ED /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5552501A1C7EE0680027A4ED /* Readme.txt */; };
 		555250221C7EEE2A0027A4ED /* MyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 555250211C7EEE2A0027A4ED /* MyLogger.m */; };
 		555446A41D07F54C00602E46 /* TeacherScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */; };
 		555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */; };
@@ -446,6 +442,7 @@
 		55B50D561CC89360002B3412 /* Announcements.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D541CC89360002B3412 /* Announcements.m */; };
 		55B50D5B1CC8AC2A002B3412 /* Photos+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D581CC8AC2A002B3412 /* Photos+CoreDataProperties.m */; };
 		55B50D5C1CC8AC2A002B3412 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B50D5A1CC8AC2A002B3412 /* Photos.m */; };
+		55BA211F1D361EF1003A486F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55BA211E1D361EF1003A486F /* GoogleService-Info.plist */; };
 		55BA86FB1C8D7710000221D7 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */; };
 		55BA86FC1C8D7710000221D7 /* PersonalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86FA1C8D7710000221D7 /* PersonalInfoViewController.xib */; };
 		55BDA51F1D223AD6007E3A1D /* ic_content_paste_colors.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */; };
@@ -483,7 +480,6 @@
 		55FC71D11C7C3C8100B0B8D0 /* CommonDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71C81C7C3C8100B0B8D0 /* CommonDefine.m */; };
 		55FC71D21C7C3C8100B0B8D0 /* HTMLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71CA1C7C3C8100B0B8D0 /* HTMLHelper.m */; };
 		55FC71D31C7C3C8100B0B8D0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71CC1C7C3C8100B0B8D0 /* Reachability.m */; };
-		55FC71D41C7C3C8100B0B8D0 /* TagManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71CE1C7C3C8100B0B8D0 /* TagManagerHelper.m */; };
 		55FC71D71C7C3E6300B0B8D0 /* ArchiveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71D61C7C3E6300B0B8D0 /* ArchiveHelper.m */; };
 		55FC71DA1C7C3F8900B0B8D0 /* DateTimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71D91C7C3F8900B0B8D0 /* DateTimeHelper.m */; };
 		55FC72291C7C599D00B0B8D0 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC71E11C7C599D00B0B8D0 /* AsyncImageView.m */; };
@@ -525,9 +521,11 @@
 		55FEDB991C841EC100DD0D24 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDB971C841EC100DD0D24 /* ComposeViewController.m */; };
 		55FEDB9A1C841EC100DD0D24 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55FEDB981C841EC100DD0D24 /* ComposeViewController.xib */; };
 		55FEDB9E1C84365000DD0D24 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDB9D1C84365000DD0D24 /* MessageObject.m */; };
+		FD1F7F21DF2BEA00CDC4E1FB /* libPods-Laos School.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6FF71DB39FE1C7BB8D6751 /* libPods-Laos School.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C0BE5FA906EF63DA7CCA14F /* Pods-Laos School.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Laos School.release.xcconfig"; path = "Pods/Target Support Files/Pods-Laos School/Pods-Laos School.release.xcconfig"; sourceTree = "<group>"; };
 		550A756A1CCE153A0050240B /* CTAssetsPageViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPageViewController+Internal.h"; sourceTree = "<group>"; };
 		550A756B1CCE153A0050240B /* CTAssetsPickerController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPickerController+Internal.h"; sourceTree = "<group>"; };
 		550A756C1CCE153A0050240B /* NSBundle+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+CTAssetsPickerController.h"; sourceTree = "<group>"; };
@@ -635,7 +633,6 @@
 		552094591C89852D004670B3 /* ic_school.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_school.png; sourceTree = "<group>"; };
 		5520945A1C89852D004670B3 /* ic_school@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_school@2x.png"; sourceTree = "<group>"; };
 		5520945B1C89852D004670B3 /* ic_school@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_school@3x.png"; sourceTree = "<group>"; };
-		552400EE1C87F62C00F7D057 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = "Laos School/libGoogleAnalyticsServices.a"; sourceTree = "<group>"; };
 		552400F01C881DA600F7D057 /* CreatePermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePermissionViewController.h; sourceTree = "<group>"; };
 		552400F11C881DA600F7D057 /* CreatePermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePermissionViewController.m; sourceTree = "<group>"; };
 		552400F21C881DA600F7D057 /* CreatePermissionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermissionViewController.xib; sourceTree = "<group>"; };
@@ -896,24 +893,6 @@
 		55524FFA1C7ED9EE0027A4ED /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55524FFC1C7ED9F70027A4ED /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		555250001C7EDF7B0027A4ED /* GTM-TLHBMW */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-TLHBMW"; sourceTree = "<group>"; };
-		555250051C7EE0680027A4ED /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		555250061C7EE0680027A4ED /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		555250071C7EE0680027A4ED /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		555250081C7EE0680027A4ED /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		555250091C7EE0680027A4ED /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		5552500A1C7EE0680027A4ED /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		5552500B1C7EE0680027A4ED /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		5552500C1C7EE0680027A4ED /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		5552500D1C7EE0680027A4ED /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		5552500E1C7EE0680027A4ED /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		5552500F1C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
-		555250121C7EE0680027A4ED /* TAGContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainer.h; sourceTree = "<group>"; };
-		555250131C7EE0680027A4ED /* TAGContainerOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainerOpener.h; sourceTree = "<group>"; };
-		555250141C7EE0680027A4ED /* TAGDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGDataLayer.h; sourceTree = "<group>"; };
-		555250151C7EE0680027A4ED /* TAGLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGLogger.h; sourceTree = "<group>"; };
-		555250161C7EE0680027A4ED /* TAGManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGManager.h; sourceTree = "<group>"; };
-		555250171C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
-		5552501A1C7EE0680027A4ED /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		555250201C7EEE2A0027A4ED /* MyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogger.h; sourceTree = "<group>"; };
 		555250211C7EEE2A0027A4ED /* MyLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogger.m; sourceTree = "<group>"; };
 		555446A11D07F54C00602E46 /* TeacherScoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoreTableViewCell.h; sourceTree = "<group>"; };
@@ -1186,6 +1165,7 @@
 		55B50D581CC8AC2A002B3412 /* Photos+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photos+CoreDataProperties.m"; sourceTree = "<group>"; };
 		55B50D591CC8AC2A002B3412 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
 		55B50D5A1CC8AC2A002B3412 /* Photos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos.m; sourceTree = "<group>"; };
+		55BA211E1D361EF1003A486F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool_v2.xcdatamodel; sourceTree = "<group>"; };
 		55BA86F81C8D7710000221D7 /* PersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoViewController.h; sourceTree = "<group>"; };
 		55BA86F91C8D7710000221D7 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
@@ -1237,8 +1217,6 @@
 		55FC71CA1C7C3C8100B0B8D0 /* HTMLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLHelper.m; sourceTree = "<group>"; };
 		55FC71CB1C7C3C8100B0B8D0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		55FC71CC1C7C3C8100B0B8D0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		55FC71CD1C7C3C8100B0B8D0 /* TagManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagManagerHelper.h; sourceTree = "<group>"; };
-		55FC71CE1C7C3C8100B0B8D0 /* TagManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagManagerHelper.m; sourceTree = "<group>"; };
 		55FC71D51C7C3E6300B0B8D0 /* ArchiveHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveHelper.h; sourceTree = "<group>"; };
 		55FC71D61C7C3E6300B0B8D0 /* ArchiveHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveHelper.m; sourceTree = "<group>"; };
 		55FC71D81C7C3F8900B0B8D0 /* DateTimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeHelper.h; sourceTree = "<group>"; };
@@ -1313,6 +1291,8 @@
 		55FEDB981C841EC100DD0D24 /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		55FEDB9C1C84365000DD0D24 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
 		55FEDB9D1C84365000DD0D24 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
+		AE25DC833E95F2E6438A7690 /* Pods-Laos School.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Laos School.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Laos School/Pods-Laos School.debug.xcconfig"; sourceTree = "<group>"; };
+		BB6FF71DB39FE1C7BB8D6751 /* libPods-Laos School.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Laos School.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1321,11 +1301,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				550A75FD1CCE2A690050240B /* Photos.framework in Frameworks */,
-				552400EF1C87F62C00F7D057 /* libGoogleAnalyticsServices.a in Frameworks */,
 				55524FFD1C7ED9F70027A4ED /* libsqlite3.tbd in Frameworks */,
 				55524FFB1C7ED9EE0027A4ED /* libz.tbd in Frameworks */,
 				55524FF91C7ED9E20027A4ED /* SystemConfiguration.framework in Frameworks */,
 				55524FF71C7ED9D40027A4ED /* CoreData.framework in Frameworks */,
+				FD1F7F21DF2BEA00CDC4E1FB /* libPods-Laos School.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,14 +1433,16 @@
 		550FD2771C7AF60B009D7159 = {
 			isa = PBXGroup;
 			children = (
+				55BA211E1D361EF1003A486F /* GoogleService-Info.plist */,
 				550A75FC1CCE2A690050240B /* Photos.framework */,
-				552400EE1C87F62C00F7D057 /* libGoogleAnalyticsServices.a */,
 				55524FFC1C7ED9F70027A4ED /* libsqlite3.tbd */,
 				55524FFA1C7ED9EE0027A4ED /* libz.tbd */,
 				55524FF81C7ED9E20027A4ED /* SystemConfiguration.framework */,
 				55524FF61C7ED9D40027A4ED /* CoreData.framework */,
 				550FD2821C7AF60C009D7159 /* Laos School */,
 				550FD2811C7AF60C009D7159 /* Products */,
+				F6B77F4D4A4EFB4CE409B9E6 /* Pods */,
+				D0CC86EB63539B826581CF53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1485,7 +1467,6 @@
 				550FD2A91C7AFE35009D7159 /* Custom */,
 				550FD29B1C7AFABD009D7159 /* Libs */,
 				550FD29C1C7AFABD009D7159 /* Common */,
-				555250021C7EE0680027A4ED /* GGLib */,
 				550FD29D1C7AFABD009D7159 /* Resources */,
 				550FD2861C7AF60C009D7159 /* AppDelegate.h */,
 				550FD2871C7AF60C009D7159 /* AppDelegate.m */,
@@ -1564,8 +1545,6 @@
 				55FC71CA1C7C3C8100B0B8D0 /* HTMLHelper.m */,
 				55FC71CB1C7C3C8100B0B8D0 /* Reachability.h */,
 				55FC71CC1C7C3C8100B0B8D0 /* Reachability.m */,
-				55FC71CD1C7C3C8100B0B8D0 /* TagManagerHelper.h */,
-				55FC71CE1C7C3C8100B0B8D0 /* TagManagerHelper.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2225,63 +2204,6 @@
 			path = JTSImageVC;
 			sourceTree = "<group>";
 		};
-		555250021C7EE0680027A4ED /* GGLib */ = {
-			isa = PBXGroup;
-			children = (
-				555250031C7EE0680027A4ED /* GoogleAnalytics */,
-				555250101C7EE0680027A4ED /* GoogleTagManager */,
-				5552501A1C7EE0680027A4ED /* Readme.txt */,
-			);
-			path = GGLib;
-			sourceTree = "<group>";
-		};
-		555250031C7EE0680027A4ED /* GoogleAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				555250041C7EE0680027A4ED /* Library */,
-				5552500F1C7EE0680027A4ED /* Readme.txt */,
-			);
-			path = GoogleAnalytics;
-			sourceTree = "<group>";
-		};
-		555250041C7EE0680027A4ED /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				555250051C7EE0680027A4ED /* GAI.h */,
-				555250061C7EE0680027A4ED /* GAIDictionaryBuilder.h */,
-				555250071C7EE0680027A4ED /* GAIEcommerceFields.h */,
-				555250081C7EE0680027A4ED /* GAIEcommerceProduct.h */,
-				555250091C7EE0680027A4ED /* GAIEcommerceProductAction.h */,
-				5552500A1C7EE0680027A4ED /* GAIEcommercePromotion.h */,
-				5552500B1C7EE0680027A4ED /* GAIFields.h */,
-				5552500C1C7EE0680027A4ED /* GAILogger.h */,
-				5552500D1C7EE0680027A4ED /* GAITrackedViewController.h */,
-				5552500E1C7EE0680027A4ED /* GAITracker.h */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		555250101C7EE0680027A4ED /* GoogleTagManager */ = {
-			isa = PBXGroup;
-			children = (
-				555250111C7EE0680027A4ED /* Library */,
-				555250171C7EE0680027A4ED /* Readme.txt */,
-			);
-			path = GoogleTagManager;
-			sourceTree = "<group>";
-		};
-		555250111C7EE0680027A4ED /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				555250121C7EE0680027A4ED /* TAGContainer.h */,
-				555250131C7EE0680027A4ED /* TAGContainerOpener.h */,
-				555250141C7EE0680027A4ED /* TAGDataLayer.h */,
-				555250151C7EE0680027A4ED /* TAGLogger.h */,
-				555250161C7EE0680027A4ED /* TAGManager.h */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 		5575ED3F1CA4EA4E00EFC02C /* CreatePost */ = {
 			isa = PBXGroup;
 			children = (
@@ -2733,6 +2655,23 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		D0CC86EB63539B826581CF53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB6FF71DB39FE1C7BB8D6751 /* libPods-Laos School.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F6B77F4D4A4EFB4CE409B9E6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AE25DC833E95F2E6438A7690 /* Pods-Laos School.debug.xcconfig */,
+				1C0BE5FA906EF63DA7CCA14F /* Pods-Laos School.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2740,9 +2679,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 550FD2971C7AF60C009D7159 /* Build configuration list for PBXNativeTarget "Laos School" */;
 			buildPhases = (
+				4AFE155CBEE2B74CE0316026 /* Check Pods Manifest.lock */,
 				550FD27C1C7AF60C009D7159 /* Sources */,
 				550FD27D1C7AF60C009D7159 /* Frameworks */,
 				550FD27E1C7AF60C009D7159 /* Resources */,
+				17BD60B3B35C782C3E6F84F6 /* Embed Pods Frameworks */,
+				B10455566578B7CDD98C889D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2887,7 +2829,6 @@
 				5531DBE41CE2D07B00FBD6A4 /* ic_arrow_down@2x.png in Resources */,
 				559C48821D0FB2AD0013450C /* ic_score_type_gray@2x.png in Resources */,
 				556758191D06B8AE0000321B /* ic_male@3x.png in Resources */,
-				5552501C1C7EE0680027A4ED /* Readme.txt in Resources */,
 				556758181D06B8AE0000321B /* ic_male@2x.png in Resources */,
 				558782351C8FCB3800365369 /* ic_phone_black@3x.png in Resources */,
 				558FC5EE1CEECBD900CD0389 /* ic_edit_gray@3x.png in Resources */,
@@ -2936,7 +2877,6 @@
 				558D6DD51CA245CF00EE34BD /* ic_key.png in Resources */,
 				55797CC81C86D08A00A0098D /* ic_more.png in Resources */,
 				55510DCD1CD9AE3100638646 /* LICENSE in Resources */,
-				5552501F1C7EE0680027A4ED /* Readme.txt in Resources */,
 				5575505C1D057F8200DA0573 /* ic_content_paste@3x.png in Resources */,
 				55797CA31C86960100A0098D /* StudentTimeTableViewController.xib in Resources */,
 				550A821F1C9AA6AF001F652B /* ic_radio_uncheck@3x.png in Resources */,
@@ -2949,7 +2889,6 @@
 				55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */,
 				5520944D1C8932CF004670B3 /* ic_class@2x.png in Resources */,
 				555250011C7EDF7B0027A4ED /* GTM-TLHBMW in Resources */,
-				5552501B1C7EE0680027A4ED /* Readme.txt in Resources */,
 				5595091B1C99574200D06158 /* ic_off@2x.png in Resources */,
 				559C487E1D0FB2AD0013450C /* ic_subject_gray.png in Resources */,
 				55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */,
@@ -3020,6 +2959,7 @@
 				55510DBE1CD9AE0D00638646 /* LICENSE in Resources */,
 				55A579591CEC62F2000597D2 /* MHTabBarIndicator@2x.png in Resources */,
 				55CF10E31C85927B00DC1AB9 /* ic_edit@2x.png in Resources */,
+				55BA211F1D361EF1003A486F /* GoogleService-Info.plist in Resources */,
 				556449721D1797BE000B3B90 /* ic_info@2x.png in Resources */,
 				558782531C9010FE00365369 /* SettingsViewController.xib in Resources */,
 				55B108EC1C802CA200EB695C /* ic_help.png in Resources */,
@@ -3104,6 +3044,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		17BD60B3B35C782C3E6F84F6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Laos School/Pods-Laos School-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AFE155CBEE2B74CE0316026 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B10455566578B7CDD98C889D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Laos School/Pods-Laos School-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		550FD27C1C7AF60C009D7159 /* Sources */ = {
@@ -3274,7 +3262,6 @@
 				5538A9721CBCF3E500659C8A /* JSQMessagesToolbarButtonFactory.m in Sources */,
 				5538A9761CBCF3E500659C8A /* JSQMessagesCollectionViewFlowLayoutInvalidationContext.m in Sources */,
 				550A75F61CCE153A0050240B /* ALView+PureLayout.m in Sources */,
-				55FC71D41C7C3C8100B0B8D0 /* TagManagerHelper.m in Sources */,
 				55FC72311C7C599D00B0B8D0 /* ScrollViewFrameAccessor.m in Sources */,
 				557D78C61C97BDE5008096A0 /* StudentsListViewController.m in Sources */,
 				550A75F21CCE153A0050240B /* CTAssetThumbnailOverlay.m in Sources */,
@@ -3444,6 +3431,7 @@
 		};
 		550FD2981C7AF60C009D7159 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE25DC833E95F2E6438A7690 /* Pods-Laos School.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3454,7 +3442,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					School/GGLib,
 					"$(PROJECT_DIR)/Laos\\ School",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laoschool;
@@ -3466,6 +3453,7 @@
 		};
 		550FD2991C7AF60C009D7159 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C0BE5FA906EF63DA7CCA14F /* Pods-Laos School.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3476,7 +3464,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					School/GGLib,
 					"$(PROJECT_DIR)/Laos\\ School",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.laoschool;

@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "TagManagerHelper.h"
 #import "AppDelegate.h"
 #import "Common.h"
 #import "LocalizeHelper.h"

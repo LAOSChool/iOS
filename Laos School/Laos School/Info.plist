@@ -23,14 +23,10 @@
 		<dict>
 			<key>CFBundleURLName</key>
 			<string>com.born2go.laosshool</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tagmanager.c.com.born2go.laosshool</string>
-			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>10</string>
+	<string>11</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

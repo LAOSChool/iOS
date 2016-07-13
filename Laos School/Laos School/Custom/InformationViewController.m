@@ -8,7 +8,6 @@
 
 #import "InformationViewController.h"
 
-#import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "DateTimeHelper.h"
 
@@ -22,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TagManagerHelper pushOpenScreenEvent:@"iAttendanceInfomation"];
     // Do any additional setup after loading the view from its nib.
 
     viewContainer.layer.borderColor = [UIColor darkGrayColor].CGColor;

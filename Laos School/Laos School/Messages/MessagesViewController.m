@@ -14,7 +14,6 @@
 #import "ComposeViewController.h"
 #import "MessagesConversationViewController.h"
 
-#import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "SVProgressHUD.h"
 #import "RequestToServer.h"
@@ -46,7 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [TagManagerHelper pushOpenScreenEvent:@"iMessagesViewController"];
     
     [self setTitle:LocalizedString(@"Messages")];
     [self.navigationController setNavigationColor];

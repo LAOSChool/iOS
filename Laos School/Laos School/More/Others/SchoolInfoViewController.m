@@ -9,7 +9,6 @@
 #import "SchoolInfoViewController.h"
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
-#import "TagManagerHelper.h"
 #import "Common.h"
 
 #define SCHOOL_INFO_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
@@ -24,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [TagManagerHelper pushOpenScreenEvent:@"iSchoolInfo"];
     [self.navigationController setNavigationColor];
     [self setTitle:LocalizedString(@"School info")];
     

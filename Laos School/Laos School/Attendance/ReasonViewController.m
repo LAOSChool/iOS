@@ -15,7 +15,6 @@
 #import "RequestToServer.h"
 #import "SVProgressHUD.h"
 
-#import "TagManagerHelper.h"
 
 @interface ReasonViewController ()
 {
@@ -35,7 +34,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TagManagerHelper pushOpenScreenEvent:@"iReasonViewController"];
     // Do any additional setup after loading the view from its nib.
     
     [navigationView setBackgroundColor:COMMON_COLOR];

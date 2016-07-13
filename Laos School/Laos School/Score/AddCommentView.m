@@ -7,7 +7,6 @@
 //
 
 #import "AddCommentView.h"
-#import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 #import "ScoreObject.h"
 #import "CommonDefine.h"
@@ -98,7 +97,6 @@
 }
 
 - (IBAction)btnSaveClick:(id)sender {
-    [TagManagerHelper pushOpenScreenEvent:@"iAddCommentView"];
     
 //    if ([txtComment.text isEqualToString:TEXT_PLACEHOLDER]) {
 //        txtComment.text = @"";

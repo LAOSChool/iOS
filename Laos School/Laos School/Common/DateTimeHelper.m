@@ -341,6 +341,13 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     return res;
 }
 
+- (NSTimeInterval)timeIntervalOfDateString:(NSString *)dateStr {
+    NSDate *curDate = [self dateFromString:dateStr];
+    NSTimeInterval datetime = [curDate timeIntervalSince1970];
+    
+    return datetime;
+}
+
 //not use
 - (NSTimeInterval)getCurrentDatetimeInMinisec {
     

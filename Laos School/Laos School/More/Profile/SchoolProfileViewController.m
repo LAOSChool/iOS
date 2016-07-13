@@ -15,7 +15,6 @@
 #import "CommonDefine.h"
 #import "LocalizeHelper.h"
 #import "RequestToServer.h"
-#import "TagManagerHelper.h"
 
 #import "TermObject.h"
 #import "UserScore.h"
@@ -56,7 +55,6 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [TagManagerHelper pushOpenScreenEvent:@"iSchoolRecords"];
     [self setTitle:LocalizedString(@"School records")];
     
     [self.navigationController setNavigationColor];
