@@ -17,9 +17,7 @@
 
 
 @interface ReasonViewController ()
-{
-    NSMutableArray *reasonList;
-    
+{    
     NSIndexPath *selectedIndex;
     
     RequestToServer *requestToServer;
@@ -49,10 +47,17 @@
         requestToServer.delegate = (id)self;
     }
     
-    if (reasonList == nil) {
-        reasonList = [[NSMutableArray alloc] init];
-    } else {
-        [reasonList removeAllObjects];
+    if (_reasonList == nil) {
+        _reasonList = [[NSMutableArray alloc] init];
+        
+        [_reasonList addObject:LocalizedString(@"No reason")];
+        [_reasonList addObject:LocalizedString(@"Reason 1")];
+        [_reasonList addObject:LocalizedString(@"Reason 2")];
+        [_reasonList addObject:LocalizedString(@"Reason 3")];
+        [_reasonList addObject:LocalizedString(@"Reason 4")];
+        [_reasonList addObject:LocalizedString(@"Reason 5")];
+        [_reasonList addObject:LocalizedString(@"Other")];
+        
     }
     
     selectedIndex = nil;
@@ -61,14 +66,6 @@
     imgUncheck = [UIImage imageNamed:@"ic_uncheck_gray.png"];
     isFulldayChecked = NO;
     [btnFullday setImage:imgUncheck forState:UIControlStateNormal];
-    
-    [reasonList addObject:LocalizedString(@"No reason")];
-    [reasonList addObject:LocalizedString(@"Reason 1")];
-    [reasonList addObject:LocalizedString(@"Reason 2")];
-    [reasonList addObject:LocalizedString(@"Reason 3")];
-    [reasonList addObject:LocalizedString(@"Reason 4")];
-    [reasonList addObject:LocalizedString(@"Reason 5")];
-    [reasonList addObject:LocalizedString(@"Other")];
     
     [self getAbsenceReasonSample];
     
@@ -118,7 +115,7 @@
     OtherReasonTableViewCell *cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[reasonList count] - 1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[_reasonList count] - 1 inSection:0];
     selectedIndex = indexPath;
     cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -192,7 +189,7 @@
      */
     NSString *reason = @"";
     NSInteger hasRequesed = 1;
-    if (selectedIndex.row == [reasonList count] - 1) {  //other
+    if (selectedIndex.row == [_reasonList count] - 1) {  //other
         OtherReasonTableViewCell *cell = [reasonTableView cellForRowAtIndexPath:selectedIndex];
         
         reason = cell.txtOther.text;
@@ -201,7 +198,7 @@
         reason = LocalizedString(@"[No reason]");
         hasRequesed = 0;
     } else {
-        reason = [reasonList objectAtIndex:selectedIndex.row];
+        reason = [_reasonList objectAtIndex:selectedIndex.row];
     }
     
     reason = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:reason];
@@ -246,7 +243,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [reasonList count];
+    return [_reasonList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -255,7 +252,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
-    if (indexPath.row == [reasonList count] - 1) {
+    if (indexPath.row == [_reasonList count] - 1) {
         static NSString *otherReasonCellIdentifier = @"OtherReasonTableViewCell";
         
         OtherReasonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherReasonCellIdentifier];
@@ -292,7 +289,7 @@
         }
         
         [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
-        cell.textLabel.text = [reasonList objectAtIndex:indexPath.row];
+        cell.textLabel.text = [_reasonList objectAtIndex:indexPath.row];
         
         if (selectedIndex && [indexPath isEqual:selectedIndex]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -321,8 +318,8 @@
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     //dismiss other reason
-    if (indexPath.row != [reasonList count] - 1) {
-        NSIndexPath *indexPathOther = [NSIndexPath indexPathForItem:[reasonList count] - 1 inSection:0];
+    if (indexPath.row != [_reasonList count] - 1) {
+        NSIndexPath *indexPathOther = [NSIndexPath indexPathForItem:[_reasonList count] - 1 inSection:0];
         OtherReasonTableViewCell *cellOther = [reasonTableView cellForRowAtIndexPath:indexPathOther];
         [cellOther.txtOther resignFirstResponder];
     }
@@ -377,29 +374,6 @@
      
         }
         
-    } else if (url != nil && [url rangeOfString:API_NAME_ABSENCE_REASON_SAMPLE].location != NSNotFound) {
-        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
-        
-        if (statusCode == HttpOK) {
-            
-        } else {
-            
-            [self hardCodeForReasonSample];
-        }
-    }
-}
-
-- (void)hardCodeForReasonSample {
-    if ([reasonList count] == 0) {
-        [reasonList addObject:LocalizedString(@"No reason")];
-        [reasonList addObject:LocalizedString(@"Reason 1")];
-        [reasonList addObject:LocalizedString(@"Reason 2")];
-        [reasonList addObject:LocalizedString(@"Reason 3")];
-        [reasonList addObject:LocalizedString(@"Reason 4")];
-        [reasonList addObject:LocalizedString(@"Reason 5")];
-        [reasonList addObject:LocalizedString(@"Other")];
-        
-        [reasonTableView reloadData];
     }
 }
 

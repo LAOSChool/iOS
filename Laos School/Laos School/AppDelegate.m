@@ -18,7 +18,7 @@
 @import Firebase;
 @import FirebaseInstanceID;
 @import FirebaseMessaging;
-
+@import FirebaseAnalytics;
 
 @interface AppDelegate ()
 
@@ -29,6 +29,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [FIRAnalytics logEventWithName:@"LaunchApp"
+                        parameters:@{
+                                     @"name": @"test",
+                                     }];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self initialConfiguration];

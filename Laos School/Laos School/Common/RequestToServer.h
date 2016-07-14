@@ -34,6 +34,8 @@
 #define API_NAME_STUDENT_LIST @"/api/users"
 #define API_NAME_ABSENCE_REASON_SAMPLE @"/api/sys/sys_late_reason"
 #define API_NAME_MESSAGE_CONTENT_SAMPLE @"/api/sys/sys_att_msg"
+#define API_NAME_INFORM_CONTENT_SAMPLE @"/api/sys/sys_std_msg"
+
 
 #define API_NAME_ANNOUNCEMENT_LIST @"/api/notifies"
 #define API_NAME_CREATE_ANNOUNCEMENT @"/api/notifies/create"

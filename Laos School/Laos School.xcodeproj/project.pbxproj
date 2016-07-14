@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550A26B91D37517500C2F2AF /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A26B81D37517500C2F2AF /* FirebaseAnalytics.framework */; };
 		550A75D51CCE153A0050240B /* NSBundle+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550A756D1CCE153A0050240B /* NSBundle+CTAssetsPickerController.m */; };
 		550A75D61CCE153A0050240B /* NSDateFormatter+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550A756F1CCE153A0050240B /* NSDateFormatter+CTAssetsPickerController.m */; };
 		550A75D71CCE153A0050240B /* NSIndexSet+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550A75711CCE153A0050240B /* NSIndexSet+CTAssetsPickerController.m */; };
@@ -526,6 +527,7 @@
 
 /* Begin PBXFileReference section */
 		1C0BE5FA906EF63DA7CCA14F /* Pods-Laos School.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Laos School.release.xcconfig"; path = "Pods/Target Support Files/Pods-Laos School/Pods-Laos School.release.xcconfig"; sourceTree = "<group>"; };
+		550A26B81D37517500C2F2AF /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Pods/FirebaseAnalytics/Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		550A756A1CCE153A0050240B /* CTAssetsPageViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPageViewController+Internal.h"; sourceTree = "<group>"; };
 		550A756B1CCE153A0050240B /* CTAssetsPickerController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPickerController+Internal.h"; sourceTree = "<group>"; };
 		550A756C1CCE153A0050240B /* NSBundle+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+CTAssetsPickerController.h"; sourceTree = "<group>"; };
@@ -1300,6 +1302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550A26B91D37517500C2F2AF /* FirebaseAnalytics.framework in Frameworks */,
 				550A75FD1CCE2A690050240B /* Photos.framework in Frameworks */,
 				55524FFD1C7ED9F70027A4ED /* libsqlite3.tbd in Frameworks */,
 				55524FFB1C7ED9EE0027A4ED /* libz.tbd in Frameworks */,
@@ -2658,6 +2661,7 @@
 		D0CC86EB63539B826581CF53 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				550A26B81D37517500C2F2AF /* FirebaseAnalytics.framework */,
 				BB6FF71DB39FE1C7BB8D6751 /* libPods-Laos School.a */,
 			);
 			name = Frameworks;
@@ -3437,6 +3441,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3459,6 +3468,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = "Laos School/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

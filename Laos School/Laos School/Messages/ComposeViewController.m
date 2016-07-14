@@ -466,22 +466,97 @@
             
         }
         
-    } else if (url != nil && ([url rangeOfString:API_NAME_MESSAGE_CONTENT_SAMPLE].location != NSNotFound ||
-               [url rangeOfString:API_NAME_MESSAGE_CONTENT_SAMPLE].location != NSNotFound)) {
-        
+    } else if (url != nil && ([url rangeOfString:API_NAME_MESSAGE_CONTENT_SAMPLE].location != NSNotFound)) {
+        [reasonList removeAllObjects];
         NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
         
         if (statusCode == HttpOK) {
+            NSDictionary *returnedData = [jsonObj valueForKey:@"messageObject"];
             
+            if (returnedData) {
+                NSArray *reasonArr = [returnedData valueForKey:@"list"];
+                
+                if (reasonArr) {
+                    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+                    
+                    for (NSDictionary *reason in reasonArr) {
+                        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+                            [reasonList addObject:[reason valueForKey:@"sval"]];
+                            
+                        } else if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+                            [reasonList addObject:[reason valueForKey:@"lval"]];
+                        }
+                    }
+                    
+                } else {
+                    
+                    [self hardCodeForAttendanceMessageSample];
+                }
+                
+            } else {
+                
+                [self hardCodeForAttendanceMessageSample];
+            }
             
         } else {
             [self hardCodeForAttendanceMessageSample];
+            
+        }
+    } else if (url != nil && ([url rangeOfString:API_NAME_INFORM_CONTENT_SAMPLE].location != NSNotFound)) {
+        [reasonList removeAllObjects];
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+        
+        if (statusCode == HttpOK) {
+            NSDictionary *returnedData = [jsonObj valueForKey:@"messageObject"];
+            
+            if (returnedData) {
+                NSArray *reasonArr = [returnedData valueForKey:@"list"];
+                
+                if (reasonArr) {
+                    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+                    
+                    for (NSDictionary *reason in reasonArr) {
+                        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+                            [reasonList addObject:[reason valueForKey:@"sval"]];
+                            
+                        } else if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+                            [reasonList addObject:[reason valueForKey:@"lval"]];
+                        }
+                    }
+                    
+                } else {
+                    
+                    [self hardCodeForInformMessageSample];
+                }
+                
+            } else {
+                
+                [self hardCodeForInformMessageSample];
+            }
+            
+        } else {
+            [self hardCodeForInformMessageSample];
             
         }
     }
 }
 
 - (void)hardCodeForAttendanceMessageSample {
+    if ([reasonList count] == 0) {
+        [reasonList addObject:LocalizedString(@"Sample 1")];
+        [reasonList addObject:LocalizedString(@"Sample 2")];
+        [reasonList addObject:LocalizedString(@"Sample 3")];
+        [reasonList addObject:LocalizedString(@"Sample 4")];
+        [reasonList addObject:LocalizedString(@"Sample 5")];
+        [reasonList addObject:LocalizedString(@"Sample 6")];
+        [reasonList addObject:LocalizedString(@"Sample 7")];
+        [reasonList addObject:LocalizedString(@"Sample 8")];
+        
+        [tableViewSampleMessage reloadData];
+    }
+}
+
+- (void)hardCodeForInformMessageSample {
     if ([reasonList count] == 0) {
         [reasonList addObject:LocalizedString(@"Sample 1")];
         [reasonList addObject:LocalizedString(@"Sample 2")];

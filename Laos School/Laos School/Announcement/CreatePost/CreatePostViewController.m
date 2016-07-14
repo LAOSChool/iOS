@@ -32,6 +32,7 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 
+#define IMAGE_FILE_SIZE 1024
 #define IMAGE_VIEW_HEIGHT 275
 #define IMAGE_VIEW_OFFSET 8
 #define IMAGE_KEYBOARD_OFFSET 250
@@ -69,7 +70,7 @@
     
     requestOptions = [[PHImageRequestOptions alloc] init];
     requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
-    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     requestOptions.networkAccessAllowed = NO;
     
     if (_announcementObject == nil) {
@@ -400,7 +401,7 @@
 
         PHImageManager *manager = [PHImageManager defaultManager];
         CGFloat scale = UIScreen.mainScreen.scale;
-        CGSize targetSize = CGSizeMake(IMAGE_VIEW_HEIGHT * scale, IMAGE_VIEW_HEIGHT * scale);
+        CGSize targetSize = CGSizeMake(IMAGE_FILE_SIZE * scale, IMAGE_FILE_SIZE * scale);
         
         [manager requestImageForAsset:asset
                            targetSize:targetSize
@@ -421,8 +422,8 @@
 -(void)imagePickerController:(UIImagePickerController*)picker
 didFinishPickingMediaWithInfo:(NSDictionary*)info {
     UIImage* image = [info objectForKey: UIImagePickerControllerOriginalImage];
-    image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:IMAGE_VIEW_HEIGHT];
-    
+    image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:IMAGE_FILE_SIZE];
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     if ([photoArray count] < IMAGE_LIMIT_NUMBER) {
         [photoArray addObject:image];
         

@@ -43,7 +43,7 @@
     NSMutableArray *studentsArray;
     NSMutableArray *sessionsArray;
     NSMutableArray *rollupArray;
-    
+    NSMutableArray *reasonList;
     TTSessionObject *currentSession;
     
     LevelPickerViewController *dataPicker;
@@ -99,9 +99,13 @@
     if (sessionsArray == nil) {
         sessionsArray = [[NSMutableArray alloc] init];
     }
-    
+   
     if (rollupArray == nil) {
         rollupArray = [[NSMutableArray alloc] init];
+    }
+    
+    if (reasonList == nil) {
+        reasonList = [[NSMutableArray alloc] init];
     }
     
     if (searchResults == nil) {
@@ -126,7 +130,7 @@
     [lbSession setTextColor:[UIColor lightGrayColor]];
     
     [self loadData];
-    
+    [self getAbsenceReasonSample];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkAttendanceSuccessful:)
@@ -160,8 +164,13 @@
     }
 }
 
+- (void)getAbsenceReasonSample {
+    [requestToServer getAbsenceReasonSample];
+}
+
 - (void)reloadStudentsData {
     [self loadData];
+    [self getAbsenceReasonSample];
 }
 
 - (void)loadData {
@@ -674,6 +683,7 @@
     reasonView.checkAttendanceObj = checkAttObj;
     reasonView.dateTime = lbDate.text;
     reasonView.currentSession = currentSession;
+    reasonView.reasonList = reasonList;
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -718,9 +728,59 @@
         [studentTableView reloadData];
         
     } else if ([url rangeOfString:API_NAME_TEACHER_CANCEL_ATTENDANCE].location != NSNotFound) {
+     
         
+    } else if (url != nil && [url rangeOfString:API_NAME_ABSENCE_REASON_SAMPLE].location != NSNotFound) {
+        NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
+        
+        if (statusCode == HttpOK) {
+            NSDictionary *returnedData = [jsonObj valueForKey:@"messageObject"];
+            
+            if (returnedData) {
+                NSArray *reasonArr = [returnedData valueForKey:@"list"];
+                
+                if (reasonArr) {
+                    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+                    
+                    for (NSDictionary *reason in reasonArr) {
+                        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+                            [reasonList addObject:[reason valueForKey:@"sval"]];
+                            
+                        } else if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+                            [reasonList addObject:[reason valueForKey:@"lval"]];
+                        }
+                    }
+                    
+                    [reasonList addObject:LocalizedString(@"Other")];
+                    
+                } else {
+                    
+                    [self hardCodeForReasonSample];
+                }
+                
+            } else {
+                
+                [self hardCodeForReasonSample];
+            }
+            
+        } else {
+            
+            [self hardCodeForReasonSample];
+        }
     }
     
+}
+
+- (void)hardCodeForReasonSample {
+    if ([reasonList count] == 0) {
+        [reasonList addObject:LocalizedString(@"No reason")];
+        [reasonList addObject:LocalizedString(@"Reason 1")];
+        [reasonList addObject:LocalizedString(@"Reason 2")];
+        [reasonList addObject:LocalizedString(@"Reason 3")];
+        [reasonList addObject:LocalizedString(@"Reason 4")];
+        [reasonList addObject:LocalizedString(@"Reason 5")];
+        [reasonList addObject:LocalizedString(@"Other")];
+    }
 }
 
 - (void)addStudentsListFromDictionaryArray:(NSArray *)students {

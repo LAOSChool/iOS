@@ -27,5 +27,5 @@
 @property (nonatomic, strong) CheckAttendanceObject *checkAttendanceObj;
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, strong) TTSessionObject *currentSession;
-
+@property (nonatomic, strong) NSMutableArray *reasonList;
 @end

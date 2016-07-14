@@ -34,6 +34,8 @@
 #import "SVProgressHUD.h"
 #import "CommonAlert.h"
 
+
+
 @interface LoginViewController ()
 {
     RequestToServer *requestToServer;
@@ -48,6 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self.view setBackgroundColor:COMMON_COLOR];
     [viewContainer setBackgroundColor:[UIColor whiteColor]];
     
