@@ -740,6 +740,8 @@
                 NSArray *reasonArr = [returnedData valueForKey:@"list"];
                 
                 if (reasonArr) {
+                    [reasonList addObject:LocalizedString(@"No reason")];
+                    
                     NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
                     
                     for (NSDictionary *reason in reasonArr) {

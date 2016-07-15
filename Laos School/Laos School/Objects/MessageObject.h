@@ -52,7 +52,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *messageTypeIcon;
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, strong) NSString *senderAvatar;
-
+@property (nonatomic, strong) NSString *receiverAvatar;
 
 @end
 

@@ -31,7 +31,8 @@
     // Override point for customization after application launch.
     [FIRAnalytics logEventWithName:@"LaunchApp"
                         parameters:@{
-                                     @"name": @"test",
+                                     @"name": @"LaunchApp",
+                                     @"full_text": @"So fucking cool"
                                      }];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

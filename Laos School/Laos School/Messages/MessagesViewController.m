@@ -35,6 +35,7 @@
     UISegmentedControl *segmentedControl;
     
     BOOL isReachToEnd;
+    BOOL isNoMoreFromServer;
     UIRefreshControl *refreshControl;
     NSIndexPath *selectedIndex;
 }
@@ -53,6 +54,7 @@
     [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     isReachToEnd = NO;
+    isNoMoreFromServer = NO;
     selectedIndex = nil;
     
     if (([ShareData sharedShareData].userObj.permission & Permission_SendMessage) == Permission_SendMessage) {
@@ -249,6 +251,7 @@
     return res;
 }
 
+//load from coredata with the limitation 30 per time
 - (void)loadDataFromCoredata {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
         //load data from local coredata
@@ -302,7 +305,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortMessagesArrayByID:messagesArray];
+    [self sortMessagesArrayByDateTime:messagesArray];
 }
 
 - (void)loadNewMessageFromServer {
@@ -338,7 +341,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortMessagesArrayByID:unreadMessagesArray];
+    [self sortMessagesArrayByDateTime:unreadMessagesArray];
 }
 
 - (void)loadUnreadMessageFromServer {
@@ -375,7 +378,7 @@
         isReachToEnd = YES;
     }
     
-    [self sortMessagesArrayByID:sentMessagesArray];
+    [self sortMessagesArrayByDateTime:sentMessagesArray];
 }
 
 - (void)loadSentMessageFromServer {
@@ -543,7 +546,7 @@
 //    cell.lbTime.text = @"05-25 15:27";
     
     if (messageObj.fromUsername) {
-        if (segmentedControl.selectedSegmentIndex == 2) {
+        if (segmentedControl.selectedSegmentIndex == 2) {   //sent tab
             cell.lbSenderName.text = messageObj.toUsername;
         } else {
             cell.lbSenderName.text = messageObj.fromUsername;
@@ -563,12 +566,23 @@
         [cell.btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
     
-    if (messageObj.senderAvatar && messageObj.senderAvatar.length > 0) {
-        //cancel loading previous image for cell
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
+    if (segmentedControl.selectedSegmentIndex == 2) {   //sent tab
+        if (messageObj.receiverAvatar && messageObj.receiverAvatar.length > 0) {
+            //cancel loading previous image for cell
+            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
+            
+            //load the image
+            cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.receiverAvatar];
+        }
         
-        //load the image
-        cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.senderAvatar];
+    } else {
+        if (messageObj.senderAvatar && messageObj.senderAvatar.length > 0) {
+            //cancel loading previous image for cell
+            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
+            
+            //load the image
+            cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.senderAvatar];
+        }
     }
     
     if (messageObj.unreadFlag) {
@@ -805,19 +819,34 @@
                 messObj.senderAvatar = [messageDict valueForKey:@"frm_user_photo"];
             }
             
+            if ([messageDict valueForKey:@"to_user_photo"] != (id)[NSNull null]) {
+                messObj.receiverAvatar = [messageDict valueForKey:@"to_user_photo"];
+            }
+            
             [newArr addObject:messObj];
         }
         
         if ([newArr count] > 0) {
+            isNoMoreFromServer = NO;
             [self insertArrayToArray:newArr];
             
             dispatch_async([CoreDataUtil getDispatch], ^(){
                 
                 [[CoreDataUtil sharedCoreDataUtil] insertMessagesArray:newArr];
             });
+        } else {
+            isNoMoreFromServer = YES;
         }
         
-        [self sortMessagesArrayByID];
+        [self sortMessagesArrayByDateTime];
+        
+        if (isNoMoreFromServer == NO) {
+            [self loadDataFromServer];
+            
+        }
+        
+    } else {
+        isNoMoreFromServer = YES;
     }
     
     if (IS_IPAD) {
@@ -860,15 +889,15 @@
     }
 }
 
-- (void)sortMessagesArrayByID {
+- (void)sortMessagesArrayByDateTime {
     if (segmentedControl.selectedSegmentIndex == 0) {  //All
-        [self sortMessagesArrayByID:messagesArray];
+        [self sortMessagesArrayByDateTime:messagesArray];
         
     } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-        [self sortMessagesArrayByID:unreadMessagesArray];
+        [self sortMessagesArrayByDateTime:unreadMessagesArray];
         
     } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-        [self sortMessagesArrayByID:sentMessagesArray];
+        [self sortMessagesArrayByDateTime:sentMessagesArray];
         
     }
 }
@@ -900,9 +929,9 @@
     [alert show];
 }
 
-- (void)sortMessagesArrayByID:(NSMutableArray *)messArr {
-    NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"messageID" ascending:NO];
-    NSArray *resultArr = [messArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
+- (void)sortMessagesArrayByDateTime:(NSMutableArray *)messArr {
+    NSSortDescriptor *messageDateTime = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
+    NSArray *resultArr = [messArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageDateTime, nil]];
     
     [messArr removeAllObjects];
     [messArr addObjectsFromArray:resultArr];

@@ -65,15 +65,24 @@
 "From:" = "From:";
 "SMS:" = "SMS:";
 "Sample 1" = "Students are learning in class.";
-"Sample 2" = "Teacher is busy and not coming";
-"Sample 3" = "Period 1 - Teacher is busy and not coming";
-"Sample 4" = "Period 2 - Teacher is busy and not coming";
-"Sample 5" = "Period 3 - Teacher is busy and not coming";
-"Sample 6" = "Period 4 - Teacher is busy and not coming";
-"Sample 7" = "Period 5 - Teacher is busy and not coming";
-"Sample 8" = "Class is off today";
+"Sample 2" = "Teacher is busy and not coming.";
+"Sample 3" = "Period 1 - Teacher is busy and not coming.";
+"Sample 4" = "Period 2 - Teacher is busy and not coming.";
+"Sample 5" = "Period 3 - Teacher is busy and not coming.";
+"Sample 6" = "Period 4 - Teacher is busy and not coming.";
+"Sample 7" = "Period 5 - Teacher is busy and not coming.";
+"Sample 8" = "Class is off today.";
 "[No subject]" = "[No subject]";
 
+"Inform 1" = "Coming late.";
+"Inform 2" = "Asked for permission to go out - not come back yet.";
+"Inform 3" = "Got sick and asked for permission to go home.";
+"Inform 4" = "Asked for permission to go home.";
+"Inform 5" = "Go out - not come back yet.";
+"Inform 6" = "Compete sports in school.";
+"Inform 7" = "Go working in school.";
+"Inform 8" = "Attend an event in school.";
+"Inform 9" = "Attend an meeting in school.";
 
 "There was an error while sending message. Please try again." = "There was an error while sending message. Please try again.";
 "Please enter recipient and content!" = "Please enter recipient and content!";

@@ -39,9 +39,9 @@
 "Class" = "ຫ້ອງ";
 
 //Common alert
-"Failed to connect to server. Please try again." = "ການເຊື່ອມ​ຕໍ່​ໃສ່​ເຊີ​ເວີ​ລົ້ມ​ເຫຼວ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"There was an error while trying to connect to server. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​ຕອນກຳ​ລັງ​ເຊື່ອມ​ຕໍ່​ໃສ່​ເຊີ​ເວີ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"This account was being logged in by other device. Please re-login." = "ບັນ​ຊີ​ນີ້​ໄດ້​ຖືກ​ນຳ​ໃຊ້​ຢູ່​ອຸ​ປະ​ກອ​ນອື່​ນ​ແລ້ວ. ກະ​ລຸ​ນາ​ເຂົ້າ​ໃໝ່.";
+"Failed to connect to server. Please try again." = "ການເຊື່ອມ​ຕໍ່​ຫາເຊີ​ເວີ​ລົ້ມ​ເຫຼວ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
+"There was an error while trying to connect to server. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​ໃນ​ລະ​ຫວ່າງກຳ​ລັງ​ເຊື່ອມ​ຕໍ່​ຫາເຊີ​ເວີ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
+"This account was being logged in by other device. Please re-login." = "ບັນ​ຊີ​ນີ້​​ໃຊ້​ຢູ່​ອຸ​ປະ​ກອ​ນອື່​ນ​ແລ້ວ. ກະ​ລຸ​ນາລົງ​ຊື່ເຂົ້າໃຊ້​ໃໝ່.";
 
 //login, help, forgot password
 "Login" = "ເຂົ້າ​ສູ່​ລະ​ບົບ";
@@ -56,8 +56,8 @@
 "(If you do not remember your user name and phone number, please contact with school's admin.)" = "(ຫາກ​ທ່ານ​ຈື້ ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່​ໄດ້, ກະ​ລຸ​ນາ​ຕິດ​ຕໍ່​ທາງໂຮງ​ຮຽນ.)";
 
 "Please enter your user name and phone number!" = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ!";
-"User name or phone number is incorrect!" = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່ຖືກ​ຕ້ອງ!";
-"A new password will be sent to your phone number." = "ລະ​ຫັດ​ຜ່ານ​ໂຕ​ໃໝ່ ຈະ​ຖືກ​ສົ່ງ​ໄປ​ໃຫ້​ທ່ານ​ທາງ SMS.";
+"User name or phone number is incorrect!" = "ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່ຖືກ​ຕ້ອງ!";
+"A new password will be sent to your phone number." = "ລະ​ຫັດ​ຜ່ານ​ໂຕ​ໃໝ່ ຈະ​ຖືກ​ສົ່ງ​ໄປຫາ​ໂທ​ລະ​ສັບທ່ານ​ທາງ SMS.";
 
 //Messages
 "New message" = "ຂໍ້​ຄວາມ​ໃໝ່";
@@ -74,8 +74,18 @@
 "Sample 8" = "ມີື້​ນີ້​ພັກ​ໝົດ​ມື້";
 "[No subject]" = "[No subject]";
 
+"Inform 1" = "ມາ​ຊ້າ";
+"Inform 2" = "ຄອບ​ອອກ​ໄປ​ນອກ - ຍັງ​ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
+"Inform 3" = "ຄອບ​ເມື່ອ - ບໍ່​ສ​ະ​ບາຍ";
+"Inform 4" = "ຄອບ​ເມືອ - ມີ​ວຽກ​ທາງ​ບ້ານ";
+"Inform 5" = "ອອກ​ໄປ​ນອກ - ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
+"Inform 6" = "ໄປ​ແຂ່​ງ​ກິ​ລ​າ​ໃຫ້​ທາງ​ໂຮງ​ຮຽນ";
+"Inform 7" = "ໄປ​ອອກ​ແຮງ​ງານ";
+"Inform 8" = "ໄປ​ຮ່ວມ​ກິດ​ຈະ​ກຳ​ພາຍ​ໃນ​ໂຮງ​ຮຽນ";
+"Inform 9" = "ໄປ​ລວມ";
 
-"There was an error while sending message. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງຂໍ້​ຄວາມ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+
+"There was an error while sending message. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນການ​ສົ່ງຂໍ້​ຄວາມ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
 "Please enter recipient and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຜູ້​ຮັບ ແລະ ເນື້ອ​ໃນ!";
 "Please enter content!" = "ກະ​ລຸ​ນາ​ໃສ່​ເນື້ອ​ໃນ!";
 
@@ -88,12 +98,12 @@
 "You have reached to the limitation. Only allow %ld photos." = "ກາຍກຳ​ນົດແລ້ວ. ​ອະ​ນຸ​ຍາດໃຫ້​ແມ່ນ %ld ຮູບ​ພາບ.";
 "Uploading" = "ກຳ​ລັງ​ອັບ​ໂຫຼດ...";
 "There was an error while sending announcement. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງປະ​ກາດ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@ ແມ່ນ​ບໍ?";
+"Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@. ທ່ານ​ແນ່​ໃຈ​ແລ້ວບໍ?";
 "Please enter subject and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຫົວ​ຂໍ້ ແລະ ເນື້ອ​ໃນ!";
 "There is no image attached. Please attach at least one." = "There is no image attached. Please attach at least one.";
-"Select photo source" = "ເລືອກ​ຮູບ";
-"Camera" = "ຮູບ​ຖ່​າຍ";
-"Photo library" = "ຄັງ​ຮູບ";
+"Select photo source" = "ເລືອກ​ file ຮູບ";
+"Camera" = "File ຮູບ​ຖ່​າຍ";
+"Photo library" = "File ຢູ່ຄັງ​ຮູບອື່ນ";
 
 //Attendance
 "Select a period" = "ເລືອກຈຳ​ນວນ​ຊົ່ວ​ໂມງ​ຂາດ";

@@ -108,6 +108,16 @@
                 [self getAttendanceMessageContentSample];
                 
             } else {
+                [reasonList addObject:LocalizedString(@"Inform 1")];
+                [reasonList addObject:LocalizedString(@"Inform 2")];
+                [reasonList addObject:LocalizedString(@"Inform 3")];
+                [reasonList addObject:LocalizedString(@"Inform 4")];
+                [reasonList addObject:LocalizedString(@"Inform 5")];
+                [reasonList addObject:LocalizedString(@"Inform 6")];
+                [reasonList addObject:LocalizedString(@"Inform 7")];
+                [reasonList addObject:LocalizedString(@"Inform 8")];
+                [reasonList addObject:LocalizedString(@"Inform 9")];
+                
                 [self getInformMessageContentSample];
             }
             
@@ -558,14 +568,15 @@
 
 - (void)hardCodeForInformMessageSample {
     if ([reasonList count] == 0) {
-        [reasonList addObject:LocalizedString(@"Sample 1")];
-        [reasonList addObject:LocalizedString(@"Sample 2")];
-        [reasonList addObject:LocalizedString(@"Sample 3")];
-        [reasonList addObject:LocalizedString(@"Sample 4")];
-        [reasonList addObject:LocalizedString(@"Sample 5")];
-        [reasonList addObject:LocalizedString(@"Sample 6")];
-        [reasonList addObject:LocalizedString(@"Sample 7")];
-        [reasonList addObject:LocalizedString(@"Sample 8")];
+        [reasonList addObject:LocalizedString(@"Inform 1")];
+        [reasonList addObject:LocalizedString(@"Inform 2")];
+        [reasonList addObject:LocalizedString(@"Inform 3")];
+        [reasonList addObject:LocalizedString(@"Inform 4")];
+        [reasonList addObject:LocalizedString(@"Inform 5")];
+        [reasonList addObject:LocalizedString(@"Inform 6")];
+        [reasonList addObject:LocalizedString(@"Inform 7")];
+        [reasonList addObject:LocalizedString(@"Inform 8")];
+        [reasonList addObject:LocalizedString(@"Inform 9")];
         
         [tableViewSampleMessage reloadData];
     }

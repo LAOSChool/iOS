@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MessageObject.h"
+#import "DateTimeHelper.h"
 
 /*
  @property (nonatomic, assign) NSInteger messageID;
@@ -41,6 +42,7 @@
         self.messageTypeIcon = @"NX";
         self.dateTime = @"";
         self.senderAvatar = @"";
+        self.receiverAvatar = @"";
     }
     return self;
 }
@@ -102,6 +104,10 @@
         if ([messageDict valueForKey:@"frm_user_photo"] != (id)[NSNull null]) {
             self.senderAvatar = [messageDict valueForKey:@"frm_user_photo"];
         }
+        
+        if ([messageDict valueForKey:@"to_user_photo"] != (id)[NSNull null]) {
+            self.receiverAvatar = [messageDict valueForKey:@"to_user_photo"];
+        }
     }
     return self;
 }
@@ -121,6 +127,7 @@
     [encoder encodeObject:self.messageTypeIcon forKey:@"messageTypeIcon"];
     [encoder encodeObject:self.dateTime forKey:@"dateTime"];
     [encoder encodeObject:self.senderAvatar forKey:@"senderAvatar"];
+    [encoder encodeObject:self.receiverAvatar forKey:@"receiverAvatar"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -139,9 +146,17 @@
         self.messageTypeIcon = [decoder decodeObjectForKey:@"messageTypeIcon"];
         self.dateTime = [decoder decodeObjectForKey:@"dateTime"];
         self.senderAvatar = [decoder decodeObjectForKey:@"senderAvatar"];
+        self.receiverAvatar = [decoder decodeObjectForKey:@"receiverAvatar"];
     }
     
     return self;
 }
 
+- (NSTimeInterval)sortByDateTime {
+    if (_dateTime.length > 0) {
+        return [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:_dateTime];
+    }
+    
+    return 0;
+}
 @end

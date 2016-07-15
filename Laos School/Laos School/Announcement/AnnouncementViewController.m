@@ -34,6 +34,7 @@
     RequestToServer *requestToServer;
     
     BOOL isReachToEnd;
+    BOOL isNoMoreFromServer;
     UIRefreshControl *refreshControl;
     NSIndexPath *selectedIndex;
 }
@@ -51,6 +52,7 @@
     [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     isReachToEnd = NO;
+    isNoMoreFromServer = NO;
     selectedIndex = nil;
     
     if (([ShareData sharedShareData].userObj.permission & Permission_SendAnnouncement) == Permission_SendAnnouncement) {
@@ -742,7 +744,7 @@
                         [announcementObj.imgArray addObject:phototObj];
                     }
                     
-                    [self sortPhotosArrayByID:announcementObj.imgArray];
+                    [self sortPhotosArrayByOrder:announcementObj.imgArray];
                 }
                 
             }
@@ -751,15 +753,27 @@
         }
         
         if ([newArr count] > 0) {
+            isNoMoreFromServer = NO;
             [self insertArrayToArray:newArr];
             
             dispatch_async([CoreDataUtil getDispatch], ^(){
                 
                 [[CoreDataUtil sharedCoreDataUtil] insertAnnouncementsArray:newArr];
             });
+            
+        } else {
+            isNoMoreFromServer = YES;
         }
         
         [self sortAnnouncementsArrayByDateTime];
+        
+        if (isNoMoreFromServer == NO) {
+            [self loadDataFromServer];
+            
+        }
+        
+    } else {
+        isNoMoreFromServer = YES;
     }
     
     if (IS_IPAD) {
@@ -844,14 +858,14 @@
 }
 
 - (void)sortAnnouncementsArrayByDateTime:(NSMutableArray *)announcementArr {
-    NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
-    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementID, nil]];
+    NSSortDescriptor *announcementDateTime = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
+    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementDateTime, nil]];
     
     [announcementArr removeAllObjects];
     [announcementArr addObjectsFromArray:resultArr];
 }
 
-- (void)sortPhotosArrayByID:(NSMutableArray *)photoArr {
+- (void)sortPhotosArrayByOrder:(NSMutableArray *)photoArr {
     NSSortDescriptor *orderSort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
     NSArray *resultArr = [photoArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderSort, nil]];
     

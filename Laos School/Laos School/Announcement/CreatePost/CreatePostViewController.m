@@ -315,41 +315,52 @@
             
         } else if (buttonIndex == 1) {
             NSLog(@"Library");
-            if ([UIImagePickerController isSourceTypeAvailable:
-                 UIImagePickerControllerSourceTypePhotoLibrary] == NO) {
+            if ([photoArray count] < IMAGE_LIMIT_NUMBER) {
+                if ([UIImagePickerController isSourceTypeAvailable:
+                     UIImagePickerControllerSourceTypePhotoLibrary] == NO) {
+                    
+                    return;
+                }
+    /*
+                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        // init picker
+                        CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+                        
+                        // set delegate
+                        picker.delegate = (id)self;
+                        
+                        // create options for fetching photo only
+                        PHFetchOptions *fetchOptions = [PHFetchOptions new];
+                        fetchOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
+                        fetchOptions.includeAssetSourceTypes = PHAssetSourceTypeUserLibrary;
+                        
+                        // assign options
+                        picker.assetsFetchOptions = fetchOptions;
+                        
+                        // to show selection order
+                        picker.showsSelectionIndex = YES;
+                        
+                        // to present picker as a form sheet in iPad
+                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                            picker.modalPresentationStyle = UIModalPresentationFormSheet;
+                        
+                        // present picker
+                        [self presentViewController:picker animated:YES completion:nil];
+                        
+                    });
+                }];
+     */
+                UIImagePickerController* controller = [[UIImagePickerController alloc] init];
+                controller.delegate = (id)self;
+                [controller setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                [self presentViewController:controller animated:YES completion:nil];
                 
-                return;
+            } else {
+                [self showAlertOverLimitation];
             }
-
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    // init picker
-                    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-                    
-                    // set delegate
-                    picker.delegate = (id)self;
-                    
-                    // create options for fetching photo only
-                    PHFetchOptions *fetchOptions = [PHFetchOptions new];
-                    fetchOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
-                    fetchOptions.includeAssetSourceTypes = PHAssetSourceTypeUserLibrary;
-                    
-                    // assign options
-                    picker.assetsFetchOptions = fetchOptions;
-                    
-                    // to show selection order
-                    picker.showsSelectionIndex = YES;
-                    
-                    // to present picker as a form sheet in iPad
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        picker.modalPresentationStyle = UIModalPresentationFormSheet;
-                    
-                    // present picker
-                    [self presentViewController:picker animated:YES completion:nil];
-                    
-                });
-            }];
+            
         } else if (buttonIndex == 2) {
             NSLog(@"Cancel");
         }
@@ -423,7 +434,7 @@
 didFinishPickingMediaWithInfo:(NSDictionary*)info {
     UIImage* image = [info objectForKey: UIImagePickerControllerOriginalImage];
     image = [[Common sharedCommon] scaleAndRotateImage:image withMaxSize:IMAGE_FILE_SIZE];
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     if ([photoArray count] < IMAGE_LIMIT_NUMBER) {
         [photoArray addObject:image];
         
