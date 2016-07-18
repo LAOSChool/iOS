@@ -58,6 +58,10 @@
 #define LANGUAGE_LAOS @"lo"
 #define LANGUAGE_ENGLISH @"en"
 
+
+//user default keys
+#define KEY_NOTIFICATION_ONOFF @"NotificationOnOff"
+
 @interface CommonDefine : NSObject
 
 

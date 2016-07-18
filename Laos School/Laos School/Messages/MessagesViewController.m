@@ -931,7 +931,8 @@
 
 - (void)sortMessagesArrayByDateTime:(NSMutableArray *)messArr {
     NSSortDescriptor *messageDateTime = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
-    NSArray *resultArr = [messArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageDateTime, nil]];
+    NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"messageID" ascending:NO];
+    NSArray *resultArr = [messArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:messageDateTime, messageID, nil]];
     
     [messArr removeAllObjects];
     [messArr addObjectsFromArray:resultArr];

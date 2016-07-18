@@ -310,9 +310,7 @@
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     
     if (txtSubject.text && txtSubject.text.length > 0) {
         [messageDict setValue:txtSubject.text forKey:@"title"];
@@ -336,9 +334,6 @@
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
     
     if (txtSubject.text && txtSubject.text.length > 0) {
         [messageDict setValue:txtSubject.text forKey:@"title"];
@@ -361,13 +356,26 @@
         [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"channel"];
     }
     
-    NSString *ccList = @"";
-    
-    for (UserObject *recipient in _receiverArray) {
-        ccList = [ccList stringByAppendingFormat:@"%@,", recipient.userID];
+    if ([_receiverArray count] == 1) {
+        UserObject *recipient = [_receiverArray objectAtIndex:0];
+        [messageDict setValue:recipient.userID forKey:@"to_usr_id"];
+        
+    } else if ([_receiverArray count] > 1) {
+        NSString *ccList = @"";
+        
+        for (int i = 0; i < [_receiverArray count]; i++) {
+            UserObject *recipient = [_receiverArray objectAtIndex:i];
+
+            if (i == 0) {
+                [messageDict setValue:recipient.userID forKey:@"to_usr_id"];
+                
+            } else {
+                ccList = [ccList stringByAppendingFormat:@"%@,", recipient.userID];
+            }
+        }
+        
+        [messageDict setObject:ccList forKey:@"cc_list"];
     }
-    
-    [messageDict setObject:ccList forKey:@"cc_list"];
     
     [requestToServer createMessageWithObject:messageDict];
     

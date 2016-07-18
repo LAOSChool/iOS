@@ -32,6 +32,7 @@
 @interface MoreViewController ()
 {
     RequestToServer *requestToServer;
+//    UIBarButtonItem *btnNotification;
 }
 @end
 
@@ -48,6 +49,19 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil
                                                                             action:nil];
+    /*
+    NSNumber *notificationOnOff = [[ArchiveHelper sharedArchiveHelper] loadDataFromUserDefaultStandardWithKey:KEY_NOTIFICATION_ONOFF];
+    
+    if ([notificationOnOff boolValue] == YES) {
+        btnNotification = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_notifications_on"] style:UIBarButtonItemStylePlain target:self action:@selector(notificationButtonClick)];
+        [btnNotification setTintColor:[UIColor whiteColor]];
+        
+    } else {
+        btnNotification = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_notifications_off"] style:UIBarButtonItemStylePlain target:self action:@selector(notificationButtonClick)];
+        [btnNotification setTintColor:[UIColor lightGrayColor]];
+    }
+    
+    self.navigationItem.rightBarButtonItems = @[btnNotification];*/
 
     
     //make avatar round
@@ -107,6 +121,22 @@
 //{
 //    return TRUE;
 //}
+
+- (void)notificationButtonClick {
+/*    NSNumber *notificationOnOff = [[ArchiveHelper sharedArchiveHelper] loadDataFromUserDefaultStandardWithKey:KEY_NOTIFICATION_ONOFF];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if ([notificationOnOff boolValue] == YES) {
+        [appDelegate turnOnOffNotification:NO];
+        [btnNotification setImage:[UIImage imageNamed:@"ic_notifications_off"]];
+        [btnNotification setTintColor:[UIColor lightGrayColor]];
+        
+    } else {
+        [appDelegate turnOnOffNotification:YES];
+        [btnNotification setImage:[UIImage imageNamed:@"ic_notifications_on"]];
+        [btnNotification setTintColor:[UIColor whiteColor]];
+    }*/
+}
 
 #pragma mark data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -271,6 +301,14 @@
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
                     break;
+                   
+                case SettingsSectionNotifications:
+                {
+                    cell.textLabel.text = LocalizedString(@"Accessibility");
+                    cell.imageView.image = [UIImage imageNamed:@"ic_accessibility_gray.png"];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                }
+                    break;
                     
                 case SettingsSectionLogout:
                 {
@@ -419,6 +457,14 @@
                     
                     [self presentViewController:nav animated:YES completion:nil];
 
+                }
+                    break;
+                    
+                case SettingsSectionNotifications:
+                {
+                    if (&UIApplicationOpenSettingsURLString != NULL) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    }
                 }
                     break;
                     

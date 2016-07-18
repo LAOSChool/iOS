@@ -859,7 +859,9 @@
 
 - (void)sortAnnouncementsArrayByDateTime:(NSMutableArray *)announcementArr {
     NSSortDescriptor *announcementDateTime = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
-    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementDateTime, nil]];
+    NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
+    
+    NSArray *resultArr = [announcementArr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:announcementDateTime, announcementID, nil]];
     
     [announcementArr removeAllObjects];
     [announcementArr addObjectsFromArray:resultArr];

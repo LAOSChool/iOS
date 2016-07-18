@@ -222,7 +222,6 @@
 		55524FF91C7ED9E20027A4ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FF81C7ED9E20027A4ED /* SystemConfiguration.framework */; };
 		55524FFB1C7ED9EE0027A4ED /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FFA1C7ED9EE0027A4ED /* libz.tbd */; };
 		55524FFD1C7ED9F70027A4ED /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55524FFC1C7ED9F70027A4ED /* libsqlite3.tbd */; };
-		555250011C7EDF7B0027A4ED /* GTM-TLHBMW in Resources */ = {isa = PBXBuildFile; fileRef = 555250001C7EDF7B0027A4ED /* GTM-TLHBMW */; };
 		555250221C7EEE2A0027A4ED /* MyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 555250211C7EEE2A0027A4ED /* MyLogger.m */; };
 		555446A41D07F54C00602E46 /* TeacherScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 555446A21D07F54C00602E46 /* TeacherScoreTableViewCell.m */; };
 		555446A51D07F54C00602E46 /* TeacherScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555446A31D07F54C00602E46 /* TeacherScoreTableViewCell.xib */; };
@@ -344,6 +343,18 @@
 		558B78F61CAE2725003F437E /* ScoreObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F41CAE2725003F437E /* ScoreObject.m */; };
 		558B78F91CAE2ABC003F437E /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78F71CAE2ABC003F437E /* UserScore.m */; };
 		558B78FC1CB268D1003F437E /* RequestToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B78FB1CB268D1003F437E /* RequestToServer.m */; };
+		558D28FD1D3CC4FE0063DA3D /* ic_notifications_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28F71D3CC4FE0063DA3D /* ic_notifications_off.png */; };
+		558D28FE1D3CC4FE0063DA3D /* ic_notifications_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28F81D3CC4FE0063DA3D /* ic_notifications_off@2x.png */; };
+		558D28FF1D3CC4FE0063DA3D /* ic_notifications_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28F91D3CC4FE0063DA3D /* ic_notifications_off@3x.png */; };
+		558D29001D3CC4FE0063DA3D /* ic_notifications_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28FA1D3CC4FE0063DA3D /* ic_notifications_on.png */; };
+		558D29011D3CC4FE0063DA3D /* ic_notifications_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28FB1D3CC4FE0063DA3D /* ic_notifications_on@2x.png */; };
+		558D29021D3CC4FE0063DA3D /* ic_notifications_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D28FC1D3CC4FE0063DA3D /* ic_notifications_on@3x.png */; };
+		558D29061D3CD3B90063DA3D /* ic_notifications_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D29031D3CD3B90063DA3D /* ic_notifications_gray.png */; };
+		558D29071D3CD3B90063DA3D /* ic_notifications_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D29041D3CD3B90063DA3D /* ic_notifications_gray@2x.png */; };
+		558D29081D3CD3B90063DA3D /* ic_notifications_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D29051D3CD3B90063DA3D /* ic_notifications_gray@3x.png */; };
+		558D290C1D3CDB580063DA3D /* ic_accessibility_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D29091D3CDB580063DA3D /* ic_accessibility_gray.png */; };
+		558D290D1D3CDB580063DA3D /* ic_accessibility_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D290A1D3CDB580063DA3D /* ic_accessibility_gray@2x.png */; };
+		558D290E1D3CDB580063DA3D /* ic_accessibility_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D290B1D3CDB580063DA3D /* ic_accessibility_gray@3x.png */; };
 		558D6DD51CA245CF00EE34BD /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DCF1CA245CF00EE34BD /* ic_key.png */; };
 		558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD01CA245CF00EE34BD /* ic_key@2x.png */; };
 		558D6DD71CA245CF00EE34BD /* ic_key@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD11CA245CF00EE34BD /* ic_key@3x.png */; };
@@ -894,7 +905,6 @@
 		55524FF81C7ED9E20027A4ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55524FFA1C7ED9EE0027A4ED /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55524FFC1C7ED9F70027A4ED /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		555250001C7EDF7B0027A4ED /* GTM-TLHBMW */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-TLHBMW"; sourceTree = "<group>"; };
 		555250201C7EEE2A0027A4ED /* MyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogger.h; sourceTree = "<group>"; };
 		555250211C7EEE2A0027A4ED /* MyLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogger.m; sourceTree = "<group>"; };
 		555446A11D07F54C00602E46 /* TeacherScoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoreTableViewCell.h; sourceTree = "<group>"; };
@@ -1043,6 +1053,18 @@
 		558B78F81CAE2ABC003F437E /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScore.h; sourceTree = "<group>"; };
 		558B78FA1CB268D1003F437E /* RequestToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestToServer.h; sourceTree = "<group>"; };
 		558B78FB1CB268D1003F437E /* RequestToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestToServer.m; sourceTree = "<group>"; };
+		558D28F71D3CC4FE0063DA3D /* ic_notifications_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notifications_off.png; sourceTree = "<group>"; };
+		558D28F81D3CC4FE0063DA3D /* ic_notifications_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_off@2x.png"; sourceTree = "<group>"; };
+		558D28F91D3CC4FE0063DA3D /* ic_notifications_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_off@3x.png"; sourceTree = "<group>"; };
+		558D28FA1D3CC4FE0063DA3D /* ic_notifications_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notifications_on.png; sourceTree = "<group>"; };
+		558D28FB1D3CC4FE0063DA3D /* ic_notifications_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_on@2x.png"; sourceTree = "<group>"; };
+		558D28FC1D3CC4FE0063DA3D /* ic_notifications_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_on@3x.png"; sourceTree = "<group>"; };
+		558D29031D3CD3B90063DA3D /* ic_notifications_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notifications_gray.png; sourceTree = "<group>"; };
+		558D29041D3CD3B90063DA3D /* ic_notifications_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_gray@2x.png"; sourceTree = "<group>"; };
+		558D29051D3CD3B90063DA3D /* ic_notifications_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notifications_gray@3x.png"; sourceTree = "<group>"; };
+		558D29091D3CDB580063DA3D /* ic_accessibility_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_accessibility_gray.png; sourceTree = "<group>"; };
+		558D290A1D3CDB580063DA3D /* ic_accessibility_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_accessibility_gray@2x.png"; sourceTree = "<group>"; };
+		558D290B1D3CDB580063DA3D /* ic_accessibility_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_accessibility_gray@3x.png"; sourceTree = "<group>"; };
 		558D6DCF1CA245CF00EE34BD /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		558D6DD01CA245CF00EE34BD /* ic_key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@2x.png"; sourceTree = "<group>"; };
 		558D6DD11CA245CF00EE34BD /* ic_key@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@3x.png"; sourceTree = "<group>"; };
@@ -1483,7 +1505,6 @@
 		550FD2831C7AF60C009D7159 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				555250001C7EDF7B0027A4ED /* GTM-TLHBMW */,
 				550FD2841C7AF60C009D7159 /* main.m */,
 				55FC72491C7C5E3E00B0B8D0 /* Localizable.strings */,
 			);
@@ -1578,6 +1599,18 @@
 		550FD29F1C7AFABD009D7159 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				558D29091D3CDB580063DA3D /* ic_accessibility_gray.png */,
+				558D290A1D3CDB580063DA3D /* ic_accessibility_gray@2x.png */,
+				558D290B1D3CDB580063DA3D /* ic_accessibility_gray@3x.png */,
+				558D29031D3CD3B90063DA3D /* ic_notifications_gray.png */,
+				558D29041D3CD3B90063DA3D /* ic_notifications_gray@2x.png */,
+				558D29051D3CD3B90063DA3D /* ic_notifications_gray@3x.png */,
+				558D28F71D3CC4FE0063DA3D /* ic_notifications_off.png */,
+				558D28F81D3CC4FE0063DA3D /* ic_notifications_off@2x.png */,
+				558D28F91D3CC4FE0063DA3D /* ic_notifications_off@3x.png */,
+				558D28FA1D3CC4FE0063DA3D /* ic_notifications_on.png */,
+				558D28FB1D3CC4FE0063DA3D /* ic_notifications_on@2x.png */,
+				558D28FC1D3CC4FE0063DA3D /* ic_notifications_on@3x.png */,
 				551E93D91D2383310071CE87 /* ic_checklist_white.png */,
 				551E93DA1D2383310071CE87 /* ic_checklist_white@2x.png */,
 				551E93DB1D2383310071CE87 /* ic_checklist_white@3x.png */,
@@ -2807,6 +2840,7 @@
 				5579D1401D1A7A98001DC526 /* ic_language_gray@3x.png in Resources */,
 				555C89BE1C9A4FCD006180F6 /* ic_clear@3x.png in Resources */,
 				558782331C8FCB3800365369 /* ic_phone_black.png in Resources */,
+				558D29021D3CC4FE0063DA3D /* ic_notifications_on@3x.png in Resources */,
 				5538B13C1CFEEC40009544D5 /* ic_cancel_white.png in Resources */,
 				5579D1391D1A77B3001DC526 /* ic_group_gray@2x.png in Resources */,
 				555C89BD1C9A4FCD006180F6 /* ic_clear@2x.png in Resources */,
@@ -2849,23 +2883,30 @@
 				5538A8F51CBCA56900659C8A /* ic_phone_gray@3x.png in Resources */,
 				5538828E1CF706DF00E12EFC /* ChangeLanguageViewController.xib in Resources */,
 				559BB1B51CFD378F001C39E9 /* ic_calendar_gray@3x.png in Resources */,
+				558D29011D3CC4FE0063DA3D /* ic_notifications_on@2x.png in Resources */,
 				554769BE1C917C9300269EBB /* ic_arrow_up.png in Resources */,
 				55510DE61CD9EA0E00638646 /* ic_right_arrow.png in Resources */,
 				55797CC91C86D08A00A0098D /* ic_more@2x.png in Resources */,
 				55B108EB1C802CA200EB695C /* ic_alert@3x.png in Resources */,
 				559C487F1D0FB2AD0013450C /* ic_subject_gray@2x.png in Resources */,
 				558D6DE01CA27B0500EE34BD /* ic_add@3x.png in Resources */,
+				558D28FE1D3CC4FE0063DA3D /* ic_notifications_off@2x.png in Resources */,
 				5538A96D1CBCF3E500659C8A /* JSQMessagesViewController.xib in Resources */,
 				55320CA41CEDAA1A00E45492 /* ic_clock_white@3x.png in Resources */,
+				558D29001D3CC4FE0063DA3D /* ic_notifications_on.png in Resources */,
 				556758151D06B8AE0000321B /* ic_female@2x.png in Resources */,
 				55A5795E1CEC65E6000597D2 /* StdTimeTableDayViewController.xib in Resources */,
 				550A82211C9AA6AF001F652B /* ic_radio_check@2x.png in Resources */,
 				55B108F11C802CA200EB695C /* ic_setting@3x.png in Resources */,
 				55510D0B1CD9A97F00638646 /* FSImageViewer.bundle in Resources */,
+				558D290C1D3CDB580063DA3D /* ic_accessibility_gray.png in Resources */,
 				559A07FD1D0912ED00B31125 /* AddScoresViewController.xib in Resources */,
+				558D28FD1D3CC4FE0063DA3D /* ic_notifications_off.png in Resources */,
 				557D78C71C97BDE5008096A0 /* StudentsListViewController.xib in Resources */,
+				558D290E1D3CDB580063DA3D /* ic_accessibility_gray@3x.png in Resources */,
 				55CF10E21C85927B00DC1AB9 /* ic_edit.png in Resources */,
 				5579D1331D1A772D001DC526 /* ic_storage_gray@2x.png in Resources */,
+				558D29071D3CD3B90063DA3D /* ic_notifications_gray@2x.png in Resources */,
 				55B108EE1C802CA200EB695C /* ic_help@3x.png in Resources */,
 				556214331CCF0ADB00754AFD /* CTAssetsPickerController.bundle in Resources */,
 				5538A9901CBCF3E500659C8A /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
@@ -2892,7 +2933,6 @@
 				5538A98E1CBCF3E500659C8A /* JSQMessagesToolbarContentView.xib in Resources */,
 				55B108F41C802CA200EB695C /* ic_speaker@3x.png in Resources */,
 				5520944D1C8932CF004670B3 /* ic_class@2x.png in Resources */,
-				555250011C7EDF7B0027A4ED /* GTM-TLHBMW in Resources */,
 				5595091B1C99574200D06158 /* ic_off@2x.png in Resources */,
 				559C487E1D0FB2AD0013450C /* ic_subject_gray.png in Resources */,
 				55320CA21CEDAA1A00E45492 /* ic_clock_white.png in Resources */,
@@ -2907,6 +2947,7 @@
 				557D78D51C97FEA5008096A0 /* ic_checkall@2x.png in Resources */,
 				559157541CF2ACA7000F5D04 /* green_btn_165_30.png in Resources */,
 				5587823A1C8FD0FB00365369 /* SchoolProfileViewController.xib in Resources */,
+				558D29061D3CD3B90063DA3D /* ic_notifications_gray.png in Resources */,
 				557D78D31C97FEA5008096A0 /* ic_checkall@3x.png in Resources */,
 				55797C941C86958000A0098D /* StudentAttendanceViewController.xib in Resources */,
 				55BDA51F1D223AD6007E3A1D /* ic_content_paste_colors.png in Resources */,
@@ -2917,6 +2958,7 @@
 				55B108D61C802A3B00EB695C /* ForgotPasswordViewController.xib in Resources */,
 				55797CCC1C86D08A00A0098D /* ic_timetable.png in Resources */,
 				559509181C99574200D06158 /* ic_late@2x.png in Resources */,
+				558D28FF1D3CC4FE0063DA3D /* ic_notifications_off@3x.png in Resources */,
 				558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */,
 				55FC724B1C7C5E3E00B0B8D0 /* Localizable.strings in Resources */,
 				5538A9921CBCF3E500659C8A /* LICENSE in Resources */,
@@ -2934,6 +2976,7 @@
 				554769CF1C91805600269EBB /* LevelPickerViewController.xib in Resources */,
 				55797CA81C86961400A0098D /* TeacherTimeTableViewController.xib in Resources */,
 				55DC79851CA8E8E700F7CF65 /* AnnouncementTableViewCell.xib in Resources */,
+				558D29081D3CD3B90063DA3D /* ic_notifications_gray@3x.png in Resources */,
 				5548F0C31CFFD72100E58378 /* OtherReasonTableViewCell.xib in Resources */,
 				5538A9861CBCF3E500659C8A /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				55797C991C86959500A0098D /* TeacherAttendanceViewController.xib in Resources */,
@@ -2945,6 +2988,7 @@
 				559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */,
 				55B108F31C802CA200EB695C /* ic_speaker@2x.png in Resources */,
 				558F95561D0A744D0086AD9E /* AddScoreTableViewCell.xib in Resources */,
+				558D290D1D3CDB580063DA3D /* ic_accessibility_gray@2x.png in Resources */,
 				55797CC61C86D08A00A0098D /* ic_message@2x.png in Resources */,
 				557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */,
 				557D78CC1C97C8FB008096A0 /* StudentsListTableViewCell.xib in Resources */,

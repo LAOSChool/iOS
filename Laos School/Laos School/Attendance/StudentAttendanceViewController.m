@@ -588,7 +588,7 @@
 }
 
 - (void)sortAttendancesArrayByDateTime {
-    NSSortDescriptor *dateTime = [NSSortDescriptor sortDescriptorWithKey:@"dateTime" ascending:NO];
+    NSSortDescriptor *dateTime = [NSSortDescriptor sortDescriptorWithKey:@"sortByDateTime" ascending:NO];
     NSArray *resultArr = [attendancesArray sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dateTime, nil]];
     
     [attendancesArray removeAllObjects];

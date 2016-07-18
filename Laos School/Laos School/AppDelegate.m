@@ -70,23 +70,7 @@
                                                  name:@"PushToLoginScreen"
                                                object:nil];
     
-    // Register for remote notifications
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-        // iOS 7.1 or earlier
-        UIRemoteNotificationType allNotificationTypes =
-        (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge);
-        [application registerForRemoteNotificationTypes:allNotificationTypes];
-    } else {
-        // iOS 8 or later
-        // [START register_for_notifications]
-        UIUserNotificationType allNotificationTypes =
-        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        // [END register_for_notifications]
-    }
+    [self turnOnOffNotification:YES];
     
      [FIRApp configure];
     
@@ -296,12 +280,49 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (curLang == nil) {
         LocalizationSetLanguage(LANGUAGE_LAOS);
         [[NSUserDefaults standardUserDefaults] setObject:LANGUAGE_LAOS forKey:@"CurrentLanguageInApp"];
+        
     } else {
         if ([curLang isEqualToString:LANGUAGE_LAOS]) {
             LocalizationSetLanguage(LANGUAGE_LAOS);
+            
         } else if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
             LocalizationSetLanguage(LANGUAGE_ENGLISH);
         }
+    }
+    
+    NSNumber *notificationOnOff = [[ArchiveHelper sharedArchiveHelper] loadDataFromUserDefaultStandardWithKey:KEY_NOTIFICATION_ONOFF];
+    
+    if (!notificationOnOff) {
+        notificationOnOff = [NSNumber numberWithBool:YES];
+        [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:notificationOnOff withKey:KEY_NOTIFICATION_ONOFF];
+    }
+}
+
+- (void)turnOnOffNotification:(BOOL)flag {
+    
+    if (flag == YES) {
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+            // iOS 7.1 or earlier
+            UIRemoteNotificationType allNotificationTypes =
+            (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge);
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:allNotificationTypes];
+        } else {
+            // iOS 8 or later
+            // [START register_for_notifications]
+            UIUserNotificationType allNotificationTypes =
+            (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+            UIUserNotificationSettings *settings =
+            [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            // [END register_for_notifications]
+        }
+        
+        [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:KEY_NOTIFICATION_ONOFF];
+        
+    } else {
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+        [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:KEY_NOTIFICATION_ONOFF];
     }
 }
 @end

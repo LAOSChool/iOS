@@ -44,6 +44,7 @@ typedef enum {
 typedef enum {
     SettingsSectionChangePassword = 0,
     SettingsSectionChangeLanguage,
+    SettingsSectionNotifications,
     SettingsSectionLogout,
     SettingsSectionMax
 } SETTINGS_SECTION;

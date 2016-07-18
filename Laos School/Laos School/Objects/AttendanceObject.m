@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AttendanceObject.h"
-
+#import "DateTimeHelper.h"
 /*
  @property (nonatomic, strong) NSString *userID;
  @property (nonatomic, strong) NSString *dateTime;
@@ -79,5 +79,13 @@
     }
     
     return self;
+}
+
+- (NSTimeInterval)sortByDateTime {
+    if (_dateTime.length > 0) {
+        return [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:_dateTime];
+    }
+    
+    return 0;
 }
 @end
