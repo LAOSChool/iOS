@@ -73,6 +73,10 @@
     [self turnOnOffNotification:YES];
     
      [FIRApp configure];
+//    
+//    [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError *error) {
+//        
+//    }];
     
     return YES;
 }
@@ -91,6 +95,12 @@
             NSLog(@"Connected to FCM.");
         }
     }];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    if (error != nil) {
+        NSLog(@"FailToRegisterForRemoteNotifications :: %@", error);
+    }
 }
 
 // [START receive_message]
@@ -118,11 +128,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // should be done.
     NSString *refreshedToken = [[FIRInstanceID instanceID] token];
     NSLog(@"InstanceID token: %@", refreshedToken);
-    
+
     // Connect to FCM since connection may have failed when attempted before having a token.
     [self connectToFcm];
     
     // TODO: If necessary send token to appliation server.
+    [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:refreshedToken withKey:KEY_FIREBASE_TOKEN];
 }
 // [END refresh_token]
 
@@ -146,7 +157,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self connectToFcm];
     
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

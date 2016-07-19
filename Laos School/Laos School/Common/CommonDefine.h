@@ -61,6 +61,7 @@
 
 //user default keys
 #define KEY_NOTIFICATION_ONOFF @"NotificationOnOff"
+#define KEY_FIREBASE_TOKEN @"NotificationToken"
 
 @interface CommonDefine : NSObject
 

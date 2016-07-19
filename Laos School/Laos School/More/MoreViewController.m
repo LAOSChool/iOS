@@ -70,7 +70,7 @@
     
     [viewHeaderContainer setBackgroundColor:GREEN_COLOR];
     
-    [imgAvatar setBackgroundColor:BLUE_COLOR];
+    [imgAvatar setBackgroundColor:[UIColor whiteColor]];
     
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     ClassObject *classObj = userObj.classObj;
