@@ -355,6 +355,7 @@
 		558D290C1D3CDB580063DA3D /* ic_accessibility_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D29091D3CDB580063DA3D /* ic_accessibility_gray.png */; };
 		558D290D1D3CDB580063DA3D /* ic_accessibility_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D290A1D3CDB580063DA3D /* ic_accessibility_gray@2x.png */; };
 		558D290E1D3CDB580063DA3D /* ic_accessibility_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D290B1D3CDB580063DA3D /* ic_accessibility_gray@3x.png */; };
+		558D29101D3CE8FB0063DA3D /* GTM-M8JBM5.json in Resources */ = {isa = PBXBuildFile; fileRef = 558D290F1D3CE8FB0063DA3D /* GTM-M8JBM5.json */; };
 		558D6DD51CA245CF00EE34BD /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DCF1CA245CF00EE34BD /* ic_key.png */; };
 		558D6DD61CA245CF00EE34BD /* ic_key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD01CA245CF00EE34BD /* ic_key@2x.png */; };
 		558D6DD71CA245CF00EE34BD /* ic_key@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 558D6DD11CA245CF00EE34BD /* ic_key@3x.png */; };
@@ -1065,6 +1066,7 @@
 		558D29091D3CDB580063DA3D /* ic_accessibility_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_accessibility_gray.png; sourceTree = "<group>"; };
 		558D290A1D3CDB580063DA3D /* ic_accessibility_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_accessibility_gray@2x.png"; sourceTree = "<group>"; };
 		558D290B1D3CDB580063DA3D /* ic_accessibility_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_accessibility_gray@3x.png"; sourceTree = "<group>"; };
+		558D290F1D3CE8FB0063DA3D /* GTM-M8JBM5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "GTM-M8JBM5.json"; sourceTree = "<group>"; };
 		558D6DCF1CA245CF00EE34BD /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		558D6DD01CA245CF00EE34BD /* ic_key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@2x.png"; sourceTree = "<group>"; };
 		558D6DD11CA245CF00EE34BD /* ic_key@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_key@3x.png"; sourceTree = "<group>"; };
@@ -1576,6 +1578,7 @@
 		550FD29D1C7AFABD009D7159 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				558D290F1D3CE8FB0063DA3D /* GTM-M8JBM5.json */,
 				553882891CF702CF00E12EFC /* school_info.htm */,
 				552094551C89383D004670B3 /* timetable.htm */,
 				550FD29E1C7AFABD009D7159 /* images */,
@@ -2988,6 +2991,7 @@
 				559BB1B31CFD378F001C39E9 /* ic_calendar_gray.png in Resources */,
 				55B108F31C802CA200EB695C /* ic_speaker@2x.png in Resources */,
 				558F95561D0A744D0086AD9E /* AddScoreTableViewCell.xib in Resources */,
+				558D29101D3CE8FB0063DA3D /* GTM-M8JBM5.json in Resources */,
 				558D290D1D3CDB580063DA3D /* ic_accessibility_gray@2x.png in Resources */,
 				55797CC61C86D08A00A0098D /* ic_message@2x.png in Resources */,
 				557C752D1CFBDB07005C5FAA /* ic_add_gray.png in Resources */,
