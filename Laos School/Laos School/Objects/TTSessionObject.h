@@ -27,6 +27,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *weekDay;
 @property (nonatomic, strong) NSString *weekDayID;
 @property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *subject_lao;
 @property (nonatomic, strong) NSString *subjectID;
 @property (nonatomic, strong) NSString *session;
 @property (nonatomic, strong) NSString *sessionID;

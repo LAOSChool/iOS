@@ -882,6 +882,10 @@
                 sessionObj.subject = [sessionDict valueForKey:@"subject"];
             }
             
+            if ([sessionDict valueForKey:@"subject_lao"] != (id)[NSNull null]) {
+                sessionObj.subject_lao = [sessionDict valueForKey:@"subject_lao"];
+            }
+            
             if ([sessionDict valueForKey:@"subject_id"] != (id)[NSNull null]) {
                 sessionObj.subjectID = [NSString stringWithFormat:@"%@", [sessionDict valueForKey:@"subject_id"]];
             }

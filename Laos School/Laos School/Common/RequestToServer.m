@@ -188,7 +188,7 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getRankingDataByserID:(NSString *)userID inClass:(NSString *)classID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_STU_RANKING];
-    requestString = [NSString stringWithFormat:@"%@?filter_user_id=%@&filter_class_id=%@", requestString, userID, classID];
+    requestString = [NSString stringWithFormat:@"%@?filter_student_id=%@&filter_class_id=%@", requestString, userID, classID];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

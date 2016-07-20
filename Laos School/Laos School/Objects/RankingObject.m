@@ -42,4 +42,8 @@
 - (SCORE_TYPE)scoreType {
     return _scoreTypeObj.scoreType;
 }
+
+- (NSInteger)term {
+    return _scoreTypeObj.term;
+}
 @end

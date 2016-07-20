@@ -137,7 +137,15 @@
 }
 
 - (void)reloadScoreData {
-    [self loadData];
+    if (segmentedControl.selectedSegmentIndex == 0 ||
+        segmentedControl.selectedSegmentIndex == 1) {   //term I & term II
+        
+        [self loadData];
+        
+    } else if (segmentedControl.selectedSegmentIndex == 2) {    //ranking
+        
+        [self loadRankingData];
+    }
 }
 
 - (void)loadRankingData {
@@ -459,7 +467,7 @@
         [rankingArray removeAllObjects];
         
         NSArray *rankings = [jsonObj objectForKey:@"messageObject"];
-        if (rankings != (id)[NSNull null]) {
+        if (rankings != (id)[NSNull null] && [rankings count] > 0) {
 //            for (NSDictionary *rankingDict in rankings) {
             NSDictionary *rankingDict = [rankings objectAtIndex:0];
                 NSString *key = @"";
@@ -506,8 +514,9 @@
                 }
                 
                 NSSortDescriptor *sortByType = [NSSortDescriptor sortDescriptorWithKey:@"scoreType" ascending:YES];
+                NSSortDescriptor *sortByTerm = [NSSortDescriptor sortDescriptorWithKey:@"term" ascending:YES];
                 
-                [rankingArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByType, nil]];
+                [rankingArray sortUsingDescriptors:[NSArray arrayWithObjects:sortByTerm, sortByType, nil]];
 //            }
         }
         

@@ -25,6 +25,7 @@
         self.weekDay = @"";
         self.weekDayID = @"";
         self.subject = @"";
+        self.subject_lao = @"";
         self.subjectID = @"";
         self.session = @"";
         self.sessionID = @"";

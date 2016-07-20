@@ -56,6 +56,7 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *scoreName;
 @property (nonatomic, assign) SCORE_TYPE scoreType;
+@property (nonatomic, assign) NSInteger term;
 @property (nonatomic, strong) NSString *scoreKey;
 @property (nonatomic, strong) NSString *scoreShortName;
 
