@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>780024994508-qc44vb47qqpsja8r2d0vf0tbj3tlotpe.apps.googleusercontent.com</string>
+	<string>375753356855-nv7bruj9jckn7holirbp39ups9m6vn9k.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.780024994508-qc44vb47qqpsja8r2d0vf0tbj3tlotpe</string>
+	<string>com.googleusercontent.apps.375753356855-nv7bruj9jckn7holirbp39ups9m6vn9k</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAZknZzvlJv5_5G9o6XaSiWFT-bSo1s2Ow</string>
+	<string>AIzaSyDa-5-3wzlLHaGP1pYAPugih0Y-KI6kcrE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>780024994508</string>
+	<string>375753356855</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.born2go.laoschool</string>
 	<key>PROJECT_ID</key>
-	<string>laoschooltest</string>
+	<string>laoschool-ba8d4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>laoschooltest.appspot.com</string>
+	<string>laoschool-ba8d4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:780024994508:ios:98e50392d45f5edf</string>
+	<string>1:375753356855:ios:98e50392d45f5edf</string>
 	<key>DATABASE_URL</key>
-	<string>https://laoschooltest.firebaseio.com</string>
+	<string>https://laoschool-ba8d4.firebaseio.com</string>
 </dict>
 </plist>

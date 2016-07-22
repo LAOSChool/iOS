@@ -29,11 +29,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [FIRAnalytics logEventWithName:@"LaunchApp"
-                        parameters:@{
-                                     @"name": @"LaunchApp",
-                                     @"full_text": @"So fucking cool"
-                                     }];
+//    [FIRAnalytics logEventWithName:@"LaunchApp"
+//                        parameters:@{
+//                                     @"name": @"LaunchApp",
+//                                     @"full_text": @"So fucking cool"
+//                                     }];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self initialConfiguration];
@@ -73,10 +73,16 @@
     [self turnOnOffNotification:YES];
     
      [FIRApp configure];
+    
+    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+    NSLog(@"InstanceID token: %@", refreshedToken);
 //    
 //    [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError *error) {
 //        
 //    }];
+    // Add observer for InstanceID token refresh callback.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)
+                                                 name:kFIRInstanceIDTokenRefreshNotification object:nil];
     
     return YES;
 }
@@ -84,7 +90,7 @@
 // With "FirebaseAppDelegateProxyEnabled": NO
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
+    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeProd];
 }
 
 - (void)connectToFcm {
