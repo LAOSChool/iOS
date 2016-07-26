@@ -66,23 +66,27 @@
 "SMS:" = "SMS:";
 "Sample 1" = "Students are learning in class.";
 "Sample 2" = "Teacher is busy and not coming.";
-"Sample 3" = "Period 1 - Teacher is busy and not coming.";
-"Sample 4" = "Period 2 - Teacher is busy and not coming.";
-"Sample 5" = "Period 3 - Teacher is busy and not coming.";
-"Sample 6" = "Period 4 - Teacher is busy and not coming.";
-"Sample 7" = "Period 5 - Teacher is busy and not coming.";
-"Sample 8" = "Class is off today.";
+"Sample 3" = "Class is off today.";
+"Sample 4" = "Class is off in the morning.";
+"Sample 5" = "Class is off in the afternoon.";
+
+// not use
+"Sample 6" = "Period 1 - Teacher is busy and not coming.";
+"Sample 7" = "Period 2 - Teacher is busy and not coming.";
+"Sample 8" = "Period 3 - Teacher is busy and not coming.";
+"Sample 9" = "Period 4 - Teacher is busy and not coming.";
+"Sample 10" = "Period 5 - Teacher is busy and not coming.";
+
 "[No subject]" = "[No subject]";
 
-"Inform 1" = "Coming late.";
-"Inform 2" = "Asked for permission to go out - not come back yet.";
-"Inform 3" = "Got sick and asked for permission to go home.";
-"Inform 4" = "Asked for permission to go home.";
-"Inform 5" = "Go out - not come back yet.";
-"Inform 6" = "Compete sports in school.";
-"Inform 7" = "Go working in school.";
-"Inform 8" = "Attend an event in school.";
-"Inform 9" = "Attend an meeting in school.";
+"Inform 1" = "Asked for permission to go out - not come back yet.";
+"Inform 2" = "Got sick and asked for permission to go home.";
+"Inform 3" = "Asked for permission to go home.";
+"Inform 4" = "Go out - not come back yet.";
+"Inform 5" = "Compete sports in school.";
+"Inform 6" = "Go working in school.";
+"Inform 7" = "Attend an event in school.";
+"Inform 8" = "Attend an meeting in school.";
 
 "There was an error while sending message. Please try again." = "There was an error while sending message. Please try again.";
 "Please enter recipient and content!" = "Please enter recipient and content!";
@@ -112,10 +116,13 @@
 "Reason" = "Reason";
 
 "Reason 1" = "Coming late";
-"Reason 2" = "Personal reason";
-"Reason 3" = "Got sick";
-"Reason 4" = "Leave class without permission";
-"Reason 5" = "Got an permission";
+"Reason 2" = "Do not come";
+"Reason 3" = "Personal reason";
+"Reason 4" = "Had a fever";
+"Reason 5" = "Headache";
+"Reason 6" = "Stomach ache";
+"Reason 7" = "Got sick";
+"Reason 8" = "Got an permission";
 
 "Permitted" = "Permitted";
 "Period" = "Period";
@@ -162,6 +169,8 @@
 
 //personal info
 "Student info" = "Student info";
+"Parent info" = "Parent info:";
+"Name" = "Name";
 
 //school records
 "Overall" = "Overall";

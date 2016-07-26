@@ -781,6 +781,9 @@
         [reasonList addObject:LocalizedString(@"Reason 3")];
         [reasonList addObject:LocalizedString(@"Reason 4")];
         [reasonList addObject:LocalizedString(@"Reason 5")];
+        [reasonList addObject:LocalizedString(@"Reason 6")];
+        [reasonList addObject:LocalizedString(@"Reason 7")];
+        [reasonList addObject:LocalizedString(@"Reason 8")];
         [reasonList addObject:LocalizedString(@"Other")];
     }
 }

@@ -20,7 +20,7 @@
 "Yes" = "ແມ່ນ";
 "No" = "ບໍ່";
 "Confirmation" = "ຢືນ​ຢັນ";
-"Submit" = "ເຂົ້າ​ຂໍ້​ມູນ";
+"Submit" = "ຍື່ນ";
 "Error" = "ຜິດ​ພາດ";
 "Failed" = "ລົ້ມ​ເຫຼວ";
 "Successfully" = "ສຳ​ເລັດ";
@@ -40,8 +40,8 @@
 
 //Common alert
 "Failed to connect to server. Please try again." = "ການເຊື່ອມ​ຕໍ່​ຫາເຊີ​ເວີ​ລົ້ມ​ເຫຼວ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
-"There was an error while trying to connect to server. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​ໃນ​ລະ​ຫວ່າງກຳ​ລັງ​ເຊື່ອມ​ຕໍ່​ຫາເຊີ​ເວີ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
-"This account was being logged in by other device. Please re-login." = "ບັນ​ຊີ​ນີ້​​ໃຊ້​ຢູ່​ອຸ​ປະ​ກອ​ນອື່​ນ​ແລ້ວ. ກະ​ລຸ​ນາລົງ​ຊື່ເຂົ້າໃຊ້​ໃໝ່.";
+"There was an error while trying to connect to server. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນ​ການພະ​ຍາມ​ເຊື່ອມ​ຕໍ່​ຫາເຊີ​ເວີ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
+"This account was being logged in by other device. Please re-login." = "ບັນ​ຊີ​ນີ້​​ໄດ້ໃຊ້​ຢູ່​ອຸ​ປະ​ກອ​ນອື່​ນ​ແລ້ວ. ກະ​ລຸ​ນາລົງ​ຊື່ເຂົ້າໃຊ້​ໃໝ່.";
 
 //login, help, forgot password
 "Login" = "ເຂົ້າ​ສູ່​ລະ​ບົບ";
@@ -57,7 +57,7 @@
 
 "Please enter your user name and phone number!" = "ກະ​ລຸ​ນາ​ພິມ​ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ!";
 "User name or phone number is incorrect!" = "ຊື່​ຜູ້​ນຳ​ໃຊ້ ແລະ ເບີ​ໂທ ບໍ່ຖືກ​ຕ້ອງ!";
-"A new password will be sent to your phone number." = "ລະ​ຫັດ​ຜ່ານ​ໂຕ​ໃໝ່ ຈະ​ຖືກ​ສົ່ງ​ໄປຫາ​ໂທ​ລະ​ສັບທ່ານ​ທາງ SMS.";
+"A new password will be sent to your phone number." = "ລະ​ບົບ​ຈະ​ສົ່ງລະ​ຫັດ​ຜ່ານ​ໄປໃຫ້​ທ່ານທາງ SMS.";
 
 //Messages
 "New message" = "ຂໍ້​ຄວາມ​ໃໝ່";
@@ -66,23 +66,27 @@
 "SMS:" = "SMS:";
 "Sample 1" = "ນັກ​ຮຽ​ນເຂົ້າ​ຫ້ອງ​ປົກ​ກະ​ຕິ";
 "Sample 2" = "ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 3" = "ຊົ່ວ​ໂມງທີ 1 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 4" = "ຊົ່ວ​ໂມງທີ 2 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 5" = "ຊົ່ວ​ໂມງທີ 3 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 6" = "ຊົ່ວ​ໂມງທີ 4 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 7" = "ຊົ່ວ​ໂມງທີ 5 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
-"Sample 8" = "ມີື້​ນີ້​ພັກ​ໝົດ​ມື້";
+"Sample 3" = "ມີື້​ນີ້​ພັກ​ໝົດ​ມື້";
+"Sample 4" = "ມື້​ນີ້​ພັກ​ຕອນ​ເຊົ້າ";
+"Sample 5" = "ມື້​ນີ້​ພັກ​ຕອນ​ແລງ";
+
+//not use
+"Sample 6" = "ຊົ່ວ​ໂມງທີ 1 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 7" = "ຊົ່ວ​ໂມງທີ 2 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 8" = "ຊົ່ວ​ໂມງທີ 3 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 9" = "ຊົ່ວ​ໂມງທີ 4 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+"Sample 10" = "ຊົ່ວ​ໂມງທີ 5 ອາ​ຈານຄາ​ວຽກບໍ່​ໄດ້ຂຶ້ນ​ຫ້ອງ​ສອນ";
+
 "[No subject]" = "[No subject]";
 
-"Inform 1" = "ມາ​ຊ້າ";
-"Inform 2" = "ຄອບ​ອອກ​ໄປ​ນອກ - ຍັງ​ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
-"Inform 3" = "ຄອບ​ເມື່ອ - ບໍ່​ສ​ະ​ບາຍ";
-"Inform 4" = "ຄອບ​ເມືອ - ມີ​ວຽກ​ທາງ​ບ້ານ";
-"Inform 5" = "ອອກ​ໄປ​ນອກ - ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
-"Inform 6" = "ໄປ​ແຂ່​ງ​ກິ​ລ​າ​ໃຫ້​ທາງ​ໂຮງ​ຮຽນ";
-"Inform 7" = "ໄປ​ອອກ​ແຮງ​ງານ";
-"Inform 8" = "ໄປ​ຮ່ວມ​ກິດ​ຈະ​ກຳ​ພາຍ​ໃນ​ໂຮງ​ຮຽນ";
-"Inform 9" = "ໄປ​ລວມ";
+"Inform 1" = "ຄອບ​ອອກ​ໄປ​ນອກ - ຍັງ​ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
+"Inform 2" = "ຄອບ​ເມື່ອ - ບໍ່​ສ​ະ​ບາຍ";
+"Inform 3" = "ຄອບ​ເມືອ - ມີ​ວຽກ​ທາງ​ບ້ານ";
+"Inform 4" = "ອອກ​ໄປ​ນອກ - ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
+"Inform 5" = "ໄປ​ແຂ່​ງ​ກິ​ລ​າ​ໃຫ້​ທາງ​ໂຮງ​ຮຽນ";
+"Inform 6" = "ໄປ​ອອກ​ແຮງ​ງານ";
+"Inform 7" = "ໄປ​ຮ່ວມ​ກິດ​ຈະ​ກຳ​ພາຍ​ໃນ​ໂຮງ​ຮຽນ";
+"Inform 8" = "ໄປ​ລວມ";
 
 
 "There was an error while sending message. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນການ​ສົ່ງຂໍ້​ຄວາມ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
@@ -97,72 +101,77 @@
 "Attention" = "ເຊັກ​ລາຍ​ຊື່​ນັກ​ນ​ຮຽນ​ຂາດ";
 "You have reached to the limitation. Only allow %ld photos." = "ກາຍກຳ​ນົດແລ້ວ. ​ອະ​ນຸ​ຍາດໃຫ້​ແມ່ນ %ld ຮູບ​ພາບ.";
 "Uploading" = "ກຳ​ລັງ​ອັບ​ໂຫຼດ...";
-"There was an error while sending announcement. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​ສົ່ງປະ​ກາດ. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"There was an error while sending announcement. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນການ​ສົ່ງ files. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
 "Send this announcement to class %@. Are you sure?" = "ສົ່ງ​ປະ​ກາດ​ນີ້ເຖິງຫ້ອງ %@. ທ່ານ​ແນ່​ໃຈ​ແລ້ວບໍ?";
 "Please enter subject and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຫົວ​ຂໍ້ ແລະ ເນື້ອ​ໃນ!";
-"There is no image attached. Please attach at least one." = "There is no image attached. Please attach at least one.";
+"There is no image attached. Please attach at least one." = "ບໍ່​ເຫັນມີ files. ກະ​ລຸ​ນາ​ເລືອກ file ກ່ອນ.";
 "Select photo source" = "ເລືອກ​ file ຮູບ";
-"Camera" = "File ຮູບ​ຖ່​າຍ";
-"Photo library" = "File ຢູ່ຄັງ​ຮູບອື່ນ";
+"Camera" = "Files ຮູບ​ຖ່​າຍ";
+"Photo library" = "Files ຢູ່ຄັງ​ຮູບອື່ນ";
 
 //Attendance
-"Select a period" = "ເລືອກຈຳ​ນວນ​ຊົ່ວ​ໂມງ​ຂາດ";
-"Cancel this attendance checking result. Are you sure?" = "ຍົກ​ເລີກ​ໝາຍ​ຂາດ. ທ່າ​ນ​ແນ່​ໃຈ​ບໍ?";
+"Select a period" = "ເລືອກ​ຊົ່ວ​ໂມງ​";
+"Cancel this attendance checking result. Are you sure?" = "ຍົກ​ເລີກການໝາຍ​ຂາດນີ້. ທ່າ​ນ​ແນ່​ໃຈ​ບໍ?";
 "[No reason]" = "(ບໍ່​ມີ​ເຫດ​ຜົນ)";
 "No reason" = "ບໍ່​ມີ​ເຫດ​ຜົນ";
 
 "Reason 1" = "ມາຊ້າ";
-"Reason 2" = "ຄອບ​ຂາດ​ມີວຽກ​ທາງ​ບ້ານ";
-"Reason 3" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ";
-"Reason 4" = "ລັກ​ເມືອ";
-"Reason 5" = "ອະ​ນຸ​ຍາດລາ​ພັກ";
+"Reason 2" = "ບໍ່​ມາ";
+"Reason 3" = "ຄອບ​ຂາດ​ມີວຽກ​ທາງ​ບ້ານ";
+"Reason 4" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ - ເປັ​ນ​ໄຂ້";
+"Reason 5" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ - ເຈັບ​ຫົວ";
+"Reason 6" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ - ເຈັບທ້ອງ";
+"Reason 7" = "ຄອບ​ຂາດບໍ່​ສະ​ບາຍ";
+"Reason 8" = "ອະ​ນຸ​ຍາດລາ​ພັກ";
 
 "Reason" = "ມີ​ເຫດ​ຜົນ";
 "Permitted" = "ອະ​ນຸ​ຍາດ";
-"Period" = "ເປັ​ນເວ​ລາ​";
-"Periods" = "ເປັ​ນເວ​ລາ​";
+"Period" = "ຊ​ົ່ວ​ໂມງ";
+"Periods" = "ຊ​ົ່ວ​ໂມງ";
 "Full day" = "ໝົດ​ມື້";
 "Absence request" = "ໃບລາ​ພັກ​";
-"Please double check information before sending your request. Are you sure?" = "ກະ​ລຸ​ນາ​ກວດ​ສອບ​ຂໍ້​ມູນ​ອີກ​ຄັ້ງ​ກ່ອນ​ຈະ​ສົ່ງ​ໄປ. ທ່ານ​ໝັ້ນ​ໃຈ​ແລ້​ວ​ບໍ?";
+"Please double check information before sending your request. Are you sure?" = "ກ່ອນຈ​ະ​ສົ່ງ ກະ​ລຸ​ນາ​ກວດຄື​ນ​ອີກ​ຄັ້ງ​​. ທ່ານ​ໝັ້ນ​ໃຈ​ແລ້​ວບໍ?";
 "Please enter a reason!" = "ກະ​ລຸຸ​ນາ​ໃສ່ເຫດ​ຜົນ!";
-"There was an error while sending request. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ໃນ​ການ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"An absence request had been sent for day %@ already. Please double check." = "ໃບລາ​ພັກ​ໄດ້​ສົ່ງ​ໄປ​ສຳ​ລັບ​ລາ​ພັກ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນ​ອີກ​ຄັ້ງ.";
+"There was an error while sending request. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນ​ການສົ່ງ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
+"An absence request had been sent for day %@ already. Please double check." = "ໃບລາ​ພັກ​ນີ້ໄດ້​ສົ່ງ​ໄປເທື່ອ​ນຶ່ງ​ແລ້ວ ໃນ​ວັນ​ທີ %@. ກະ​ລຸ​ນາກ​ວດ​ຄືນໃໝ່.";
 "Other" = "ອື່ນໆ";
-"There was an error. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດ​ເກີດ​ຂຶ້ນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
+"There was an error. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
 
 //score
 "Term I" = "ພາກ​ຮຽນ I";
 "Term II" = "ພາກ​ຮຽນ II";
 "Term" = "ພາກ​ຮຽນ";
-"Select a subject" = "ເລື​ອກ​ຫົວ​ຂໍ້";
+"Select a subject" = "ເລື​ອກ​ວິ​ຊາ";
 "Add scores" = "ໃສ່​ຄະ​ແນນ";
 "Select a score type" = "ເລືື​ອກ​ປະ​ເພດ​ຄະ​ແນນ";
-"Please double check information before you submit scores. Are you sure?" = "ກະ​ລຸ​ນາ​ກວດ​ຄືນ​ອີກ​ຄັ້ງ ກ່ອນ​ທີ່​ທ່ານ​ຈະ​ເຂົ້າ​ຂໍ້​ມູນຄະ​ແນນ?";
-"You do not complete filling scores. Submit now?" = "ທ່ານ​ຍັງ​ໃສ່​ຄະ​ແນນບໍ່​ສຳ​ເລັດ. ກົດໃສ່ ​\"ເຂົາ​ຂໍ້​ມຸນ​\" ດຽວ​ນີ້.?";
+"Please double check information before you submit scores. Are you sure?" = "ກ່ອນ​ຈະບັນ​ທຶກ ທ່ານ​ຄວນກວດ​ຄືນ​ກ່ອນ ຫຼື ທ່ານ​ແນ່​ໃຈ​ແລ້ວ​ບໍ?";
+"You do not complete filling scores. Submit now?" = "ໃສ່​ຄະ​ແນນຍັງບໍ່​ແລ້ວ. ບັນ​ທຶກ​ເລີຍ​ບໍ?";
 "Are you sure you want to cancel?" = "ທ່່ານ​ຈ​ະ​ຍົກ​ເລີກ​ບໍ?";
 "Comment" = "ຄຳ​ຄິດ​ເຫັນ";
 "Score" = "ຄະ​ແນນ";
-"There was an error while submitting score. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"There was an error while submitting scores. Please try again." = "ມີ​ຂໍ້​ຜິດ​ພາດໃນ​ການ​ເຂົ້າ​ຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່​ອີກ​ຄັ້ງ.";
-"Average:" = "Average:";
-"Grade:" = "Grade:";
-"Rank:" = "Rank:";
-"Ranking" = "Ranking";
+"There was an error while submitting score. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດໃນ​ການ​ບັນ​ທຶກຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່.";
+"There was an error while submitting scores. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດໃນ​ການ​ບັນ​ທຶກຄະ​ແນນ​. ກະ​ລຸ​ນາ​ລອງໃໝ່.";
+"Average:" = "ສະ​ເລ່ຍ:";
+"Grade:" = "ເກດ:";
+"Rank:" = "ອັນ​ດັບ:";
+"Ranking" = "​ຈັດ​ອັນ​ດັບ";
 
 //More
 "School records" = "ບັນ​ທຶກ​ຂອງ​ໂຮງ​ຮຽນ";
-"Timetable" = "ຕາ​ຕະ​ລາງ​ເວ​ລາ";
-"Schedule" = "ຕາ​ຕະ​ລາງ​ຮຽນ";
+"Timetable" = "ຕາ​ຕະ​ລາງ​ຮຽນ";
+"Schedule" = "ຕາ​ຕະ​ລາງ​ສອນ";
 "School information" = "ຂໍ້​ມູນ​ທາງ​ໂຮງ​ຮຽນ";
 "Students list" = "ລາຍ​ຊື່​ນັກ​ຮຽນ";
 "Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";
 "Change language" = "ປ່່ຽນພາສາ";
 "Logout" = "ອອກ​ຈາກ​ລະ​ບົບ";
 "Are you sure you want to logout?" = "ທ່ານ​ຕ້ອງ​ການຈະ​ອອກ​ຈາກ​ລະ​ບົບບໍ?";
-"Accessibility" = "Accessibility";
+"Accessibility" = "ຄວາມ​ສາ​ມາດ​ໃນ​ການ​ເຂົ້າຫາ​ຂໍ້​ມູນ";
 
 //personal info
 "Student info" = "ຂໍ້​ມູນ​ນັກ​ຮຽນ";
+"Parent info" = "Parent info:";
+"Name" = "Name";
 
 //school records
 "Overall" = "ທັງ​ໝົດ";
@@ -185,9 +194,9 @@
 
 //Change password
 "Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";
-"Your password has been changed successfully." = "ລະ​ຫັດ​ຂອງ​ທ່ານ​ໄດ້​ປ່ຽນ​ໃໝ່​ແລ້ວ.";
+"Your password has been changed successfully." = "ລະ​ຫັດ​ຂອງ​ທ່ານ​ໄດ້​ປ່ຽນ​ໃໝ່​ສຳ​ເລັດແລ້ວ.";
 "Old password is incorrect!" = "ລະ​ຫັດເກົ່າ​ຂອງ​ທ່ານບໍ່​ຖືກ!";
-"Password is required a length of 4 to 20 characters!" = "ຄວາມ​ຍາວ​ຂອງ​ລະ​ຫັດ​ແມ່ນ​ແຕ່ 4 ຫາ 20 ໂຕ!";
+"Password is required a length of 4 to 20 characters!" = "ລະ​ຫັດຕ້ອງ​ມີຄວາມ​ຍາວ​ແຕ່ 4 ຫາ 20 ໂຕ!";
 "New password and confirmation password do not match!" = "ລະ​ຫັດ​ໃໝ່ຂອງ​ທ່ານບໍ່​ຕົງ​ກັນ!";
 "Try again" = "ລອງ​ໃໝ່​ອີກ​ຄັ້ງ";
 "Re-type new password" = "ໃສ່​ລະ​ຫັດ​ໃໝ່​ອີກ​ຄັ້ງ";
@@ -195,8 +204,8 @@
 "New password" = "ລະ​ຫັດ​ໃໝ່່";
 
 //change language
-"Apply" = "ການນຳ​ໃຊ້";
-"App will be reloaded after changing language. Are you sure?" = "ການ​ນຳ​ໃຊ້​ຈະ​ຖືກ​ໂຫຼດ​ຄື​ນຫຼັງ​ຈາກ​ການ​ປ່ຽນ​ພາ​ສາ. ທ່ານ​ແນ່​ໃຈບໍ?";
+"Apply" = "ຕົກ​ລົງ​ປ່ຽນ";
+"App will be reloaded after changing language. Are you sure?" = "ແອັບຈະໂຫຼດ​ຄື​ນຫຼັງ​ຈາກ​​ປ່ຽນ​ພາ​ສາ. ທ່ານ​ແນ່​ໃຈບໍ?";
 
 //score type
 "September score" = "ເດືອນ 09";

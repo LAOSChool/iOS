@@ -56,6 +56,9 @@
         [_reasonList addObject:LocalizedString(@"Reason 3")];
         [_reasonList addObject:LocalizedString(@"Reason 4")];
         [_reasonList addObject:LocalizedString(@"Reason 5")];
+        [_reasonList addObject:LocalizedString(@"Reason 6")];
+        [_reasonList addObject:LocalizedString(@"Reason 7")];
+        [_reasonList addObject:LocalizedString(@"Reason 8")];
         [_reasonList addObject:LocalizedString(@"Other")];
         
     }

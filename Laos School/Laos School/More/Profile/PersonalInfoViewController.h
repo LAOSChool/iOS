@@ -17,6 +17,7 @@
     IBOutlet CustomTextField *txtUserEmail;
     IBOutlet AsyncImageView *imgAvatar;
 
+    IBOutlet CustomTextField *txtParentName;
     IBOutlet CustomTextField *txtParentPhone;
     IBOutlet CustomTextField *txtParentEmail;
     IBOutlet UITextView *txtParentAddress;

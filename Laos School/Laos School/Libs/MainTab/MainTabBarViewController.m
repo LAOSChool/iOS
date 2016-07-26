@@ -10,6 +10,8 @@
 #import "CommonDefine.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 @interface MainTabBarViewController ()
 {
     BOOL blockAllTabs;
@@ -53,7 +55,7 @@
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_attendance"]];
                 break;
                 
-            case TIMETABLE_TAB:
+            case SCORE_TAB:
                 [self.tabBar.items[index] setTitle:LocalizedString(@"Scores")];
                 [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_score"]];
                 break;
@@ -96,6 +98,51 @@
 #pragma tabbar delegate
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 	
+    switch (tabBarController.selectedIndex) {
+        case MESSAGE_TAB:
+            [FIRAnalytics setUserPropertyString:@"messsage_tab" forName:@"selected_tab"];
+            
+            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+                                                                  kFIRParameterValue:@"messsage_tab"
+                                                                  }];
+            
+            break;
+            
+        case ANNOUNCEMENT_TAB:
+            [FIRAnalytics setUserPropertyString:@"announcement_tab" forName:@"selected_tab"];
+            
+            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+                                                                        kFIRParameterValue:@"announcement_tab"
+                                                                        }];
+            break;
+            
+        case ATTENDANCE_TAB:
+            [FIRAnalytics setUserPropertyString:@"attendance_tab" forName:@"selected_tab"];
+            
+            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+                                                                        kFIRParameterValue:@"attendance_tab"
+                                                                        }];
+            break;
+            
+        case SCORE_TAB:
+            [FIRAnalytics setUserPropertyString:@"score_tab" forName:@"selected_tab"];
+            
+            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+                                                                        kFIRParameterValue:@"score_tab"
+                                                                        }];
+            break;
+            
+        case MORE_TAB:
+            [FIRAnalytics setUserPropertyString:@"more_tab" forName:@"selected_tab"];
+            
+            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+                                                                        kFIRParameterValue:@"more_tab"
+                                                                        }];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

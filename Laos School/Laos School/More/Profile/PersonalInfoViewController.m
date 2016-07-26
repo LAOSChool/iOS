@@ -22,11 +22,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:LocalizedString(@"Student info")];
-    lbParentInfo.text = LocalizedString(@"Parents information");
+    lbParentInfo.text = LocalizedString(@"Parent info");
     
     txtPhonenumber.placeholder = LocalizedString(@"Phone number");
     txtUserEmail.placeholder = LocalizedString(@"Email");
     
+    txtParentName.placeholder = LocalizedString(@"Name");
     txtParentPhone.placeholder = LocalizedString(@"Phone number");
     txtParentEmail.placeholder = LocalizedString(@"Email");
     
@@ -35,11 +36,22 @@
     [txtPhonenumber setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_phone_gray.png"]];
     [txtUserEmail setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_email_gray.png"]];
     
+    [txtParentName setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_user_gray.png"]];
     [txtParentPhone setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_phone_gray.png"]];
     [txtParentEmail setColor:[UIColor whiteColor] andImage:[UIImage imageNamed:@"ic_email_gray.png"]];
     
+    //do not show keyboard
+    txtPhonenumber.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+    txtUserEmail.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    txtParentName.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+    txtParentPhone.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+    txtParentEmail.inputView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     txtPhonenumber.text     = _userObj.phoneNumber;
     txtUserEmail.text       = _userObj.email;
+    
+    txtParentName.text      = _userObj.parentName;
     txtParentPhone.text     = _userObj.parentPhone;
     txtParentEmail.text     = _userObj.parentEmail;
     txtParentAddress.text   = _userObj.address;
@@ -182,5 +194,10 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         imgAvatar.image = image;
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    return NO;
 }
 @end

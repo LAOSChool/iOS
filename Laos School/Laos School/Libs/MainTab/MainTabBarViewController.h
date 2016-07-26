@@ -12,7 +12,7 @@ typedef enum {
     MESSAGE_TAB = 0,
     ANNOUNCEMENT_TAB,
     ATTENDANCE_TAB,
-    TIMETABLE_TAB,
+    SCORE_TAB,
     MORE_TAB,
 } TAB_DEFINE;
 

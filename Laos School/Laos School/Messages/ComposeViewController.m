@@ -101,9 +101,9 @@
                 [reasonList addObject:LocalizedString(@"Sample 3")];
                 [reasonList addObject:LocalizedString(@"Sample 4")];
                 [reasonList addObject:LocalizedString(@"Sample 5")];
-                [reasonList addObject:LocalizedString(@"Sample 6")];
-                [reasonList addObject:LocalizedString(@"Sample 7")];
-                [reasonList addObject:LocalizedString(@"Sample 8")];
+//                [reasonList addObject:LocalizedString(@"Sample 6")];
+//                [reasonList addObject:LocalizedString(@"Sample 7")];
+//                [reasonList addObject:LocalizedString(@"Sample 8")];
                 
                 [self getAttendanceMessageContentSample];
                 
@@ -566,9 +566,9 @@
         [reasonList addObject:LocalizedString(@"Sample 3")];
         [reasonList addObject:LocalizedString(@"Sample 4")];
         [reasonList addObject:LocalizedString(@"Sample 5")];
-        [reasonList addObject:LocalizedString(@"Sample 6")];
-        [reasonList addObject:LocalizedString(@"Sample 7")];
-        [reasonList addObject:LocalizedString(@"Sample 8")];
+//        [reasonList addObject:LocalizedString(@"Sample 6")];
+//        [reasonList addObject:LocalizedString(@"Sample 7")];
+//        [reasonList addObject:LocalizedString(@"Sample 8")];
         
         [tableViewSampleMessage reloadData];
     }
