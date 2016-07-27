@@ -506,6 +506,8 @@
                         }
                     }
                     
+                    [tableViewSampleMessage reloadData];
+                    
                 } else {
                     
                     [self hardCodeForAttendanceMessageSample];
@@ -541,6 +543,8 @@
                             [reasonList addObject:[reason valueForKey:@"lval"]];
                         }
                     }
+                    
+                    [tableViewSampleMessage reloadData];
                     
                 } else {
                     
@@ -662,7 +666,14 @@
         }];
     }
     
-    [self hardCodeForAttendanceMessageSample];
+    if (_composeType == MessageCompose_Attendance) {
+        [self hardCodeForAttendanceMessageSample];
+        
+    } else if (_composeType == MessageCompose_Inform) {
+        
+        [self hardCodeForInformMessageSample];
+    }
+    
 }
 
 #pragma mark data source

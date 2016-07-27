@@ -293,6 +293,7 @@
         
         [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
         cell.textLabel.text = [_reasonList objectAtIndex:indexPath.row];
+        [cell.textLabel setNumberOfLines:2];
         
         if (selectedIndex && [indexPath isEqual:selectedIndex]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
