@@ -356,13 +356,34 @@
     if ([classesArr count] > 0) {
         NSDictionary *classDictionary = [classesArr objectAtIndex:0];
         if (classDictionary) {
-            classObject.classID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"id"]];
-            classObject.className = [classDictionary valueForKey:@"title"];
-            classObject.teacherID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"head_teacher_id"]];
-            classObject.teacherName = [classDictionary valueForKey:@"headTeacherName"];
-            classObject.classLocation = [classDictionary valueForKey:@"location"];
-            classObject.currentTerm = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"term"]];
-            classObject.currentYear = [classDictionary valueForKey:@"years"];
+            if ([classDictionary valueForKey:@"id"] != (id)[NSNull null]) {
+                classObject.classID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"id"]];
+            }
+            
+            if ([classDictionary valueForKey:@"title"] != (id)[NSNull null]) {
+                classObject.className = [classDictionary valueForKey:@"title"];
+            }
+            
+            if ([classDictionary valueForKey:@"head_teacher_id"] != (id)[NSNull null]) {
+                classObject.teacherID = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"head_teacher_id"]];
+            }
+            
+            if ([classDictionary valueForKey:@"headTeacherName"] != (id)[NSNull null]) {
+                classObject.teacherName = [classDictionary valueForKey:@"headTeacherName"];
+            }
+            
+            if ([classDictionary valueForKey:@"location"] != (id)[NSNull null]) {
+                classObject.classLocation = [classDictionary valueForKey:@"location"];
+            }
+            
+            if ([classDictionary valueForKey:@"term"] != (id)[NSNull null]) {
+                classObject.currentTerm = [NSString stringWithFormat:@"%@", [classDictionary valueForKey:@"term"]];
+            }
+            
+            if ([classDictionary valueForKey:@"years"] != (id)[NSNull null]) {
+                classObject.currentYear = [classDictionary valueForKey:@"years"];
+            }
+            
             classObject.pupilArray = nil;
         }
     }

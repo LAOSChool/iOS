@@ -167,12 +167,20 @@
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
-    [textViewPost resignFirstResponder];
-    [textViewTitle resignFirstResponder];
+    [self dismissKeyboard];
 }
 - (IBAction)swipeGestureHandle:(id)sender {
+    [self dismissKeyboard];
+}
+
+- (void)dismissKeyboard {
     [textViewPost resignFirstResponder];
     [textViewTitle resignFirstResponder];
+    
+    for (CustomImageView *view in imageViewArray) {
+        [view.txtCaption resignFirstResponder];
+    }
+
 }
 
 - (IBAction)btnPriorityFlagClick:(id)sender {
@@ -205,8 +213,7 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [textViewPost resignFirstResponder];
-    [textViewTitle resignFirstResponder];
+    [self dismissKeyboard];
 }
 
 #pragma mark - keyboard movements
@@ -281,8 +288,7 @@
 
 #pragma mark toolbar handle
 - (IBAction)photoHandle:(id)sender {
-    [textViewPost resignFirstResponder];
-    [textViewTitle resignFirstResponder];
+    [self dismissKeyboard];
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Select photo source") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Camera"), LocalizedString(@"Photo library"), nil];
     

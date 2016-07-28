@@ -102,42 +102,42 @@
         case MESSAGE_TAB:
             [FIRAnalytics setUserPropertyString:@"messsage_tab" forName:@"selected_tab"];
             
-            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-                                                                  kFIRParameterValue:@"messsage_tab"
-                                                                  }];
+//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+//                                                                  kFIRParameterValue:@"messsage_tab"
+//                                                                  }];
             
             break;
             
         case ANNOUNCEMENT_TAB:
             [FIRAnalytics setUserPropertyString:@"announcement_tab" forName:@"selected_tab"];
             
-            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-                                                                        kFIRParameterValue:@"announcement_tab"
-                                                                        }];
+//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+//                                                                        kFIRParameterValue:@"announcement_tab"
+//                                                                        }];
             break;
             
         case ATTENDANCE_TAB:
             [FIRAnalytics setUserPropertyString:@"attendance_tab" forName:@"selected_tab"];
             
-            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-                                                                        kFIRParameterValue:@"attendance_tab"
-                                                                        }];
+//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+//                                                                        kFIRParameterValue:@"attendance_tab"
+//                                                                        }];
             break;
             
         case SCORE_TAB:
             [FIRAnalytics setUserPropertyString:@"score_tab" forName:@"selected_tab"];
             
-            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-                                                                        kFIRParameterValue:@"score_tab"
-                                                                        }];
+//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+//                                                                        kFIRParameterValue:@"score_tab"
+//                                                                        }];
             break;
             
         case MORE_TAB:
             [FIRAnalytics setUserPropertyString:@"more_tab" forName:@"selected_tab"];
             
-            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-                                                                        kFIRParameterValue:@"more_tab"
-                                                                        }];
+//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
+//                                                                        kFIRParameterValue:@"more_tab"
+//                                                                        }];
             break;
             
         default:

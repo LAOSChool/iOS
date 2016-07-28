@@ -20,6 +20,8 @@
 #import "Common.h"
 #import "CommonAlert.h"
 
+@import FirebaseAnalytics;
+
 #define PLACEHOLDER_SUBJECT @"Subject"
 #define PLACEHOLDER_CONTENT @"Content"
 
@@ -271,6 +273,11 @@
 }
 
 - (void)sendNewMessage {
+    [FIRAnalytics logEventWithName:@"sent_message"
+                        parameters:@{
+                                     kFIRParameterValue:[NSNumber numberWithBool:_isTeacherForm]
+                                     }];
+    
     if (_isTeacherForm) {
         [self sendNewMessageByTeacher];
         
