@@ -273,15 +273,20 @@
 }
 
 - (void)sendNewMessage {
-    [FIRAnalytics logEventWithName:@"sent_message"
-                        parameters:@{
-                                     kFIRParameterValue:[NSNumber numberWithBool:_isTeacherForm]
-                                     }];
     
     if (_isTeacherForm) {
         [self sendNewMessageByTeacher];
         
+        [FIRAnalytics logEventWithName:@"teacher_sent_message"
+                            parameters:@{
+                                         kFIRParameterValue:@(1)
+                                         }];
+        
     } else {
+        [FIRAnalytics logEventWithName:@"student_sent_message"
+                            parameters:@{
+                                         kFIRParameterValue:@(1)
+                                         }];
         [self sendNewMessageByStudent];
     }
 }

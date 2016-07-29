@@ -50,13 +50,12 @@
         requestToServer.delegate = (id)self;
     }
     
-    if (_userScoreObj) {
-        ScoreObject *scoreObj = [_userScoreObj.scoreArray objectAtIndex:0];
+    if (_userScoreObj && _scoreObj) {
         
         lbStudentName.text = _userScoreObj.username;
         lbAdditionalInfo.text = _userScoreObj.additionalInfo;
         lbSubject.text = _userScoreObj.subject;
-        lbScoreMonth.text = scoreObj.scoreTypeObj.scoreShortName;
+        lbScoreMonth.text = _scoreObj.scoreTypeObj.scoreShortName;
         
         if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
             //cancel loading previous image for cell
@@ -69,21 +68,21 @@
             imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
         }
         
-        if (scoreObj.score.length > 0) {
-            txtScore.text = scoreObj.score;
+        if (_scoreObj.score.length > 0) {
+            txtScore.text = _scoreObj.score;
         } else {
             txtScore.text = @"";
         }
         
         [txtScore becomeFirstResponder];
         
-        if (scoreObj.comment == nil || scoreObj.comment.length == 0) {
+        if (_scoreObj.comment == nil || _scoreObj.comment.length == 0) {
             txtComment.text = TEXT_PLACEHOLDER;
             
             txtComment.textColor = [UIColor lightGrayColor];
             
         } else {
-            txtComment.text = scoreObj.comment;
+            txtComment.text = _scoreObj.comment;
             txtComment.textColor = [UIColor darkGrayColor];
         }
         

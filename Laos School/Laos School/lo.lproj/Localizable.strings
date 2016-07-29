@@ -79,15 +79,23 @@
 
 "[No subject]" = "[No subject]";
 
-"Inform 1" = "ຄອບ​ອອກ​ໄປ​ນອກ - ຍັງ​ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
-"Inform 2" = "ຄອບ​ເມື່ອ - ບໍ່​ສ​ະ​ບາຍ";
-"Inform 3" = "ຄອບ​ເມືອ - ມີ​ວຽກ​ທາງ​ບ້ານ";
-"Inform 4" = "ອອກ​ໄປ​ນອກ - ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ";
-"Inform 5" = "ໄປ​ແຂ່​ງ​ກິ​ລ​າ​ໃຫ້​ທາງ​ໂຮງ​ຮຽນ";
-"Inform 6" = "ໄປ​ອອກ​ແຮງ​ງານ";
-"Inform 7" = "ໄປ​ຮ່ວມ​ກິດ​ຈະ​ກຳ​ພາຍ​ໃນ​ໂຮງ​ຮຽນ";
-"Inform 8" = "ໄປ​ລວມ";
+"Inform 1" = "ຄອບ​ເມື່ອ - ບໍ່​ສ​ະ​ບາຍ.";
+"Inform 2" = "ຄອບ​ເມືອ - ມີ​ວຽກ​ທາງ​ບ້ານ.";
+"Inform 3" = "ຄອບ​ອອກ​ໄປ​ນອກ - ຍັງ​ບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ.";
+"Inform 4" = "ອອກ​ໄປ​ນອກ - ຍັງບໍ່​ກັບ​ເຂົ້າ​ມາ​ຫ້ອງ.";
+"Inform 5" = "ໄປ​ແຂ່​ງ​ກິ​ລ​າ​ໃຫ້​ທາງ​ໂຮງ​ຮຽນ.";
+"Inform 6" = "ໄປ​ອອກ​ແຮງ​ງານ.";
+"Inform 7" = "ໄປ​ຮ່ວມ​ກິດ​ຈະ​ກຳ​ພາຍ​ໃນ​ໂຮງ​ຮຽນ.";
+"Inform 8" = "ໄປ​ລວມ.";
 
+"Inform 1" = "Got sick and asked for permission to go home.";
+"Inform 2" = "Asked for permission to go home.";
+"Inform 3" = "Asked for permission to go out - not come back yet.";
+"Inform 4" = "Go out - not come back yet.";
+"Inform 5" = "Compete sports in school.";
+"Inform 6" = "Go working in school.";
+"Inform 7" = "Attend an event in school.";
+"Inform 8" = "Attend an meeting in school.";
 
 "There was an error while sending message. Please try again." = "ເກີດຂໍ້​ຜິດ​ພາດ​ໃນການ​ສົ່ງຂໍ້​ຄວາມ. ກະ​ລຸ​ນາ​ລອງໃໝ່​.";
 "Please enter recipient and content!" = "ກະ​ລຸ​ນາ​ໃສ່​ຜູ້​ຮັບ ແລະ ເນື້ອ​ໃນ!";
