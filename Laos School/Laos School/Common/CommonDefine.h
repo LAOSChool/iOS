@@ -48,8 +48,8 @@
 #define KEY_AUTH_KEY @"authenkey"
 #define KEY_USERNAME @"usernamekey"
 
-#define ATTENDANCE_DATE_FORMATE @"EEEE, yyyy-MM-dd"
-#define COMMON_DATE_FORMATE @"yyyy-MM-dd"
+#define ATTENDANCE_DATE_FORMATE @"EEEE, dd-MM-yyy"
+#define COMMON_DATE_FORMATE @"dd-MM-yyy"
 
 #define TERM_VALUE_1 @"1"
 #define TERM_VALUE_2 @"2"

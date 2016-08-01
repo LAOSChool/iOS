@@ -61,6 +61,8 @@
 
 #define API_NAME_STU_RANKING @"/api/exam_results/ranks"
 
+#define API_NAME_UPLOAD_FIREBASE_ID @"/api/tokens/save"
+
 #define HttpOK 200
 #define Accepted 201
 #define HttpNoResponse 204
@@ -140,6 +142,8 @@
 //school record
 - (void)getStudentTermList;
 - (void)getSchoolRecordForYear:(NSString *)termID;
+
+- (void)uploadFirebaseIDToServer:(NSString *)firebaseID;
 
 @property(nonatomic, readwrite) id <RequestToServerDelegate> delegate;
 @end

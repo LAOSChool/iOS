@@ -243,6 +243,11 @@
 
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
+    NSString *url = [jsonObj objectForKey:@"url"];
+    
+    if ([url rangeOfString:API_NAME_UPLOAD_FIREBASE_ID].location != NSNotFound) {
+        return;
+    }
     /*
      {
      addr1 = "<null>";
@@ -403,6 +408,13 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = tab;
+    
+    //submit firebase token
+    NSString *firebaseID = [[ArchiveHelper sharedArchiveHelper] loadDataFromUserDefaultStandardWithKey:KEY_FIREBASE_TOKEN];
+    
+    if (firebaseID && firebaseID.length > 0) {
+        [requestToServer uploadFirebaseIDToServer:firebaseID];
+    }
 }
 
 - (NSArray *)prepareForMaintabViewController {

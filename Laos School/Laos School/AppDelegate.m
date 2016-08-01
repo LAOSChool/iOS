@@ -14,6 +14,7 @@
 #import "CoreDataUtil.h"
 #import "ArchiveHelper.h"
 #import "CommonDefine.h"
+#import "RequestToServer.h"
 
 @import Firebase;
 @import FirebaseInstanceID;
@@ -21,7 +22,9 @@
 @import FirebaseAnalytics;
 
 @interface AppDelegate ()
-
+{
+    RequestToServer *requestToServer;
+}
 @end
 
 @implementation AppDelegate
@@ -69,6 +72,11 @@
                                              selector:@selector(pushToLoginScreen)
                                                  name:@"PushToLoginScreen"
                                                object:nil];
+    
+    if (requestToServer == nil) {
+        requestToServer = [[RequestToServer alloc] init];
+        requestToServer.delegate = (id)self;
+    }
     
     [self turnOnOffNotification:YES];
     
@@ -140,6 +148,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     // TODO: If necessary send token to appliation server.
     [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:refreshedToken withKey:KEY_FIREBASE_TOKEN];
+    
+    
+    [requestToServer uploadFirebaseIDToServer:refreshedToken];
 }
 // [END refresh_token]
 
@@ -343,5 +354,24 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         [[UIApplication sharedApplication] unregisterForRemoteNotifications];
         [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:KEY_NOTIFICATION_ONOFF];
     }
+}
+
+#pragma mark RequestToServer delegate
+- (void)failToConnectToServer {
+
+}
+
+- (void)sendPostRequestFailedWithUnknownError {
+
+}
+
+- (void)loginWithWrongUserPassword {   
+    
+}
+
+- (void)accountLoginByOtherDevice {
+}
+
+- (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
 }
 @end

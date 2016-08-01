@@ -32,7 +32,7 @@
 #import "MGSwipeButton.h"
 #import "SVProgressHUD.h"
 
-#define API_ATTENDANCE_DATE_FORMATE @"yyyy-MM-dd"
+#define API_ATTENDANCE_DATE_FORMATE @"dd-MM-yyyy"
 
 @interface TeacherAttendanceViewController ()
 {
@@ -230,7 +230,11 @@
     
     //set content
     NSString *content = @"";
-    content = [NSString stringWithFormat:@"%@\n%@\n", lbDate.text, lbSession.text];
+    NSString *line1 = lbDate.text;
+    NSString *line2 = [NSString stringWithFormat:@"%@ %@ (%@)\n", LocalizedString(@"Period"), currentSession.session, currentSession.duration];
+    NSString *line3 = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"Subject"), currentSession.subject];
+                       
+    content = [NSString stringWithFormat:@"%@\n%@\n%@\n", line1, line2, line3];
     composeViewController.content = content;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];

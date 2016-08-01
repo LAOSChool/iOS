@@ -709,6 +709,24 @@ static RequestToServer* sharedRequestToServer = nil;
     [connection start];
 }
 
+- (void)uploadFirebaseIDToServer:(NSString *)firebaseID {
+    NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_UPLOAD_FIREBASE_ID];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:30.0];
+    // Specify that it will be a GET request
+    [request setHTTPMethod:@"POST"];
+    [request setValue:firebaseID forHTTPHeaderField:@"token"];
+    [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
+    [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    [connection start];
+}
+
 #pragma mark - NSURLConnectionDelegate
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
@@ -785,7 +803,7 @@ static RequestToServer* sharedRequestToServer = nil;
 }
 
  - (NSString *)getAPIKey {
-     NSString *apiKey = @"TEST_API_KEY";
+     NSString *apiKey = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
      return apiKey;
  }
 

@@ -79,14 +79,17 @@
 
 "[No subject]" = "[No subject]";
 
-"Inform 1" = "Asked for permission to go out - not come back yet.";
-"Inform 2" = "Got sick and asked for permission to go home.";
-"Inform 3" = "Asked for permission to go home.";
+"Inform 1" = "Got sick and asked for permission to go home.";
+"Inform 2" = "Asked for permission to go home.";
+"Inform 3" = "Asked for permission to go out - not come back yet.";
 "Inform 4" = "Go out - not come back yet.";
 "Inform 5" = "Compete sports in school.";
 "Inform 6" = "Go working in school.";
 "Inform 7" = "Attend an event in school.";
 "Inform 8" = "Attend an meeting in school.";
+
+"Subject" = "Subject";
+"Teacher" = "Teacher";
 
 "There was an error while sending message. Please try again." = "There was an error while sending message. Please try again.";
 "Please enter recipient and content!" = "Please enter recipient and content!";
