@@ -101,14 +101,12 @@
     
     [requestDict setValue:userObj.shoolID forKey:@"school_id"];
     [requestDict setValue:classObj.classID forKey:@"class_id"];
-//    [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"] forKey:@"from_dt"];
-//    [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbToDate.text withFormat:@"yyyy-MM-dd"] forKey:@"to_dt"];
     [requestDict setValue:userObj.userID forKey:@"student_id"];
     [requestDict setValue:[NSNumber numberWithInteger:1] forKey:@"state"];
     [requestDict setValue:reason forKey:@"notice"];
     
-    NSString *fromDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"];
-    NSString *toDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbToDate.text withFormat:@"yyyy-MM-dd"];
+    NSString *fromDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"dd-MM-yyyy"];
+    NSString *toDate = [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbToDate.text withFormat:@"dd-MM-yyyy"];
     
     [requestToServer createAbsenceRequest:requestDict fromDate:fromDate toDate:toDate];
 }
@@ -266,7 +264,7 @@
 }
 
 - (void)showAlertRequestDuplicated {
-    NSString *content = [NSString stringWithFormat:LocalizedString(@"An absence request had been sent for day %@ already. Please double check."), [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"yyyy-MM-dd"]];
+    NSString *content = [NSString stringWithFormat:LocalizedString(@"An absence request had been sent for day %@ already. Please double check."), [[DateTimeHelper sharedDateTimeHelper] dateStringFromString:lbDate.text withFormat:@"dd-MM-yyyy"]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 6;
     

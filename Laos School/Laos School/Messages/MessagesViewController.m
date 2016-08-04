@@ -116,6 +116,10 @@
                                                  name:@"RefreshMessageAfterUpdateFlag"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAfterSentNewMessage)
+                                                 name:@"DidReceiveRemoteNotification"
+                                               object:nil];
     //for test
     /*
     MessageObject *messObj = [[MessageObject alloc] init];
@@ -319,6 +323,16 @@
     } else {
         [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
+    /*
+    if ([messagesArray count] > 0) {
+        lastMessage = [messagesArray firstObject];  //the first object is the newest message in this array
+        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
+        
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
+        
+    } else {
+        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
+    }*/
 }
 
 #pragma mark load unread message
@@ -355,9 +369,17 @@
     } else {
         [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
+    /*if ([unreadMessagesArray count] > 0) {
+        lastMessage = [unreadMessagesArray firstObject];
+        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
+        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
+        
+    } else {
+        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
+    }*/
 }
 
-#pragma mark load all message
+#pragma mark load sent message
 - (void)loadSentMessagesFromCoredata {
     MessageObject *lastMessage = nil;
     NSArray *newData = nil;
@@ -392,6 +414,14 @@
     } else {
         [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
+    /*if ([sentMessagesArray count] > 0) {
+        lastMessage = [sentMessagesArray firstObject];
+        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
+        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
+        
+    } else {
+        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
+    }*/
 }
 
 - (IBAction)segmentAction:(id)sender {
@@ -540,7 +570,7 @@
     
     if (messageObj.dateTime && messageObj.dateTime.length > 0) {
         //messageObj.dateTime
-        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"MM-dd HH:mm"];
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:messageObj.dateTime withFormat:@"dd-MM HH:mm"];
     }
     //for test
 //    cell.lbTime.text = @"05-25 15:27";
@@ -812,7 +842,7 @@
             }
             
             if ([messageDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"yyyy-MM-dd HH:mm"];
+                messObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[messageDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM-yyyy HH:mm:ss.SSS"];
             }
             
             if ([messageDict valueForKey:@"frm_user_photo"] != (id)[NSNull null]) {

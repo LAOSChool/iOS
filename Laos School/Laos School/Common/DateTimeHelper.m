@@ -160,7 +160,17 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy'T'HH:mmZZZ";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
         date = [dateFormatter dateFromString:dateStr];
     }
     
@@ -170,7 +180,17 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy'T'HH:mm:ss";
         date = [dateFormatter dateFromString:dateStr];
     }
     
@@ -180,7 +200,17 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy'T'HH:mm:ss.SSS";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss.SSS";
         date = [dateFormatter dateFromString:dateStr];
     }
     
@@ -251,6 +281,11 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     
     if (date == nil) {
         dateFormatter.dateFormat = @"yyyy/MM/dd";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"dd/MM/yyyy";
         date = [dateFormatter dateFromString:dateStr];
     }
     

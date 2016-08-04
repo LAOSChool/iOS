@@ -132,6 +132,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     // Pring full message.
     NSLog(@"%@", userInfo);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceiveRemoteNotification" object:nil];
 }
 // [END receive_message]
 

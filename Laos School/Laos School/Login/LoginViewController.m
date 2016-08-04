@@ -245,7 +245,7 @@
     [SVProgressHUD dismiss];
     NSString *url = [jsonObj objectForKey:@"url"];
     
-    if ([url rangeOfString:API_NAME_UPLOAD_FIREBASE_ID].location != NSNotFound) {
+    if (url && [url rangeOfString:API_NAME_UPLOAD_FIREBASE_ID].location != NSNotFound) {
         return;
     }
     /*

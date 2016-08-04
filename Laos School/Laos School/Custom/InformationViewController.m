@@ -67,7 +67,7 @@
 }
 
 - (void)loadInformation {
-    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_attObj.dateTime withFormat:@"yyyy-MM-dd"];
+    lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_attObj.dateTime withFormat:@"dd-MM-yyyy"];
     
     if ([_attObj.detailSession count] > 0 || _isDetail == YES) {
         NSString *session = _attObj.session;

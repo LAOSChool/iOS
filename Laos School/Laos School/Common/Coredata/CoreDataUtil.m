@@ -14,7 +14,7 @@
 
 #import "ArchiveHelper.h"
 
-#define PAGING_REQUEST 30
+#define PAGING_REQUEST 100
 #define ENTITY_MESSAGES @"Messages"
 #define ENTITY_ANNOUNCEMENTS @"Announcements"
 

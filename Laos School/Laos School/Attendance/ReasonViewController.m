@@ -218,7 +218,7 @@
         [requestDict setValue:userObj.shoolID forKey:@"school_id"];
         [requestDict setValue:classObj.classID forKey:@"class_id"];
         [requestDict setValue:userObj.userID forKey:@"student_id"];
-        [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:_dateTime withFormat:@"yyyy-MM-dd"] forKey:@"att_dt"];
+        [requestDict setValue:[[DateTimeHelper sharedDateTimeHelper] dateStringFromString:_dateTime withFormat:@"dd-MM-yyyy"] forKey:@"att_dt"];
         
         if (isFulldayChecked == NO) {
             [requestDict setValue:_currentSession.subjectID forKey:@"subject_id"];

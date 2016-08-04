@@ -10,6 +10,7 @@
 #define LazzyBee_RequestToServer_h
 #import <Foundation/Foundation.h>
 
+
 //#define TEST_SERVER @"https://192.168.0.119:8443/laoschoolws"
 
 #ifdef PRODUCTION_SERVER
@@ -123,9 +124,16 @@
 - (void)updateMessageRead:(NSInteger)messageID withFlag:(BOOL)flag;
 - (void)updateMessageImportance:(NSInteger)messageID withFlag:(BOOL)flag;
 - (void)createMessageWithObject:(NSDictionary *)messageDict;
+
 - (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getMessageListToUser:(NSString *)userID fromDate:(NSString *)date;
+
 - (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getUnreadMessageListToUser:(NSString *)userID fromDate:(NSString *)date;
+
 - (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID;
+- (void)getSentMessageListFromUser:(NSString *)userID fromDate:(NSString *)date;
+
 - (void)getAbsenceReasonSample;
 - (void)getAttendanceMessageContentSample;
 - (void)getInformMessageContentSample;

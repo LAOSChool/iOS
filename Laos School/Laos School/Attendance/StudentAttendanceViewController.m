@@ -241,7 +241,7 @@
     
     AttendanceObject *attObj = (AttendanceObject *)attCellData.cellData;
     
-    cell.lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:attObj.dateTime withFormat:@"yyyy-MM-dd"];
+    cell.lbDate.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:attObj.dateTime withFormat:@"dd-MM-yyyy"];
     
     if (attObj.hasRequest) {
         [cell.contentView setBackgroundColor:READ_COLOR];

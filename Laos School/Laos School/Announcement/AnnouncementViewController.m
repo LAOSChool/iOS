@@ -128,6 +128,11 @@
                                                  name:@"RefreshAnnouncementAfterUpdateFlag"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadDataFromServer)
+                                                 name:@"DidReceiveRemoteNotification"
+                                               object:nil];
+    
     //for test
 #if 0
     AnnouncementObject *announcementObj = [[AnnouncementObject alloc] init];
@@ -524,7 +529,7 @@
     cell.lbBriefContent.text = announcementObject.content;
     
     if (announcementObject.dateTime && announcementObject.dateTime.length > 0) {
-        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:announcementObject.dateTime withFormat:@"MM-dd HH:mm"];
+        cell.lbTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:announcementObject.dateTime withFormat:@"dd-MM HH:mm"];
     }
     
     cell.lbSenderName.text = announcementObject.fromUsername;
@@ -715,7 +720,7 @@
             }
             
             if ([announcementDict valueForKey:@"sent_dt"] != (id)[NSNull null]) {
-                announcementObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[announcementDict valueForKey:@"sent_dt" ] withFormat:@"yyyy-MM-dd HH:mm"];
+                announcementObj.dateTime = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:[announcementDict valueForKey:@"sent_dt" ] withFormat:@"dd-MM-yyyy HH:mm:ss.SSS"];
             }
             
             if ([announcementDict valueForKey:@"notifyImages"] != (id)[NSNull null]) {
