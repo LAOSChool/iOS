@@ -32,6 +32,8 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 
+@import FirebaseAnalytics;
+
 #define IMAGE_FILE_SIZE 1024
 #define IMAGE_VIEW_HEIGHT 275
 #define IMAGE_VIEW_OFFSET 8
@@ -93,7 +95,7 @@
         
         lbTo.text = LocalizedString(@"From:");
         lbReceiverList.text = _announcementObject.fromUsername;
-        lbDateTime.text = _announcementObject.dateTime;
+        lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_announcementObject.dateTime withFormat:@"dd-MM-yyyy HH:mm:ss"];
         
         [textViewPost setFont:[UIFont systemFontOfSize:15]];
         
@@ -683,7 +685,9 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     [connection start];
     
-    
+    [FIRAnalytics logEventWithName:@"sent_announcement" parameters:@{
+                                                                              kFIRParameterValue:@(1)
+                                                                              }];
 }
 
 - (void)insertParameterToBody:(NSMutableData *)body paramKey:(NSString *)key paramValue:(NSString *)value withBoundary:(NSString *)boundary {

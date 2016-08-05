@@ -732,5 +732,16 @@
     txtContent.text = [txtContent.text stringByAppendingFormat:@"\n%@", sample];
     
     [self btnShowSampleClick:nil];
+    
+    if (_composeType == MessageCompose_Attendance) {
+        [FIRAnalytics logEventWithName:[NSString stringWithFormat:@"attendance_message_%ld", (long)indexPath.row] parameters:@{
+                                                                                                                           kFIRParameterValue:@(1)
+                                                                                                                           }];
+        
+    } else if (_composeType == MessageCompose_Inform) {
+        [FIRAnalytics logEventWithName:[NSString stringWithFormat:@"inform_message_%ld", (long)indexPath.row] parameters:@{
+                                                                                                                           kFIRParameterValue:@(1)
+                                                                                                                           }];
+    }
 }
 @end

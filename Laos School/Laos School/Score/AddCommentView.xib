@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddCommentView">
@@ -98,12 +98,6 @@
             </connections>
             <point key="canvasLocation" x="154" y="142"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="blb-wP-dtj">
-            <connections>
-                <action selector="panGestureHandle:" destination="-1" id="cUv-9W-iRI"/>
-                <outlet property="delegate" destination="-1" id="DhI-qZ-zmh"/>
-            </connections>
-        </panGestureRecognizer>
         <panGestureRecognizer minimumNumberOfTouches="1" id="umS-lq-2OX">
             <connections>
                 <action selector="panGestureHandle:" destination="-1" id="Win-uy-5vZ"/>

@@ -33,4 +33,5 @@
 @property (nonatomic, strong) ScoreObject *scoreObj;
 @property (nonatomic, assign) BOOL editFlag;
 
+- (void)resetPosition;
 @end

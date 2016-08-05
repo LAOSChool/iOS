@@ -16,11 +16,14 @@
 
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
+
 #define TEXT_PLACEHOLDER LocalizedString(@"Comment")
 
 @interface AddSingleScore ()
 {
     RequestToServer *requestToServer;
+    CGRect reserveRect;
 }
 @end
 
@@ -106,6 +109,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (reserveRect.size.height == 0) {
+        reserveRect = viewContainer.frame;
+    }
+}
+
+- (void)resetPosition {
+    if (reserveRect.size.height != 0) {
+        [viewContainer setFrame:reserveRect];
+    }
+}
+
 - (IBAction)tapGestureHandle:(id)sender {
     [txtScore resignFirstResponder];
     [txtComment resignFirstResponder];
@@ -121,6 +137,10 @@
 }
 
 - (IBAction)btnSubmitClick:(id)sender {
+    [FIRAnalytics logEventWithName:@"submit_single_score" parameters:@{
+                                                                         kFIRParameterValue:@(1)
+                                                                         }];
+    
     NSMutableDictionary *scoreDict = [[NSMutableDictionary alloc] init];
     //create message json
     /*
@@ -218,6 +238,39 @@
     if (_editFlag) {
         [txtScore becomeFirstResponder];
     }
+}
+
+- (IBAction)panGestureHandle:(id)sender {
+    CGPoint translation = [(UIPanGestureRecognizer*)sender translationInView:viewContainer.superview];
+    [viewContainer setCenter:CGPointMake([viewContainer center].x + translation.x,
+                                [viewContainer center].y + translation.y)];
+    [(UIPanGestureRecognizer*)sender setTranslation:CGPointMake(0, 0) inView:viewContainer];
+    
+    if ([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            CGRect rect = viewContainer.frame;
+            
+            if (rect.origin.y < 0) {
+                rect.origin.y = 0;
+            }
+            
+            if (rect.origin.y > self.view.frame.size.height/2 - 50) {
+                rect.origin.y = self.view.frame.size.height/2 - 50;
+            }
+            
+            if (rect.origin.x < 0) {
+                rect.origin.x = 0;
+            }
+            
+            if (rect.origin.x + rect.size.width > self.view.frame.size.width) {
+                rect.origin.x = self.view.frame.size.width - rect.size.width;
+            }
+            
+            [viewContainer setFrame:rect];
+            
+        } completion:nil];
+    }
+    
 }
 
 #pragma mark text view delegate

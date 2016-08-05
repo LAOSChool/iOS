@@ -34,7 +34,7 @@
 #import "SVProgressHUD.h"
 #import "CommonAlert.h"
 
-
+@import FirebaseAnalytics;
 
 @interface LoginViewController ()
 {
@@ -50,6 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FIRAnalytics logEventWithName:@"Open_iLoginScreen" parameters:@{
+                                                                            kFIRParameterValue:@(1)
+                                                                            }];
     
     [self.view setBackgroundColor:COMMON_COLOR];
     [viewContainer setBackgroundColor:[UIColor whiteColor]];
@@ -231,6 +234,9 @@
     [self showAlertWrongUsernamePassword];
 }
 - (void)loginSuccessfully {
+    [FIRAnalytics logEventWithName:@"login_successfully" parameters:@{
+                                                                     kFIRParameterValue:@(1)
+                                                                     }];
     [requestToServer getMyProfile];
 }
 
@@ -344,6 +350,8 @@
                 userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance | Permission_SendAnnouncement | Permission_AddScore;
                 
             }
+            
+            [FIRAnalytics setUserPropertyString:role forName:@"account_role"];
             
         }
     }

@@ -22,6 +22,8 @@
 #import "SVProgressHUD.h"
 #import "MHTabBarController.h"
 
+@import FirebaseAnalytics;
+
 typedef enum {
     TabType_TermFirst = 0,
     TabType_TermSecond,
@@ -55,6 +57,9 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FIRAnalytics logEventWithName:@"Open_iSchoolRecordsScreen" parameters:@{
+                                                                     kFIRParameterValue:@(1)
+                                                                     }];
     [self setTitle:LocalizedString(@"School records")];
     
     [self.navigationController setNavigationColor];

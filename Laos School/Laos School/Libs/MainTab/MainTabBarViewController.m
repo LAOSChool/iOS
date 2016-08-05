@@ -100,44 +100,39 @@
 	
     switch (tabBarController.selectedIndex) {
         case MESSAGE_TAB:
-            [FIRAnalytics setUserPropertyString:@"messsage_tab" forName:@"selected_tab"];
             
-//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-//                                                                  kFIRParameterValue:@"messsage_tab"
-//                                                                  }];
+            [FIRAnalytics logEventWithName:@"selected_messsage_tab" parameters:@{
+                                                                  kFIRParameterValue:@"1"
+                                                                  }];
             
             break;
             
         case ANNOUNCEMENT_TAB:
-            [FIRAnalytics setUserPropertyString:@"announcement_tab" forName:@"selected_tab"];
             
-//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-//                                                                        kFIRParameterValue:@"announcement_tab"
-//                                                                        }];
+            [FIRAnalytics logEventWithName:@"selected_announcement_tab" parameters:@{
+                                                                        kFIRParameterValue:@"1"
+                                                                        }];
             break;
             
         case ATTENDANCE_TAB:
-            [FIRAnalytics setUserPropertyString:@"attendance_tab" forName:@"selected_tab"];
             
-//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-//                                                                        kFIRParameterValue:@"attendance_tab"
-//                                                                        }];
+            [FIRAnalytics logEventWithName:@"selected_attendance_tab" parameters:@{
+                                                                        kFIRParameterValue:@"1"
+                                                                        }];
             break;
             
         case SCORE_TAB:
-            [FIRAnalytics setUserPropertyString:@"score_tab" forName:@"selected_tab"];
             
-//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-//                                                                        kFIRParameterValue:@"score_tab"
-//                                                                        }];
+            [FIRAnalytics logEventWithName:@"selected_score_tab" parameters:@{
+                                                                        kFIRParameterValue:@"1"
+                                                                        }];
             break;
             
         case MORE_TAB:
-            [FIRAnalytics setUserPropertyString:@"more_tab" forName:@"selected_tab"];
             
-//            [FIRAnalytics logEventWithName:@"selected_tab" parameters:@{
-//                                                                        kFIRParameterValue:@"more_tab"
-//                                                                        }];
+            [FIRAnalytics logEventWithName:@"selected_more_tab" parameters:@{
+                                                                        kFIRParameterValue:@"1"
+                                                                        }];
             break;
             
         default:

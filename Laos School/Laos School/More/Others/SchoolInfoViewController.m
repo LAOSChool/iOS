@@ -11,6 +11,8 @@
 #import "LocalizeHelper.h"
 #import "Common.h"
 
+@import FirebaseAnalytics;
+
 #define SCHOOL_INFO_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 #define SCHOOL_INFO_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 
@@ -23,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FIRAnalytics logEventWithName:@"Open_iSchoolInfoScreen" parameters:@{
+                                                                    kFIRParameterValue:@(1)
+                                                                    }];
     [self.navigationController setNavigationColor];
     [self setTitle:LocalizedString(@"School info")];
     

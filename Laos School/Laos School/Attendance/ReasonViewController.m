@@ -15,6 +15,7 @@
 #import "RequestToServer.h"
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
 
 @interface ReasonViewController ()
 {    
@@ -234,6 +235,14 @@
         [requestToServer createAttendanceChecking:requestDict];
         
         [self dismissReasonView];
+        
+        [FIRAnalytics logEventWithName:@"submit_attendance_checking" parameters:@{
+                                                                           kFIRParameterValue:@(1)
+                                                                           }];
+        
+        [FIRAnalytics logEventWithName:[NSString stringWithFormat:@"off_reason_%ld", (long)selectedIndex.row] parameters:@{
+                                                                                  kFIRParameterValue:@(1)
+                                                                                  }];
     }
 }
 

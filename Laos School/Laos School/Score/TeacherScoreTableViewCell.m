@@ -71,6 +71,7 @@
                   [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE4M2] ||
                   [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_TERM_EXAM2] ||
                   [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_AVE_TERM2] ||
+                  [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_OVERALL] ||
                   [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_RETEST] ||
                   [scoreObj.scoreTypeObj.scoreKey isEqualToString:SCORE_KEY_GRADUATION])) {
                 

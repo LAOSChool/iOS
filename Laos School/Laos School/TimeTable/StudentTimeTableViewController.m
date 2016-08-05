@@ -22,6 +22,8 @@
 
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 @interface StudentTimeTableViewController ()
 {
     MHTabBarController *tabViewController;
@@ -37,6 +39,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FIRAnalytics logEventWithName:@"Open_iTimetableScreen" parameters:@{
+                                                                     kFIRParameterValue:@(1)
+                                                                     }];
+    
     [self setTitle:LocalizedString(@"Timetable")];
     
     [self.navigationController setNavigationColor];

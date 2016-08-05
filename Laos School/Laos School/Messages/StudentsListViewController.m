@@ -19,6 +19,8 @@
 
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
+
 @interface StudentsListViewController ()
 {
 //    UIBarButtonItem *btnCheck;
@@ -55,6 +57,10 @@
         
     } else {
         btnCheck.hidden = YES;
+        
+        [FIRAnalytics logEventWithName:@"Open_iStudentList" parameters:@{
+                                                                                  kFIRParameterValue:@(1)
+                                                                                  }];
     }
     
     refreshControl = [[UIRefreshControl alloc] init];

@@ -12,6 +12,7 @@
 #import "RequestToServer.h"
 #import "CoreDataUtil.h"
 #import "LocalizeHelper.h"
+#import "DateTimeHelper.h"
 
 @interface MessageDetailViewController ()
 {
@@ -54,7 +55,8 @@
     [txtContent setFont:[UIFont systemFontOfSize:15]];
     
     if (_messageObject.dateTime != (id)[NSNull null]) {
-        lbDateTime.text = _messageObject.dateTime;
+        lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_messageObject.dateTime withFormat:@"dd-MM-yyyy HH:mm:ss"];
+        
     }
     
     if (_isIncomeMessage == YES) {

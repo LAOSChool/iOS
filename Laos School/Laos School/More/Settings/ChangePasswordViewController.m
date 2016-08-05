@@ -16,6 +16,8 @@
 
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
+
 @interface ChangePasswordViewController ()
 {
     RequestToServer *requestToServer;
@@ -124,6 +126,10 @@
             [self showAlertPasswordTooShort];
             
         } else {
+            [FIRAnalytics logEventWithName:@"change_password" parameters:@{
+                                                                             kFIRParameterValue:@(1)
+                                                                             }];
+            
             [SVProgressHUD show];
             UserObject *userObj = [[ShareData sharedShareData] userObj];
             

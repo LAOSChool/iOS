@@ -17,6 +17,8 @@
 #import "ShareData.h"
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
+
 #define SELECT_FROM_DATE 1
 #define SELECT_TO_DATE 2
 
@@ -89,6 +91,10 @@
 }
 
 - (void)sendNewAbsenceRequest {
+    [FIRAnalytics logEventWithName:@"student_send_absence_request" parameters:@{
+                                                                       kFIRParameterValue:@(1)
+                                                                       }];
+    
     [SVProgressHUD show];
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
 

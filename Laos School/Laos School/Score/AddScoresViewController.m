@@ -23,6 +23,8 @@
 
 #import "SVProgressHUD.h"
 
+@import FirebaseAnalytics;
+
 #define NOTE_WIDTH 250
 #define NOTE_HEIGHT 250
 
@@ -252,6 +254,10 @@
 
     if ([scoresArr count] > 0) {
         [requestToServer submitMultipleScoresWithObject:scoresArr];
+        
+        [FIRAnalytics logEventWithName:@"submit_multi_score" parameters:@{
+                                                                           kFIRParameterValue:@(1)
+                                                                           }];
     }
     
     

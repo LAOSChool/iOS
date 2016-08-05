@@ -225,6 +225,9 @@
             
             if (addSingleScoreView == nil) {
                 addSingleScoreView = [[AddSingleScore alloc] initWithNibName:@"AddSingleScore" bundle:nil];
+                
+            } else {
+                [addSingleScoreView resetPosition];
             }
             
             addSingleScoreView.scoreObj = scoreObj;

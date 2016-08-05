@@ -14,6 +14,8 @@
 #import "Common.h"
 #import "CommonAlert.h"
 
+@import FirebaseAnalytics;
+
 @interface ForgotPasswordViewController ()
 {
     RequestToServer *requestToServer;
@@ -90,6 +92,10 @@
 
 - (IBAction)btnSubmitClick:(id)sender {
 
+    [FIRAnalytics logEventWithName:@"forgot_password" parameters:@{
+                                                                     kFIRParameterValue:@(1)
+                                                                     }];
+    
     if ([[Common sharedCommon]networkIsActive]) {
         [txtUsername resignFirstResponder];
         [txtPhonenumber resignFirstResponder];

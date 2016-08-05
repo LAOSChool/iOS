@@ -12,6 +12,8 @@
 #import "Common.h"
 #import "ComposeViewController.h"
 
+@import FirebaseAnalytics;
+
 @interface PersonalInfoViewController ()
 
 @end
@@ -21,6 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FIRAnalytics logEventWithName:@"Open_iStudentInfo" parameters:@{
+                                                                    kFIRParameterValue:@(1)
+                                                                    }];
+    
     [self setTitle:LocalizedString(@"Student info")];
     lbParentInfo.text = LocalizedString(@"Parent info");
     
@@ -101,6 +107,10 @@
 */
 
 - (void)sendMessageClick {
+    [FIRAnalytics logEventWithName:@"sent_message_from_student_info" parameters:@{
+                                                                     kFIRParameterValue:@(1)
+                                                                     }];
+    
     ComposeViewController *composeViewController = nil;
     
     composeViewController = [[ComposeViewController alloc] initWithNibName:@"TeacherComposeViewController" bundle:nil];
