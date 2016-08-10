@@ -98,6 +98,7 @@
         [mess setToID:messageObject.toID];
         [mess setToUsername:messageObject.toUsername];
         [mess setSenderAvatar:messageObject.senderAvatar];
+        [mess setReceiverAvatar:messageObject.receiverAvatar];
         [mess setUnreadFlag:[NSNumber numberWithBool:messageObject.unreadFlag]];
         
         [self commitInManagedObjectContext:self.defaultManagedObjectContext];
@@ -237,6 +238,7 @@
             messageObj.toID = mess.toID;
             messageObj.toUsername = mess.toUsername;
             messageObj.senderAvatar = mess.senderAvatar;
+            messageObj.receiverAvatar = mess.receiverAvatar;
             messageObj.unreadFlag = [mess.unreadFlag boolValue];
             
             [results addObject:messageObj];

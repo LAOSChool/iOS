@@ -14,12 +14,13 @@
 #import "ClassObject.h"
 
 #define USER_ROLE_STUDENT @"STUDENT"
-#define USER_ROLE_PRESIDENT @"PRESIDENT"
+#define USER_ROLE_PRESIDENT @"CLS_PRESIDENT"
 #define USER_ROLE_HEAD_TEACHER @"TEACHER"
 #define USER_ROLE_SUB_TEACHER @"TEACHER"
 
 typedef enum {
     UserRole_Student = 0,
+    UserRole_President,
     UserRole_Teacher,
     UserRole_Max,
 } USER_ROLE;

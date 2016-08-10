@@ -355,6 +355,8 @@
         //load the image
         cell.imgAvatar.imageURL = [NSURL URLWithString:userScoreObject.avatarLink];
         
+    } else {
+        cell.imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
     }
     
     return cell;

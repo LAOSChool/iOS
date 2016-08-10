@@ -603,6 +603,9 @@
             
             //load the image
             cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.receiverAvatar];
+            
+        } else {
+            cell.imgMesseageType.image = [UIImage imageNamed:@"ic_user_gray.png"];
         }
         
     } else {
@@ -612,6 +615,9 @@
             
             //load the image
             cell.imgMesseageType.imageURL = [NSURL URLWithString:messageObj.senderAvatar];
+            
+        } else {
+            cell.imgMesseageType.image = [UIImage imageNamed:@"ic_user_gray.png"];
         }
     }
     

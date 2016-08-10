@@ -64,25 +64,40 @@
             lbFromUsername.text = _messageObject.fromUsername;
             [self setTitle:_messageObject.fromUsername];
         }
+        
+        if (_messageObject.senderAvatar && _messageObject.senderAvatar.length > 0) {
+            //cancel loading previous image for cell
+            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
+            
+            //load the image
+            imgAvatar.imageURL = [NSURL URLWithString:_messageObject.senderAvatar];
+            
+        } else {
+            imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
+        }
+        
     } else {
         
         if (_messageObject.toUsername != (id)[NSNull null]) {
             lbFromUsername.text = _messageObject.toUsername;
             [self setTitle:_messageObject.toUsername];
         }
+        
+        if (_messageObject.receiverAvatar && _messageObject.receiverAvatar.length > 0) {
+            //cancel loading previous image for cell
+            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
+            
+            //load the image
+            imgAvatar.imageURL = [NSURL URLWithString:_messageObject.receiverAvatar];
+            
+        } else {
+            imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
+        }
     }
     
     if (requestToServer == nil) {
         requestToServer = [[RequestToServer alloc] init];
         requestToServer.delegate = (id)self;
-    }
-    
-    if (_messageObject.senderAvatar && _messageObject.senderAvatar.length > 0) {
-        //cancel loading previous image for cell
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
-        
-        //load the image
-        imgAvatar.imageURL = [NSURL URLWithString:_messageObject.senderAvatar];
     }
     
 }

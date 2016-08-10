@@ -78,6 +78,8 @@
         //load the image
         imgAvatar.imageURL = [NSURL URLWithString:userScore.avatarLink];
         
+    } else {
+        imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
     }
     
     if (scoreObj.comment != nil && scoreObj.comment.length == 0) {
