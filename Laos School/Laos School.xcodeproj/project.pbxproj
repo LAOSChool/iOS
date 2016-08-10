@@ -1309,6 +1309,7 @@
 		55FC724D1C7C5F4A00B0B8D0 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC724E1C7C5F9200B0B8D0 /* LocalizeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizeHelper.h; sourceTree = "<group>"; };
 		55FC724F1C7C5F9200B0B8D0 /* LocalizeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizeHelper.m; sourceTree = "<group>"; };
+		55FCBA8B1D5B34ED003F5A0E /* LaosSchool_v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LaosSchool_v4.xcdatamodel; sourceTree = "<group>"; };
 		55FEDB911C841EA800DD0D24 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		55FEDB921C841EA800DD0D24 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		55FEDB931C841EA800DD0D24 /* MessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesViewController.xib; sourceTree = "<group>"; };
@@ -3562,11 +3563,12 @@
 		5547698D1C9151EC00269EBB /* LaosSchool.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				55FCBA8B1D5B34ED003F5A0E /* LaosSchool_v4.xcdatamodel */,
 				5542C44A1D2BA02F00E9B1FB /* LaosSchool_v3.xcdatamodel */,
 				55BA449F1CBDFFBB0051F839 /* LaosSchool_v2.xcdatamodel */,
 				5547698E1C9151EC00269EBB /* LaosSchool.xcdatamodel */,
 			);
-			currentVersion = 5542C44A1D2BA02F00E9B1FB /* LaosSchool_v3.xcdatamodel */;
+			currentVersion = 55FCBA8B1D5B34ED003F5A0E /* LaosSchool_v4.xcdatamodel */;
 			path = LaosSchool.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
