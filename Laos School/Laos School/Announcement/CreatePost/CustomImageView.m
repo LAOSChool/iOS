@@ -32,6 +32,11 @@
         [self.view setFrame:rect];
         
         [self addSubview:self.view];
+        
+        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.layer.borderWidth = 0.3f;
+        self.layer.cornerRadius = 5.0f;
+        self.clipsToBounds = YES;
     }
     return self;
 }

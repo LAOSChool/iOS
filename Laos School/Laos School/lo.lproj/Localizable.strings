@@ -31,7 +31,7 @@
 "Done" = "ແລ້ວ";
 "Selected" = "ເລືອກ​ແລ້ວ";
 "Total" = "ລວມ";
-"Absent" = "ຂາດ";
+"Absent" = "ຂາດຮຽນ";
 "Send" = "ສົ່ງ";
 "Attention" = "ມາ​ຮຽນ";
 "Save" = "ບັນທຶກ";
@@ -178,7 +178,7 @@
 //school records
 "Overall" = "ທັງ​ໝົດ";
 "Morality" = "ຄຸນ​ສົມ​ບັດ";
-"Absence" = "ຂາດ";
+"Absence" = "ຂາດຮຽນ";
 "Teacher's comment" = "ຄ​ຳເຫັນ​ຂອງ​ອາ​ຈານ";
 "Select a school year" = "ເລືອກ​ປີ​ຮຽນ";
 

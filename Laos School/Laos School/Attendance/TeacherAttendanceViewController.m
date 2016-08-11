@@ -231,12 +231,13 @@
     //set content
     NSString *content = @"";
     NSString *line1 = lbDate.text;
-    NSString *line2 = [NSString stringWithFormat:@"%@ %@ (%@)\n", LocalizedString(@"Period"), currentSession.session, currentSession.duration];
+    NSString *line2 = [NSString stringWithFormat:@"%@ %@ (%@)", LocalizedString(@"Period"), currentSession.session, currentSession.duration];
     NSString *line3 = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"Subject"), currentSession.subject];
+    NSString *line4 = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"Teacher"), currentSession.teacherName];
                        
-    content = [NSString stringWithFormat:@"%@\n%@\n%@\n", line1, line2, line3];
+    content = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n\n", line1, line2, line3, line4];   
     composeViewController.content = content;
-    
+                   
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:composeViewController];
     [nav setModalPresentationStyle:UIModalPresentationFormSheet];
     [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
