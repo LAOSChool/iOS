@@ -10,6 +10,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "Common.h"
+#import "CommonAlert.h"
 
 @import FirebaseAnalytics;
 
@@ -49,7 +50,8 @@
         [webView loadRequest:requestObj];
         
     } else {
-        [self loadLocalHtml];
+//        [self loadLocalHtml];
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
     }
     
 }
@@ -74,7 +76,7 @@
 }
 
 -(void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
-    [self loadLocalHtml];
+//    [self loadLocalHtml];
 }
 
 - (void)loadLocalHtml {

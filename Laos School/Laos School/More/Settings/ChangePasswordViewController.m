@@ -13,6 +13,8 @@
 #import "CommonDefine.h"
 #import "ShareData.h"
 #import "UserObject.h"
+#import "Common.h"
+#import "CommonAlert.h"
 
 #import "SVProgressHUD.h"
 
@@ -121,22 +123,27 @@
     [txtNewPass resignFirstResponder];
     [txtConfirmation resignFirstResponder];
     
-    if ([txtNewPass.text isEqualToString:txtConfirmation.text]) {
-        if (txtNewPass.text.length < 4 || txtNewPass.text.length > 20) {
-            [self showAlertPasswordTooShort];
-            
+    if ([[Common sharedCommon]networkIsActive]) {
+        if ([txtNewPass.text isEqualToString:txtConfirmation.text]) {
+            if (txtNewPass.text.length < 4 || txtNewPass.text.length > 20) {
+                [self showAlertPasswordTooShort];
+                
+            } else {
+                [FIRAnalytics logEventWithName:@"change_password" parameters:@{
+                                                                                 kFIRParameterValue:@(1)
+                                                                                 }];
+                
+                [SVProgressHUD show];
+                UserObject *userObj = [[ShareData sharedShareData] userObj];
+                
+                [requestToServer requestToChangePassword:userObj.username oldPass:txtOldPass.text byNewPass:txtNewPass.text];
+            }
         } else {
-            [FIRAnalytics logEventWithName:@"change_password" parameters:@{
-                                                                             kFIRParameterValue:@(1)
-                                                                             }];
-            
-            [SVProgressHUD show];
-            UserObject *userObj = [[ShareData sharedShareData] userObj];
-            
-            [requestToServer requestToChangePassword:userObj.username oldPass:txtOldPass.text byNewPass:txtNewPass.text];
+            [self showAlertPasswordNotMatch];
         }
+        
     } else {
-        [self showAlertPasswordNotMatch];
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
     }
 }
 
@@ -164,7 +171,6 @@
     
     if (statuscode == HttpOK) {
         [self showChangePassSuccessfully];
-        [self.navigationController popViewControllerAnimated:YES];
         
     } else {
         [self showAlertWrongPassword];
@@ -232,5 +238,13 @@
     alert.tag = 6;
     
     [alert show];
+}
+
+#pragma alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 3) {    //showChangePassSuccessfully
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 @end

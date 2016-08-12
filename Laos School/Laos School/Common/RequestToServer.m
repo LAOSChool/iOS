@@ -403,23 +403,28 @@ static RequestToServer* sharedRequestToServer = nil;
 - (void)requestToChangePassword:(NSString *)username oldPass:(NSString *)oldPass byNewPass:(NSString *)newPass {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_CHANGE_PASS];
 
-    requestString = [NSString stringWithFormat:@"%@?username=%@&old_pass=%@&new_pass=%@", requestString, username, oldPass, newPass];
+//    requestString = [NSString stringWithFormat:@"%@?username=%@&old_pass=%@&new_pass=%@", requestString, username, oldPass, newPass];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:30.0];
+                                                       timeoutInterval:60.0];
     // Specify that it will be a POST request
     [request setHTTPMethod:@"POST"];
     [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
     [request setValue:[[ArchiveHelper sharedArchiveHelper] loadAuthKey] forHTTPHeaderField:@"auth_key"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-//    NSDictionary *parameters = @{ @"username": username,
-//                                  @"old_pass": oldPass,
-//                                  @"new_pass": newPass };
-//    
-//    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-//    [request setHTTPBody:postData];
+    NSDictionary *parameters = @{ @"username": username,
+                                  @"old_pass": oldPass,
+                                  @"new_pass": newPass };
+   
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [request setValue:[NSString
+                       stringWithFormat:@"%lu", (unsigned long)[myString length]] forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[myString
+                          dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
@@ -432,7 +437,7 @@ static RequestToServer* sharedRequestToServer = nil;
     requestString = [NSString stringWithFormat:@"%@?sso_id=%@&phone=%@", requestString, username, phonenumber];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:30.0];
+                                                       timeoutInterval:60.0];
     // Specify that it will be a POST request
     [request setHTTPMethod:@"POST"];
     [request setValue:[self getAPIKey] forHTTPHeaderField:@"api_key"];
@@ -885,4 +890,5 @@ static RequestToServer* sharedRequestToServer = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToLoginScreen" object:nil];
     [self.delegate accountLoginByOtherDevice];
 }
+
 @end

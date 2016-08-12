@@ -608,7 +608,19 @@
             cell.imgMesseageType.image = [UIImage imageNamed:@"ic_user_gray.png"];
         }
         
+        [cell.contentView setBackgroundColor:READ_COLOR];
+        [cell setBackgroundColor:READ_COLOR];
+        
     } else {
+        
+        if (messageObj.unreadFlag) {
+            [cell.contentView setBackgroundColor:UNREAD_COLOR];
+            [cell setBackgroundColor:UNREAD_COLOR];
+        } else {
+            [cell.contentView setBackgroundColor:READ_COLOR];
+            [cell setBackgroundColor:READ_COLOR];
+        }
+        
         if (messageObj.senderAvatar && messageObj.senderAvatar.length > 0) {
             //cancel loading previous image for cell
             [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
@@ -619,14 +631,6 @@
         } else {
             cell.imgMesseageType.image = [UIImage imageNamed:@"ic_user_gray.png"];
         }
-    }
-    
-    if (messageObj.unreadFlag) {
-        [cell.contentView setBackgroundColor:UNREAD_COLOR];
-        [cell setBackgroundColor:UNREAD_COLOR];
-    } else {
-        [cell.contentView setBackgroundColor:READ_COLOR];
-        [cell setBackgroundColor:READ_COLOR];
     }
     
     if (isReachToEnd == NO && [self isReachToBottom:indexPath.row]) {
@@ -652,14 +656,16 @@
         messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
-    if (messageObj.unreadFlag == YES) {
-        [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
-        [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
-        
-        messageObj.unreadFlag = NO;
-        [messagesTableView beginUpdates];
-        [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [messagesTableView endUpdates];
+    if (segmentedControl.selectedSegmentIndex != 2) {   //sent tab
+        if (messageObj.unreadFlag == YES) {
+            [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
+            [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
+            
+            messageObj.unreadFlag = NO;
+            [messagesTableView beginUpdates];
+            [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [messagesTableView endUpdates];
+        }
     }
     
     [self updateMessageArrayWithObject:messageObj];
