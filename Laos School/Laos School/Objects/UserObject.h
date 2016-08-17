@@ -64,6 +64,8 @@ typedef enum {
 
 //use for students list
 @property (nonatomic, assign) BOOL selected;
+
+- (NSString *)fullAvatarPath;
 @end
 
 #endif

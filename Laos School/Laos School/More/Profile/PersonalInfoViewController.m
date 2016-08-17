@@ -67,7 +67,7 @@
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
         
         //load the image
-        imgAvatar.imageURL = [NSURL URLWithString:_userObj.avatarPath];
+        imgAvatar.imageURL = [NSURL URLWithString:_userObj.fullAvatarPath];
         
     } else {
         imgAvatar.image = [UIImage imageNamed:@"img_default_user.png"];

@@ -60,4 +60,22 @@
 //    
 //    return self;
 //}
+
+- (NSString *)avatarPath {
+    NSString *res = _avatarPath;
+    
+    if (res.length > 0) {
+        NSString *tmp = [res stringByDeletingPathExtension];
+        NSString *extension = [res pathExtension];
+        res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+    }
+    
+    return res;
+}
+
+- (NSString *)fullAvatarPath {
+    NSString *res = _avatarPath;
+    
+    return res;
+}
 @end

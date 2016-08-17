@@ -13,6 +13,10 @@
 #import "SVProgressHUD.h"
 
 #import "CommonDefine.h"
+#import "DateTimeHelper.h"
+
+#define LIMIT_DAY_TO_LOAD (1*30*24*3600)
+
 // Singleton
 static RequestToServer* sharedRequestToServer = nil;
 
@@ -315,7 +319,12 @@ static RequestToServer* sharedRequestToServer = nil;
 #pragma mark announcement
 - (void)getAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_from_time=%.f", requestString, userID, (long)announcementID, date];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -332,7 +341,12 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getUnreadAnnouncementsListToUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0", requestString, userID, (long)announcementID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0&filter_from_time=%.f", requestString, userID, (long)announcementID, date];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -349,7 +363,12 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getSentAnnouncementsListFromUser:(NSString *)userID fromAnnouncementID:(NSInteger)announcementID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_ANNOUNCEMENT_LIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)announcementID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld&filter_from_time=%.f", requestString, userID, (long)announcementID, date];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -578,7 +597,11 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld", requestString, userID, (long)messageID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_from_time=%.f", requestString, userID, (long)messageID, date];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -612,7 +635,12 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getUnreadMessageListToUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0", requestString, userID, (long)messageID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_to_user_id=%@&filter_from_id=%ld&filter_is_read=0&filter_from_time=%.f", requestString, userID, (long)messageID, date];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
@@ -646,7 +674,12 @@ static RequestToServer* sharedRequestToServer = nil;
 
 - (void)getSentMessageListFromUser:(NSString *)userID fromMessageID:(NSInteger)messageID {
     NSString *requestString = [NSString stringWithFormat:@"%@%@", SERVER_PATH, API_NAME_MESSAGELIST];
-    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld", requestString, userID, (long)messageID];
+    
+    NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] getCurrentDatetimeInSec];
+    date = date - LIMIT_DAY_TO_LOAD;   //only load messages from last 30 days
+    
+    requestString = [NSString stringWithFormat:@"%@?filter_from_user_id=%@&filter_from_id=%ld&filter_from_time=%.f", requestString, userID, (long)messageID, date];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];

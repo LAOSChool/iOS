@@ -159,4 +159,32 @@
     
     return 0;
 }
+
+- (NSString *)senderAvatar {
+    NSString *res = _senderAvatar;
+    
+    if (res.length > 0) {
+        NSString *tmp = [res stringByDeletingPathExtension];
+        NSString *extension = [res pathExtension];
+        res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+    }
+    
+    return res;
+}
+
+- (NSString *)receiverAvatar {
+    NSString *res = _receiverAvatar;
+    
+    if (res.length > 0) {
+        NSString *tmp = [res stringByDeletingPathExtension];
+        NSString *extension = [res pathExtension];
+        res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+        
+    }
+    
+    return res;
+    
+    return res;
+}
+
 @end

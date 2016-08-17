@@ -10,6 +10,7 @@
 #import "UINavigationController+CustomNavigation.h"
 #import "LocalizeHelper.h"
 #import "Common.h"
+#import "CommonAlert.h"
 
 #define HELP_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
 #define HELP_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
@@ -43,7 +44,8 @@
         [webView loadRequest:requestObj];
         
     } else {
-        [self loadLocalHtml];
+//        [self loadLocalHtml];
+        [[CommonAlert sharedCommonAlert] showNoConnnectionAlert];
     }
     
     UIBarButtonItem *btnClose = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(closeButtonClick)];
