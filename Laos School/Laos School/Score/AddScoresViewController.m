@@ -428,6 +428,8 @@
 
     cell.txtScore.text =  scoreObj.score;
     
+    cell.imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
+    
     if (userScoreObject.avatarLink && userScoreObject.avatarLink.length > 0) {
         //cancel loading previous image for cell
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgAvatar];

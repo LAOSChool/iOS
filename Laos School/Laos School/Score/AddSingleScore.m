@@ -60,6 +60,8 @@
         lbSubject.text = _userScoreObj.subject;
         lbScoreMonth.text = _scoreObj.scoreTypeObj.scoreShortName;
         
+        imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
+        
         if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
             //cancel loading previous image for cell
             [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imgAvatar];
@@ -199,6 +201,8 @@
     lbAdditionalInfo.text = _userScoreObj.additionalInfo;
     lbSubject.text = _userScoreObj.subject;
     lbScoreMonth.text = scoreObj.scoreTypeObj.scoreShortName;
+    
+    imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
     
     if (_userScoreObj.avatarLink && _userScoreObj.avatarLink.length > 0) {
         //cancel loading previous image for cell

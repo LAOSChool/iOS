@@ -64,4 +64,16 @@
     
     return self;
 }
+
+- (NSString *)avatarLink {
+    NSString *res = _avatarLink;
+    
+    if (res.length > 0) {
+        NSString *tmp = [res stringByDeletingPathExtension];
+        NSString *extension = [res pathExtension];
+        res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+    }
+    
+    return res;
+}
 @end

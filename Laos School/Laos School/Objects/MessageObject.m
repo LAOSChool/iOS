@@ -164,9 +164,11 @@
     NSString *res = _senderAvatar;
     
     if (res.length > 0) {
-        NSString *tmp = [res stringByDeletingPathExtension];
-        NSString *extension = [res pathExtension];
-        res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+        if ([res containsString:@"_90."] == NO) {
+            NSString *tmp = [res stringByDeletingPathExtension];
+            NSString *extension = [res pathExtension];
+            res = [tmp stringByAppendingFormat:@"_90.%@", extension];
+        }
     }
     
     return res;

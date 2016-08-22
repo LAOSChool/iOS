@@ -70,6 +70,7 @@
     
     lbStudentName.text = userScore.username;
     lbAdditionalInfo.text = userScore.additionalInfo;
+    imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
     
     if (userScore.avatarLink && userScore.avatarLink.length > 0) {
         //cancel loading previous image for cell

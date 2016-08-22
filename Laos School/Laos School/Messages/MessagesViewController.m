@@ -596,7 +596,10 @@
         [cell.btnImportanceFlag setTintColor:NORMAL_IMPORTANCE_COLOR];
     }
     
+    cell.imgMesseageType.image = [UIImage imageNamed:@"ic_user_gray.png"];
+    
     if (segmentedControl.selectedSegmentIndex == 2) {   //sent tab
+        
         if (messageObj.receiverAvatar && messageObj.receiverAvatar.length > 0) {
             //cancel loading previous image for cell
             [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imgMesseageType];
