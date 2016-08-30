@@ -62,16 +62,16 @@
             self.content = [messageDict valueForKey:@"content"];
         }
         
-        if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
-            self.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
+        if ([messageDict valueForKey:@"from_user_id"] != (id)[NSNull null]) {
+            self.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_user_id"]];
         }
         
         if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
             self.fromUsername = [messageDict valueForKey:@"from_user_name"];
         }
         
-        if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
-            self.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
+        if ([messageDict valueForKey:@"to_user_id"] != (id)[NSNull null]) {
+            self.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_user_id"]];
         }
         
         if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {

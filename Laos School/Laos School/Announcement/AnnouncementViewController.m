@@ -314,6 +314,19 @@
     }
 }
 
+- (AnnouncementObject *)getLastAnnouncementFromArray:(NSArray *)announcementArr {
+    if ([announcementArr count] > 0) {
+        NSMutableArray *tmps = [[NSMutableArray alloc] initWithArray:announcementArr];
+        
+        NSSortDescriptor *announcementID = [NSSortDescriptor sortDescriptorWithKey:@"announcementID" ascending:NO];
+        [tmps sortUsingDescriptors:[NSArray arrayWithObjects:announcementID, nil]];
+        
+        return [tmps firstObject];
+    }
+    
+    return nil;
+}
+
 #pragma mark load all message
 - (void)loadAnnouncementsFromCoredata {
     AnnouncementObject *lastAnnouncement = nil;
@@ -324,11 +337,16 @@
         
         newData = [[CoreDataUtil sharedCoreDataUtil] loadAllAnnouncementsFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
         
-        [announceArray addObjectsFromArray:newData];
+        if (newData && [newData count] > 0) {
+            [announceArray addObjectsFromArray:newData];
+        }
         
     } else {
         newData = [[CoreDataUtil sharedCoreDataUtil] loadAllAnnouncementsFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
-        [announceArray addObjectsFromArray:newData];
+        
+        if (newData && [newData count] > 0) {
+            [announceArray addObjectsFromArray:newData];
+        }
         
     }
     
@@ -344,8 +362,14 @@
     AnnouncementObject *lastAnnouncement = nil;
     
     if ([announceArray count] > 0) {
-        lastAnnouncement = [announceArray firstObject];  //the first object is the newest message in this array
-        [requestToServer getAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+        lastAnnouncement = [self getLastAnnouncementFromArray:announceArray];  //the first object is the newest announcement in this array
+        
+        if (lastAnnouncement) {
+            [requestToServer getAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
@@ -361,11 +385,17 @@
         lastAnnouncement = [unreadAnnouncementsArray lastObject];
         
         newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadAnnouncementsFromID:lastAnnouncement.announcementID toUserID:[[ShareData sharedShareData] userObj].userID];
-        [unreadAnnouncementsArray addObjectsFromArray:newData];
+        
+        if (newData && [newData count] > 0) {
+            [unreadAnnouncementsArray addObjectsFromArray:newData];
+        }
         
     } else {
         newData = [[CoreDataUtil sharedCoreDataUtil] loadUnreadAnnouncementsFromID:0 toUserID:[[ShareData sharedShareData] userObj].userID];
-        [unreadAnnouncementsArray addObjectsFromArray:newData];
+        
+        if (newData && [newData count] > 0) {
+            [unreadAnnouncementsArray addObjectsFromArray:newData];
+        }
     }
     
     if ([newData count] == 0) {
@@ -380,8 +410,14 @@
     AnnouncementObject *lastAnnouncement = nil;
     
     if ([unreadAnnouncementsArray count] > 0) {
-        lastAnnouncement = [unreadAnnouncementsArray firstObject];
-        [requestToServer getUnreadAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+        lastAnnouncement = [self getLastAnnouncementFromArray:unreadAnnouncementsArray];  //the first object is the newest announcement in this array
+        
+        if (lastAnnouncement) {
+            [requestToServer getUnreadAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getUnreadAnnouncementsListToUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
@@ -397,12 +433,18 @@
         lastAnnouncement = [sentAnnouncementsArray lastObject];
         
         newData = [[CoreDataUtil sharedCoreDataUtil] loadSentAnnouncementsFromID:lastAnnouncement.announcementID fromUserID:[[ShareData sharedShareData] userObj].userID];
-        [sentAnnouncementsArray addObjectsFromArray:newData];
+        
+        if (newData && [newData count] > 0) {
+            [sentAnnouncementsArray addObjectsFromArray:newData];
+        }
         
     } else {
         
         newData = [[CoreDataUtil sharedCoreDataUtil] loadSentAnnouncementsFromID:0 fromUserID:[[ShareData sharedShareData] userObj].userID];
-        [sentAnnouncementsArray addObjectsFromArray:newData];
+        
+        if (newData && [newData count] > 0) {
+            [sentAnnouncementsArray addObjectsFromArray:newData];
+        }
     }
     
     if ([newData count] == 0) {
@@ -416,8 +458,14 @@
     AnnouncementObject *lastAnnouncement = nil;
     
     if ([sentAnnouncementsArray count] > 0) {
-        lastAnnouncement = [sentAnnouncementsArray firstObject];
-        [requestToServer getSentAnnouncementsListFromUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+        lastAnnouncement = [self getLastAnnouncementFromArray:sentAnnouncementsArray];  //the first object is the newest announcement in this array
+        
+        if (lastAnnouncement) {
+            [requestToServer getSentAnnouncementsListFromUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:lastAnnouncement.announcementID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getSentAnnouncementsListFromUser:[[ShareData sharedShareData] userObj].userID fromAnnouncementID:0];
@@ -661,7 +709,7 @@
      "file_path" = "funny5.jpg";
      "file_url" = "http://192.168.0.202:9090/eschool_content/funny5.jpg";
      "file_zip" = "<null>";
-     "from_usr_id" = 1;
+     "from_user_id" = 1;
      id = 5;
      "imp_flg" = 0;
      "is_read" = 1;
@@ -670,7 +718,7 @@
      "read_dt" = "2016-03-25 00:00:00.0";
      "school_id" = 1;
      "sent_dt" = "2016-03-25 00:00:00.0";
-     "to_usr_id" = 2;
+     "to_user_id" = 2;
      },*/
 
     if (announcements != (id)[NSNull null]) {
@@ -683,23 +731,24 @@
             }
             
             if ([announcementDict valueForKey:@"title"] != (id)[NSNull null]) {
-                announcementObj.subject = [announcementDict valueForKey:@"title"];
+                announcementObj.subject = [self decodeString:[announcementDict valueForKey:@"title"]];
             }
             
             if ([announcementDict valueForKey:@"content"] != (id)[NSNull null]) {
-                announcementObj.content = [announcementDict valueForKey:@"content"];
+
+                announcementObj.content = [self decodeString:[announcementDict valueForKey:@"content"]];
             }
 
-            if ([announcementDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
-                announcementObj.fromID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"from_usr_id"]];
+            if ([announcementDict valueForKey:@"from_user_id"] != (id)[NSNull null]) {
+                announcementObj.fromID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"from_user_id"]];
             }
             
             if ([announcementDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
                 announcementObj.fromUsername = [announcementDict valueForKey:@"from_user_name"];
             }
             
-            if ([announcementDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
-                announcementObj.toID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"to_usr_id"]];
+            if ([announcementDict valueForKey:@"to_user_id"] != (id)[NSNull null]) {
+                announcementObj.toID = [NSString stringWithFormat:@"%@", [announcementDict valueForKey:@"to_user_id"]];
             }
             
             if ([announcementDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {
@@ -739,7 +788,7 @@
                         }
                         
                         if ([photoDict valueForKey:@"caption"] != (id)[NSNull null]) {
-                            phototObj.caption = [photoDict valueForKey:@"caption" ];
+                            phototObj.caption = [self decodeString:[photoDict valueForKey:@"caption"]];
                         }
                         
                         if ([photoDict valueForKey:@"file_url"] != (id)[NSNull null]) {
@@ -878,5 +927,17 @@
     
     [photoArr removeAllObjects];
     [photoArr addObjectsFromArray:resultArr];
+}
+
+- (NSString *)decodeString:(NSString *)myString {
+    NSData *newdata = [myString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    
+    NSString *res = [[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
+    
+    if (res == nil) {
+        res = myString;
+    }
+    
+    return res;
 }
 @end

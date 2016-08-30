@@ -654,7 +654,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"caption\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
  //       [body appendData:[@"Content-Type: text/plain\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [body appendData:[[NSString stringWithFormat:@"%@", view.txtCaption.text] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@", [self encodeString:view.txtCaption.text]] dataUsingEncoding:NSUTF8StringEncoding]];
 
         //order
         [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -674,8 +674,8 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     [jsonDict setValue:userObj.shoolID forKey:@"school_id"];
     [jsonDict setValue:classObj.classID forKey:@"class_id"];
-    [jsonDict setValue:textViewPost.text forKey:@"content"];
-    [jsonDict setValue:textViewTitle.text forKey:@"title"];
+    [jsonDict setValue:[self encodeString:textViewPost.text] forKey:@"content"];
+    [jsonDict setValue:[self encodeString:textViewTitle.text] forKey:@"title"];
     [jsonDict setValue:@"1" forKey:@"dest_type"];
     
     if (_announcementObject.importanceType == AnnouncementImportanceHigh) {
@@ -690,8 +690,8 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
     
     [self insertParameterToBody:body paramKey:@"json_in_string" paramValue:myString withBoundary:boundary];
     
-    NSString* test = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-    NSLog(@"test ::: %@", test);
+//    NSString* test = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+//    NSLog(@"test ::: %@", test);
     
     //finish
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -929,6 +929,16 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 
 - (void)imageViewerViewController:(FSImageViewerViewController *)imageViewerViewController didMoveToImageAtIndex:(NSInteger)index {
     NSLog(@"FSImageViewerViewController: %@ didMoveToImageAtIndex: %li",imageViewerViewController, (long)index);
+}
+
+- (NSString *)encodeString:(NSString *)myString {
+    NSString *uniText = [NSString stringWithUTF8String:[myString UTF8String]];
+    
+    NSData *data = [uniText dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    return str;
 }
 
 @end

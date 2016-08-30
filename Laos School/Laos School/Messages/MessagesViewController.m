@@ -287,6 +287,19 @@
     }
 }
 
+- (MessageObject *)getLastMessageFromArray:(NSArray *)messArr {
+    if ([messArr count] > 0) {
+        NSMutableArray *tmps = [[NSMutableArray alloc] initWithArray:messArr];
+        
+        NSSortDescriptor *messageID = [NSSortDescriptor sortDescriptorWithKey:@"messageID" ascending:NO];
+        [tmps sortUsingDescriptors:[NSArray arrayWithObjects:messageID, nil]];
+        
+        return [tmps firstObject];
+    }
+
+    return nil;
+}
+
 #pragma mark load all message
 - (void)loadMessagesFromCoredata {
     MessageObject *lastMessage = nil;
@@ -317,22 +330,18 @@
     MessageObject *lastMessage = nil;
     
     if ([messagesArray count] > 0) {
-        lastMessage = [messagesArray firstObject];  //the first object is the newest message in this array
-        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        lastMessage = [self getLastMessageFromArray:messagesArray];  //the first object is the newest message in this array
+        
+        if (lastMessage) {
+            [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
-    /*
-    if ([messagesArray count] > 0) {
-        lastMessage = [messagesArray firstObject];  //the first object is the newest message in this array
-        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
-        
-        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
-        
-    } else {
-        [requestToServer getMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
-    }*/
 }
 
 #pragma mark load unread message
@@ -363,20 +372,18 @@
     MessageObject *lastMessage = nil;
     
     if ([unreadMessagesArray count] > 0) {
-        lastMessage = [unreadMessagesArray firstObject];
-        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        lastMessage = [self getLastMessageFromArray:unreadMessagesArray];  //the first object is the newest message in this array
+        
+        if (lastMessage) {
+            [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
-    /*if ([unreadMessagesArray count] > 0) {
-        lastMessage = [unreadMessagesArray firstObject];
-        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
-        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
-        
-    } else {
-        [requestToServer getUnreadMessageListToUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
-    }*/
 }
 
 #pragma mark load sent message
@@ -408,20 +415,18 @@
     MessageObject *lastMessage = nil;
     
     if ([sentMessagesArray count] > 0) {
-        lastMessage = [sentMessagesArray firstObject];
-        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+        lastMessage = [self getLastMessageFromArray:sentMessagesArray];  //the first object is the newest message in this array
+        
+        if (lastMessage) {
+            [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:lastMessage.messageID];
+            
+        } else {
+            [SVProgressHUD dismiss];
+        }
         
     } else {
         [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromMessageID:0];
     }
-    /*if ([sentMessagesArray count] > 0) {
-        lastMessage = [sentMessagesArray firstObject];
-        NSTimeInterval date = [[DateTimeHelper sharedDateTimeHelper] timeIntervalOfDateString:lastMessage.dateTime];
-        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromDate:[NSString stringWithFormat:@"%f", date]];
-        
-    } else {
-        [requestToServer getSentMessageListFromUser:[[ShareData sharedShareData] userObj].userID fromDate:0];
-    }*/
 }
 
 - (IBAction)segmentAction:(id)sender {
@@ -785,7 +790,7 @@
      "class_id" = 1;
      content = "test message";
      "from_user_name" = NamNT1;
-     "from_usr_id" = 1;
+     "from_user_id" = 1;
      id = 1;
      "imp_flg" = 1;
      "is_read" = 1;
@@ -799,7 +804,7 @@
      "sent_dt" = "2016-03-24 00:00:00.0";
      title = title;
      "to_user_name" = Hue1;
-     "to_usr_id" = 2;
+     "to_user_id" = 2;
      }
      
      },*/
@@ -818,19 +823,30 @@
             }
             
             if ([messageDict valueForKey:@"content"] != (id)[NSNull null]) {
-                messObj.content = [messageDict valueForKey:@"content"];
+                NSString *mystring = [messageDict valueForKey:@"content"];
+                
+                NSData *newdata = [mystring dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+                
+                mystring = [[NSString alloc] initWithData:newdata encoding:NSNonLossyASCIIStringEncoding];
+                
+                if (mystring) {
+                    messObj.content = mystring;
+                    
+                } else {
+                    messObj.content = [messageDict valueForKey:@"content"];
+                }
             }
             
-            if ([messageDict valueForKey:@"from_usr_id"] != (id)[NSNull null]) {
-                messObj.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_usr_id"]];
+            if ([messageDict valueForKey:@"from_user_id"] != (id)[NSNull null]) {
+                messObj.fromID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"from_user_id"]];
             }
             
             if ([messageDict valueForKey:@"from_user_name"] != (id)[NSNull null]) {
                 messObj.fromUsername = [messageDict valueForKey:@"from_user_name"];
             }
             
-            if ([messageDict valueForKey:@"to_usr_id"] != (id)[NSNull null]) {
-                messObj.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_usr_id"]];
+            if ([messageDict valueForKey:@"to_user_id"] != (id)[NSNull null]) {
+                messObj.toID = [NSString stringWithFormat:@"%@", [messageDict valueForKey:@"to_user_id"]];
             }
             
             if ([messageDict valueForKey:@"to_user_name"] != (id)[NSNull null]) {

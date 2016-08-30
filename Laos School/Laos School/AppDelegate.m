@@ -82,9 +82,9 @@
     
      [FIRApp configure];
     
-    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
-    NSLog(@"InstanceID token: %@", refreshedToken);
-//    
+//    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+//    NSLog(@"InstanceID token: %@", refreshedToken);
+//
 //    [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError *error) {
 //        
 //    }];

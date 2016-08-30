@@ -75,7 +75,7 @@
         
         if (session && session.length > 0) {
             if (subject && subject.length > 0) {
-                session = [NSString stringWithFormat:@"%@ - %@", session, subject];
+                session = [NSString stringWithFormat:@"%@ %@ - %@", LocalizedString(@"Period"), session, subject];
             }
         } else {
             if (subject && subject.length > 0) {

@@ -300,7 +300,7 @@
      "class_id" = 1;
      content = "test message";
      "from_user_name" = NamNT1;
-     "from_usr_id" = 1;
+     "from_user_id" = 1;
      id = 1;
      "imp_flg" = 1;
      "is_read" = 1;
@@ -314,15 +314,15 @@
      "sent_dt" = "2016-03-24 00:00:00.0";
      title = title;
      "to_user_name" = Hue1;
-     "to_usr_id" = "2,3,4,5,6";
+     "to_user_id" = "2,3,4,5,6";
      }
      
      },*/
     [messageDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_user_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.teacherID forKey:@"to_user_id"];
     
     if (txtSubject.text && txtSubject.text.length > 0) {
         [messageDict setValue:txtSubject.text forKey:@"title"];
@@ -330,7 +330,13 @@
         [messageDict setValue:LocalizedString(@"[No subject]") forKey:@"title"];
     }
     
-    [messageDict setValue:txtContent.text forKey:@"content"];
+    NSString *uniText = [NSString stringWithUTF8String:[txtContent.text UTF8String]];
+    
+    NSData *msgData = [uniText dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    
+    NSString *str = [[NSString alloc] initWithData:msgData encoding:NSUTF8StringEncoding];
+    
+    [messageDict setValue:str forKey:@"content"];
     
     [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
     
@@ -345,7 +351,7 @@
     [messageDict setValue:[[ShareData sharedShareData] userObj].shoolID forKey:@"school_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].classObj.classID forKey:@"class_id"];
     [messageDict setValue:[[ShareData sharedShareData] userObj].username forKey:@"from_user_name"];
-    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_usr_id"];
+    [messageDict setValue:[[ShareData sharedShareData] userObj].userID forKey:@"from_user_id"];
     
     if (txtSubject.text && txtSubject.text.length > 0) {
         [messageDict setValue:txtSubject.text forKey:@"title"];
@@ -370,7 +376,7 @@
     
     if ([_receiverArray count] == 1) {
         UserObject *recipient = [_receiverArray objectAtIndex:0];
-        [messageDict setValue:recipient.userID forKey:@"to_usr_id"];
+        [messageDict setValue:recipient.userID forKey:@"to_user_id"];
         
     } else if ([_receiverArray count] > 1) {
         NSString *ccList = @"";
@@ -379,7 +385,7 @@
             UserObject *recipient = [_receiverArray objectAtIndex:i];
 
             if (i == 0) {
-                [messageDict setValue:recipient.userID forKey:@"to_usr_id"];
+                [messageDict setValue:recipient.userID forKey:@"to_user_id"];
                 
             } else {
                 ccList = [ccList stringByAppendingFormat:@"%@,", recipient.userID];
