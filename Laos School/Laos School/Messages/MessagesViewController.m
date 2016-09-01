@@ -664,19 +664,29 @@
         messageObj = [self getMessageObjectAtIndex:indexPath.row];
     }
     
-    if (segmentedControl.selectedSegmentIndex != 2) {   //sent tab
+    if (segmentedControl.selectedSegmentIndex != 2) {   //# sent tab
         if (messageObj.unreadFlag == YES) {
             [[CoreDataUtil sharedCoreDataUtil] updateMessageRead:messageObj.messageID withFlag:YES];
             [requestToServer updateMessageRead:messageObj.messageID withFlag:YES];
             
             messageObj.unreadFlag = NO;
-            [messagesTableView beginUpdates];
-            [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            [messagesTableView endUpdates];
+            
+            if (segmentedControl.selectedSegmentIndex != 1) { //unread tab
+                [messagesTableView beginUpdates];
+                [messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [messagesTableView endUpdates];
+            }
         }
     }
     
     [self updateMessageArrayWithObject:messageObj];
+    
+    //not good but it's the easiest way to fix bug
+    if (segmentedControl.selectedSegmentIndex == 1) { //unread tab
+        [messagesTableView beginUpdates];
+        [messagesTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [messagesTableView endUpdates];
+    }
     
     [self showDetailView:messageObj];
     
@@ -782,6 +792,13 @@
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
+    
+    NSString *url = [jsonObj objectForKey:@"url"];
+    
+    if (url && [url rangeOfString:API_NAME_UPDATEMESSAGE].location != NSNotFound) {
+        return;
+    }
+    
     NSArray *messages = [jsonObj objectForKey:@"list"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
     /*

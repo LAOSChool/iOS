@@ -20,9 +20,11 @@
 #define IS_STANDARD_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 736.0)
 #define IS_ZOOMED_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0 && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale < [UIScreen mainScreen].scale)
 
-#define COMMON_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
-#define GREEN_COLOR [UIColor colorWithRed:0/255.f green:162/255.f blue:97/255.f alpha:1]
-#define BLUE_COLOR [UIColor colorWithRed:77/255.f green:131/255.f blue:242/255.f alpha:1]
+//#define COMMON_COLOR [UIColor colorWithRed:197/255.f green:90/255.f blue:90/255.f alpha:1]
+#define COMMON_COLOR [UIColor colorWithRed:63/255.f green:82/255.f blue:165/255.f alpha:1]
+
+#define GREEN_COLOR [UIColor colorWithRed:143/255.f green:38/255.f blue:42/255.f alpha:1]
+#define BLUE_COLOR [UIColor colorWithRed:63/255.f green:82/255.f blue:165/255.f alpha:1]
 #define TEXTBOX_COLOR [UIColor colorWithRed:0/255.f green:103/255.f blue:194/255.f alpha:1]
 #define TITLE_COLOR BLUE_COLOR
 
@@ -34,13 +36,15 @@
 #define OFF_COLOR [UIColor lightGrayColor]
 #define LATE_COLOR [UIColor colorWithRed:255/255.f green:172/255.f blue:41/255.f alpha:1]
 
-#define UNREAD_COLOR [UIColor colorWithRed:255/255.f green:249/255.f blue:196/255.f alpha:1]
+//#define UNREAD_COLOR [UIColor colorWithRed:255/255.f green:249/255.f blue:196/255.f alpha:1]
+#define UNREAD_COLOR [UIColor colorWithRed:230/255.f green:230/255.f blue:242/255.f alpha:1]
+
 #define READ_COLOR [UIColor colorWithRed:255/255.f green:255/255.f blue:255/255.f alpha:1]
 
 #define NORMAL_SCORE [UIColor lightGrayColor]
-#define AVERAGE_SCORE GREEN_COLOR
-#define EXAM_SCORE BLUE_COLOR
-#define FINAL_SCORE COMMON_COLOR
+#define AVERAGE_SCORE [UIColor colorWithRed:0/255.f green:77/255.f blue:46/255.f alpha:1]
+#define EXAM_SCORE [UIColor colorWithRed:63/255.f green:82/255.f blue:165/255.f alpha:1]
+#define FINAL_SCORE [UIColor colorWithRed:143/255.f green:38/255.f blue:42/255.f alpha:1]
 
 #define VERLOCITY 600
 
