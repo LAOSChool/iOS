@@ -461,6 +461,9 @@
 		55BDA51F1D223AD6007E3A1D /* ic_content_paste_colors.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */; };
 		55BDA5201D223AD6007E3A1D /* ic_content_paste_colors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51D1D223AD6007E3A1D /* ic_content_paste_colors@2x.png */; };
 		55BDA5211D223AD6007E3A1D /* ic_content_paste_colors@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA51E1D223AD6007E3A1D /* ic_content_paste_colors@3x.png */; };
+		55CAF47A1D87BF4900DD3E44 /* red_btn_165_30.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CAF4771D87BF4900DD3E44 /* red_btn_165_30.png */; };
+		55CAF47B1D87BF4900DD3E44 /* red_btn_165_30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CAF4781D87BF4900DD3E44 /* red_btn_165_30@2x.png */; };
+		55CAF47C1D87BF4900DD3E44 /* red_btn_165_30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55CAF4791D87BF4900DD3E44 /* red_btn_165_30@3x.png */; };
 		55CBB7841CAB93F700308266 /* TeacherScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */; };
 		55CBB7851CAB93F700308266 /* TeacherScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */; };
 		55CF10BD1C8543AC00DC1AB9 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CF10BB1C8543AC00DC1AB9 /* MessageTableViewCell.m */; };
@@ -1199,6 +1202,9 @@
 		55BDA51C1D223AD6007E3A1D /* ic_content_paste_colors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_content_paste_colors.png; sourceTree = "<group>"; };
 		55BDA51D1D223AD6007E3A1D /* ic_content_paste_colors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste_colors@2x.png"; sourceTree = "<group>"; };
 		55BDA51E1D223AD6007E3A1D /* ic_content_paste_colors@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_content_paste_colors@3x.png"; sourceTree = "<group>"; };
+		55CAF4771D87BF4900DD3E44 /* red_btn_165_30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_btn_165_30.png; sourceTree = "<group>"; };
+		55CAF4781D87BF4900DD3E44 /* red_btn_165_30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_btn_165_30@2x.png"; sourceTree = "<group>"; };
+		55CAF4791D87BF4900DD3E44 /* red_btn_165_30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_btn_165_30@3x.png"; sourceTree = "<group>"; };
 		55CBB7811CAB93F700308266 /* TeacherScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherScoresViewController.h; sourceTree = "<group>"; };
 		55CBB7821CAB93F700308266 /* TeacherScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherScoresViewController.m; sourceTree = "<group>"; };
 		55CBB7831CAB93F700308266 /* TeacherScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeacherScoresViewController.xib; sourceTree = "<group>"; };
@@ -1821,6 +1827,9 @@
 		550FD2A11C7AFABD009D7159 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				55CAF4771D87BF4900DD3E44 /* red_btn_165_30.png */,
+				55CAF4781D87BF4900DD3E44 /* red_btn_165_30@2x.png */,
+				55CAF4791D87BF4900DD3E44 /* red_btn_165_30@3x.png */,
 				556946881D1B960D00D73658 /* img_default_user.png */,
 				556946891D1B960D00D73658 /* img_default_user@2x.png */,
 				5569468A1D1B960D00D73658 /* img_default_user@3x.png */,
@@ -2804,6 +2813,7 @@
 			files = (
 				5520945D1C89852D004670B3 /* ic_school@2x.png in Resources */,
 				55A579661CEC794B000597D2 /* StdSessionTableViewCell.xib in Resources */,
+				55CAF47C1D87BF4900DD3E44 /* red_btn_165_30@3x.png in Resources */,
 				554769C91C917FA700269EBB /* btn_165_30@3x.png in Resources */,
 				5571A1581CF82FA5008CCE58 /* SchoolRecordTableViewCell.xib in Resources */,
 				55CF10DA1C857E2D00DC1AB9 /* ic_flag_white@2x.png in Resources */,
@@ -2914,6 +2924,7 @@
 				55B108EE1C802CA200EB695C /* ic_help@3x.png in Resources */,
 				556214331CCF0ADB00754AFD /* CTAssetsPickerController.bundle in Resources */,
 				5538A9901CBCF3E500659C8A /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
+				55CAF47A1D87BF4900DD3E44 /* red_btn_165_30.png in Resources */,
 				556946861D1B8DDF00D73658 /* ic_email_gray@2x.png in Resources */,
 				558FC5E81CEEC83900CD0389 /* ic_school_white@3x.png in Resources */,
 				5520945E1C89852D004670B3 /* ic_school@3x.png in Resources */,
@@ -3034,6 +3045,7 @@
 				55B108F91C802F1F00EB695C /* HelpViewController.xib in Resources */,
 				55CF10CA1C8573F000DC1AB9 /* ic_send.png in Resources */,
 				55966CF21CAA68A600D5DBEC /* TimerViewController.xib in Resources */,
+				55CAF47B1D87BF4900DD3E44 /* red_btn_165_30@2x.png in Resources */,
 				559C48801D0FB2AD0013450C /* ic_subject_gray@3x.png in Resources */,
 				559BB1B91CFD43C2001C39E9 /* ic_calendar_white.png in Resources */,
 				558D6DD91CA245CF00EE34BD /* ic_score@2x.png in Resources */,

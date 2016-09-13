@@ -25,9 +25,16 @@
 - (IBAction)txtScoreChanged:(id)sender {
     UITextField *textField = (UITextField *)sender;
 //    [self.delegate inputScoreTo:self withValueReturned:textField.text];
-    ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
-    scoreObj.score = textField.text;
     
+    for (ScoreObject *score in _userScore.scoreArray) {
+        if ([score.scoreTypeObj.scoreKey isEqualToString:_scoreKey]) {
+            
+            score.score = textField.text;
+            break;
+        }
+    }
+    
+    [self.delegate txtScoreChanged:sender];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

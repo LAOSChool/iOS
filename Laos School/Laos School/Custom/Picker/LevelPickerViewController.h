@@ -29,6 +29,7 @@ typedef enum {
 {
     IBOutlet UIPickerView *levelPicker;
     IBOutlet UIButton *btnDone;
+    IBOutlet UIButton *btnClose;
     
     IBOutlet UIView *viewContainer;
 }

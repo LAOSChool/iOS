@@ -17,6 +17,7 @@
 
 - (void)inputScoreTo:(id)sender withValueReturned:(NSString *)value;
 - (void)textFieldDidBegin:(id)sender;
+- (void)txtScoreChanged:(id)sender;
 - (void)btnCommentClick:(id)sender;
 @end
 

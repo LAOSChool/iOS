@@ -174,13 +174,23 @@
 
 - (void)cancelButtonClick {
     if (_selectedType) {
-        [self confirmCancelAddScore];
+        if (self.navigationItem.rightBarButtonItem.enabled == YES) {
+            [self confirmCancelAddScore];
+            
+        } else {
+        
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToRefreshScoreList" object:nil];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+        
     } else {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 - (void)btnSubmitClick {
+    [self dismissKeyboard];
+    
     if ([self validateInputs]) {
         [self confirmBeforeSubmitScore];
     }
@@ -460,6 +470,10 @@
     [scrollView scrollRectToVisible:rect animated:YES];
 }
 
+- (void)txtScoreChanged:(id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+}
+
 - (void)btnCommentClick:(id)sender {
     AddScoreTableViewCell *cell = (AddScoreTableViewCell *)sender;
     [self displayCommentView:cell.userScore];
@@ -476,11 +490,15 @@
 
 #pragma mark table delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self dismissKeyboard];
+}
+
+- (void)dismissKeyboard {
     AddScoreTableViewCell *cell = nil;
     for (int i = 0; i < [searchResults count]; i++) {
         NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
         
-        cell = [tableView cellForRowAtIndexPath:index];
+        cell = [studentTableView cellForRowAtIndexPath:index];
         [cell.txtScore resignFirstResponder];
     }
     
@@ -533,7 +551,6 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     
     NSInteger statusCode = [[jsonObj valueForKey:@"httpStatus"] integerValue];
@@ -547,12 +564,12 @@
                 [self parseScoreTypeList:scoreTypeArr];
 
             }
+            
+            [SVProgressHUD dismiss];
             //API_NAME_TEACHER_ADD_MULTIPLE_SCORE must put before API_NAME_TEACHER_SCORE_LIST
         } else if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
             [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Successfully")];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToRefreshScoreList" object:nil];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
             
         } else if ([url rangeOfString:API_NAME_TEACHER_SCORE_LIST].location != NSNotFound) {
             NSArray *scores = [jsonObj objectForKey:@"messageObject"];
@@ -561,9 +578,11 @@
                 [self parseScoreList:scores];
             }
             
+            [SVProgressHUD dismiss];
         }
         
     } else {
+        [SVProgressHUD dismiss];
         if ([url rangeOfString:API_NAME_TEACHER_ADD_MULTIPLE_SCORE].location != NSNotFound) {
             [self submitScoreFailed];
             
@@ -723,11 +742,11 @@
 - (void)resizeTableView {
     [self btnCloseClick];
     
-    if ([scoresArray count] > 0) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    } else {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }
+//    if ([scoresArray count] > 0) {
+//        self.navigationItem.rightBarButtonItem.enabled = YES;
+//    } else {
+//        self.navigationItem.rightBarButtonItem.enabled = NO;
+//    }
     
     CGSize size = scrollView.contentSize;
     if (keyBoardFlag) {
@@ -778,11 +797,13 @@
 
         addCommentView = [[AddCommentView alloc] initWithFrame:rect];
         addCommentView.delegate = (id)self;
+        addCommentView.scoreKey = _selectedType.scoreKey;   //must pass this scorekey prior to userScore
         addCommentView.userScore = userScore;
         [addCommentView setAlpha:0];
         [self.view addSubview:addCommentView];
         
     } else {
+        addCommentView.scoreKey = _selectedType.scoreKey;   //must pass this scorekey prior to userScore
         addCommentView.userScore = userScore;
         [addCommentView setFrame:rect];
         [self.view addSubview:addCommentView];
@@ -814,6 +835,8 @@
             [addCommentView removeFromSuperview];
             [addCommentView setAlpha:1];
         }];
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 

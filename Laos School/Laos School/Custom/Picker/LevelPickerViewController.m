@@ -26,6 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
+    [btnClose setTitle:LocalizedString(@"Close") forState:UIControlStateNormal];
     
     if (_selectedItem) {
         if (_pickerType == Picker_Subject ||
@@ -115,6 +116,14 @@
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        self.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+}
+
+- (IBAction)btnCloseClick:(id)sender {
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {

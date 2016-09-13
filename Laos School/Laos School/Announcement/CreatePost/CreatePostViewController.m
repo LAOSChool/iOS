@@ -770,6 +770,8 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
         if (error == nil && [jsonObj count] > 0) {
             [self receivedData:jsonObj];
             
+        } else {
+            [self sendAnnouncementFailed];
         }
     }
 }
@@ -782,7 +784,7 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info {
 }
 
 - (NSString *)getAPIKey {
-    NSString *apiKey = @"TEST_API_KEY";
+    NSString *apiKey = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     return apiKey;
 }
 

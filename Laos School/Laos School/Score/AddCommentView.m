@@ -66,7 +66,15 @@
     [btnSave setTitle:LocalizedString(@"Save") forState:UIControlStateNormal];
     
     _userScore = userScore;
-    ScoreObject *scoreObj = [userScore.scoreArray objectAtIndex:0];
+    ScoreObject *scoreObj = nil;
+    
+    for (ScoreObject *score in _userScore.scoreArray) {
+        if ([score.scoreTypeObj.scoreKey isEqualToString:_scoreKey]) {
+
+            scoreObj = score;
+            break;
+        }
+    }
     
     lbStudentName.text = userScore.username;
     lbAdditionalInfo.text = userScore.additionalInfo;
@@ -83,9 +91,13 @@
         imgAvatar.image = [UIImage imageNamed:@"ic_user_gray.png"];
     }
     
-    if (scoreObj.comment != nil && scoreObj.comment.length == 0) {
+    if (scoreObj.comment != nil && scoreObj.comment.length > 0) {
         txtComment.text = scoreObj.comment;
         txtComment.textColor = [UIColor darkGrayColor];
+        
+    } else {
+        txtComment.text = @"";
+        
     }
     
     btnSave.enabled = NO;
@@ -105,9 +117,17 @@
 //        txtComment.text = @"";
 //    }
     
-    ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
+    ScoreObject *scoreObj = nil;
     
-    scoreObj.comment = txtComment.text;
+    for (ScoreObject *score in _userScore.scoreArray) {
+        if ([score.scoreTypeObj.scoreKey isEqualToString:_scoreKey]) {
+            
+            scoreObj = score;
+            scoreObj.comment = txtComment.text;
+            
+            break;
+        }
+    }
     
     [UIView animateWithDuration:0.3 animations:^(void) {
         [self setAlpha:0];
@@ -118,6 +138,8 @@
     }];
     
     _isShowing = NO;
+    
+    [self.delegate btnSaveClick];
 }
 
 
@@ -147,25 +169,28 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-
-    ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
-    
-    if (![txtComment.text isEqualToString:scoreObj.comment]) {
-        btnSave.enabled = YES;
-    } else {
-        btnSave.enabled = NO;
-    }
+//
+//    ScoreObject *scoreObj = nil;
+//    
+//    for (ScoreObject *score in _userScore.scoreArray) {
+//        if ([score.scoreTypeObj.scoreKey isEqualToString:_scoreKey]) {
+//            
+//            scoreObj = score;
+//            break;
+//        }
+//    }
+//    
+//    if (![txtComment.text isEqualToString:scoreObj.comment]) {
+//        btnSave.enabled = YES;
+//    } else {
+//        btnSave.enabled = NO;
+//    }
     
     [textView resignFirstResponder];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    ScoreObject *scoreObj = [_userScore.scoreArray objectAtIndex:0];
-    if (![txtComment.text isEqualToString:scoreObj.comment]) {
-        btnSave.enabled = YES;
-    } else {
-        btnSave.enabled = NO;
-    }
+    btnSave.enabled = YES;
 }
 
 @end

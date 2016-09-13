@@ -9,6 +9,7 @@
 #import "TimerViewController.h"
 #import "Common.h"
 #import "CommonDefine.h"
+#import "LocalizeHelper.h"
 
 @interface TimerViewController ()
 
@@ -19,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
+    [btnClose setTitle:LocalizedString(@"Close") forState:UIControlStateNormal];
 
     NSString *locale = [[NSLocale currentLocale] localeIdentifier];
     NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
@@ -61,6 +64,14 @@
 }
 
 - (IBAction)tapGestureHandle:(id)sender {
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        self.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+}
+
+- (IBAction)btnCloseClick:(id)sender {
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {

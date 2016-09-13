@@ -36,6 +36,7 @@
 @property (strong, nonatomic) IBOutlet UIView *view;
 
 @property (strong, nonatomic) UserScore *userScore;
+@property (strong, nonatomic) NSString *scoreKey;
 
 @property(nonatomic, readwrite) id <AddCommentDelegate> delegate;
 

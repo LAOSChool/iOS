@@ -368,11 +368,11 @@
         [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"imp_flg"];
     }
     
-    if (isSMSChecked) {
-        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"channel"];
-    } else {
+//    if (isSMSChecked) {
+//        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"channel"];
+//    } else {
         [messageDict setObject:[NSNumber numberWithInteger:0] forKey:@"channel"];
-    }
+//    }
     
     if ([_receiverArray count] == 1) {
         UserObject *recipient = [_receiverArray objectAtIndex:0];

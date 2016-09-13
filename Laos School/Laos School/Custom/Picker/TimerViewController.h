@@ -25,7 +25,9 @@ typedef enum {
 {
     IBOutlet UIView *viewContainer;
     IBOutlet UIDatePicker *datetimePicker;
+    IBOutlet UIButton *btnDone;
     
+    IBOutlet UIButton *btnClose;
 }
 
 @property(nonatomic, readwrite) id <TimerPickerViewDelegate> delegate;
