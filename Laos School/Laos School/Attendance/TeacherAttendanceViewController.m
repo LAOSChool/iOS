@@ -849,7 +849,7 @@
             }
             
             if ([studentDict valueForKey:@"school_id"] != (id)[NSNull null]) {
-                userObject.shoolID = [studentDict objectForKey:@"school_id"];
+                userObject.shoolID = [NSString stringWithFormat:@"%@", [studentDict objectForKey:@"school_id"]];
             }
             
             if ([studentDict valueForKey:@"schoolName"] != (id)[NSNull null]) {

@@ -13,9 +13,10 @@
 #import "CommonAlert.h"
 
 @import FirebaseAnalytics;
+@import FirebaseRemoteConfig;
 
-#define SCHOOL_INFO_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
-#define SCHOOL_INFO_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
+#define SCHOOL_INFO_LINK_ENG @"http://%@/ls2/school_info/?lang=en&school_id=%@"
+#define SCHOOL_INFO_LINK_LAOS @"http://%@/ls2/school_info/?lang=la&school_id=%@"
 
 @interface SchoolInfoViewController ()
 
@@ -31,23 +32,42 @@
                                                                     }];
     [self.navigationController setNavigationColor];
     [self setTitle:LocalizedString(@"School info")];
+    FIRRemoteConfig *config = [FIRRemoteConfig remoteConfig];
+    __block NSString *domain = @"itpro.vn";
     
     if ([[Common sharedCommon] networkIsActive]) {
-        NSString *urlAddress = SCHOOL_INFO_LINK_ENG;
-        
-        NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
-        
-        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
-            urlAddress = SCHOOL_INFO_LINK_ENG;
+        [config fetchWithExpirationDuration:43200 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
+            if (status == FIRRemoteConfigFetchStatusSuccess) {
+                NSLog(@"Config fetched!");
+                [config activateFetched];
+                FIRRemoteConfigValue *domainName = config[@"domain_name"];
+                
+                if (domainName.stringValue && domainName.stringValue.length > 0) {
+                    domain = domainName.stringValue;
+                }
+                
+            } else {
+                NSLog(@"Config not fetched");
+                NSLog(@"Error %@", error);
+                domain = @"itpro.vn";
+            }
             
-        } else {
-            urlAddress = SCHOOL_INFO_LINK_LAOS;
-        }
-        
-        NSURL *url = [NSURL URLWithString:urlAddress];
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        
-        [webView loadRequest:requestObj];
+            NSString *urlAddress = SCHOOL_INFO_LINK_ENG;
+            
+            NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+            
+            if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+                urlAddress = [NSString stringWithFormat:SCHOOL_INFO_LINK_ENG, domain, _schoolID];
+                
+            } else {
+                urlAddress = [NSString stringWithFormat:SCHOOL_INFO_LINK_LAOS, domain, _schoolID];
+            }
+            
+            NSURL *url = [NSURL URLWithString:urlAddress];
+            NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+            
+            [webView loadRequest:requestObj];
+        }];
         
     } else {
 //        [self loadLocalHtml];

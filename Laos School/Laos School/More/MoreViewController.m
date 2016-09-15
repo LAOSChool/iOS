@@ -387,7 +387,7 @@
                     case StudentSchoolSectionInfo:
                     {
                         SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
-                        
+                        schoolInfoView.schoolID = [ShareData sharedShareData].userObj.shoolID;
                         [self.navigationController pushViewController:schoolInfoView animated:YES];
                     }
                         break;
@@ -409,6 +409,7 @@
                     case TeacherSchoolSectionInfo:
                     {
                         SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
+                        schoolInfoView.schoolID = [ShareData sharedShareData].userObj.shoolID;
                         
                         [self.navigationController pushViewController:schoolInfoView animated:YES];
                     }

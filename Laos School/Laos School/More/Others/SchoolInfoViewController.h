@@ -13,4 +13,6 @@
     IBOutlet UIWebView *webView;
     
 }
+
+@property (nonatomic, strong) NSString *schoolID;
 @end

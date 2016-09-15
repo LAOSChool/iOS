@@ -12,8 +12,11 @@
 #import "Common.h"
 #import "CommonAlert.h"
 
-#define HELP_LINK_ENG @"https://www.youtube.com/watch?v=dA8qruho2Ow"
-#define HELP_LINK_LAOS @"https://www.youtube.com/watch?v=dA8qruho2Ow"
+#define HELP_LINK_ENG @"http://%@/ls2/help/?lang=en"
+#define HELP_LINK_LAOS @"http://%@/ls2/help/?lang=la"
+
+
+@import FirebaseRemoteConfig;
 
 @interface HelpViewController ()
 
@@ -28,20 +31,41 @@
     
     [self.navigationController setNavigationColor];
     
+    FIRRemoteConfig *config = [FIRRemoteConfig remoteConfig];
+    
+    __block NSString *domain = @"itpro.vn";
+    
     if ([[Common sharedCommon] networkIsActive]) {
-        NSString *urlAddress = HELP_LINK_ENG;
-        NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
-        
-        if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
-            urlAddress = HELP_LINK_ENG;
+        [config fetchWithExpirationDuration:43200 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
+            if (status == FIRRemoteConfigFetchStatusSuccess) {
+                NSLog(@"Config fetched!");
+                [config activateFetched];
+                FIRRemoteConfigValue *domainName = config[@"domain_name"];
+                
+                if (domainName.stringValue && domainName.stringValue.length > 0) {
+                    domain = domainName.stringValue;
+                }
+                
+            } else {
+                NSLog(@"Config not fetched");
+                NSLog(@"Error %@", error);
+                domain = @"itpro.vn";
+            }
             
-        } else {
-            urlAddress = HELP_LINK_LAOS;
-        }
-        NSURL *url = [NSURL URLWithString:urlAddress];
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        
-        [webView loadRequest:requestObj];
+            NSString *urlAddress = HELP_LINK_ENG;
+            NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+            
+            if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+                urlAddress = [NSString stringWithFormat:HELP_LINK_ENG, domain];
+                
+            } else {
+                urlAddress = [NSString stringWithFormat:HELP_LINK_LAOS, domain];
+            }
+            NSURL *url = [NSURL URLWithString:urlAddress];
+            NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+            
+            [webView loadRequest:requestObj];
+        }];
         
     } else {
 //        [self loadLocalHtml];

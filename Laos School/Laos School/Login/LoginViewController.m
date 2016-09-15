@@ -357,7 +357,7 @@
     }
     
     if ([jsonObj valueForKey:@"school_id"] != (id)[NSNull null]) {
-        userObject.shoolID = [jsonObj objectForKey:@"school_id"];
+        userObject.shoolID = [NSString stringWithFormat:@"%@", [jsonObj objectForKey:@"school_id"]];
     }
     
     if ([jsonObj valueForKey:@"schoolName"] != (id)[NSNull null]) {
