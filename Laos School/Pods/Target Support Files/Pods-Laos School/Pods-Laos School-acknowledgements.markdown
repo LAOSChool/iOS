@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## Firebase
 
-Copyright 2016 Google Inc.
+Copyright 2016 Google
 
 ## FirebaseAnalytics
 
@@ -11,15 +11,15 @@ Copyright 2016 Google
 
 ## FirebaseInstanceID
 
-Copyright 2016 Google Inc.
+Copyright 2016 Google
 
 ## FirebaseMessaging
 
-Copyright 2016 Google Inc.
+Copyright 2016 Google
 
-## GoogleAnalytics
+## FirebaseRemoteConfig
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleIPhoneUtilities
 
@@ -32,10 +32,6 @@ Copyright 2015 Google Inc.
 ## GoogleSymbolUtilities
 
 Copyright 2015 Google Inc.
-
-## GoogleTagManager
-
-Copyright 2016 Google Inc.
 
 ## GoogleUtilities
 

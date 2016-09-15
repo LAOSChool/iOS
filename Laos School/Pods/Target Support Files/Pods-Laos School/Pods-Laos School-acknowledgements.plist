@@ -14,7 +14,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2016 Google Inc.</string>
+			<string>Copyright 2016 Google</string>
 			<key>Title</key>
 			<string>Firebase</string>
 			<key>Type</key>
@@ -30,7 +30,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2016 Google Inc.</string>
+			<string>Copyright 2016 Google</string>
 			<key>Title</key>
 			<string>FirebaseInstanceID</string>
 			<key>Type</key>
@@ -38,7 +38,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2016 Google Inc.</string>
+			<string>Copyright 2016 Google</string>
 			<key>Title</key>
 			<string>FirebaseMessaging</string>
 			<key>Type</key>
@@ -46,9 +46,9 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2015 Google Inc.</string>
+			<string>Copyright 2016 Google</string>
 			<key>Title</key>
-			<string>GoogleAnalytics</string>
+			<string>FirebaseRemoteConfig</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -73,14 +73,6 @@
 			<string>Copyright 2015 Google Inc.</string>
 			<key>Title</key>
 			<string>GoogleSymbolUtilities</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>Copyright 2016 Google Inc.</string>
-			<key>Title</key>
-			<string>GoogleTagManager</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
