@@ -31,7 +31,7 @@
 @interface AddScoresViewController ()
 {
     NSMutableArray *scoresArray;    //store usersocre corresponding to a specific score type
-    NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
+//    NSMutableDictionary *userScoreDict; //store userscore corresponding to a specific subject
 
     NSMutableArray *searchResults;
     NSMutableArray *scoreTypesArray;
@@ -72,9 +72,9 @@
         scoresArray = [[NSMutableArray alloc] init];
     }
     
-    if (userScoreDict == nil) {
-        userScoreDict = [[NSMutableDictionary alloc] init];
-    }
+//    if (userScoreDict == nil) {
+//        userScoreDict = [[NSMutableDictionary alloc] init];
+//    }
     
     if (scoreTypesArray == nil) {
         scoreTypesArray = [[NSMutableArray alloc] init];
@@ -201,23 +201,33 @@
     BOOL res = YES;
     NSInteger count = 0;
     for (UserScore *userScore in scoresArray) {
-        ScoreObject *scoreObj = [userScore.scoreArray objectAtIndex:0];
-        NSString *score  = scoreObj.score;
+        ScoreObject *scoreObj = nil;
         
-        if (score == nil || score.length == 0) {
-            res = NO;
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
-            
-            [studentTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            
-            AddScoreTableViewCell *cell = [studentTableView cellForRowAtIndexPath:indexPath];
-            [cell.txtScore becomeFirstResponder];
-            
-            [self incompleteFillingScore];
-            break;
+        for (ScoreObject *score in userScore.scoreArray) {
+            if ([score.scoreTypeObj.scoreKey isEqualToString:_selectedType.scoreKey]) {
+                scoreObj = score;
+                break;
+            }
         }
         
-        count++;
+        if (scoreObj) {
+            NSString *score  = scoreObj.score;
+            
+            if (score == nil || score.length == 0) {
+                res = NO;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
+                
+                [studentTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                
+                AddScoreTableViewCell *cell = [studentTableView cellForRowAtIndexPath:indexPath];
+                [cell.txtScore becomeFirstResponder];
+                
+                [self incompleteFillingScore];
+                break;
+            }
+            
+            count++;
+        }
     }
     
     return res;
@@ -625,7 +635,7 @@
 
 - (void)parseScoreList:(NSArray *)scores {
     [scoresArray removeAllObjects];
-    [userScoreDict removeAllObjects];
+//    [userScoreDict removeAllObjects];
     [searchResults removeAllObjects];
 
     for (NSDictionary *scoreDict in scores) {
