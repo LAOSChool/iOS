@@ -159,7 +159,7 @@
 "Ranking" = "​ຈັດ​ອັນ​ດັບ";
 
 //More
-"School records" = "ບັນ​ທຶກ​ຂອງ​ໂຮງ​ຮຽນ";
+"School records" = "ປຶ້ມ​ຕິດ​ຕາມ​ການ​ຮຽນ";
 "Timetable" = "ຕາ​ຕະ​ລາງ​ຮຽນ";
 "Schedule" = "ຕາ​ຕະ​ລາງ​ສອນ";
 "School information" = "ຂໍ້​ມູນ​ທາງ​ໂຮງ​ຮຽນ";
@@ -172,8 +172,8 @@
 
 //personal info
 "Student info" = "ຂໍ້​ມູນ​ນັກ​ຮຽນ";
-"Parent info" = "Parent info:";
-"Name" = "Name";
+"Parent info" = "ຂໍ້ໍ​ມູນ​ຜູ້​ປົກ​ຄອງ:";
+"Name" = "ຊື່";
 
 //school records
 "Overall" = "ທັງ​ໝົດ";

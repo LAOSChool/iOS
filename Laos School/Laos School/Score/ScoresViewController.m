@@ -225,19 +225,21 @@
         
         if (IS_IPAD) {
             res = 135.0;
-        }
-        
-        if (segmentedControl.selectedSegmentIndex == 0) {
-            
-            if (_curTerm && [_curTerm isEqualToString:TERM_VALUE_2 ]) {
-                res = 170.0;
-                
-            } else {
-                res = 115.0;
-            }
             
         } else {
-            res = 170.0;
+        
+            if (segmentedControl.selectedSegmentIndex == 0) {
+                
+                if (_curTerm && [_curTerm isEqualToString:TERM_VALUE_2 ]) {
+                    res = 170.0;
+                    
+                } else {
+                    res = 115.0;
+                }
+                
+            } else {
+                res = 170.0;
+            }
         }
         
     } else {
