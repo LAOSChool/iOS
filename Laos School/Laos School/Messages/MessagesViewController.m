@@ -22,7 +22,6 @@
 #import "Common.h"
 #import "CoreDataUtil.h"
 
-
 @interface MessagesViewController ()
 {
     NSMutableArray *messagesArray;
@@ -39,6 +38,7 @@
     UIRefreshControl *refreshControl;
     NSIndexPath *selectedIndex;
 }
+
 @end
 
 @implementation MessagesViewController
@@ -49,9 +49,19 @@
     
     [self setTitle:LocalizedString(@"Messages")];
     [self.navigationController setNavigationColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+//    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = (id)self;
+
+    self.searchController.searchBar.delegate = (id)self;
+    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
+    
+    messagesTableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+    [self.searchController.searchBar sizeToFit];
     
     isReachToEnd = NO;
     isNoMoreFromServer = NO;
@@ -120,44 +130,13 @@
                                              selector:@selector(refreshAfterSentNewMessage)
                                                  name:@"DidReceiveRemoteNotification"
                                                object:nil];
-    //for test
-    /*
-    MessageObject *messObj = [[MessageObject alloc] init];
-    
-    messObj.messageID = 1;
-    messObj.subject = @"Nhận xét học tập";
-    messObj.content = @"Con học dốt như bò";
-    messObj.fromID = @"1";
-    messObj.fromUsername = @"Phạm Phương Thảo";
-    messObj.toID = @"2";
-    messObj.toUsername = @"Nguyễn Huyền Trang";
-    messObj.unreadFlag = YES;
-    messObj.messageType = MessageComment;
-    messObj.importanceType = ImportanceNormal;
-    messObj.messageTypeIcon = MT_COMMENT;
-    messObj.dateTime = @"2016-03-20 16:00";
-    
-    [messagesArray addObject:messObj];
-    
-    [SVProgressHUD show];
-    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    dispatch_async(taskQ, ^{
-        
-//        NSArray *sortDescriptionArr = [NSArray arrayWithObjects:sortWord, nil];
-//        [wordsArray sortUsingDescriptors:sortDescriptionArr];
-//        NSLog(@"All :: %lu", (unsigned long)[wordsArray count]);
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [messagesTableView reloadData];
-            [SVProgressHUD dismiss];
-        });
-    });
-     */
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
@@ -463,28 +442,29 @@
     return 1;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//
-//    return @"";
-//}
+/*
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
-//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-//
-//    header.textLabel.textColor = [UIColor whiteColor];
-//    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-//    CGRect headerFrame = header.frame;
-//    header.textLabel.frame = headerFrame;
-//    header.textLabel.textAlignment = NSTextAlignmentLeft;
-//
-//    header.backgroundView.backgroundColor = [UIColor darkGrayColor];
-//}
+    return @"";
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+
+    header.textLabel.textColor = [UIColor whiteColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentLeft;
+
+    header.backgroundView.backgroundColor = [UIColor darkGrayColor];
+}
+*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active && self.searchController.searchBar.text.length > 0 ) {
         return [searchResults count];
         
     } else {
@@ -549,7 +529,7 @@
     [cell.lbSenderName setTextColor:TITLE_COLOR];
     
     MessageObject *messageObj = nil;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         messageObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -657,7 +637,7 @@
     selectedIndex = indexPath;
     
     MessageObject *messageObj = nil;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         messageObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -714,42 +694,7 @@
     }
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self->searchResults removeAllObjects]; // First clear the filtered array.
-    NSArray *currentArr = [self currentMessageArray];
-    if (searchString == nil || searchString.length == 0) {
-        self->searchResults = [currentArr mutableCopy];
-        
-    } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
-        //        NSArray *keys = [dataDic allKeys];
-        //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-        //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [currentArr filteredArrayUsingPredicate:filterPredicate];
-        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
-    }
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-- (NSArray *)currentMessageArray {
-    if (segmentedControl.selectedSegmentIndex == 0) {  //All
-        return messagesArray;
-        
-    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
-        return unreadMessagesArray;
-        
-    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
-        return sentMessagesArray;
-        
-    }
-    
-    return [[NSMutableArray alloc] init];
-}
-
+/*
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     self.searchDisplayController.searchBar.showsCancelButton = YES;
     
@@ -761,7 +706,7 @@
         }
     }
 }
-
+*/
 #pragma mark cell delegate
 - (void)btnFlagClick:(id)sender {
     MessageTableViewCell *cell = (MessageTableViewCell *)sender;
@@ -1016,4 +961,86 @@
     [messArr addObjectsFromArray:resultArr];
 }
 
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+
+#pragma mark - UISearchControllerDelegate
+
+// Called after the search controller's search bar has agreed to begin editing or when
+// 'active' is set to YES.
+// If you choose not to present the controller yourself or do not implement this method,
+// a default presentation is performed on your behalf.
+//
+// Implement this method if the default presentation is not adequate for your purposes.
+//
+- (void)presentSearchController:(UISearchController *)searchController {
+    
+}
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    // do something before the search controller is presented
+    searchController.searchBar.showsCancelButton = YES;
+    
+    for (UIView *subView in searchController.searchBar.subviews){
+        for (UIView *subView2 in subView.subviews){
+            if([subView2 isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    // do something after the search controller is presented
+}
+
+- (void)willDismissSearchController:(UISearchController *)searchController {
+    // do something before the search controller is dismissed
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    // do something after the search controller is dismissed
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    // update the filtered array based on the search text
+    NSString *searchString = self.searchController.searchBar.text;
+    
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    NSArray *currentArr = [self currentMessageArray];
+    
+    if (searchString == nil || searchString.length == 0) {
+        self->searchResults = [currentArr mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@ OR fromUsername CONTAINS[cd] %@ OR toUsername CONTAINS[cd] %@", searchString, searchString, searchString];
+
+        NSArray *filterKeys = [currentArr filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    
+    [messagesTableView reloadData];
+}
+
+
+- (NSArray *)currentMessageArray {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        return messagesArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        return unreadMessagesArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        return sentMessagesArray;
+        
+    }
+    
+    return [[NSMutableArray alloc] init];
+}
 @end

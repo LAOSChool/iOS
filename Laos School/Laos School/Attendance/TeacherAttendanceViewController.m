@@ -416,19 +416,19 @@
     }
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)sBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)sBar {
     
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)sBar {
     [self showHideHeaderView:NO];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (void)searchBar:(UISearchBar *)sBar textDidChange:(NSString *)searchText {
     [self->searchResults removeAllObjects]; // First clear the filtered array.
     
     if (searchText.length == 0) {

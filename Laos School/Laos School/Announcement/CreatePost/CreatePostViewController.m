@@ -139,9 +139,9 @@
     }
     
     //scroll content size
-    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
-    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
-    [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
+//    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+//    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
+//    [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
     
     textViewPost.editable = !_isViewDetail;
     textViewTitle.userInteractionEnabled = !_isViewDetail;
@@ -159,6 +159,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    //scroll content size
+//    CGFloat height = textViewTitle.frame.size.height + textViewPost.frame.size.height + IMAGE_VIEW_OFFSET *3;
+//    height = height + (IMAGE_VIEW_HEIGHT + IMAGE_VIEW_OFFSET) * [imageViewArray count] + IMAGE_KEYBOARD_OFFSET;
+//    [mainScrollView setContentSize:CGSizeMake(mainScrollView.frame.size.width, height)];
+//}
 
 /*
 #pragma mark - Navigation

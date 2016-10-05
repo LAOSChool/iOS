@@ -47,9 +47,20 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.navigationController setNavigationColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setTitle:LocalizedString(@"Announcements")];
-    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+//    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = (id)self;
+    
+    self.searchController.searchBar.delegate = (id)self;
+    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
+    
+    announcementTableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+    [self.searchController.searchBar sizeToFit];
     
     isReachToEnd = NO;
     isNoMoreFromServer = NO;
@@ -499,7 +510,7 @@
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
     
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active && self.searchController.searchBar.text.length > 0 ) {
         return [searchResults count];
         
     } else {
@@ -563,7 +574,7 @@
     [cell.lbSubject setTextColor:TITLE_COLOR];
     
     AnnouncementObject *announcementObject = nil;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         announcementObject = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -614,7 +625,7 @@
     selectedIndex = indexPath;
     
     AnnouncementObject *announcementObject = nil;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         announcementObject = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -635,39 +646,6 @@
     
     [self showDetailView:announcementObject];
     
-}
-
-#pragma mark - UISearchDisplayController Delegate Methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self->searchResults removeAllObjects]; // First clear the filtered array.
-    
-    if (searchString == nil || searchString.length == 0) {
-        self->searchResults = [announceArray mutableCopy];
-        
-    } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
-        //        NSArray *keys = [dataDic allKeys];
-        //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-        //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [announceArray filteredArrayUsingPredicate:filterPredicate];
-        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
-    }
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    self.searchDisplayController.searchBar.showsCancelButton = YES;
-    
-    for (UIView *subView in self.searchDisplayController.searchBar.subviews){
-        for (UIView *subView2 in subView.subviews){
-            if([subView2 isKindOfClass:[UIButton class]]){
-                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
-            }
-        }
-    }
 }
 
 #pragma mark cell delegate
@@ -940,4 +918,87 @@
     
     return res;
 }
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+
+#pragma mark - UISearchControllerDelegate
+
+// Called after the search controller's search bar has agreed to begin editing or when
+// 'active' is set to YES.
+// If you choose not to present the controller yourself or do not implement this method,
+// a default presentation is performed on your behalf.
+//
+// Implement this method if the default presentation is not adequate for your purposes.
+//
+- (void)presentSearchController:(UISearchController *)searchController {
+    
+}
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    // do something before the search controller is presented
+    searchController.searchBar.showsCancelButton = YES;
+    
+    for (UIView *subView in searchController.searchBar.subviews){
+        for (UIView *subView2 in subView.subviews){
+            if([subView2 isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    // do something after the search controller is presented
+}
+
+- (void)willDismissSearchController:(UISearchController *)searchController {
+    // do something before the search controller is dismissed
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    // do something after the search controller is dismissed
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    // update the filtered array based on the search text
+    NSString *searchString = self.searchController.searchBar.text;
+    
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    NSArray *currentArr = [self currentAnnouncementArray];
+    
+    if (searchString == nil || searchString.length == 0) {
+        self->searchResults = [currentArr mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@ OR fromUsername CONTAINS[cd] %@ OR toUsername CONTAINS[cd] %@", searchString, searchString, searchString];
+
+        NSArray *filterKeys = [currentArr filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    [announcementTableView reloadData];
+}
+
+
+- (NSArray *)currentAnnouncementArray {
+    if (segmentedControl.selectedSegmentIndex == 0) {  //All
+        return announceArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 1) {    //Unread
+        return unreadAnnouncementsArray;
+        
+    } else if(segmentedControl.selectedSegmentIndex == 2) {    //Sent
+        return sentAnnouncementsArray;
+        
+    }
+    
+    return [[NSMutableArray alloc] init];
+}
+
 @end

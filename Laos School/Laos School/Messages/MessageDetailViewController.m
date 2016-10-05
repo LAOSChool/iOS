@@ -53,6 +53,8 @@
         txtContent.text = _messageObject.content;
     }
     [txtContent setFont:[UIFont systemFontOfSize:15]];
+    txtContent.scrollEnabled = NO;
+    txtContent.scrollEnabled = YES;
     
     if (_messageObject.dateTime != (id)[NSNull null]) {
         lbDateTime.text = [[DateTimeHelper sharedDateTimeHelper] stringDateFromString:_messageObject.dateTime withFormat:@"dd-MM-yyyy HH:mm:ss"];
