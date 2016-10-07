@@ -148,11 +148,15 @@
     btnCamera.enabled = !_isViewDetail;
     
     if (_isViewDetail) {
-        for (PhotoObject *photoObj in _announcementObject.imgArray) {
-            [self addImageToDetailView:photoObj];
-        }
+        dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(taskQ, ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                for (PhotoObject *photoObj in _announcementObject.imgArray) {
+                    [self addImageToDetailView:photoObj];
+                }
+            });
+        });
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {

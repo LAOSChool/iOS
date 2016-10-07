@@ -55,8 +55,6 @@
 
     if (_receiverArray == nil) {
         _receiverArray = [[NSMutableArray alloc] init];
-    } else {
-        [self selectReceiverCompletedHandle];
     }
     
     if (_content && _content.length > 0) {
@@ -74,6 +72,7 @@
     
     if ([[ShareData sharedShareData] userObj].userRole == UserRole_Student) {
         lbTeacherReceiverList.text = [[ShareData sharedShareData] userObj].classObj.teacherName;
+        
     }
     
     if (_isTeacherForm) {
@@ -92,10 +91,12 @@
         //setting for sample message view
         if (_composeType == MessageCompose_Attendance ||
             _composeType == MessageCompose_Inform) {
+            
+            [self selectReceiverCompletedHandle];
+            
             if (reasonList == nil) {
                 reasonList = [[NSMutableArray alloc] init];
             }
-            
             
             if (_composeType == MessageCompose_Attendance) {
                 [reasonList addObject:LocalizedString(@"Sample 1")];
@@ -154,7 +155,7 @@
     [txtContent becomeFirstResponder];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(selectReceiverCompletedHandle)
+                                             selector:@selector(selectReceiverCompletedHandle:)
                                                  name:@"SelectReceiverCompleted"
                                                object:nil];
     
@@ -468,6 +469,27 @@
     }
 }
 
+
+- (void)selectReceiverCompletedHandle:(NSNotification *)notification {
+    NSArray *recs = (NSArray *)notification.object;
+    [_receiverArray removeAllObjects];
+    if (recs) {
+        [_receiverArray addObjectsFromArray:recs];
+    }
+    
+    NSString *receiverString = @"";
+    
+    if ([_receiverArray count] > 0) {
+        for (UserObject *userObj in _receiverArray) {
+            receiverString = [receiverString stringByAppendingFormat:@"%@, ", userObj.nickName];
+        }
+        
+        receiverString = [receiverString stringByAppendingString:@"\n"];
+        receiverString = [receiverString stringByAppendingString:@"\n"];
+    }
+    
+    lbTeacherReceiverList.text = receiverString;
+}
 
 - (void)selectReceiverCompletedHandle {
     NSString *receiverString = @"";

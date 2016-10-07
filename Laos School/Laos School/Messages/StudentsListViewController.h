@@ -23,6 +23,7 @@ typedef enum {
     
     IBOutlet UIButton *btnCheck;
     
+    IBOutlet UISearchBar *searchBar;
 }
 
 @property (nonatomic, strong) NSMutableArray *selectedArray;

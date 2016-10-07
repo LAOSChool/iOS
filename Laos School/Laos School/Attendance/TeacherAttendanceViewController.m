@@ -68,6 +68,8 @@
     
     [self setTitle:LocalizedString(@"Attendance")];
     
+    searchBar.placeholder = LocalizedString(@"Search");
+    
     UIBarButtonItem *btnAction = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(actionButtonClick:)];
     
     self.navigationItem.rightBarButtonItems = @[btnAction];
@@ -190,7 +192,7 @@
 }
 
 - (void)cancelButtonClick {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)actionButtonClick:(id)sender {
@@ -416,6 +418,7 @@
     }
 }
 
+#pragma mark search bar delegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)sBar {
     [searchBar resignFirstResponder];
 }
@@ -436,9 +439,7 @@
         
     } else {
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"userNameForSearch CONTAINS[cd] %@", searchText];
-        //        NSArray *keys = [dataDic allKeys];
-        //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-        //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
+
         NSArray *filterKeys = [checkAttendanceArray filteredArrayUsingPredicate:filterPredicate];
         self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
     }

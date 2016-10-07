@@ -49,18 +49,19 @@
     [self.navigationController setNavigationColor];
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setTitle:LocalizedString(@"Announcements")];
-//    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = (id)self;
     
     self.searchController.searchBar.delegate = (id)self;
+    self.searchController.delegate = (id)self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
     
     announcementTableView.tableHeaderView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
     
     [self.searchController.searchBar sizeToFit];
+    [self.searchController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     isReachToEnd = NO;
     isNoMoreFromServer = NO;

@@ -41,6 +41,8 @@
     [self.navigationController setNavigationColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    searchBar.placeholder = LocalizedString(@"Search");
+    
     if (_studentListType == StudentList_Message) {
         btnCheck.hidden = NO;
         [btnCheck setTintColor:[UIColor whiteColor]];
@@ -113,6 +115,17 @@
 }
 */
 
+- (void)setSelectedArray:(NSMutableArray *)selectedArray {
+    if (_selectedArray == nil) {
+        _selectedArray = [[NSMutableArray alloc] init];
+        
+    } else {
+        [_selectedArray removeAllObjects];
+    }
+    
+    [_selectedArray addObjectsFromArray:selectedArray];
+}
+
 - (void)reloadStudentData {
     [self loadData];
 }
@@ -149,13 +162,14 @@
 }
 
 - (void)closeButtonClick {
+    searchBar.delegate = nil;
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)doneButtonClick {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectReceiverCompleted" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectReceiverCompleted" object:_selectedArray];
 }
 
 //- (void)checkButtonClick {
@@ -190,12 +204,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [searchResults count];
-        
-    } else {
-        return [studentsArray count];
-    }
+    return [searchResults count];
     
 }
 
@@ -237,12 +246,7 @@
     
     UserObject *userObject = nil;
     
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        userObject = [searchResults objectAtIndex:indexPath.row];
-        
-    } else {
-        userObject = [studentsArray objectAtIndex:indexPath.row];
-    }
+    userObject = [searchResults objectAtIndex:indexPath.row];
     
     cell.lbFullname.text = userObject.displayName;
     cell.lbAdditionalInfo.text = userObject.nickName;
@@ -294,13 +298,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     UserObject *userObject = nil;
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        userObject = [searchResults objectAtIndex:indexPath.row];
-        
-    } else {
-        userObject = [studentsArray objectAtIndex:indexPath.row];
-    }
+    userObject = [searchResults objectAtIndex:indexPath.row];
     
     if (_studentListType == StudentList_Message) {
         BOOL found = NO;
@@ -340,13 +338,8 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     UserObject *userObject = nil;
     
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        userObject = [searchResults objectAtIndex:indexPath.row];
-        
-    } else {
-        userObject = [studentsArray objectAtIndex:indexPath.row];
-    }
-    
+    userObject = [searchResults objectAtIndex:indexPath.row];
+
     if (_studentListType == StudentList_Normal) {
         PersonalInfoViewController *personalInfoView = [[PersonalInfoViewController alloc] initWithNibName:@"PersonalInfoViewController" bundle:nil];
         personalInfoView.userObj = userObject;
@@ -359,52 +352,6 @@
     }
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self->searchResults removeAllObjects]; // First clear the filtered array.
-    
-    if (searchString == nil || searchString.length == 0) {
-        self->searchResults = [studentsArray mutableCopy];
-        
-    } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString];
-        //        NSArray *keys = [dataDic allKeys];
-        //        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-        //        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [studentsArray filteredArrayUsingPredicate:filterPredicate];
-        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
-    }
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    self.searchDisplayController.searchBar.showsCancelButton = YES;
-    
-    for (UIView *subView in self.searchDisplayController.searchBar.subviews){
-        for (UIView *subView2 in subView.subviews){
-            if([subView2 isKindOfClass:[UIButton class]]){
-                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
-            }
-        }
-    }
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    
-}
-
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    [studentsTableView reloadData];
-    
-    return YES;
-}
 
 - (void)updateHeaderInfo {
     if (_studentListType == StudentList_Message) {
@@ -415,11 +362,41 @@
     
 }
 
+#pragma mark search bar delegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)sBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)sBar {
+    
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)sBar {
+
+}
+
+- (void)searchBar:(UISearchBar *)sBar textDidChange:(NSString *)searchString {
+    
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    
+    if (searchString == nil || searchString.length == 0) {
+        self->searchResults = [studentsArray mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@ OR displayName CONTAINS[cd] %@ OR nickName CONTAINS[cd] %@", searchString, searchString, searchString];
+        
+        NSArray *filterKeys = [studentsArray filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    [studentsTableView reloadData];
+}
+
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
     [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     [studentsArray removeAllObjects];
+    [searchResults removeAllObjects];
     
     NSArray *students = [jsonObj objectForKey:@"list"];    
     
@@ -504,6 +481,8 @@
             [studentsArray addObject:userObject];
         }
     }
+    
+    [searchResults addObjectsFromArray:studentsArray];
     
     if (_studentListType == StudentList_Message) {
         if ([studentsArray count] > 0) {
