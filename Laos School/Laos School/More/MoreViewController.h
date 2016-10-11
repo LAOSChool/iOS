@@ -16,6 +16,12 @@ typedef enum {
     MoreGroupMax
 } MORE_TABLEVIEW_GROUP;
 
+typedef enum {
+    President_MoreGroupSchool = 0,
+    President_MoreGroupSettings,
+    President_MoreGroupMax
+} PRESIDENT_MORE_TABLEVIEW_GROUP;
+
 //student enum
 typedef enum {
     StudentProfileSectionProfile = 0,

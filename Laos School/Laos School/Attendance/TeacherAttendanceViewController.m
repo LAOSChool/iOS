@@ -1064,7 +1064,7 @@
         UserObject *userObj = [[ShareData sharedShareData] userObj];
         ClassObject *classObj = userObj.classObj;
         
-        lbClass.text = [NSString stringWithFormat:@"%@ - Total: %lu | Off: %ld", classObj.className, (unsigned long)[checkAttendanceArray count], (long)countOff];
+        lbClass.text = [NSString stringWithFormat:@"%@ - %@: %lu | %@: %ld", classObj.className, LocalizedString(@"Total"), (unsigned long)[checkAttendanceArray count], LocalizedString(@"Off"), (long)countOff];
         
         if ([checkAttendanceArray count] > 0) {
             self.navigationItem.rightBarButtonItem.enabled = YES;

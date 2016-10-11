@@ -59,6 +59,6 @@
 }
 
 - (NSString *)userNameForSearch {
-    return self.userObject.username;
+    return [NSString stringWithFormat:@"%@ %@ %@", self.userObject.username, self.userObject.displayName, self.userObject.nickName];
 }
 @end

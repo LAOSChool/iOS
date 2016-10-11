@@ -38,37 +38,57 @@
 	// Do any additional setup after loading the view.
 	[self setViewControllers:_viewControllerItems];
 
-	for (NSInteger index = 0; index < [_viewControllerItems count]; index++) {
-		switch (index) {
-			case MESSAGE_TAB:
-                [self.tabBar.items[index] setTitle:LocalizedString(@"Messages")];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_message"]];
-				break;
-                
-            case ANNOUNCEMENT_TAB:
-                [self.tabBar.items[index] setTitle:LocalizedString(@"Announcements")];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_announcement"]];
-                break;
-                
-            case ATTENDANCE_TAB:
-                [self.tabBar.items[index] setTitle:LocalizedString(@"Attendance")];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_attendance"]];
-                break;
-                
-            case SCORE_TAB:
-                [self.tabBar.items[index] setTitle:LocalizedString(@"Scores")];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_score"]];
-                break;
-                
-            case MORE_TAB:
-                [self.tabBar.items[index] setTitle:LocalizedString(@"More")];
-                [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_more"]];
-                break;
-
-			default:
-				break;
-		}
-	}
+    if ([_viewControllerItems count] == MORE_TAB + 1) {
+        for (NSInteger index = 0; index < [_viewControllerItems count]; index++) {
+            switch (index) {
+                case MESSAGE_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"Messages")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_message"]];
+                    break;
+                    
+                case ANNOUNCEMENT_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"Announcements")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_announcement"]];
+                    break;
+                    
+                case ATTENDANCE_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"Attendance")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_attendance"]];
+                    break;
+                    
+                case SCORE_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"Scores")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_score"]];
+                    break;
+                    
+                case MORE_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"More")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_more"]];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    } else {
+        for (NSInteger index = 0; index < [_viewControllerItems count]; index++) {
+            switch (index) {
+                case MESSAGE_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"Attendance")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_attendance"]];
+                    break;
+                    
+                case ANNOUNCEMENT_TAB:
+                    [self.tabBar.items[index] setTitle:LocalizedString(@"More")];
+                    [self.tabBar.items[index] setImage: [UIImage imageNamed:@"ic_more"]];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
+	
 	
 	self.delegate = self;
     [self setSelectedIndex:MESSAGE_TAB];
@@ -97,46 +117,47 @@
 
 #pragma tabbar delegate
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-	
-    switch (tabBarController.selectedIndex) {
-        case MESSAGE_TAB:
-            
-            [FIRAnalytics logEventWithName:@"selected_messsage_tab" parameters:@{
-                                                                  kFIRParameterValue:@"1"
-                                                                  }];
-            
-            break;
-            
-        case ANNOUNCEMENT_TAB:
-            
-            [FIRAnalytics logEventWithName:@"selected_announcement_tab" parameters:@{
-                                                                        kFIRParameterValue:@"1"
-                                                                        }];
-            break;
-            
-        case ATTENDANCE_TAB:
-            
-            [FIRAnalytics logEventWithName:@"selected_attendance_tab" parameters:@{
-                                                                        kFIRParameterValue:@"1"
-                                                                        }];
-            break;
-            
-        case SCORE_TAB:
-            
-            [FIRAnalytics logEventWithName:@"selected_score_tab" parameters:@{
-                                                                        kFIRParameterValue:@"1"
-                                                                        }];
-            break;
-            
-        case MORE_TAB:
-            
-            [FIRAnalytics logEventWithName:@"selected_more_tab" parameters:@{
-                                                                        kFIRParameterValue:@"1"
-                                                                        }];
-            break;
-            
-        default:
-            break;
+	if ([_viewControllerItems count] == MORE_TAB + 1) {
+        switch (tabBarController.selectedIndex) {
+            case MESSAGE_TAB:
+                
+                [FIRAnalytics logEventWithName:@"selected_messsage_tab" parameters:@{
+                                                                      kFIRParameterValue:@"1"
+                                                                      }];
+                
+                break;
+                
+            case ANNOUNCEMENT_TAB:
+                
+                [FIRAnalytics logEventWithName:@"selected_announcement_tab" parameters:@{
+                                                                            kFIRParameterValue:@"1"
+                                                                            }];
+                break;
+                
+            case ATTENDANCE_TAB:
+                
+                [FIRAnalytics logEventWithName:@"selected_attendance_tab" parameters:@{
+                                                                            kFIRParameterValue:@"1"
+                                                                            }];
+                break;
+                
+            case SCORE_TAB:
+                
+                [FIRAnalytics logEventWithName:@"selected_score_tab" parameters:@{
+                                                                            kFIRParameterValue:@"1"
+                                                                            }];
+                break;
+                
+            case MORE_TAB:
+                
+                [FIRAnalytics logEventWithName:@"selected_more_tab" parameters:@{
+                                                                            kFIRParameterValue:@"1"
+                                                                            }];
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 

@@ -105,6 +105,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+     [self.navigationController setNavigationColor];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -131,10 +135,10 @@
 }
 
 - (void)loadData {
-    
+    [SVProgressHUD show];
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(taskQ, ^{
-        [SVProgressHUD show];
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
             [requestToServer getStudentList:[[ShareData sharedShareData] userObj].classObj.classID];
         });
@@ -393,7 +397,6 @@
 
 #pragma mark RequestToServer delegate
 - (void)connectionDidFinishLoading:(NSDictionary *)jsonObj {
-    [SVProgressHUD dismiss];
     [refreshControl endRefreshing];
     [studentsArray removeAllObjects];
     [searchResults removeAllObjects];
@@ -498,6 +501,7 @@
     [self updateHeaderInfo];
     
     [studentsTableView reloadData];
+    [SVProgressHUD dismiss];
 }
 
 - (void)failToConnectToServer {
@@ -526,4 +530,5 @@
     
     [alert show];
 }
+
 @end

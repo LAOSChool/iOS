@@ -35,6 +35,8 @@
     UIImage *imgUncheck;
     
     NSMutableArray *reasonList;
+    
+    StudentsListViewController *studentsList;
 }
 @end
 
@@ -442,13 +444,19 @@
 
 #pragma mark teacher view
 - (IBAction)btnAddClick:(id)sender {
-    StudentsListViewController *studentsList = [[StudentsListViewController alloc] initWithNibName:@"StudentsListViewController" bundle:nil];
+    if (studentsList == nil) {
+        studentsList = [[StudentsListViewController alloc] initWithNibName:@"StudentsListViewController" bundle:nil];
+    }
+    
     studentsList.selectedArray = _receiverArray;
     studentsList.studentListType = StudentList_Message;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:studentsList];
-    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
-    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    
+    if (IS_IPAD) {
+        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    }
     
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

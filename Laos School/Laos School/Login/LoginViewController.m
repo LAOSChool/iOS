@@ -342,7 +342,7 @@
                 userObject.permission = Permission_Normal | Permission_SendMessage;
                 
             } else if ([role isEqualToString:USER_ROLE_PRESIDENT]) {
-                userObject.userRole = UserRole_Student;
+                userObject.userRole = UserRole_President;
                 userObject.permission = Permission_Normal | Permission_SendMessage | Permission_CheckAttendance;
                 
             } else if ([role isEqualToString:USER_ROLE_HEAD_TEACHER]) {
@@ -407,15 +407,40 @@
     [[ShareData sharedShareData] setUserObj:userObject];
     
     //Tabbar
-    NSArray *tabArray = [self prepareForMaintabViewController];
-    
-    MainTabBarViewController *tab = [[MainTabBarViewController alloc] initWithViewControllers:tabArray];
-    
-    [tab.tabBar setTranslucent:NO];
-    [tab.tabBar setBarTintColor:[UIColor whiteColor]];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = tab;
+    if (userObject.userRole == UserRole_President) {
+        //Attendance
+        UINavigationController *navAttendance = nil;
+        
+        TeacherAttendanceViewController *teacherAttendanceViewController = [[TeacherAttendanceViewController alloc] initWithNibName:@"TeacherAttendanceViewController" bundle:nil];
+        
+        navAttendance = [[UINavigationController alloc] initWithRootViewController:teacherAttendanceViewController];
+        
+        //More
+        MoreViewController *moreViewController = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
+        UINavigationController *navMore = [[UINavigationController alloc] initWithRootViewController:moreViewController];
+        
+        NSArray *tabArray = nil;
+        tabArray = [[NSArray alloc] initWithObjects: navAttendance, navMore, nil];
+
+        MainTabBarViewController *tab = [[MainTabBarViewController alloc] initWithViewControllers:tabArray];
+        
+        [tab.tabBar setTranslucent:NO];
+        [tab.tabBar setBarTintColor:[UIColor whiteColor]];
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDelegate.window.rootViewController = tab;
+
+    } else {
+        NSArray *tabArray = [self prepareForMaintabViewController];
+        
+        MainTabBarViewController *tab = [[MainTabBarViewController alloc] initWithViewControllers:tabArray];
+        
+        [tab.tabBar setTranslucent:NO];
+        [tab.tabBar setBarTintColor:[UIColor whiteColor]];
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDelegate.window.rootViewController = tab;
+    }
     
     //submit firebase token
     NSString *firebaseID = [[ArchiveHelper sharedArchiveHelper] loadDataFromUserDefaultStandardWithKey:KEY_FIREBASE_TOKEN];

@@ -141,7 +141,18 @@
 #pragma mark data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return MoreGroupMax;
+    UserObject *userObj = [[ShareData sharedShareData] userObj];
+    if (userObj.userRole == UserRole_President) {
+        return President_MoreGroupMax;
+        
+    } else if (userObj.userRole == UserRole_Student) {
+        return MoreGroupMax;
+    }
+    else if (userObj.userRole == UserRole_Teacher) {
+        return MoreGroupMax;
+    }
+    
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -149,7 +160,18 @@
     // If you're serving data from an array, return the length of the array:
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     
-    if (userObj.userRole == UserRole_Student) {
+    if (userObj.userRole == UserRole_President) {
+        
+        if (section == President_MoreGroupSchool) {
+            return StudentSchoolSectionMax;
+            
+        } else if (section == President_MoreGroupSettings) {
+            return SettingsSectionMax;
+            
+        }
+        
+    } else if (userObj.userRole == UserRole_Student) {
+        
         if (section == MoreGroupProfile) {
             return StudentProfileSectionMax;
             
@@ -198,11 +220,75 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     UserObject *userObj = [[ShareData sharedShareData] userObj];
+    if (userObj.userRole == UserRole_President) {
+        switch (indexPath.section) {
+
+            case President_MoreGroupSchool:
+            {
+                switch (indexPath.row) {
+                    case StudentSchoolSectionInfo:
+                    {
+                        cell.textLabel.text = LocalizedString(@"School information");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_school.png"];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            case President_MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change password");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_key.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change language");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_language_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Accessibility");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_accessibility_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Logout");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_exit_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
         
-    switch (indexPath.section) {
-        case MoreGroupProfile:
-        {
-            if (userObj.userRole == UserRole_Student) {
+    } else if (userObj.userRole == UserRole_Student) {
+        switch (indexPath.section) {
+            case MoreGroupProfile:
+            {
+
                 switch (indexPath.row) {
                         
                     case StudentProfileSectionProfile:
@@ -211,7 +297,7 @@
                         cell.imageView.image = [UIImage imageNamed:@"ic_storage_gray.png"];
                     }
                         break;
-                       
+                        
                     case StudentProfileSectionTimeTable:
                     {
                         cell.textLabel.text = LocalizedString(@"Timetable");
@@ -222,7 +308,74 @@
                     default:
                         break;
                 }
-            } else if (userObj.userRole == UserRole_Teacher) {
+            }
+            break;
+                
+            case MoreGroupSchool:
+            {
+
+                switch (indexPath.row) {
+                    case StudentSchoolSectionInfo:
+                    {
+                        cell.textLabel.text = LocalizedString(@"School information");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_school.png"];
+                    }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            break;
+                
+            case MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change password");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_key.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change language");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_language_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Accessibility");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_accessibility_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Logout");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_exit_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+    } else if (userObj.userRole == UserRole_Teacher) {
+        switch (indexPath.section) {
+            case MoreGroupProfile:
+            {
                 switch (indexPath.row) {
                     case TeacherProfileSectionTimeTable:
                     {
@@ -235,32 +388,10 @@
                         break;
                 }
             }
-        }
             break;
-            
-        case MoreGroupSchool:
-        {
-            if (userObj.userRole == UserRole_Student) {
-                switch (indexPath.row) {
-                    case StudentSchoolSectionInfo:
-                    {
-                        cell.textLabel.text = LocalizedString(@"School information");
-                        cell.imageView.image = [UIImage imageNamed:@"ic_school.png"];
-                    }
-                        break;
-                    /*
-                    case StudentSchoolSectionTeacherList:
-                    {
-                        cell.textLabel.text = LocalizedString(@"Teachers list");
-                        cell.imageView.image = [UIImage imageNamed:@"ic_group_gray.png"];
-                    }
-                        break;
-                        */
-                    default:
-                        break;
-                }
                 
-            } else if (userObj.userRole == UserRole_Teacher) {
+            case MoreGroupSchool:
+            {
                 switch (indexPath.row) {
                     case TeacherSchoolSectionInfo:
                     {
@@ -280,52 +411,52 @@
                         break;
                 }
             }
-        }
-            break;
-            
-        case MoreGroupSettings:
-        {
-            switch (indexPath.row) {
-                case SettingsSectionChangePassword:
-                {
-                    cell.textLabel.text = LocalizedString(@"Change password");
-                    cell.imageView.image = [UIImage imageNamed:@"ic_key.png"];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
+                break;
+                
+            case MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change password");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_key.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Change language");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_language_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Accessibility");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_accessibility_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        cell.textLabel.text = LocalizedString(@"Logout");
+                        cell.imageView.image = [UIImage imageNamed:@"ic_exit_gray.png"];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                    break;
-                    
-                case SettingsSectionChangeLanguage:
-                {
-                    cell.textLabel.text = LocalizedString(@"Change language");
-                    cell.imageView.image = [UIImage imageNamed:@"ic_language_gray.png"];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
-                    break;
-                   
-                case SettingsSectionNotifications:
-                {
-                    cell.textLabel.text = LocalizedString(@"Accessibility");
-                    cell.imageView.image = [UIImage imageNamed:@"ic_accessibility_gray.png"];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                }
-                    break;
-                    
-                case SettingsSectionLogout:
-                {
-                    cell.textLabel.text = LocalizedString(@"Logout");
-                    cell.imageView.image = [UIImage imageNamed:@"ic_exit_gray.png"];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
-                    break;
-                    
-                default:
-                    break;
             }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        default:
-            break;
     }
     
     return cell;
@@ -337,16 +468,95 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserObject *userObj = [[ShareData sharedShareData] userObj];
     
-    switch (indexPath.section) {
-        case MoreGroupProfile:
-        {
-            if (userObj.userRole == UserRole_Student) {
+    if (userObj.userRole == UserRole_President) {
+        switch (indexPath.section) {
+                
+            case President_MoreGroupSchool:
+            {
+                switch (indexPath.row) {
+                    case StudentSchoolSectionInfo:
+                    {
+                        SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
+                        schoolInfoView.schoolID = [ShareData sharedShareData].userObj.shoolID;
+                        [self.navigationController pushViewController:schoolInfoView animated:YES];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            case President_MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
+                    }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        
+                        ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        if (&UIApplicationOpenSettingsURLString != NULL) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                        }
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        NSString *content = LocalizedString(@"Are you sure you want to logout?");
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+                        alert.tag = 1;
+                        
+                        [alert show];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    } else if (userObj.userRole == UserRole_Student) {
+        switch (indexPath.section) {
+            case MoreGroupProfile:
+            {
+                
                 switch (indexPath.row) {
                     case StudentProfileSectionProfile:
                     {
                         SchoolProfileViewController *schoolProfileView = [[SchoolProfileViewController alloc] initWithNibName:@"SchoolProfileViewController" bundle:nil];
                         
-                            [self.navigationController pushViewController:schoolProfileView animated:YES];
+                        [self.navigationController pushViewController:schoolProfileView animated:YES];
                     }
                         break;
                         //Time table
@@ -354,15 +564,95 @@
                     {
                         StudentTimeTableViewController *timeTableView = [[StudentTimeTableViewController alloc] initWithNibName:@"StudentTimeTableViewController" bundle:nil];
                         
-                            [self.navigationController pushViewController:timeTableView animated:YES];
+                        [self.navigationController pushViewController:timeTableView animated:YES];
                     }
                         break;
                         
                     default:
                         break;
                 }
+            }
+                break;
                 
-            } else if (userObj.userRole == UserRole_Teacher) {
+            case MoreGroupSchool:
+            {
+                
+                switch (indexPath.row) {
+                    case StudentSchoolSectionInfo:
+                    {
+                        SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
+                        schoolInfoView.schoolID = [ShareData sharedShareData].userObj.shoolID;
+                        [self.navigationController pushViewController:schoolInfoView animated:YES];
+                    }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            case MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
+                    }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        
+                        ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        if (&UIApplicationOpenSettingsURLString != NULL) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                        }
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        NSString *content = LocalizedString(@"Are you sure you want to logout?");
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+                        alert.tag = 1;
+                        
+                        [alert show];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+    } else if (userObj.userRole == UserRole_Teacher) {
+        switch (indexPath.section) {
+            case MoreGroupProfile:
+            {
                 switch (indexPath.row) {
                         //Time table
                     case TeacherProfileSectionTimeTable:
@@ -377,34 +667,10 @@
                         break;
                 }
             }
-        }
-            break;
-            
-        case MoreGroupSchool:
-        {
-            if (userObj.userRole == UserRole_Student) {
-                switch (indexPath.row) {
-                    case StudentSchoolSectionInfo:
-                    {
-                        SchoolInfoViewController *schoolInfoView = [[SchoolInfoViewController alloc] initWithNibName:@"SchoolInfoViewController" bundle:nil];
-                        schoolInfoView.schoolID = [ShareData sharedShareData].userObj.shoolID;
-                        [self.navigationController pushViewController:schoolInfoView animated:YES];
-                    }
-                        break;
-                     /*
-                    case StudentSchoolSectionTeacherList:
-                    {
-                        TeacherListViewController *teacherListView = [[TeacherListViewController alloc] initWithNibName:@"TeacherListViewController" bundle:nil];
-                        
-                        [self.navigationController pushViewController:teacherListView animated:YES];
-                    }
-                        break;
-                       */ 
-                    default:
-                        break;
-                }
+                break;
                 
-            } else if (userObj.userRole == UserRole_Teacher) {
+            case MoreGroupSchool:
+            {
                 switch (indexPath.row) {
                     case TeacherSchoolSectionInfo:
                     {
@@ -428,66 +694,67 @@
                         break;
                 }
             }
-        }
-            break;
-            
-        case MoreGroupSettings:
-        {
-            switch (indexPath.row) {
-                case SettingsSectionChangePassword:
-                {
-                    ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
-
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changePassView];
-                    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
-                    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-                    
-                    [self presentViewController:nav animated:YES completion:nil];
-
-                }
-                    break;
-                    
-                case SettingsSectionChangeLanguage:
-                {
-                    
-                    ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
-
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
-                    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
-                    [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-                    
-                    [self presentViewController:nav animated:YES completion:nil];
-
-                }
-                    break;
-                    
-                case SettingsSectionNotifications:
-                {
-                    if (&UIApplicationOpenSettingsURLString != NULL) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                break;
+                
+            case MoreGroupSettings:
+            {
+                switch (indexPath.row) {
+                    case SettingsSectionChangePassword:
+                    {
+                        ChangePasswordViewController *changePassView = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changePassView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
                     }
+                        break;
+                        
+                    case SettingsSectionChangeLanguage:
+                    {
+                        
+                        ChangeLanguageViewController *changeLanguageView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
+                        
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeLanguageView];
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self presentViewController:nav animated:YES completion:nil];
+                        
+                    }
+                        break;
+                        
+                    case SettingsSectionNotifications:
+                    {
+                        if (&UIApplicationOpenSettingsURLString != NULL) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                        }
+                    }
+                        break;
+                        
+                    case SettingsSectionLogout:
+                    {
+                        NSString *content = LocalizedString(@"Are you sure you want to logout?");
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+                        alert.tag = 1;
+                        
+                        [alert show];
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                    break;
-                    
-                case SettingsSectionLogout:
-                {
-                    NSString *content = LocalizedString(@"Are you sure you want to logout?");
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Confirmation") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
-                    alert.tag = 1;
-                    
-                    [alert show];
-                }
-                    break;
-                    
-                default:
-                    break;
             }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        default:
-            break;
     }
+
 }
 
 - (void)backTologinScreen {

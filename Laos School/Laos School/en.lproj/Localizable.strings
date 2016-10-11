@@ -31,6 +31,7 @@
 "Done" = "Done";
 "Selected" = "Selected";
 "Total" = "Total";
+"Off" = "Off";
 "Absent" = "Absent";
 "Send" = "Send";
 "Attention" = "Attention";
@@ -163,6 +164,7 @@
 "Timetable" = "Timetable";
 "Schedule" = "Schedule";
 "School information" = "School information";
+"School info" = "School info";
 "Students list" = "Students list";
 "Change password" = "Change password";
 "Change language" = "Change language";

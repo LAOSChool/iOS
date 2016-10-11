@@ -31,6 +31,7 @@
 "Done" = "ແລ້ວ";
 "Selected" = "ເລືອກ​ແລ້ວ";
 "Total" = "ລວມ";
+"Off" = "ຂາດຮຽນ";
 "Absent" = "ຂາດຮຽນ";
 "Send" = "ສົ່ງ";
 "Attention" = "ມາ​ຮຽນ";
@@ -163,6 +164,7 @@
 "Timetable" = "ຕາ​ຕະ​ລາງ​ຮຽນ";
 "Schedule" = "ຕາ​ຕະ​ລາງ​ສອນ";
 "School information" = "ຂໍ້​ມູນ​ທາງ​ໂຮງ​ຮຽນ";
+"School info" = "ຂໍ້​ມູນ​ທາງ​ໂຮງ​ຮຽນ";
 "Students list" = "ລາຍ​ຊື່​ນັກ​ຮຽນ";
 "Change password" = "ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ";
 "Change language" = "ປ່່ຽນພາສາ";

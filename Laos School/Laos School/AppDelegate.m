@@ -333,22 +333,15 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)turnOnOffNotification:(BOOL)flag {
     
     if (flag == YES) {
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-            // iOS 7.1 or earlier
-            UIRemoteNotificationType allNotificationTypes =
-            (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge);
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:allNotificationTypes];
-        } else {
-            // iOS 8 or later
-            // [START register_for_notifications]
-            UIUserNotificationType allNotificationTypes =
-            (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-            UIUserNotificationSettings *settings =
-            [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-            // [END register_for_notifications]
-        }
+        // iOS 8 or later
+        // [START register_for_notifications]
+        UIUserNotificationType allNotificationTypes =
+        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        // [END register_for_notifications]
         
         [[ArchiveHelper sharedArchiveHelper] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:KEY_NOTIFICATION_ONOFF];
         

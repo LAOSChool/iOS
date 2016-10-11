@@ -392,7 +392,7 @@
         self->searchResults = [userScroreArray mutableCopy];
         
     } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchText];
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@ OR displayName CONTAINS[cd] %@ OR additionalInfo CONTAINS[cd] %@", searchText, searchText, searchText];
 
         NSArray *filterKeys = [userScroreArray filteredArrayUsingPredicate:filterPredicate];
         self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
