@@ -42,8 +42,6 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
 
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString {
     NSString *dateString = nil;
-    NSLocale* currentLocale = [NSLocale currentLocale];
-    [[NSDate date] descriptionWithLocale:currentLocale];
     
     NSDate *curDate = [NSDate date];
     
@@ -54,8 +52,6 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
 
 - (NSString *)getNextDatetimeWithFormat:(NSString *)formatString {
     NSString *dateString = nil;
-    NSLocale* currentLocale = [NSLocale currentLocale];
-    [[NSDate date] descriptionWithLocale:currentLocale];
     
     NSTimeInterval nextTimeInterval = [self getCurrentDatetimeInSec] + 24*3600;
     NSDate *nextDate = [NSDate dateWithTimeIntervalSince1970:nextTimeInterval];
@@ -69,7 +65,7 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     NSString *dateString = nil;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     
-    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSString *locale = [self currentLocalIdentifier];
     NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
     [format setLocale:currentLocale];
     [format setTimeZone:[NSTimeZone localTimeZone]];
@@ -128,7 +124,7 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     NSString *dateString = nil;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     
-    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSString *locale = [self currentLocalIdentifier];
     NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
     [format setLocale:currentLocale];
     [format setTimeZone:[NSTimeZone localTimeZone]];
@@ -147,7 +143,7 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
 
 - (NSDate *)dateFromString:(NSString *)dateStr {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSString *locale = [self currentLocalIdentifier];
     NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
     [dateFormatter setLocale:currentLocale];
     [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
@@ -317,10 +313,7 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     [dateFormatter setDateFormat:@"EEEE"];
     NSLocale *frLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setLocale:frLocale];
-    //    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
-    //    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
-    //    [dateFormatter setLocale:currentLocale];
-    //    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+
     NSString *res = @"";
     
     NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
@@ -478,4 +471,23 @@ static DateTimeHelper* sharedDateTimeHelper = nil;
     
     return res;
 }
+
+- (NSString *)currentLocalIdentifier {
+    NSString *res = @"";
+    
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if (curLang == nil) {
+        res = @"lo_LA";
+        
+    } else {
+        if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+            res = @"lo_LA";
+            
+        } else if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+            res = @"en_US";
+        }
+    }
+    return res;
+}
+
 @end

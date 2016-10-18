@@ -23,7 +23,7 @@
     [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
     [btnClose setTitle:LocalizedString(@"Close") forState:UIControlStateNormal];
 
-    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSString *locale = [self currentLocalIdentifier];
     NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
     [datetimePicker setLocale:currentLocale];
     [datetimePicker setTimeZone:[NSTimeZone localTimeZone]];
@@ -47,6 +47,24 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (NSString *)currentLocalIdentifier {
+    NSString *res = @"";
+    
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if (curLang == nil) {
+        res = @"lo_LA";
+        
+    } else {
+        if ([curLang isEqualToString:LANGUAGE_LAOS]) {
+            res = @"lo_LA";
+            
+        } else if ([curLang isEqualToString:LANGUAGE_ENGLISH]) {
+            res = @"en_US";
+        }
+    }
+    return res;
+}
 
 - (void)setDate:(NSDate *)date {
     _date = date;

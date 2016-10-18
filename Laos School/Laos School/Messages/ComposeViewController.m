@@ -362,7 +362,13 @@
         [messageDict setValue:@"[No subject]" forKey:@"title"];
     }
     
-    [messageDict setValue:txtContent.text forKey:@"content"];
+    NSString *uniText = [NSString stringWithUTF8String:[txtContent.text UTF8String]];
+    
+    NSData *msgData = [uniText dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    
+    NSString *str = [[NSString alloc] initWithData:msgData encoding:NSUTF8StringEncoding];
+    
+    [messageDict setValue:str forKey:@"content"];
     
     if (_messageObject.importanceType == ImportanceHigh) {
         [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"imp_flg"];
